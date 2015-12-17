@@ -77,6 +77,17 @@ P(w_i|w_{i-1})=\frac{count(w_{i-1},w_i)}{count(w_{i-1})}
 p_1\times p_2\times p_3\times p_4=logp_1+logp_2+logp_3+logp_4
 \]&lt;/span&gt;&lt;/li&gt;
 &lt;/ul&gt;
+&lt;h2 id=&quot;perplexity&quot;&gt;Perplexity&lt;/h2&gt;
+&lt;p&gt;The best language model is the one that best predicts an unseen test set. Perplexity is the probability of the test set, normalized by the number of words: &lt;span class=&quot;math display&quot;&gt;\[
+PP(W)=P(w_1w_2...w_N)^{-{1 \over N}}
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Chain rule:&lt;/strong&gt; &lt;span class=&quot;math display&quot;&gt;\[
+PP(W)=\sqrt[N]{\prod_{i=1}^N \frac{1}{P(w_i|w_1...w_{i-1})}}
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;For bigrams:&lt;/strong&gt; &lt;span class=&quot;math display&quot;&gt;\[
+PP(W)=\sqrt[N]{\prod_{i=1}^N \frac{1}{P(w_i|w_{i-1})}}
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Minimizing perplexity is the same as maximizing probability.&lt;/p&gt;
 </description>
 				<pubDate>Thu, 17 Dec 2015 00:00:00 +0800</pubDate>
 				<link>/nlp/2015/12/17/language-modeling.html</link>

@@ -188,6 +188,17 @@ P(w_i|w_{i-1})=\frac{count(w_{i-1},w_i)}{count(w_{i-1})}
 p_1\times p_2\times p_3\times p_4=logp_1+logp_2+logp_3+logp_4
 \]</span></li>
 </ul>
+<h2 id="perplexity">Perplexity</h2>
+<p>The best language model is the one that best predicts an unseen test set. Perplexity is the probability of the test set, normalized by the number of words: <span class="math display">\[
+PP(W)=P(w_1w_2...w_N)^{-{1 \over N}}
+\]</span></p>
+<p><strong>Chain rule:</strong> <span class="math display">\[
+PP(W)=\sqrt[N]{\prod_{i=1}^N \frac{1}{P(w_i|w_1...w_{i-1})}}
+\]</span></p>
+<p><strong>For bigrams:</strong> <span class="math display">\[
+PP(W)=\sqrt[N]{\prod_{i=1}^N \frac{1}{P(w_i|w_{i-1})}}
+\]</span></p>
+<p>Minimizing perplexity is the same as maximizing probability.</p>
 
 	  </div>
 
