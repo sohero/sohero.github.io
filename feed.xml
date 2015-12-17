@@ -200,7 +200,9 @@ mse &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; i:dist&lt;span class=&quot;o
 		
 			<item>
 				<title>Analysis of Discrete Data|STAT 504</title>
-				<description>&lt;p&gt;&lt;a href=&quot;https://onlinecourses.science.psu.edu/statprogram/node/153&quot;&gt;来源&lt;/a&gt; #Matrix Algebra Review To multiply two vectors with the same length together is to take the &lt;strong&gt;dot product&lt;/strong&gt;, also called &lt;strong&gt;inner product&lt;/strong&gt;. &lt;img src=&quot;/assets/images/1.jpg&quot; alt=&quot;&quot; /&gt; &lt;a href=&quot;https://onlinecourses.science.psu.edu/statprogram/node/153&quot;&gt;Advanced Matrix Properties&lt;/a&gt;&lt;/p&gt;
+				<description>&lt;p&gt;&lt;a href=&quot;https://onlinecourses.science.psu.edu/statprogram/node/153&quot;&gt;来源&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&quot;matrix-algebra-review&quot;&gt;Matrix Algebra Review&lt;/h1&gt;
+&lt;p&gt;To multiply two vectors with the same length together is to take the &lt;strong&gt;dot product&lt;/strong&gt;, also called &lt;strong&gt;inner product&lt;/strong&gt;. &lt;img src=&quot;/assets/images/1.jpg&quot; alt=&quot;&quot; /&gt; &lt;a href=&quot;https://onlinecourses.science.psu.edu/statprogram/node/153&quot;&gt;Advanced Matrix Properties&lt;/a&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;5.1 - Advanced Matrix Properties&lt;/li&gt;
 &lt;li&gt;5.2 - Range, Nullspace, and Projections&lt;/li&gt;
