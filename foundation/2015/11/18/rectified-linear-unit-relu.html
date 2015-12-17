@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>求导公式</title>
+	<title>Rectified Linear Unit (ReLU)</title>
 	
 	<meta name="author" content="sohero">
 
@@ -135,19 +135,39 @@
 
 	<div class="col-sm-9 col-sm-offset-3">
 		<div class="page-header">
-  <h1>求导公式 </h1>
+  <h1>Rectified Linear Unit (ReLU) </h1>
 </div>
 	
 <article>
 
 	<div class="col-sm-10">
 	 <span class="post-date">
-	 	2015-11-06 
+	 	2015-11-18 
 	 </span>
 	  <div class="article_body">
 	  <figure>
-<img src="/assets/images/9.png" alt="求导公式" /><figcaption>求导公式</figcaption>
+<img src="/assets/images/10.jpg" alt="ReLU" /><figcaption>ReLU</figcaption>
 </figure>
+<p>The Rectified Linear Unit (ReLU) computes the function <span class="math inline">\(f(x)=max(0,x)\)</span>, which is simply thresholded at zero.</p>
+<p>There are several pros and cons to using the ReLUs:</p>
+<ol type="1">
+<li>(Pros) Compared to sigmoid/tanh neurons that involve expensive operations (exponentials, etc.), the ReLU can be implemented by simply thresholding a matrix of activations at zero. Meanwhile, ReLUs does not suffer from saturating.</li>
+<li>(Pros) It was found to greatly accelerate the convergence of stochastic gradient descent compared to the sigmoid/tanh functions. It is argued that this is due to its linear, non-saturating form.</li>
+<li>(Cons) Unfortunately, ReLU units can be fragile during training and can “die”. For example, a large gradient flowing through a ReLU neuron could cause the weights to update in such a way that the neuron will never activate on any datapoint again. If this happens, then the gradient flowing through the unit will forever be zero from that point on. That is, the ReLU units can irreversibly die during training since they can get knocked off the data manifold. For example, you may find that as much as 40% of your network can be “dead” (i.e., neurons that never activate across the entire training dataset) if the learning rate is set too high. With a proper setting of the learning rate this is less frequently an issue.</li>
+</ol>
+<h2 id="leaky-relu">Leaky ReLU</h2>
+<figure>
+<img src="/assets/images/11.jpg" alt="Leaky ReLU" /><figcaption>Leaky ReLU</figcaption>
+</figure>
+<p>Leaky ReLUs are one attempt to fix the “dying ReLU” problem. Instead of the function being zero when <span class="math inline">\(x&lt;0\)</span>, a leaky ReLU will instead have a small negative slope(of 0.01, or so). That is, the function computes <span class="math inline">\(f(x)=ax\)</span> if <span class="math inline">\(x&lt;0\)</span> and <span class="math inline">\(f(x)=x\)</span> if <span class="math inline">\(x\geqslant 0\)</span>, where <span class="math inline">\(a\)</span> is a small constant. Some people report success with this form of activation function, but the results are not always consistent.</p>
+<h2 id="parametric-relu">Parametric ReLU</h2>
+<figure>
+<img src="/assets/images/12.jpg" alt="rectified unit family" /><figcaption>rectified unit family</figcaption>
+</figure>
+<p>The first variant is called parametric rectified linear unit (PReLU). In PReLU, the slopes of negative part are learned from data rather than pre-defined.</p>
+<h2 id="randomized-relu">Randomized ReLU</h2>
+<p>In RReLU, the slopes of negative parts are randomized in a given range in the training, and then fixed in the testing. As mentioned in [B. Xu, N. Wang, T. Chen, and M. Li. Empirical Evaluation of Rectified Activations in Convolution Network. In ICML Deep Learning Workshop, 2015.], in a recent Kaggle National Data Science Bowl (NDSB) competition, it is reported that RReLU could reduce overfitting due to its randomized nature. Moreover, suggested by the NDSB competition winner, the random <span class="math inline">\(a_i\)</span> in training is sampled from <span class="math inline">\(1/U(3,8)\)</span> and in test time it is fixed as its expectation, i.e., <span class="math inline">\(2/(l+u)=2/11\)</span>.</p>
+<p><strong>In conclusion, three types of ReLU variants all consistently outperform the original ReLU in these three data sets. And PReLU and RReLU seem better choices.</strong></p>
 
 	  </div>
 
@@ -189,7 +209,7 @@
 		<div>
       <section class="share col-sm-12">
         <h4 class="section-title">Share Post</h4>
-        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=求导公式"
+        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=Rectified Linear Unit (ReLU)"
            onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
           <i class="fa fa-twitter fa-lg"></i>
           Twitter
@@ -211,10 +231,10 @@
 
 		<ul class="pager">
 		  
-		  <li class="previous"><a href="/foundation/2015/10/22/second-derivative-and-hessian-matrix.html" title="second derivative & Hessian matrix">&larr; Previous</a></li>
+		  <li class="previous"><a href="/tools/2015/11/13/regular-expression.html" title="正则表达式">&larr; Previous</a></li>
 		  
 		  
-		  <li class="next"><a href="/foundation/2015/11/11/what-are-the-continuous-bag-of-words-cbow-and-skip-gram.html" title="What are the continuous bag of words(CBOW) and skip-gram">Next &rarr;</a></li>
+		  <li class="next"><a href="/foundation/2015/12/07/the-equations-of-backpropagation.html" title="the equations of backpropagation">Next &rarr;</a></li>
 		  
 		</ul>
 

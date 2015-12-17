@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>求导公式</title>
+	<title>What are the continuous bag of words(CBOW) and skip-gram</title>
 	
 	<meta name="author" content="sohero">
 
@@ -135,19 +135,24 @@
 
 	<div class="col-sm-9 col-sm-offset-3">
 		<div class="page-header">
-  <h1>求导公式 </h1>
+  <h1>What are the continuous bag of words(CBOW) and skip-gram </h1>
 </div>
 	
 <article>
 
 	<div class="col-sm-10">
 	 <span class="post-date">
-	 	2015-11-06 
+	 	2015-11-11 
 	 </span>
 	  <div class="article_body">
-	  <figure>
-<img src="/assets/images/9.png" alt="求导公式" /><figcaption>求导公式</figcaption>
-</figure>
+	  <p>Both architectures describe how the neural network “learns” the underlying word representations for each word. Since learning word representations is essentially unsupervised, you need some way to “create” labels to train the model. Skip-gram and CBOW are two ways of creating the “task” for the neural network – you can think of this as the output layer of the neural network, where we create “labels” for the given input (which depends on the architecture).</p>
+<p>For both descriptions below, we assume that the current word in a sentence is <span class="math inline">\(w_i\)</span>.</p>
+<p><strong>CBOW</strong>: The input to the model could be <span class="math inline">\(w_{i−2},w_{i−1},w_{i+1},w_{i+2}\)</span>, the preceding and following words of the current word we are at. The output of the neural network will be <span class="math inline">\(w_i\)</span>. Hence you can think of the task as “predicting the word given its context”.</p>
+<p>Note that the number of words we use depends on your setting for the window size.</p>
+<p><strong>Skip-gram</strong>: The input to the model is <span class="math inline">\(w_i\)</span>, and the output could be <span class="math inline">\(w_{i−1},w_{i−2},w_{i+1},w_{i+2}\)</span>. So the task here is “predicting the context given a word”. Also, the context is not limited to its immediate context, training instances can be created by skipping a constant number of words in its context, so for example, <span class="math inline">\(w_{i−3},w_{i−4},w_{i+3},w_{i+4}\)</span>, hence the name skip-gram.</p>
+<p>Note that the window size determines how far forward and backward to look for context words to predict.</p>
+<p><strong>According to Mikolov:</strong> &gt;Skip-gram: works well with small amount of the training data, represents well even rare words or phrases. CBOW: several times faster to train than the skip-gram, slightly better accuracy for the frequent words This can get even a bit more complicated if you consider that there are two different ways how to train the models: the normalized hierarchical softmax, and the un-normalized negative sampling. Both work quite differently.</p>
+<p>which makes sense since with skip gram, you can create a lot more training instances from limited amount of data, and for CBOW, you will need more since you are conditioning on context, which can get exponentially huge.</p>
 
 	  </div>
 
@@ -189,7 +194,7 @@
 		<div>
       <section class="share col-sm-12">
         <h4 class="section-title">Share Post</h4>
-        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=求导公式"
+        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=What are the continuous bag of words(CBOW) and skip-gram"
            onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
           <i class="fa fa-twitter fa-lg"></i>
           Twitter
@@ -211,10 +216,10 @@
 
 		<ul class="pager">
 		  
-		  <li class="previous"><a href="/foundation/2015/10/22/second-derivative-and-hessian-matrix.html" title="second derivative & Hessian matrix">&larr; Previous</a></li>
+		  <li class="previous"><a href="/foundation/2015/11/06/derivative-formula.html" title="求导公式">&larr; Previous</a></li>
 		  
 		  
-		  <li class="next"><a href="/foundation/2015/11/11/what-are-the-continuous-bag-of-words-cbow-and-skip-gram.html" title="What are the continuous bag of words(CBOW) and skip-gram">Next &rarr;</a></li>
+		  <li class="next"><a href="/tools/2015/11/13/regular-expression.html" title="正则表达式">Next &rarr;</a></li>
 		  
 		</ul>
 

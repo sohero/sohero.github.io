@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>求导公式</title>
+	<title>End-To-End Memory Networks</title>
 	
 	<meta name="author" content="sohero">
 
@@ -135,19 +135,43 @@
 
 	<div class="col-sm-9 col-sm-offset-3">
 		<div class="page-header">
-  <h1>求导公式 </h1>
+  <h1>End-To-End Memory Networks </h1>
 </div>
 	
 <article>
 
 	<div class="col-sm-10">
 	 <span class="post-date">
-	 	2015-11-06 
+	 	2015-12-14 
 	 </span>
 	  <div class="article_body">
-	  <figure>
-<img src="/assets/images/9.png" alt="求导公式" /><figcaption>求导公式</figcaption>
-</figure>
+	  <h2 id="single-layer">Single Layer</h2>
+<p>A layer has two memroy: <code>input memory</code>,<code>output memory</code>. Parameters are <span class="math inline">\(A \in \Bbb R^{d \times |V|}\)</span>,<span class="math inline">\(B \in \Bbb R^{d \times |V|}\)</span>,<span class="math inline">\(C \in \Bbb R^{d \times |V|}\)</span>,<span class="math inline">\(W \in \Bbb R^{|V| \times d}\)</span>.</p>
+<p>Input set <span class="math inline">\(x_1,...,x_i\)</span> (one hot encoding or distribute encoding? probably the one hot.)</p>
+<p><strong>Input memory</strong> The input memory represented by <span class="math inline">\(\\{m_i\\}\)</span>, the <span class="math inline">\(m_i\)</span> is computed by <span class="math inline">\(Ax_i\)</span>, i.e. each <span class="math inline">\(m_i\)</span> is transformed from <span class="math inline">\(x_i\)</span> using <span class="math inline">\(A\)</span>.</p>
+<p><strong>Query</strong> The query <span class="math inline">\(q\)</span> is transformed to the internal state <span class="math inline">\(u\)</span> using <span class="math inline">\(Bq\)</span>. Then, compute the match probability <span class="math inline">\(p_i\)</span> between <span class="math inline">\(u\)</span> and each memory <span class="math inline">\(m_i\)</span> using softmax: <span class="math display">\[
+p_i=softmax(u^Tm_i)
+\]</span> so <span class="math inline">\(p\)</span> is a probability vecotr over the inputs.</p>
+<p><strong>Output memory</strong> Each <span class="math inline">\(x_i\)</span> is transformed to a output vecotr <span class="math inline">\(c_i\)</span> by <span class="math inline">\(Cx_i\)</span>. The response vector <span class="math inline">\(o\)</span> from the memory computed by: <span class="math display">\[
+o=\sum_{i} p_ic_i
+\]</span></p>
+<p><strong>Generating final prediction</strong> The predicted label formula: <span class="math display">\[
+\hat a=softmax(W(o+u))
+\]</span> <img src="/assets/images/15.jpg" alt="Figure 1" /></p>
+<h2 id="mutltiple-layers">Mutltiple Layers</h2>
+<p>With <span class="math inline">\(K\)</span> hop operations, the memory layers are stacked in the following way:</p>
+<ul>
+<li><p>The input tot layers above the first is the sum of the output <span class="math inline">\(o^k\)</span> and the input <span class="math inline">\(u^k\)</span> from layers <span class="math inline">\(k-1\)</span>(different ways to combine <span class="math inline">\(o^k\)</span> and <span class="math inline">\(u^k\)</span> are proposed later): <span class="math display">\[
+u^{k+1}=u^k+o^k
+\]</span></p></li>
+<li><p>Each layer has its own embedding matrices <span class="math inline">\(A^k\)</span>,<span class="math inline">\(C^k\)</span>, used to embed the inputs <span class="math inline">\(\\{x_i\\}\)</span>.</p></li>
+<li><p>At the top of network, the input <span class="math inline">\(W\)</span> also combines the input and the output of the top memory layer:<span class="math inline">\(\hat a=softmax(Wu^{k+1})=softmax(W(o^K+u^K))\)</span>.</p></li>
+</ul>
+<p>Two types of weights tying:</p>
+<ul>
+<li><strong>Adjacent</strong>: the output embedding for one layer is the input embedding for the one above, i.e. <span class="math inline">\(A^{k+1}=C^k\)</span>. also constrain (a) the answer prediction matrix to be the same as the final output embedding, i.e. <span class="math inline">\(W^T=C^K\)</span>, and (b) the question embedding to match the input embedding of the first layer, i.e. <span class="math inline">\(B=A^1\)</span>.</li>
+<li><strong>Layer-wise (RNN-like)</strong>: the input and output embeddings are the same across different layers, i.e. <span class="math inline">\(A^1=A^2=...=A^K\)</span> and <span class="math inline">\(C^1=C^2=...=C^K\)</span>. found it useful to add a linear mapping <span class="math inline">\(H\)</span> to the update of <span class="math inline">\(u\)</span> between hops; that is, <span class="math inline">\(u^{k+1}=Hu^k+o^k\)</span>. This mapping is learned from data and used throughout experiments for layer-wise weight tying.</li>
+</ul>
 
 	  </div>
 
@@ -159,6 +183,11 @@
 			 
 				<li><a href="/categories.html#foundation-ref">
 					foundation <span>(18)</span>
+					,
+				</a></li>
+			 
+				<li><a href="/categories.html#paper-ref">
+					paper <span>(2)</span>
 					
 				</a></li>
 			
@@ -175,6 +204,13 @@
 				<li>
 					<a href="/tags.html#foundation-ref">
 					foundation <span>(18)</span>
+					,
+					</a>
+				</li>
+			 
+				<li>
+					<a href="/tags.html#paper-ref">
+					paper <span>(2)</span>
 					
 					</a>
 				</li>
@@ -189,7 +225,7 @@
 		<div>
       <section class="share col-sm-12">
         <h4 class="section-title">Share Post</h4>
-        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=求导公式"
+        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=End-To-End Memory Networks"
            onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
           <i class="fa fa-twitter fa-lg"></i>
           Twitter
@@ -211,10 +247,10 @@
 
 		<ul class="pager">
 		  
-		  <li class="previous"><a href="/foundation/2015/10/22/second-derivative-and-hessian-matrix.html" title="second derivative & Hessian matrix">&larr; Previous</a></li>
+		  <li class="previous"><a href="/foundation/nlp/2015/12/14/edit-distance.html" title="Edit Distance">&larr; Previous</a></li>
 		  
 		  
-		  <li class="next"><a href="/foundation/2015/11/11/what-are-the-continuous-bag-of-words-cbow-and-skip-gram.html" title="What are the continuous bag of words(CBOW) and skip-gram">Next &rarr;</a></li>
+		  <li class="next"><a href="/foundation/paper/2015/12/14/sense2vec-a-fast-and-accurate-method-for-word-sense-disambiguation-in-neural-word-embeddings.html" title="sense2vec - a fast and accurate method for word sense disambiguation in neural word embeddings">Next &rarr;</a></li>
 		  
 		</ul>
 
