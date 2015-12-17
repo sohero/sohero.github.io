@@ -7,6 +7,14 @@
 		<atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>LSTM</title>
+				<description>Liquid error: invalid byte sequence in GBK</description>
+				<pubDate>Sat, 22 Aug 2015 00:00:00 +0800</pubDate>
+				<link>/lua/2015/08/22/lstm.html</link>
+				<guid isPermaLink="true">/lua/2015/08/22/lstm.html</guid>
+			</item>
+		
+			<item>
 				<title>pcall</title>
 				<description>&lt;p&gt;If you need to handle errors in Lua, you must use the &lt;strong&gt;pcall&lt;/strong&gt; (&lt;em&gt;protected call&lt;/em&gt;) function to encapsulate your code.&lt;/p&gt;
 &lt;p&gt;The &lt;strong&gt;pcall&lt;/strong&gt; function calls its first argument in &lt;em&gt;protected mode&lt;/em&gt;, so that it catches any errors while the function is running. If there are no errors, &lt;strong&gt;pcall&lt;/strong&gt; returns &lt;strong&gt;true&lt;/strong&gt;, plus any values returned by the call. Otherwise, it returns &lt;strong&gt;false&lt;/strong&gt;, plus the error message.&lt;/p&gt;
@@ -18,6 +26,23 @@
 				<pubDate>Wed, 19 Aug 2015 00:00:00 +0800</pubDate>
 				<link>/lua/2015/08/19/pcall.html</link>
 				<guid isPermaLink="true">/lua/2015/08/19/pcall.html</guid>
+			</item>
+		
+			<item>
+				<title>Torch7 Serialization</title>
+				<description>&lt;p&gt;&lt;a href=&quot;https://github.com/torch/torch7/blob/master/doc/serialization.md&quot;&gt;LINK: https://github.com/torch/torch7/blob/master/doc/serialization.md&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Torch provides 4 high-level methods of serialize/deserialize arbitrary Lua/Torch objects. These functions are just abstractions over the &lt;a href=&quot;https://github.com/torch/torch7/blob/master/doc/serialization.md#torch.File&quot;&gt;File&lt;/a&gt; object, and were created for convenience (these are very common routines).&lt;/p&gt;
+&lt;p&gt;The first two functions are useful to serialize/deserialize data to/from files:&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode lua&quot;&gt;&lt;code class=&quot;sourceCode lua&quot;&gt;torch&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;save&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;filename&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; object &lt;span class=&quot;ot&quot;&gt;[,&lt;/span&gt; &lt;span class=&quot;fu&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;])&lt;/span&gt;
+&lt;span class=&quot;ot&quot;&gt;[&lt;/span&gt;object&lt;span class=&quot;ot&quot;&gt;]&lt;/span&gt; torch&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;load&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;filename &lt;span class=&quot;ot&quot;&gt;[,&lt;/span&gt; &lt;span class=&quot;fu&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;])&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The format can be set to &lt;em&gt;ascii&lt;/em&gt; or &lt;em&gt;binary&lt;/em&gt; (default is &lt;em&gt;binary&lt;/em&gt;).&lt;/p&gt;
+&lt;p&gt;The next two functions are useful to serialize/deserialize data to/from strings:&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode lua&quot;&gt;&lt;code class=&quot;sourceCode lua&quot;&gt;&lt;span class=&quot;ot&quot;&gt;[&lt;/span&gt;str&lt;span class=&quot;ot&quot;&gt;]&lt;/span&gt; torch&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;serialize&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;object&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;ot&quot;&gt;[&lt;/span&gt;object&lt;span class=&quot;ot&quot;&gt;]&lt;/span&gt; torch&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;deserialize&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;str&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+</description>
+				<pubDate>Wed, 19 Aug 2015 00:00:00 +0800</pubDate>
+				<link>/lua/2015/08/19/torch7-serialization.html</link>
+				<guid isPermaLink="true">/lua/2015/08/19/torch7-serialization.html</guid>
 			</item>
 		
 			<item>

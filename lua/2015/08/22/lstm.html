@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>optim package</title>
+	<title>LSTM</title>
 	
 	<meta name="author" content="sohero">
 
@@ -135,41 +135,19 @@
 
 	<div class="col-sm-9 col-sm-offset-3">
 		<div class="page-header">
-  <h1>optim package </h1>
+  <h1>LSTM </h1>
 </div>
 	
 <article>
 
 	<div class="col-sm-10">
 	 <span class="post-date">
-	 	2015-08-14 
+	 	2015-08-22 
 	 </span>
 	  <div class="article_body">
-	  <h1 id="optimization-package">Optimization package</h1>
-<p>This package contains several optimization routines for <a href="https://github.com/torch/torch7/blob/master/README.md">Torch</a>. Each optimization algorithm is based on the same interface:</p>
-<div class="sourceCode"><pre class="sourceCode lua"><code class="sourceCode lua">x<span class="ot">*,</span> <span class="ot">{</span>f<span class="ot">},</span> <span class="ot">...</span> <span class="ot">=</span> optim<span class="ot">.</span>method<span class="ot">(</span>func<span class="ot">,</span> x<span class="ot">,</span> state<span class="ot">)</span></code></pre></div>
-<p>where:</p>
-<ul>
-<li><code>func</code>: a user-defined closure that respects this API: <span class="math inline">\((f, df/dx) = func(x)\)</span>. Here <span class="math inline">\(f\)</span> could be the <span class="math inline">\(loss\)</span> for the network.</li>
-<li><code>x</code>: the current parameter vector (a 1D <code>torch.Tensor</code>)</li>
-<li><code>state</code>: a table of parameters, and state variables, dependent upon the algorithm</li>
-<li><code>x*</code>: the new parameter vector that minimizes <span class="math inline">\(f\)</span>, <span class="math inline">\(x^* = argmin_x f(x)\)</span></li>
-<li><code>{f}</code>: a table of all f values, in the order they’ve been evaluated (for some simple algorithms, like SGD, <code>#f == 1</code>)</li>
-</ul>
-<h2 id="important-note">Important Note</h2>
-<p>The state table is used to hold the state of the algorihtm. It’s usually initialized once, by the user, and then passed to the optim function as a black box. Example:</p>
-<div class="sourceCode"><pre class="sourceCode lua"><code class="sourceCode lua">state <span class="ot">=</span> <span class="ot">{</span>
-   learningRate <span class="ot">=</span> <span class="dv">1e-3</span><span class="ot">,</span>
-   momentum <span class="ot">=</span> <span class="dv">0.5</span>
-<span class="ot">}</span>
-
-<span class="kw">for</span> i<span class="ot">,</span>sample <span class="kw">in</span> <span class="fu">ipairs</span><span class="ot">(</span>training_samples<span class="ot">)</span> <span class="kw">do</span>
-    <span class="kw">local</span> func <span class="ot">=</span> <span class="kw">function</span><span class="ot">(</span>x<span class="ot">)</span>
-       <span class="co">-- define eval function</span>
-       <span class="kw">return</span> f<span class="ot">,</span>df_dx
-    <span class="kw">end</span>
-    optim<span class="ot">.</span>sgd<span class="ot">(</span>func<span class="ot">,</span>x<span class="ot">,</span>state<span class="ot">)</span>
-<span class="kw">end</span></code></pre></div>
+	  <p>The following graph shows such a lstm memory block. <img src="/assets/images/4.jpg" alt="memory block" /> The blue arrows are the peephole connections. So the gates “see” the cell state(s) even if the output gate is closed.</p>
+<p>In the following a memory block has only one memory cell. So all cell (and gate) states of the complete hidden layer can be written as a vector <span class="math inline">\(c(t)\)</span>.</p>
+<p>Then the forward pass formulars for LSTM are (t is now an index as usual): <img src="/assets/images/5.jpg" alt="fomula" /></p>
 
 	  </div>
 
@@ -211,7 +189,7 @@
 		<div>
       <section class="share col-sm-12">
         <h4 class="section-title">Share Post</h4>
-        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=optim package"
+        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=LSTM"
            onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
           <i class="fa fa-twitter fa-lg"></i>
           Twitter
@@ -233,10 +211,10 @@
 
 		<ul class="pager">
 		  
-		  <li class="previous"><a href="/foundation/2015/08/14/jacobian.html" title="Jacobian">&larr; Previous</a></li>
+		  <li class="previous"><a href="/lua/2015/08/19/pcall.html" title="pcall">&larr; Previous</a></li>
 		  
 		  
-		  <li class="next"><a href="/foundation/lua/2015/08/17/the-requ-unit.html" title="The ReQU unit">Next &rarr;</a></li>
+			<li class="next disabled"><a>Next &rarr;</a>
 		  
 		</ul>
 
