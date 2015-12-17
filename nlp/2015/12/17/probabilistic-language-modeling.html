@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>memo</title>
+	<title>Probabilistic Language Modeling</title>
 	
 	<meta name="author" content="sohero">
 
@@ -136,210 +136,125 @@
 
 	<div class="col-sm-9 col-sm-offset-3">
 		<div class="page-header">
-  <h1>memo </h1>
+  <h1>Probabilistic Language Modeling </h1>
 </div>
+	
+<article>
 
-
-
-<article class="home">
-  <h2>
-    <a href="/tools/log/2015/12/17/jekyll-render-with-pandoc-on-windows.html">Jekyll render with pandoc on windows</a>
-  </h2>
-  <span class="post-date">
-    2015-12-17 
-  </span>
-  <div>
-    
-    
-    ...
-    
-    
-  </div>
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/tools/log/2015/12/17/git-note.html">git笔记 & cheatsheet</a>
-  </h2>
-  <span class="post-date">
-    2015-12-17 
-  </span>
-  <div>
-    
-    <p><a class="btn btn-default" href="https://github.com/sohero/git">Go.</a> <a class="btn btn-default" href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000">原文</a></p>
-
-    
-  </div>
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/nlp/2015/12/17/probabilistic-language-modeling.html">Probabilistic Language Modeling</a>
-  </h2>
-  <span class="post-date">
-    2015-12-17 
-  </span>
-  <div>
-    
-    
-    ...
-    
-    
-  </div>
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/foundation/2015/12/14/word2vec.html">word2vec</a>
-  </h2>
-  <span class="post-date">
-    2015-12-14 
-  </span>
-  <div>
-    
-    
-    ...
-    
-    
-  </div>
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/foundation/paper/2015/12/14/sense2vec-a-fast-and-accurate-method-for-word-sense-disambiguation-in-neural-word-embeddings.html">sense2vec - a fast and accurate method for word sense disambiguation in neural word embeddings</a>
-  </h2>
-  <span class="post-date">
-    2015-12-14 
-  </span>
-  <div>
-    
-    
-    ...
-    
-    
-  </div>
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/foundation/paper/2015/12/14/end-to-end-memory-networks.html">End-To-End Memory Networks</a>
-  </h2>
-  <span class="post-date">
-    2015-12-14 
-  </span>
-  <div>
-    
-    
-    ...
-    
-    
-  </div>
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/foundation/nlp/2015/12/14/edit-distance.html">Edit Distance</a>
-  </h2>
-  <span class="post-date">
-    2015-12-14 
-  </span>
-  <div>
-    
-    
-    ...
-    
-    
-  </div>
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/foundation/2015/12/07/the-equations-of-backpropagation.html">the equations of backpropagation</a>
-  </h2>
-  <span class="post-date">
-    2015-12-07 
-  </span>
-  <div>
-    
-    
-    ...
-    
-    
-  </div>
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/foundation/2015/11/18/rectified-linear-unit-relu.html">Rectified Linear Unit (ReLU)</a>
-  </h2>
-  <span class="post-date">
-    2015-11-18 
-  </span>
-  <div>
-    
-    
-    ...
-    
-    
-  </div>
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/tools/2015/11/13/regular-expression.html">正则表达式</a>
-  </h2>
-  <span class="post-date">
-    2015-11-13 
-  </span>
-  <div>
-    
-    
-    ...
-    
-    
-  </div>
-
-</article>
-
-<hr/>
-
-<ul class="pager"> 
-
-  
-  <li class="previous disabled">
-    <a>&larr; Newer</a>
-  </li>
-  
-  
-  <li>
-    <span class="page_number">Page: 1 of 3</span>
-  </li>
-
-  
-  <li class="next">
-    <a href="/page2">Older &rarr;</a>
-  </li>
-  
-
+	<div class="col-sm-10">
+	 <span class="post-date">
+	 	2015-12-17 
+	 </span>
+	  <div class="article_body">
+	  <ul>
+<li>Goal: compute the probability of a sentence or a sequence of words: <span class="math display">\[
+P(W)=P(w_1,w_2,w_3,...,w_n)
+\]</span></li>
+<li>Related task: probability of an upcoming word: <span class="math display">\[
+p(w_5|w_1,w_2,w_3,w_4)
+\]</span></li>
+<li>A model that computes either of these <span class="math inline">\(P(W)\)</span> or <span class="math inline">\(P(w_n|w_1,w_2,...,w_{n-1})\)</span> is called a <code>language model</code>.</li>
 </ul>
+<h2 id="the-chain-rule-of-probability">The Chain Rule of Probability</h2>
+<p><span class="math display">\[
+P(A,B,C,D)=P(A)P(B|A)P(C|A,B)P(D|A,B,C)
+\]</span> The chain rule in general: <span class="math display">\[
+P(x_1,x_2,x_3,…,x_n) = P(x_1)P(x_2|x_1)P(x_3|x_1,x_2)…P(x_n|x_1,…,x_{n-1})
+\]</span> i.e. <span class="math display">\[
+P(w_1w_2···w_n)=\prod_i P(w_i|w_1w_2···w_{i-1})
+\]</span></p>
+<h2 id="markov-assumption">Markov Assumption</h2>
+<p><span class="math display">\[
+P(w_1w_2···w_n)\approx \prod_i P(w_i|w_{i-k}···w_{i-1})
+\]</span></p>
+<ul>
+<li>Unigram model <span class="math display">\[
+P(w_1w_2···w_n)\approx \prod_i P(w_i)
+\]</span></li>
+<li>Bigram model <span class="math display">\[
+P(w_1w_2···w_n)\approx \prod_i P(w_i|w_{i-1})
+\]</span></li>
+<li>N-gram model</li>
+</ul>
+
+	  </div>
+
+		
+		<ul class="tag_box list-unstyled list-inline">
+		  <li><i class="fa fa-folder-open"></i></li>
+		  
+		  
+			 
+				<li><a href="/categories.html#nlp-ref">
+					nlp <span>(2)</span>
+					
+				</a></li>
+			
+		  
+		</ul>
+		  
+
+		
+		<ul class="list-inline">
+		  <li><i class="fa fa-tags"></i></li>
+		  
+		  
+			 
+				<li>
+					<a href="/tags.html#nlp-ref">
+					nlp <span>(2)</span>
+					
+					</a>
+				</li>
+			
+		  
+		  
+		</ul>
+		  
+
+		<hr>
+
+		<div>
+      <section class="share col-sm-12">
+        <h4 class="section-title">Share Post</h4>
+        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=Probabilistic Language Modeling"
+           onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+          <i class="fa fa-twitter fa-lg"></i>
+          Twitter
+        </a>
+        <a class="btn btn-default btn-sm facebook" href="https://www.facebook.com/sharer/sharer.php"
+           onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+          <i class="fa fa-facebook fa-lg"></i>
+          Facebook
+        </a>
+        <a class="btn btn-default btn-sm gplus"
+           onclick="window.open('https://plus.google.com/share?url='+window.location.href, 'google-plus-share', 'width=490,height=530');return false;">
+          <i class="fa fa-google-plus fa-lg"></i>
+          Google+
+        </a>
+      </section>
+    </div>
+
+    <div class="clearfix"></div>
+
+		<ul class="pager">
+		  
+		  <li class="previous"><a href="/foundation/2015/12/14/word2vec.html" title="word2vec">&larr; Previous</a></li>
+		  
+		  
+		  <li class="next"><a href="/tools/log/2015/12/17/git-note.html" title="git笔记 & cheatsheet">Next &rarr;</a></li>
+		  
+		</ul>
+
+		<hr>
+	</div>
+	
+	<div class="col-sm-2 sidebar-2">
+	
+	</div>
+</article>
+<div class="clearfix"></div>
+
 
 
 
