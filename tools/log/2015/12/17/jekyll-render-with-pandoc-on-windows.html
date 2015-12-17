@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>memo</title>
+	<title>Jekyll render with pandoc on windows</title>
 	
 	<meta name="author" content="sohero">
 
@@ -135,211 +135,117 @@
 
 	<div class="col-sm-9 col-sm-offset-3">
 		<div class="page-header">
-  <h1>memo </h1>
+  <h1>Jekyll render with pandoc on windows </h1>
 </div>
+	
+<article>
 
-
-
-<article class="home">
-  <h2>
-    <a href="/tools/log/2015/12/17/jekyll-render-with-pandoc-on-windows.html">Jekyll render with pandoc on windows</a>
-  </h2>
-  <span class="post-date">
-    2015-12-17 
-  </span>
-  <div>
-    
-    
-    ...
-    
-    
-  </div>
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/foundation/2015/12/14/word2vec.html">word2vec</a>
-  </h2>
-  <span class="post-date">
-    2015-12-14 
-  </span>
-  <div>
-    
-    
-    ...
-    
-    
-  </div>
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/foundation/paper/2015/12/14/sense2vec-a-fast-and-accurate-method-for-word-sense-disambiguation-in-neural-word-embeddings.html">sense2vec - a fast and accurate method for word sense disambiguation in neural word embeddings</a>
-  </h2>
-  <span class="post-date">
-    2015-12-14 
-  </span>
-  <div>
-    
-    
-    ...
-    
-    
-  </div>
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/foundation/paper/2015/12/14/end-to-end-memory-networks.html">End-To-End Memory Networks</a>
-  </h2>
-  <span class="post-date">
-    2015-12-14 
-  </span>
-  <div>
-    
-    
-    ...
-    
-    
-  </div>
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/foundation/nlp/2015/12/14/edit-distance.html">Edit Distance</a>
-  </h2>
-  <span class="post-date">
-    2015-12-14 
-  </span>
-  <div>
-    
-    
-    ...
-    
-    
-  </div>
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/foundation/2015/12/07/the-equations-of-backpropagation.html">the equations of backpropagation</a>
-  </h2>
-  <span class="post-date">
-    2015-12-07 
-  </span>
-  <div>
-    
-    
-    ...
-    
-    
-  </div>
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/foundation/2015/11/18/rectified-linear-unit-relu.html">Rectified Linear Unit (ReLU)</a>
-  </h2>
-  <span class="post-date">
-    2015-11-18 
-  </span>
-  <div>
-    
-    
-    ...
-    
-    
-  </div>
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/tools/2015/11/13/regular-expression.html">正则表达式</a>
-  </h2>
-  <span class="post-date">
-    2015-11-13 
-  </span>
-  <div>
-    
-    
-    ...
-    
-    
-  </div>
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/foundation/2015/11/11/what-are-the-continuous-bag-of-words-cbow-and-skip-gram.html">What are the continuous bag of words(CBOW) and skip-gram</a>
-  </h2>
-  <span class="post-date">
-    2015-11-11 
-  </span>
-  <div>
-    
-    
-    ...
-    
-    
-  </div>
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/foundation/2015/11/06/derivative-formula.html">求导公式</a>
-  </h2>
-  <span class="post-date">
-    2015-11-06 
-  </span>
-  <div>
-    
-    
-    ...
-    
-    
-  </div>
-
-</article>
-
-<hr/>
-
-<ul class="pager"> 
-
-  
-  <li class="previous disabled">
-    <a>&larr; Newer</a>
-  </li>
-  
-  
-  <li>
-    <span class="page_number">Page: 1 of 3</span>
-  </li>
-
-  
-  <li class="next">
-    <a href="/page2">Older &rarr;</a>
-  </li>
-  
-
+	<div class="col-sm-10">
+	 <span class="post-date">
+	 	2015-12-17 
+	 </span>
+	  <div class="article_body">
+	  <h2 id="下载绿色版jekyll">下载绿色版Jekyll</h2>
+<ul>
+<li><a href="https://github.com/sohero/PortableJekyll" title="下载地址">下载地址</a>，这个版本，在原Portable Jekyll的基础上，修改了一下setpath.cmd。这样在写的正文里有中文也不会报错了。</li>
+<li>解压到任一目录，直接运行setpath.cmd，就可以使用了。</li>
 </ul>
+<h2 id="安装pandoc">安装pandoc</h2>
+<ul>
+<li>Jekyll的两个markdown解析器，对于mathjax的支持都不完美。用pandoc没有问题，不过需要安装jekyll-pandoc插件，<a href="https://github.com/sohero/jekyll-pandoc">插件下载地址</a>。这个版本修改了一下依赖的Jekyll版本号，这样就可以在Jekyll 3.0里使用了。</li>
+<li>安装pandoc：<a href="http://pandoc.org/">下载地址</a></li>
+</ul>
+
+	  </div>
+
+		
+		<ul class="tag_box list-unstyled list-inline">
+		  <li><i class="fa fa-folder-open"></i></li>
+		  
+		  
+			 
+				<li><a href="/categories.html#tools-ref">
+					tools <span>(2)</span>
+					,
+				</a></li>
+			 
+				<li><a href="/categories.html#log-ref">
+					log <span>(1)</span>
+					
+				</a></li>
+			
+		  
+		</ul>
+		  
+
+		
+		<ul class="list-inline">
+		  <li><i class="fa fa-tags"></i></li>
+		  
+		  
+			 
+				<li>
+					<a href="/tags.html#tools-ref">
+					tools <span>(2)</span>
+					,
+					</a>
+				</li>
+			 
+				<li>
+					<a href="/tags.html#log-ref">
+					log <span>(1)</span>
+					
+					</a>
+				</li>
+			
+		  
+		  
+		</ul>
+		  
+
+		<hr>
+
+		<div>
+      <section class="share col-sm-12">
+        <h4 class="section-title">Share Post</h4>
+        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=Jekyll render with pandoc on windows"
+           onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+          <i class="fa fa-twitter fa-lg"></i>
+          Twitter
+        </a>
+        <a class="btn btn-default btn-sm facebook" href="https://www.facebook.com/sharer/sharer.php"
+           onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+          <i class="fa fa-facebook fa-lg"></i>
+          Facebook
+        </a>
+        <a class="btn btn-default btn-sm gplus"
+           onclick="window.open('https://plus.google.com/share?url='+window.location.href, 'google-plus-share', 'width=490,height=530');return false;">
+          <i class="fa fa-google-plus fa-lg"></i>
+          Google+
+        </a>
+      </section>
+    </div>
+
+    <div class="clearfix"></div>
+
+		<ul class="pager">
+		  
+		  <li class="previous"><a href="/foundation/2015/12/14/word2vec.html" title="word2vec">&larr; Previous</a></li>
+		  
+		  
+			<li class="next disabled"><a>Next &rarr;</a>
+		  
+		</ul>
+
+		<hr>
+	</div>
+	
+	<div class="col-sm-2 sidebar-2">
+	
+	</div>
+</article>
+<div class="clearfix"></div>
+
 
 
 

@@ -7,6 +7,24 @@
 		<atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>Jekyll render with pandoc on windows</title>
+				<description>&lt;h2 id=&quot;下载绿色版jekyll&quot;&gt;下载绿色版Jekyll&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/sohero/PortableJekyll&quot; title=&quot;下载地址&quot;&gt;下载地址&lt;/a&gt;，这个版本，在原Portable Jekyll的基础上，修改了一下setpath.cmd。这样在写的正文里有中文也不会报错了。&lt;/li&gt;
+&lt;li&gt;解压到任一目录，直接运行setpath.cmd，就可以使用了。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;安装pandoc&quot;&gt;安装pandoc&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Jekyll的两个markdown解析器，对于mathjax的支持都不完美。用pandoc没有问题，不过需要安装jekyll-pandoc插件，&lt;a href=&quot;https://github.com/sohero/jekyll-pandoc&quot;&gt;插件下载地址&lt;/a&gt;。这个版本修改了一下依赖的Jekyll版本号，这样就可以在Jekyll 3.0里使用了。&lt;/li&gt;
+&lt;li&gt;安装pandoc：&lt;a href=&quot;http://pandoc.org/&quot;&gt;下载地址&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+				<pubDate>Thu, 17 Dec 2015 00:00:00 +0800</pubDate>
+				<link>/tools/log/2015/12/17/jekyll-render-with-pandoc-on-windows.html</link>
+				<guid isPermaLink="true">/tools/log/2015/12/17/jekyll-render-with-pandoc-on-windows.html</guid>
+			</item>
+		
+			<item>
 				<title>word2vec</title>
 				<description>&lt;h2 id=&quot;main-idea-of-word2vec&quot;&gt;Main idea of word2vec&lt;/h2&gt;
 &lt;ul&gt;
@@ -866,23 +884,6 @@ D(i-1, j-1) +
 				<pubDate>Fri, 06 Nov 2015 00:00:00 +0800</pubDate>
 				<link>/foundation/2015/11/06/derivative-formula.html</link>
 				<guid isPermaLink="true">/foundation/2015/11/06/derivative-formula.html</guid>
-			</item>
-		
-			<item>
-				<title>second derivative & Hessian matrix</title>
-				<description>&lt;p&gt;We are also sometimes interested in a derivative of a derivative. This is known as a &lt;em&gt;second derivative&lt;/em&gt;. For example, &lt;span class=&quot;math inline&quot;&gt;\(\frac{\partial ^2}{\partial x_i \partial x_j}f\)&lt;/span&gt; is the derivative with respect to &lt;span class=&quot;math inline&quot;&gt;\(x_i\)&lt;/span&gt; of the derivative of &lt;span class=&quot;math inline&quot;&gt;\(f\)&lt;/span&gt; with respect to &lt;span class=&quot;math inline&quot;&gt;\(x_j\)&lt;/span&gt;. Note that the order of derivativation can be swapped, so that &lt;span class=&quot;math inline&quot;&gt;\(\frac{\partial ^2}{\partial x_i \partial x_j}f = \frac{\partial ^2}{\partial x_j \partial x_i}f\)&lt;/span&gt;. In a single dimension, we can denote &lt;span class=&quot;math inline&quot;&gt;\(\frac{d^2}{dx^2}f\)&lt;/span&gt; by &lt;span class=&quot;math inline&quot;&gt;\(f&amp;#39;&amp;#39;(x)\)&lt;/span&gt;.&lt;/p&gt;
-&lt;p&gt;The second derivative tells us how the first derivative will change as we vary the input. This means it can be useful for determining whether a critical point is a local maximum , a local minimum, or saddle point. Recall that on a critical point, &lt;span class=&quot;math inline&quot;&gt;\(f&amp;#39;(x)=0\)&lt;/span&gt;. When &lt;span class=&quot;math inline&quot;&gt;\(f&amp;#39;&amp;#39;(x)&amp;gt;0\)&lt;/span&gt;, this means that &lt;span class=&quot;math inline&quot;&gt;\(f&amp;#39;(x)\)&lt;/span&gt; increases as we move to the right, and &lt;span class=&quot;math inline&quot;&gt;\(f&amp;#39;(x)\)&lt;/span&gt; decreases as we move to the left. This means &lt;span class=&quot;math inline&quot;&gt;\(f&amp;#39;(x-\epsilon)&amp;lt;0\)&lt;/span&gt; and &lt;span class=&quot;math inline&quot;&gt;\(f&amp;#39;(x+\epsilon)&amp;gt;0\)&lt;/span&gt; for small enough &lt;span class=&quot;math inline&quot;&gt;\(\epsilon\)&lt;/span&gt;. In other words, as we move right, the slope begins to point uphill to the right, and as we move left, the slope begins to point uphill to the left. Thus, when &lt;span class=&quot;math inline&quot;&gt;\(f&amp;#39;(x)=0\)&lt;/span&gt; and &lt;span class=&quot;math inline&quot;&gt;\(f&amp;#39;&amp;#39;(x)&amp;gt;0\)&lt;/span&gt;, we can conclude that &lt;span class=&quot;math inline&quot;&gt;\(x\)&lt;/span&gt; is a &lt;strong&gt;local minimum&lt;/strong&gt;. Similarly, when &lt;span class=&quot;math inline&quot;&gt;\(f&amp;#39;(x)=0\)&lt;/span&gt; and &lt;span class=&quot;math inline&quot;&gt;\(f&amp;#39;&amp;#39;(x)&amp;lt;0\)&lt;/span&gt;, we can conclude that &lt;span class=&quot;math inline&quot;&gt;\(x\)&lt;/span&gt; is a local &lt;strong&gt;local maximum&lt;/strong&gt;. This is known as the &lt;em&gt;second derivative test&lt;/em&gt;. Unfortunately, when &lt;span class=&quot;math inline&quot;&gt;\(f&amp;#39;&amp;#39;(x)=0\)&lt;/span&gt;, the test is inconclusive. In this case &lt;span class=&quot;math inline&quot;&gt;\(x\)&lt;/span&gt; may be a saddle point, or a part of a flat region.&lt;/p&gt;
-&lt;p&gt;In multiple dimensions, we need to examine all of the second derivatives of the function. These derivatives can be collected together into a matrix called the &lt;em&gt;Hessian matrix&lt;/em&gt;. The Hessian matrix &lt;span class=&quot;math inline&quot;&gt;\(H(f)(x)\)&lt;/span&gt; is defined such that &lt;span class=&quot;math display&quot;&gt;\[
-H(f)(x)_{i,j} = \frac{\partial ^2}{\partial x_i \partial x_j}f(x).
-\]&lt;/span&gt; Equivalently, the Hessian is the Jacobian of the gradient.&lt;/p&gt;
-&lt;p&gt;Anywhere that the second partial derivatives are continuous, the differential operators are commutative: &lt;span class=&quot;math display&quot;&gt;\[
-\frac{\partial ^2}{\partial x_i \partial x_j}f(x)=\frac{\partial ^2}{\partial x_j \partial x_i}f(x)
-\]&lt;/span&gt; This implies that &lt;span class=&quot;math inline&quot;&gt;\(h_{i,j}=h_{j,i}\)&lt;/span&gt;, so the Hessian matrix is symmetric at such points (which includes nearly all inputs to nearly all functions we encounter in deep learning). Because the Hessian matrix is real and symmetric, we can decompose it into a set of real eigenvalues and an orthogonal basis of eigenvectors. Using the eigendecomposition Hessian matrix, we can generalize the second derivative test to multiple dimensions. At a critical point, where &lt;span class=&quot;math inline&quot;&gt;\(\nabla_xf(x)=0\)&lt;/span&gt;, we can examine the eigenvalues of the Hessian to determine whether the critical point is a local maximum, local minimum, or saddle point. When the Hessian is positive definite (all its eigenvalues are positive), the point is a &lt;em&gt;local minimum&lt;/em&gt;. This can be seen by observing that the directional second derivative in any direction must be positive, and making reference to the univariate second derivative test. Likewise, when the Hessian is negative definite (all its eigenvalues are negative), the point is a &lt;em&gt;local maximum&lt;/em&gt;. In multiple dimensions, it is actually possible to find positive evidence of saddle points in some cases. When at least one eigenvalue is positive and at least on eigenvalue is negative, we known that &lt;span class=&quot;math inline&quot;&gt;\(x\)&lt;/span&gt; is a local maximum on one across section of &lt;span class=&quot;math inline&quot;&gt;\(f\)&lt;/span&gt; but a local minimum on another cross section. Finally, the multidimensional second derivative test can be inconclusive, just like the univariate version. The test is inconclusive whenever all of the non-zero eigenvalues have the same sign, but at least one eigenvalue is zero. This is because the univariate second derivative test is inconclusive in the cross section corresponding to the zero eigenvalue.&lt;/p&gt;
-&lt;p&gt;The Hessian can also be useful for understanding the performance of gradient descent. When the Hessian has a poor condition number, gradient descent performs poorly. This is because in one direction, the derivative increases rapidly, while in another direction, it increases slowly. Gradient descent is unaware of this change in the derivative so it does not know that it needs to explore preferentially in the direction where the derivative remains negative for longer.&lt;/p&gt;
-</description>
-				<pubDate>Thu, 22 Oct 2015 00:00:00 +0800</pubDate>
-				<link>/foundation/2015/10/22/second-derivative-and-hessian-matrix.html</link>
-				<guid isPermaLink="true">/foundation/2015/10/22/second-derivative-and-hessian-matrix.html</guid>
 			</item>
 		
 	</channel>
