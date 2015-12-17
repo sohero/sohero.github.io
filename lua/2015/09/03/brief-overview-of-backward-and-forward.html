@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Jacobian</title>
+	<title>Brief overview of backward and forward</title>
 	
 	<meta name="author" content="sohero">
 
@@ -135,44 +135,23 @@
 
 	<div class="col-sm-9 col-sm-offset-3">
 		<div class="page-header">
-  <h1>Jacobian </h1>
+  <h1>Brief overview of backward and forward </h1>
 </div>
 	
 <article>
 
 	<div class="col-sm-10">
 	 <span class="post-date">
-	 	2015-08-14 
+	 	2015-09-03 
 	 </span>
 	  <div class="article_body">
-	  <p><a href="http://mathworld.wolfram.com/Jacobian.html" title="来源">来源</a></p>
-<p>Given a set <span class="math inline">\(\mathbf{y=f(x)}\)</span> of <span class="math inline">\(n\)</span> variables <span class="math inline">\(x_1,...,x_n\)</span>, written explicitly as <span class="math display">\[\mathbf y = \left[
-\begin{array}{c}
-f_1(\mathbf x)\\
-f_2(\mathbf x)\\
-\vdots\\
-f_n(\mathbf x)
-\end{array}
-\right]\]</span> or more explicitly as <span class="math display">\[\begin{cases}
-y_1=f_1(x_1,...,x_n)\\
-\vdots\\
-y_n=f_n(x_1,...,x_n)\\
-\end{cases}\]</span> the Jacobian matrix, sometimes simply called “the Jacobian”(Simon and Blume 1994) is defined by <span class="math display">\[J(x_1,...,x_n)=
-\begin{bmatrix}
-\frac{\partial y_1}{\partial x_1}&amp;\cdots&amp;\frac{\partial y_1}{\partial x_n}\\
-\vdots&amp;\ddots&amp;\vdots\\
-\frac{\partial y_n}{\partial x_1}&amp;\cdots&amp;\frac{\partial y_n}{\partial x_n}
-\end{bmatrix}\]</span> The determinant of J is the Jacobian determinant (confusingly, often called “the Jacobian” as well) and is denoted <span class="math display">\[J=\begin{vmatrix} \frac{\partial (y_1,...,y_n)}{\partial (x_1,...,x_n)} \end{vmatrix}\]</span></p>
-<hr />
-<h4 id="practical-4">Practical 4</h4>
-<p>The Jacobian is a <span class="math inline">\(m×n\)</span> matrix of derivatives for a multivariate function <span class="math inline">\(f:R^n \to R^m\)</span>: <span class="math display">\[
-\frac{d\mathbf f}{d\mathbf x}=
-\begin{bmatrix}
-\frac{\partial f_1}{\partial x_1}&amp;\cdots&amp;\frac{\partial f_1}{\partial x_n}\\
-\vdots&amp;\ddots&amp;\vdots\\
-\frac{\partial f_m}{\partial x_1}&amp;\cdots&amp;\frac{\partial f_m}{\partial x_n}
-\end{bmatrix}
-\]</span> each <span class="math inline">\(i\)</span>th row being a gradient of an element, <span class="math inline">\(f_i\)</span>, of the output vector, <span class="math inline">\(\mathbf f\)</span>.</p>
+	  <p>Let’s say we only feed in one data point.</p>
+<ul>
+<li><strong>out = model:forward(<span class="math inline">\(x_i\)</span>)</strong> computes <span class="math inline">\(f_w(x_i)\)</span> where <span class="math inline">\(f_w\)</span> is our model with its current parameters <span class="math inline">\(w\)</span>, and stores the result in <strong>out</strong>.</li>
+<li><strong>loss = criterion:forward(out, <span class="math inline">\(y_i\)</span>)</strong> computes the loss <span class="math inline">\(\ell (f_w(x_i),y_i)\)</span> with respect to the true value <span class="math inline">\(y_i\)</span>.</li>
+<li><strong>dl_dout = criterion:backward(out, <span class="math inline">\(y_i\)</span>)</strong> computes <span class="math inline">\(\frac{\partial \ell(...)}{\partial f_w(x_i)}\)</span>.</li>
+<li><strong>model:backward(<span class="math inline">\(x_i\)</span>, dl_dout)</strong> computes <span class="math inline">\(\frac{\partial \ell(...)}{\partial w}\)</span> and stores this gradient in a place we have a reference to, usually called <strong>gradParameters</strong> in our code.</li>
+</ul>
 
 	  </div>
 
@@ -182,8 +161,8 @@ y_n=f_n(x_1,...,x_n)\\
 		  
 		  
 			 
-				<li><a href="/categories.html#foundation-ref">
-					foundation <span>(11)</span>
+				<li><a href="/categories.html#lua-ref">
+					lua <span>(9)</span>
 					
 				</a></li>
 			
@@ -198,15 +177,8 @@ y_n=f_n(x_1,...,x_n)\\
 		  
 			 
 				<li>
-					<a href="/tags.html#foundation-ref">
-					foundation <span>(11)</span>
-					,
-					</a>
-				</li>
-			 
-				<li>
-					<a href="/tags.html#math-ref">
-					math <span>(1)</span>
+					<a href="/tags.html#lua-ref">
+					lua <span>(9)</span>
 					
 					</a>
 				</li>
@@ -221,7 +193,7 @@ y_n=f_n(x_1,...,x_n)\\
 		<div>
       <section class="share col-sm-12">
         <h4 class="section-title">Share Post</h4>
-        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=Jacobian"
+        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=Brief overview of backward and forward"
            onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
           <i class="fa fa-twitter fa-lg"></i>
           Twitter
@@ -243,10 +215,10 @@ y_n=f_n(x_1,...,x_n)\\
 
 		<ul class="pager">
 		  
-		  <li class="previous"><a href="/foundation/2015/08/13/energy-function.html" title="Energy Function">&larr; Previous</a></li>
+		  <li class="previous"><a href="/foundation/2015/09/02/understanding-the-difficulty-of-training-deep-feedforward-neural-networks.html" title="Understanding the difficulty of training deep feedforward neural networks">&larr; Previous</a></li>
 		  
 		  
-		  <li class="next"><a href="/lua/2015/08/14/optim-package.html" title="optim package">Next &rarr;</a></li>
+		  <li class="next"><a href="/lua/2015/09/03/torch7-tensor-slicing.html" title="Torch7 Tensor slicing">Next &rarr;</a></li>
 		  
 		</ul>
 

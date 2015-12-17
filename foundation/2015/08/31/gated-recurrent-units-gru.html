@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>LSTM</title>
+	<title>Gated Recurrent Units (GRU)</title>
 	
 	<meta name="author" content="sohero">
 
@@ -135,19 +135,31 @@
 
 	<div class="col-sm-9 col-sm-offset-3">
 		<div class="page-header">
-  <h1>LSTM </h1>
+  <h1>Gated Recurrent Units (GRU) </h1>
 </div>
 	
 <article>
 
 	<div class="col-sm-10">
 	 <span class="post-date">
-	 	2015-08-22 
+	 	2015-08-31 
 	 </span>
 	  <div class="article_body">
-	  <p>The following graph shows such a lstm memory block. <img src="/assets/images/4.jpg" alt="memory block" /> The blue arrows are the peephole connections. So the gates “see” the cell state(s) even if the output gate is closed.</p>
-<p>In the following a memory block has only one memory cell. So all cell (and gate) states of the complete hidden layer can be written as a vector <span class="math inline">\(c(t)\)</span>.</p>
-<p>Then the forward pass formulars for LSTM are (t is now an index as usual): <img src="/assets/images/5.jpg" alt="fomula" /></p>
+	  <p>Illustration: <img src="/assets/images/6.jpg" alt="Illustration 1" /> <img src="/assets/images/7.jpg" alt="Illustration 2" /></p>
+<ul>
+<li><strong>update gate</strong> <span class="math display">\[
+ u_t=\sigma(W^{u}_xx_t+W^{u}_hh_{t-1})
+ \]</span> Update gate <span class="math inline">\(u\)</span> controls how much of past state should matter now. If <span class="math inline">\(u\)</span> close to 1, then we can copy information in that unit through many time steps. <strong>Less vanishing gradient.</strong></li>
+<li><strong>reset gate</strong> <span class="math display">\[
+ r_t=\sigma(W^{r}_xx_t+W^{r}_hh_{t-1})
+ \]</span> If reset is close to 0, ignore previous hidden state<span class="math inline">\(\to\)</span>Allows model to drop information that is irrelevant in the future.</li>
+<li><strong>new memory</strong> content <span class="math display">\[
+\widetilde h_t=tanh(W^{\widetilde h}_xx_t+r_t\circ W^{\widetilde h}_hh_{t-1})
+\]</span></li>
+<li><strong>final memory</strong> at time step combines current and previous time steps: <span class="math display">\[
+h_t=u_t\circ h_{t-1}+(1-u_t)\circ \widetilde h_t
+\]</span></li>
+</ul>
 
 	  </div>
 
@@ -157,8 +169,8 @@
 		  
 		  
 			 
-				<li><a href="/categories.html#lua-ref">
-					lua <span>(6)</span>
+				<li><a href="/categories.html#foundation-ref">
+					foundation <span>(11)</span>
 					
 				</a></li>
 			
@@ -173,8 +185,8 @@
 		  
 			 
 				<li>
-					<a href="/tags.html#lua-ref">
-					lua <span>(6)</span>
+					<a href="/tags.html#foundation-ref">
+					foundation <span>(11)</span>
 					
 					</a>
 				</li>
@@ -189,7 +201,7 @@
 		<div>
       <section class="share col-sm-12">
         <h4 class="section-title">Share Post</h4>
-        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=LSTM"
+        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=Gated Recurrent Units (GRU)"
            onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
           <i class="fa fa-twitter fa-lg"></i>
           Twitter
@@ -211,10 +223,10 @@
 
 		<ul class="pager">
 		  
-		  <li class="previous"><a href="/lua/2015/08/19/pcall.html" title="pcall">&larr; Previous</a></li>
+		  <li class="previous"><a href="/lua/2015/08/28/torch7-doc.html" title="Torch7 doc">&larr; Previous</a></li>
 		  
 		  
-			<li class="next disabled"><a>Next &rarr;</a>
+		  <li class="next"><a href="/foundation/2015/09/02/understanding-the-difficulty-of-training-deep-feedforward-neural-networks.html" title="Understanding the difficulty of training deep feedforward neural networks">Next &rarr;</a></li>
 		  
 		</ul>
 

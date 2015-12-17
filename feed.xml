@@ -7,240 +7,714 @@
 		<atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
-				<title>LSTM</title>
-				<description>Liquid error: invalid byte sequence in GBK</description>
-				<pubDate>Sat, 22 Aug 2015 00:00:00 +0800</pubDate>
-				<link>/lua/2015/08/22/lstm.html</link>
-				<guid isPermaLink="true">/lua/2015/08/22/lstm.html</guid>
-			</item>
-		
-			<item>
-				<title>pcall</title>
-				<description>&lt;p&gt;If you need to handle errors in Lua, you must use the &lt;strong&gt;pcall&lt;/strong&gt; (&lt;em&gt;protected call&lt;/em&gt;) function to encapsulate your code.&lt;/p&gt;
-&lt;p&gt;The &lt;strong&gt;pcall&lt;/strong&gt; function calls its first argument in &lt;em&gt;protected mode&lt;/em&gt;, so that it catches any errors while the function is running. If there are no errors, &lt;strong&gt;pcall&lt;/strong&gt; returns &lt;strong&gt;true&lt;/strong&gt;, plus any values returned by the call. Otherwise, it returns &lt;strong&gt;false&lt;/strong&gt;, plus the error message.&lt;/p&gt;
-&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode lua&quot;&gt;&lt;code class=&quot;sourceCode lua&quot;&gt;&lt;span class=&quot;kw&quot;&gt;local&lt;/span&gt; status&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; err &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;fu&quot;&gt;pcall&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kw&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;()&lt;/span&gt;
-   &lt;span class=&quot;fu&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;({&lt;/span&gt;code&lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;121&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;})&lt;/span&gt;
-&lt;span class=&quot;kw&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;err&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;code&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;co&quot;&gt;--&amp;gt; 121&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-</description>
-				<pubDate>Wed, 19 Aug 2015 00:00:00 +0800</pubDate>
-				<link>/lua/2015/08/19/pcall.html</link>
-				<guid isPermaLink="true">/lua/2015/08/19/pcall.html</guid>
-			</item>
-		
-			<item>
-				<title>Torch7 Serialization</title>
-				<description>&lt;p&gt;&lt;a href=&quot;https://github.com/torch/torch7/blob/master/doc/serialization.md&quot;&gt;LINK: https://github.com/torch/torch7/blob/master/doc/serialization.md&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Torch provides 4 high-level methods of serialize/deserialize arbitrary Lua/Torch objects. These functions are just abstractions over the &lt;a href=&quot;https://github.com/torch/torch7/blob/master/doc/serialization.md#torch.File&quot;&gt;File&lt;/a&gt; object, and were created for convenience (these are very common routines).&lt;/p&gt;
-&lt;p&gt;The first two functions are useful to serialize/deserialize data to/from files:&lt;/p&gt;
-&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode lua&quot;&gt;&lt;code class=&quot;sourceCode lua&quot;&gt;torch&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;save&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;filename&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; object &lt;span class=&quot;ot&quot;&gt;[,&lt;/span&gt; &lt;span class=&quot;fu&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;])&lt;/span&gt;
-&lt;span class=&quot;ot&quot;&gt;[&lt;/span&gt;object&lt;span class=&quot;ot&quot;&gt;]&lt;/span&gt; torch&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;load&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;filename &lt;span class=&quot;ot&quot;&gt;[,&lt;/span&gt; &lt;span class=&quot;fu&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;])&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;The format can be set to &lt;em&gt;ascii&lt;/em&gt; or &lt;em&gt;binary&lt;/em&gt; (default is &lt;em&gt;binary&lt;/em&gt;).&lt;/p&gt;
-&lt;p&gt;The next two functions are useful to serialize/deserialize data to/from strings:&lt;/p&gt;
-&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode lua&quot;&gt;&lt;code class=&quot;sourceCode lua&quot;&gt;&lt;span class=&quot;ot&quot;&gt;[&lt;/span&gt;str&lt;span class=&quot;ot&quot;&gt;]&lt;/span&gt; torch&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;serialize&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;object&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;ot&quot;&gt;[&lt;/span&gt;object&lt;span class=&quot;ot&quot;&gt;]&lt;/span&gt; torch&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;deserialize&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;str&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-</description>
-				<pubDate>Wed, 19 Aug 2015 00:00:00 +0800</pubDate>
-				<link>/lua/2015/08/19/torch7-serialization.html</link>
-				<guid isPermaLink="true">/lua/2015/08/19/torch7-serialization.html</guid>
-			</item>
-		
-			<item>
-				<title>Defining your own Neural Net Module</title>
-				<description>&lt;p&gt;Modules are bricks to build neural networks. A &lt;strong&gt;Module&lt;/strong&gt; is a neural network by itself, but it can be combined with other networks using container classes to create complex neural networks. &lt;strong&gt;Module&lt;/strong&gt; is an abstract class which defines fundamental methods necessary for a training a neural network. All modules are serializable.&lt;/p&gt;
-&lt;p&gt;Modules contain two states variables: &lt;em&gt;output&lt;/em&gt; and &lt;em&gt;gradInput&lt;/em&gt;. Here we review the set of basic functions that a Module has to implement:&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;[output] forward(input)&lt;/strong&gt; Takes an input object, and computes the corresponding output of the module. In general input and output are Tensors. However, some special sub-classes like table layers might expect something else.&lt;/p&gt;
-&lt;p&gt;After a forward(), the output state variable should have been updated to the new value.&lt;/p&gt;
-&lt;p&gt;It is not advised to override this function. Instead, one should implement &lt;strong&gt;updateOutput(input)&lt;/strong&gt; function. The forward module in the abstract parent class Module will call &lt;strong&gt;updateOutput(input).&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;[gradInput] backward(input, gradOutput)&lt;/strong&gt; Performs a backpropagation step through the module, with respect to the given input. In general this method makes the assumption &lt;strong&gt;forward(input)&lt;/strong&gt; has been called before, with the same input. This is necessary for optimization reasons. If you do not respect this rule, backward() will compute incorrect gradients.&lt;/p&gt;
-&lt;p&gt;A backpropagation step consist in computing two kind of gradients at input given gradOutput (gradients with respect to the output of the module). This function simply performs this task using two function calls:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;A function call to &lt;strong&gt;updateGradInput(input, gradOutput)&lt;/strong&gt;.&lt;/li&gt;
-&lt;li&gt;A function call to &lt;strong&gt;accGradParameters(input,gradOutput)&lt;/strong&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;It is not advised to override this function call in custom classes. It is better to override &lt;strong&gt;updateGradInput(input, gradOutput)&lt;/strong&gt; and &lt;strong&gt;accGradParameters(input, gradOutput)&lt;/strong&gt; functions.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;[output] updateOutput(input, gradOutput)&lt;/strong&gt; When defining a new module, this method should be overloaded.&lt;/p&gt;
-&lt;p&gt;Computes the output using the current parameter set of the class and input. This function returns the result which is stored in the output field.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;[gradInput] updateGradInput(input, gradOutput)&lt;/strong&gt; When defining a new module, this method should be overloaded.&lt;/p&gt;
-&lt;p&gt;Computing the gradient of the module with respect to its own input. This is returned in gradInput. Also, the gradInput state variable is updated accordingly.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;[gradInput] accGradParameters(input, gradOutput)&lt;/strong&gt; When defining a new module, this method may need to be overloaded, if the module has trainable parameters.&lt;/p&gt;
-&lt;p&gt;Computing the gradient of the module with respect to its own parameters. Many modules do not perform this step as they do not have any parameters. The state variable name for the parameters is module dependent. The module is expected to accumulate the gradients with respect to the parameters in some variable.&lt;/p&gt;
-&lt;p&gt;Zeroing this accumulation is achieved with &lt;strong&gt;zeroGradParameters()&lt;/strong&gt; and updating the parameters according to this accumulation is done with &lt;strong&gt;updateParameters()&lt;/strong&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;reset()&lt;/strong&gt; This method defines how the trainable parameters are reset, i.e. initialized before training.&lt;/p&gt;
-&lt;hr /&gt;
-&lt;p&gt;Modules provide a few other methods that you might want to define, if you are not planing to use the &lt;strong&gt;optim&lt;/strong&gt; package. These methods help &lt;strong&gt;zero()&lt;/strong&gt; the parameters, and update them using very basic techniques.&lt;/p&gt;
-&lt;p&gt;In terms of code structure, &lt;em&gt;Torch&lt;/em&gt; provides a class model, which we use for inheritance, and in general for the definition of all the modules in &lt;em&gt;nn&lt;/em&gt;. Here is an empty holder for a typical new class:&lt;/p&gt;
-&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode lua&quot;&gt;&lt;code class=&quot;sourceCode lua&quot;&gt;&lt;span class=&quot;kw&quot;&gt;local&lt;/span&gt; NewClass&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; Parent &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; torch&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;class&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;&amp;#39;nn.NewClass&amp;#39;&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;nn.Module&amp;#39;&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
- 
-&lt;span class=&quot;kw&quot;&gt;function&lt;/span&gt; NewClass:__init&lt;span class=&quot;ot&quot;&gt;()&lt;/span&gt;
-   parent&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;__init&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;self&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;kw&quot;&gt;end&lt;/span&gt;
- 
-&lt;span class=&quot;kw&quot;&gt;function&lt;/span&gt; NewClass:updateOutput&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;input&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;kw&quot;&gt;end&lt;/span&gt;
- 
-&lt;span class=&quot;kw&quot;&gt;function&lt;/span&gt; NewClass:updateGradInput&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;input&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; gradOutput&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;kw&quot;&gt;end&lt;/span&gt;
- 
-&lt;span class=&quot;kw&quot;&gt;function&lt;/span&gt; NewClass:accGradParameters&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;input&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; gradOutput&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;kw&quot;&gt;end&lt;/span&gt;
- 
-&lt;span class=&quot;kw&quot;&gt;function&lt;/span&gt; NewClass:reset&lt;span class=&quot;ot&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;kw&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;When defining a new class, all we need to do is fill in these empty functions. Note that when defining the constructor *__init()*, we always call the parent’s constructor first.&lt;/p&gt;
-&lt;h3 id=&quot;dropout-activation-units&quot;&gt;Dropout Activation Units&lt;/h3&gt;
-&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode lua&quot;&gt;&lt;code class=&quot;sourceCode lua&quot;&gt;&lt;span class=&quot;kw&quot;&gt;local&lt;/span&gt; Dropout&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; Parent &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; torch&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;class&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;&amp;#39;nn.Dropout&amp;#39;&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;nn.Module&amp;#39;&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
- 
-&lt;span class=&quot;kw&quot;&gt;function&lt;/span&gt; Dropout:__init&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;percentage&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
-   Parent&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;__init&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;self&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
-   self&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;p &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; percentage &lt;span class=&quot;kw&quot;&gt;or&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;0.5&lt;/span&gt;
-   &lt;span class=&quot;kw&quot;&gt;if&lt;/span&gt; self&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;p &lt;span class=&quot;ot&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;or&lt;/span&gt; self&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;p &lt;span class=&quot;ot&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;then&lt;/span&gt;
-      &lt;span class=&quot;fu&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;&amp;#39;&amp;lt;Dropout&amp;gt; illegal percentage, must be 0 &amp;lt;= p &amp;lt;= 1&amp;#39;&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
-   &lt;span class=&quot;kw&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;kw&quot;&gt;end&lt;/span&gt;
- 
-&lt;span class=&quot;kw&quot;&gt;function&lt;/span&gt; Dropout:updateOutput&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;input&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
-   self&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;noise &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; torch&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;rand&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;input:size&lt;span class=&quot;ot&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;co&quot;&gt;-- uniform noise between 0 and 1&lt;/span&gt;
-   self&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;noise:add&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;-&lt;/span&gt; self&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;p&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;:&lt;span class=&quot;fu&quot;&gt;floor&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;()&lt;/span&gt;  &lt;span class=&quot;co&quot;&gt;-- a percentage of noise&lt;/span&gt;
-   self&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;output:resizeAs&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;input&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;:copy&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;input&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
-   self&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;output:cmul&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;self&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;noise&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
-   &lt;span class=&quot;kw&quot;&gt;return&lt;/span&gt; self&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;output
-&lt;span class=&quot;kw&quot;&gt;end&lt;/span&gt;
- 
-&lt;span class=&quot;kw&quot;&gt;function&lt;/span&gt; Dropout:updateGradInput&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;input&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; gradOutput&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
-   self&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;gradInput:resizeAs&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;gradOutput&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;:copy&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;gradOutput&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
-   self&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;gradInput:cmul&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;self&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;noise&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;co&quot;&gt;-- simply mask the gradients with the noise vector&lt;/span&gt;
-   &lt;span class=&quot;kw&quot;&gt;return&lt;/span&gt; self&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;gradInput
-&lt;span class=&quot;kw&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;The file is provided in this directory, in &lt;em&gt;Dropout.lua&lt;/em&gt;. The script &lt;em&gt;1_dropout.lua&lt;/em&gt; demonstrates how to create an instance of this module, and test it on some data (lena):&lt;/p&gt;
-&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode lua&quot;&gt;&lt;code class=&quot;sourceCode lua&quot;&gt;&lt;span class=&quot;co&quot;&gt;-- in this file, we test the dropout module we&amp;#39;ve defined:&lt;/span&gt;
-&lt;span class=&quot;fu&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;nn&amp;#39;&lt;/span&gt;
-&lt;span class=&quot;fu&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;Dropout&amp;#39;&lt;/span&gt;
-&lt;span class=&quot;fu&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;image&amp;#39;&lt;/span&gt;
- 
-&lt;span class=&quot;co&quot;&gt;-- define a dropout object:&lt;/span&gt;
-n &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; nn&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;Dropout&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
- 
-&lt;span class=&quot;co&quot;&gt;-- load an image:&lt;/span&gt;
-i &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; image&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;lena&lt;span class=&quot;ot&quot;&gt;()&lt;/span&gt;
- 
-&lt;span class=&quot;co&quot;&gt;-- process the image:&lt;/span&gt;
-result &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; n:forward&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;i&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
- 
-&lt;span class=&quot;co&quot;&gt;-- display results:&lt;/span&gt;
-image&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;display&lt;span class=&quot;ot&quot;&gt;{&lt;/span&gt;image&lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt;i&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; legend&lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;&amp;#39;original image&amp;#39;&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;}&lt;/span&gt;
-image&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;display&lt;span class=&quot;ot&quot;&gt;{&lt;/span&gt;image&lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt;result&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; legend&lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;&amp;#39;dropout-processed image&amp;#39;&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;}&lt;/span&gt;
- 
-&lt;span class=&quot;co&quot;&gt;-- some stats:&lt;/span&gt;
-mse &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; i:dist&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;result&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;&amp;#39;mse between original imgae and dropout-processed image: &amp;#39;&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;..&lt;/span&gt; mse&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-</description>
-				<pubDate>Tue, 18 Aug 2015 00:00:00 +0800</pubDate>
-				<link>/lua/2015/08/18/defining-your-own-neural-net-module.html</link>
-				<guid isPermaLink="true">/lua/2015/08/18/defining-your-own-neural-net-module.html</guid>
-			</item>
-		
-			<item>
-				<title>The ReQU unit</title>
-				<description>&lt;p&gt;Here, we’ll implement a made-up activation function that we’ll call the Rectified Quadratic Unit(ReQU). Like the sigmoid and ReLU and several others, it is applied element-wise to all its inputs:&lt;/p&gt;
-&lt;p&gt;&lt;span class=&quot;math display&quot;&gt;\[z_i=\Bbb I[x_i&amp;gt;0]x^2_i=\begin{cases}x^2_i &amp;amp; if \ x_i&amp;gt;0\\
-0&amp;amp;otherwise
- \end{cases}\]&lt;/span&gt;&lt;/p&gt;
-&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode lua&quot;&gt;&lt;code class=&quot;sourceCode lua&quot;&gt;&lt;span class=&quot;fu&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;nn&amp;#39;&lt;/span&gt;
-
-&lt;span class=&quot;kw&quot;&gt;local&lt;/span&gt; ReQU &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; torch&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;class&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;&amp;#39;nn.ReQU&amp;#39;&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;nn.Module&amp;#39;&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;kw&quot;&gt;function&lt;/span&gt; ReQU:updateOutput&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;input&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;co&quot;&gt;-- TODO&lt;/span&gt;
-  self&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;output:resizeAs&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;input&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;:copy&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;input&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
-  self&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;output&lt;span class=&quot;ot&quot;&gt;[&lt;/span&gt;torch&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;lt&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;self&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;output&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;)]&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt;
-  self&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;output:pow&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;co&quot;&gt;-- ...something here...&lt;/span&gt;
-  &lt;span class=&quot;kw&quot;&gt;return&lt;/span&gt; self&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;output
-&lt;span class=&quot;kw&quot;&gt;end&lt;/span&gt;
-
-&lt;span class=&quot;kw&quot;&gt;function&lt;/span&gt; ReQU:updateGradInput&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;input&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; gradOutput&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;co&quot;&gt;-- TODO&lt;/span&gt;
-  self&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;gradInput:resizeAs&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;gradOutput&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;:copy&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;gradOutput&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
-  self&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;gradInput&lt;span class=&quot;ot&quot;&gt;[&lt;/span&gt;torch&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;lt&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;input&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;)]&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt;
-  self&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;gradInput:mul&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;:cmul&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;input&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;co&quot;&gt;-- ...something here...&lt;/span&gt;
-  &lt;span class=&quot;kw&quot;&gt;return&lt;/span&gt; self&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;gradInput
-&lt;span class=&quot;kw&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-</description>
-				<pubDate>Mon, 17 Aug 2015 00:00:00 +0800</pubDate>
-				<link>/foundation/lua/2015/08/17/the-requ-unit.html</link>
-				<guid isPermaLink="true">/foundation/lua/2015/08/17/the-requ-unit.html</guid>
-			</item>
-		
-			<item>
-				<title>optim package</title>
-				<description>&lt;h1 id=&quot;optimization-package&quot;&gt;Optimization package&lt;/h1&gt;
-&lt;p&gt;This package contains several optimization routines for &lt;a href=&quot;https://github.com/torch/torch7/blob/master/README.md&quot;&gt;Torch&lt;/a&gt;. Each optimization algorithm is based on the same interface:&lt;/p&gt;
-&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode lua&quot;&gt;&lt;code class=&quot;sourceCode lua&quot;&gt;x&lt;span class=&quot;ot&quot;&gt;*,&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;{&lt;/span&gt;f&lt;span class=&quot;ot&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;...&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; optim&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;method&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;func&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; x&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; state&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;where:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;func&lt;/code&gt;: a user-defined closure that respects this API: &lt;span class=&quot;math inline&quot;&gt;\((f, df/dx) = func(x)\)&lt;/span&gt;. Here &lt;span class=&quot;math inline&quot;&gt;\(f\)&lt;/span&gt; could be the &lt;span class=&quot;math inline&quot;&gt;\(loss\)&lt;/span&gt; for the network.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;x&lt;/code&gt;: the current parameter vector (a 1D &lt;code&gt;torch.Tensor&lt;/code&gt;)&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;state&lt;/code&gt;: a table of parameters, and state variables, dependent upon the algorithm&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;x*&lt;/code&gt;: the new parameter vector that minimizes &lt;span class=&quot;math inline&quot;&gt;\(f\)&lt;/span&gt;, &lt;span class=&quot;math inline&quot;&gt;\(x^* = argmin_x f(x)\)&lt;/span&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;{f}&lt;/code&gt;: a table of all f values, in the order they’ve been evaluated (for some simple algorithms, like SGD, &lt;code&gt;#f == 1&lt;/code&gt;)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&quot;important-note&quot;&gt;Important Note&lt;/h2&gt;
-&lt;p&gt;The state table is used to hold the state of the algorihtm. It’s usually initialized once, by the user, and then passed to the optim function as a black box. Example:&lt;/p&gt;
-&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode lua&quot;&gt;&lt;code class=&quot;sourceCode lua&quot;&gt;state &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;{&lt;/span&gt;
-   learningRate &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;1e-3&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt;
-   momentum &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;0.5&lt;/span&gt;
-&lt;span class=&quot;ot&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;kw&quot;&gt;for&lt;/span&gt; i&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt;sample &lt;span class=&quot;kw&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;fu&quot;&gt;ipairs&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;training_samples&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;do&lt;/span&gt;
-    &lt;span class=&quot;kw&quot;&gt;local&lt;/span&gt; func &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
-       &lt;span class=&quot;co&quot;&gt;-- define eval function&lt;/span&gt;
-       &lt;span class=&quot;kw&quot;&gt;return&lt;/span&gt; f&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt;df_dx
-    &lt;span class=&quot;kw&quot;&gt;end&lt;/span&gt;
-    optim&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;sgd&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;func&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt;x&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt;state&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;kw&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-</description>
-				<pubDate>Fri, 14 Aug 2015 00:00:00 +0800</pubDate>
-				<link>/lua/2015/08/14/optim-package.html</link>
-				<guid isPermaLink="true">/lua/2015/08/14/optim-package.html</guid>
-			</item>
-		
-			<item>
-				<title>Jacobian</title>
-				<description>Liquid error: invalid byte sequence in GBK</description>
-				<pubDate>Fri, 14 Aug 2015 00:00:00 +0800</pubDate>
-				<link>/foundation/2015/08/14/jacobian.html</link>
-				<guid isPermaLink="true">/foundation/2015/08/14/jacobian.html</guid>
-			</item>
-		
-			<item>
-				<title>Energy Function</title>
-				<description>&lt;p&gt;&lt;img src=&quot;/assets/images/3.jpg&quot; alt=&quot;能量函数描述&quot; /&gt; 能量函数&lt;/p&gt;
-</description>
-				<pubDate>Thu, 13 Aug 2015 00:00:00 +0800</pubDate>
-				<link>/foundation/2015/08/13/energy-function.html</link>
-				<guid isPermaLink="true">/foundation/2015/08/13/energy-function.html</guid>
-			</item>
-		
-			<item>
-				<title>Analysis of Discrete Data|STAT 504</title>
-				<description>&lt;p&gt;&lt;a href=&quot;https://onlinecourses.science.psu.edu/statprogram/node/153&quot;&gt;来源&lt;/a&gt;&lt;/p&gt;
-&lt;h1 id=&quot;matrix-algebra-review&quot;&gt;Matrix Algebra Review&lt;/h1&gt;
-&lt;p&gt;To multiply two vectors with the same length together is to take the &lt;strong&gt;dot product&lt;/strong&gt;, also called &lt;strong&gt;inner product&lt;/strong&gt;. &lt;img src=&quot;/assets/images/1.jpg&quot; alt=&quot;&quot; /&gt; &lt;a href=&quot;https://onlinecourses.science.psu.edu/statprogram/node/153&quot;&gt;Advanced Matrix Properties&lt;/a&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;5.1 - Advanced Matrix Properties&lt;/li&gt;
-&lt;li&gt;5.2 - Range, Nullspace, and Projections&lt;/li&gt;
-&lt;li&gt;5.3 - Gauss-Jordan Elimination&lt;/li&gt;
-&lt;li&gt;5.4 - Eigendecomposition&lt;/li&gt;
-&lt;/ul&gt;
-&lt;figure&gt;
-&lt;img src=&quot;/assets/images/2.jpg&quot; alt=&quot;&quot; /&gt;
+				<title>求导公式</title>
+				<description>&lt;figure&gt;
+&lt;img src=&quot;/assets/images/9.png&quot; alt=&quot;求导公式&quot; /&gt;&lt;figcaption&gt;求导公式&lt;/figcaption&gt;
 &lt;/figure&gt;
 </description>
-				<pubDate>Thu, 13 Aug 2015 00:00:00 +0800</pubDate>
-				<link>/foundation/2015/08/13/analysis-of-discrete-data-stat-504.html</link>
-				<guid isPermaLink="true">/foundation/2015/08/13/analysis-of-discrete-data-stat-504.html</guid>
+				<pubDate>Fri, 06 Nov 2015 00:00:00 +0800</pubDate>
+				<link>/foundation/2015/11/06/derivative-formula.html</link>
+				<guid isPermaLink="true">/foundation/2015/11/06/derivative-formula.html</guid>
+			</item>
+		
+			<item>
+				<title>second derivative & Hessian matrix</title>
+				<description>&lt;p&gt;We are also sometimes interested in a derivative of a derivative. This is known as a &lt;em&gt;second derivative&lt;/em&gt;. For example, &lt;span class=&quot;math inline&quot;&gt;\(\frac{\partial ^2}{\partial x_i \partial x_j}f\)&lt;/span&gt; is the derivative with respect to &lt;span class=&quot;math inline&quot;&gt;\(x_i\)&lt;/span&gt; of the derivative of &lt;span class=&quot;math inline&quot;&gt;\(f\)&lt;/span&gt; with respect to &lt;span class=&quot;math inline&quot;&gt;\(x_j\)&lt;/span&gt;. Note that the order of derivativation can be swapped, so that &lt;span class=&quot;math inline&quot;&gt;\(\frac{\partial ^2}{\partial x_i \partial x_j}f = \frac{\partial ^2}{\partial x_j \partial x_i}f\)&lt;/span&gt;. In a single dimension, we can denote &lt;span class=&quot;math inline&quot;&gt;\(\frac{d^2}{dx^2}f\)&lt;/span&gt; by &lt;span class=&quot;math inline&quot;&gt;\(f&amp;#39;&amp;#39;(x)\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;The second derivative tells us how the first derivative will change as we vary the input. This means it can be useful for determining whether a critical point is a local maximum , a local minimum, or saddle point. Recall that on a critical point, &lt;span class=&quot;math inline&quot;&gt;\(f&amp;#39;(x)=0\)&lt;/span&gt;. When &lt;span class=&quot;math inline&quot;&gt;\(f&amp;#39;&amp;#39;(x)&amp;gt;0\)&lt;/span&gt;, this means that &lt;span class=&quot;math inline&quot;&gt;\(f&amp;#39;(x)\)&lt;/span&gt; increases as we move to the right, and &lt;span class=&quot;math inline&quot;&gt;\(f&amp;#39;(x)\)&lt;/span&gt; decreases as we move to the left. This means &lt;span class=&quot;math inline&quot;&gt;\(f&amp;#39;(x-\epsilon)&amp;lt;0\)&lt;/span&gt; and &lt;span class=&quot;math inline&quot;&gt;\(f&amp;#39;(x+\epsilon)&amp;gt;0\)&lt;/span&gt; for small enough &lt;span class=&quot;math inline&quot;&gt;\(\epsilon\)&lt;/span&gt;. In other words, as we move right, the slope begins to point uphill to the right, and as we move left, the slope begins to point uphill to the left. Thus, when &lt;span class=&quot;math inline&quot;&gt;\(f&amp;#39;(x)=0\)&lt;/span&gt; and &lt;span class=&quot;math inline&quot;&gt;\(f&amp;#39;&amp;#39;(x)&amp;gt;0\)&lt;/span&gt;, we can conclude that &lt;span class=&quot;math inline&quot;&gt;\(x\)&lt;/span&gt; is a &lt;strong&gt;local minimum&lt;/strong&gt;. Similarly, when &lt;span class=&quot;math inline&quot;&gt;\(f&amp;#39;(x)=0\)&lt;/span&gt; and &lt;span class=&quot;math inline&quot;&gt;\(f&amp;#39;&amp;#39;(x)&amp;lt;0\)&lt;/span&gt;, we can conclude that &lt;span class=&quot;math inline&quot;&gt;\(x\)&lt;/span&gt; is a local &lt;strong&gt;local maximum&lt;/strong&gt;. This is known as the &lt;em&gt;second derivative test&lt;/em&gt;. Unfortunately, when &lt;span class=&quot;math inline&quot;&gt;\(f&amp;#39;&amp;#39;(x)=0\)&lt;/span&gt;, the test is inconclusive. In this case &lt;span class=&quot;math inline&quot;&gt;\(x\)&lt;/span&gt; may be a saddle point, or a part of a flat region.&lt;/p&gt;
+&lt;p&gt;In multiple dimensions, we need to examine all of the second derivatives of the function. These derivatives can be collected together into a matrix called the &lt;em&gt;Hessian matrix&lt;/em&gt;. The Hessian matrix &lt;span class=&quot;math inline&quot;&gt;\(H(f)(x)\)&lt;/span&gt; is defined such that &lt;span class=&quot;math display&quot;&gt;\[
+H(f)(x)_{i,j} = \frac{\partial ^2}{\partial x_i \partial x_j}f(x).
+\]&lt;/span&gt; Equivalently, the Hessian is the Jacobian of the gradient.&lt;/p&gt;
+&lt;p&gt;Anywhere that the second partial derivatives are continuous, the differential operators are commutative: &lt;span class=&quot;math display&quot;&gt;\[
+\frac{\partial ^2}{\partial x_i \partial x_j}f(x)=\frac{\partial ^2}{\partial x_j \partial x_i}f(x)
+\]&lt;/span&gt; This implies that &lt;span class=&quot;math inline&quot;&gt;\(h_{i,j}=h_{j,i}\)&lt;/span&gt;, so the Hessian matrix is symmetric at such points (which includes nearly all inputs to nearly all functions we encounter in deep learning). Because the Hessian matrix is real and symmetric, we can decompose it into a set of real eigenvalues and an orthogonal basis of eigenvectors. Using the eigendecomposition Hessian matrix, we can generalize the second derivative test to multiple dimensions. At a critical point, where &lt;span class=&quot;math inline&quot;&gt;\(\nabla_xf(x)=0\)&lt;/span&gt;, we can examine the eigenvalues of the Hessian to determine whether the critical point is a local maximum, local minimum, or saddle point. When the Hessian is positive definite (all its eigenvalues are positive), the point is a &lt;em&gt;local minimum&lt;/em&gt;. This can be seen by observing that the directional second derivative in any direction must be positive, and making reference to the univariate second derivative test. Likewise, when the Hessian is negative definite (all its eigenvalues are negative), the point is a &lt;em&gt;local maximum&lt;/em&gt;. In multiple dimensions, it is actually possible to find positive evidence of saddle points in some cases. When at least one eigenvalue is positive and at least on eigenvalue is negative, we known that &lt;span class=&quot;math inline&quot;&gt;\(x\)&lt;/span&gt; is a local maximum on one across section of &lt;span class=&quot;math inline&quot;&gt;\(f\)&lt;/span&gt; but a local minimum on another cross section. Finally, the multidimensional second derivative test can be inconclusive, just like the univariate version. The test is inconclusive whenever all of the non-zero eigenvalues have the same sign, but at least one eigenvalue is zero. This is because the univariate second derivative test is inconclusive in the cross section corresponding to the zero eigenvalue.&lt;/p&gt;
+&lt;p&gt;The Hessian can also be useful for understanding the performance of gradient descent. When the Hessian has a poor condition number, gradient descent performs poorly. This is because in one direction, the derivative increases rapidly, while in another direction, it increases slowly. Gradient descent is unaware of this change in the derivative so it does not know that it needs to explore preferentially in the direction where the derivative remains negative for longer.&lt;/p&gt;
+</description>
+				<pubDate>Thu, 22 Oct 2015 00:00:00 +0800</pubDate>
+				<link>/foundation/2015/10/22/second-derivative-and-hessian-matrix.html</link>
+				<guid isPermaLink="true">/foundation/2015/10/22/second-derivative-and-hessian-matrix.html</guid>
+			</item>
+		
+			<item>
+				<title>Determinant</title>
+				<description>&lt;p&gt;The determinant of a square matrix, denoted &lt;span class=&quot;math inline&quot;&gt;\(det(A)\)&lt;/span&gt;, is a function mapping matrices to real scalars. The determinant is equal to the product of all the matrix’s eigenvalues. The absolute value of the determinant can be thought of as a measure of how much multiplication by the matrix expands or contracts space. If the determinant is 0, then space is contracted completely along at least one dimension, causing it to lose all of its volume. If the determinant is 1, then the transformation is volume-preserving.&lt;/p&gt;
+</description>
+				<pubDate>Thu, 22 Oct 2015 00:00:00 +0800</pubDate>
+				<link>/foundation/2015/10/22/determinant.html</link>
+				<guid isPermaLink="true">/foundation/2015/10/22/determinant.html</guid>
+			</item>
+		
+			<item>
+				<title>linear regression example</title>
+				<description>&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode lua&quot;&gt;&lt;code class=&quot;sourceCode lua&quot;&gt;&lt;span class=&quot;co&quot;&gt;----------------------------------------------------------------------&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- example-linear-regression.lua&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- &lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- This script provides a very simple step-by-step example of&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- linear regression, using Torch7&amp;#39;s neural network (nn) package,&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- and the optimization package (optim).&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;--&lt;/span&gt;
+
+&lt;span class=&quot;co&quot;&gt;-- note: to run this script, simply do:&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- torch script.lua&lt;/span&gt;
+
+&lt;span class=&quot;co&quot;&gt;-- to run the script, and get an interactive shell once it terminates:&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- torch -i script.lua&lt;/span&gt;
+
+&lt;span class=&quot;co&quot;&gt;-- we first require the necessary packages.&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- note: optim is a 3rd-party package, and needs to be installed&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- separately. This can be easily done using Torch7&amp;#39;s package manager:&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- torch-pkg install optim&lt;/span&gt;
+
+&lt;span class=&quot;fu&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;torch&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;fu&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;optim&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;fu&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;nn&amp;#39;&lt;/span&gt;
+
+
+&lt;span class=&quot;co&quot;&gt;----------------------------------------------------------------------&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- 1. Create the training data&lt;/span&gt;
+
+&lt;span class=&quot;co&quot;&gt;-- In all regression problems, some training data needs to be &lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- provided. In a realistic scenarios, data comes from some database&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- or file system, and needs to be loaded from disk. In that &lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- tutorial, we create the data source as a Lua table.&lt;/span&gt;
+
+&lt;span class=&quot;co&quot;&gt;-- In general, the data can be stored in arbitrary forms, and using&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- Lua&amp;#39;s flexible table data structure is usually a good idea. &lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- Here we store the data as a Torch Tensor (2D Array), where each&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- row represents a training sample, and each column a variable. The&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- first column is the target variable, and the others are the&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- input variables.&lt;/span&gt;
+
+&lt;span class=&quot;co&quot;&gt;-- The data are from an example in Schaum&amp;#39;s Outline:&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- Dominick Salvator and Derrick Reagle&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- Shaum&amp;#39;s Outline of Theory and Problems of Statistics and Economics&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- 2nd edition&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- McGraw-Hill&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- 2002&lt;/span&gt;
+
+&lt;span class=&quot;co&quot;&gt;-- The data relate the amount of corn produced, given certain amounts&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- of fertilizer and insecticide. See p 157 of the text.&lt;/span&gt;
+
+&lt;span class=&quot;co&quot;&gt;-- In this example, we want to be able to predict the amount of&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- corn produced, given the amount of fertilizer and intesticide used.&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- In other words: fertilizer &amp;amp; insecticide are our two input variables,&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- and corn is our target value.&lt;/span&gt;
+
+&lt;span class=&quot;co&quot;&gt;--  {corn, fertilizer, insecticide}&lt;/span&gt;
+data &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; torch&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;Tensor&lt;span class=&quot;ot&quot;&gt;{&lt;/span&gt;
+   &lt;span class=&quot;ot&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;40&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;},&lt;/span&gt;
+   &lt;span class=&quot;ot&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;44&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;},&lt;/span&gt;
+   &lt;span class=&quot;ot&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;46&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;12&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;},&lt;/span&gt;
+   &lt;span class=&quot;ot&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;48&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;14&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;},&lt;/span&gt;
+   &lt;span class=&quot;ot&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;52&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;},&lt;/span&gt;
+   &lt;span class=&quot;ot&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;58&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;18&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;12&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;},&lt;/span&gt;
+   &lt;span class=&quot;ot&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;60&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;22&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;14&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;},&lt;/span&gt;
+   &lt;span class=&quot;ot&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;68&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;24&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;},&lt;/span&gt;
+   &lt;span class=&quot;ot&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;74&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;26&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;21&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;},&lt;/span&gt;
+   &lt;span class=&quot;ot&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;80&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;32&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;24&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;ot&quot;&gt;}&lt;/span&gt;
+
+
+&lt;span class=&quot;co&quot;&gt;----------------------------------------------------------------------&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- 2. Define the model (predictor)&lt;/span&gt;
+
+&lt;span class=&quot;co&quot;&gt;-- The model will have one layer (called a module), which takes the &lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- 2 inputs (fertilizer and insecticide) and produces the 1 output &lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- (corn).&lt;/span&gt;
+
+&lt;span class=&quot;co&quot;&gt;-- Note that the Linear model specified below has 3 parameters:&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;--   1 for the weight assigned to fertilizer&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;--   1 for the weight assigned to insecticide&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;--   1 for the weight assigned to the bias term&lt;/span&gt;
+
+&lt;span class=&quot;co&quot;&gt;-- In some other model specification schemes, one needs to augment the&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- training data to include a constant value of 1, but this isn&amp;#39;t done&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- with the linear model.&lt;/span&gt;
+
+&lt;span class=&quot;co&quot;&gt;-- The linear model must be held in a container. A sequential container&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- is appropriate since the outputs of each module become the inputs of &lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- the subsequent module in the model. In this case, there is only one&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- module. In more complex cases, multiple modules can be stacked using&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- the sequential container.&lt;/span&gt;
+
+&lt;span class=&quot;co&quot;&gt;-- The modules are all defined in the neural network package, which is&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- named &amp;#39;nn&amp;#39;.&lt;/span&gt;
+
+model &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; nn&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;Sequential&lt;span class=&quot;ot&quot;&gt;()&lt;/span&gt;                 &lt;span class=&quot;co&quot;&gt;-- define the container&lt;/span&gt;
+ninputs &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;;&lt;/span&gt; noutputs &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;
+model:add&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;nn&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;Linear&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;ninputs&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; noutputs&lt;span class=&quot;ot&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;co&quot;&gt;-- define the only module&lt;/span&gt;
+
+
+&lt;span class=&quot;co&quot;&gt;----------------------------------------------------------------------&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- 3. Define a loss function, to be minimized.&lt;/span&gt;
+
+&lt;span class=&quot;co&quot;&gt;-- In that example, we minimize the Mean Square Error (MSE) between&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- the predictions of our linear model and the groundtruth available&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- in the dataset.&lt;/span&gt;
+
+&lt;span class=&quot;co&quot;&gt;-- Torch provides many common criterions to train neural networks.&lt;/span&gt;
+
+criterion &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; nn&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;MSECriterion&lt;span class=&quot;ot&quot;&gt;()&lt;/span&gt;
+
+
+&lt;span class=&quot;co&quot;&gt;----------------------------------------------------------------------&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- 4. Train the model&lt;/span&gt;
+
+&lt;span class=&quot;co&quot;&gt;-- To minimize the loss defined above, using the linear model defined&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- in &amp;#39;model&amp;#39;, we follow a stochastic gradient descent procedure (SGD).&lt;/span&gt;
+
+&lt;span class=&quot;co&quot;&gt;-- SGD is a good optimization algorithm when the amount of training data&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- is large, and estimating the gradient of the loss function over the &lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- entire training set is too costly.&lt;/span&gt;
+
+&lt;span class=&quot;co&quot;&gt;-- Given an arbitrarily complex model, we can retrieve its trainable&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- parameters, and the gradients of our loss function wrt these &lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- parameters by doing so:&lt;/span&gt;
+
+x&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; dl_dx &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; model:getParameters&lt;span class=&quot;ot&quot;&gt;()&lt;/span&gt;
+
+&lt;span class=&quot;co&quot;&gt;-- In the following code, we define a closure, feval, which computes&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- the value of the loss function at a given point x, and the gradient of&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- that function with respect to x. x is the vector of trainable weights,&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- which, in this example, are all the weights of the linear matrix of&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- our model, plus one bias.&lt;/span&gt;
+
+feval &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;x_new&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+   &lt;span class=&quot;co&quot;&gt;-- set x to x_new, if differnt&lt;/span&gt;
+   &lt;span class=&quot;co&quot;&gt;-- (in this simple example, x_new will typically always point to x,&lt;/span&gt;
+   &lt;span class=&quot;co&quot;&gt;-- so the copy is really useless)&lt;/span&gt;
+   &lt;span class=&quot;kw&quot;&gt;if&lt;/span&gt; x &lt;span class=&quot;ot&quot;&gt;~=&lt;/span&gt; x_new &lt;span class=&quot;kw&quot;&gt;then&lt;/span&gt;
+      x:copy&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;x_new&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+   &lt;span class=&quot;kw&quot;&gt;end&lt;/span&gt;
+
+   &lt;span class=&quot;co&quot;&gt;-- select a new training sample&lt;/span&gt;
+   _nidx_ &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;_nidx_ &lt;span class=&quot;kw&quot;&gt;or&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;
+   &lt;span class=&quot;kw&quot;&gt;if&lt;/span&gt; _nidx_ &lt;span class=&quot;ot&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;(#&lt;/span&gt;data&lt;span class=&quot;ot&quot;&gt;)[&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;then&lt;/span&gt; _nidx_ &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;end&lt;/span&gt;
+
+   &lt;span class=&quot;kw&quot;&gt;local&lt;/span&gt; sample &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; data&lt;span class=&quot;ot&quot;&gt;[&lt;/span&gt;_nidx_&lt;span class=&quot;ot&quot;&gt;]&lt;/span&gt;
+   &lt;span class=&quot;kw&quot;&gt;local&lt;/span&gt; target &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; sample&lt;span class=&quot;ot&quot;&gt;[{&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;}]&lt;/span&gt;      &lt;span class=&quot;co&quot;&gt;-- this funny looking syntax allows&lt;/span&gt;
+   &lt;span class=&quot;kw&quot;&gt;local&lt;/span&gt; inputs &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; sample&lt;span class=&quot;ot&quot;&gt;[{&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;}]&lt;/span&gt;    &lt;span class=&quot;co&quot;&gt;-- slicing of arrays.&lt;/span&gt;
+
+   &lt;span class=&quot;co&quot;&gt;-- reset gradients (gradients are always accumulated, to accomodate &lt;/span&gt;
+   &lt;span class=&quot;co&quot;&gt;-- batch methods)&lt;/span&gt;
+   dl_dx:zero&lt;span class=&quot;ot&quot;&gt;()&lt;/span&gt;
+
+   &lt;span class=&quot;co&quot;&gt;-- evaluate the loss function and its derivative wrt x, for that sample&lt;/span&gt;
+   &lt;span class=&quot;kw&quot;&gt;local&lt;/span&gt; loss_x &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; criterion:forward&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;model:forward&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;inputs&lt;span class=&quot;ot&quot;&gt;),&lt;/span&gt; target&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+   model:backward&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;inputs&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; criterion:backward&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;model&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;output&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; target&lt;span class=&quot;ot&quot;&gt;))&lt;/span&gt;
+
+   &lt;span class=&quot;co&quot;&gt;-- return loss(x) and dloss/dx&lt;/span&gt;
+   &lt;span class=&quot;kw&quot;&gt;return&lt;/span&gt; loss_x&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; dl_dx
+&lt;span class=&quot;kw&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;co&quot;&gt;-- Given the function above, we can now easily train the model using SGD.&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- For that, we need to define four key parameters:&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;--   + a learning rate: the size of the step taken at each stochastic &lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;--     estimate of the gradient&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;--   + a weight decay, to regularize the solution (L2 regularization)&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;--   + a momentum term, to average steps over time&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;--   + a learning rate decay, to let the algorithm converge more precisely&lt;/span&gt;
+
+sgd_params &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;{&lt;/span&gt;
+   learningRate &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;1e-3&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt;
+   learningRateDecay &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;1e-4&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt;
+   weightDecay &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt;
+   momentum &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt;
+&lt;span class=&quot;ot&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;co&quot;&gt;-- We&amp;#39;re now good to go... all we have left to do is run over the dataset&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- for a certain number of iterations, and perform a stochastic update &lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- at each iteration. The number of iterations is found empirically here,&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- but should typically be determinined using cross-validation.&lt;/span&gt;
+
+&lt;span class=&quot;co&quot;&gt;-- we cycle 1e4 times over our training data&lt;/span&gt;
+&lt;span class=&quot;kw&quot;&gt;for&lt;/span&gt; i &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;1e4&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;do&lt;/span&gt;
+
+   &lt;span class=&quot;co&quot;&gt;-- this variable is used to estimate the average loss&lt;/span&gt;
+   current_loss &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt;
+
+   &lt;span class=&quot;co&quot;&gt;-- an epoch is a full loop over our training data&lt;/span&gt;
+   &lt;span class=&quot;kw&quot;&gt;for&lt;/span&gt; i &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,(#&lt;/span&gt;data&lt;span class=&quot;ot&quot;&gt;)[&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;do&lt;/span&gt;
+
+      &lt;span class=&quot;co&quot;&gt;-- optim contains several optimization algorithms. &lt;/span&gt;
+      &lt;span class=&quot;co&quot;&gt;-- All of these algorithms assume the same parameters:&lt;/span&gt;
+      &lt;span class=&quot;co&quot;&gt;--   + a closure that computes the loss, and its gradient wrt to x, &lt;/span&gt;
+      &lt;span class=&quot;co&quot;&gt;--     given a point x&lt;/span&gt;
+      &lt;span class=&quot;co&quot;&gt;--   + a point x&lt;/span&gt;
+      &lt;span class=&quot;co&quot;&gt;--   + some parameters, which are algorithm-specific&lt;/span&gt;
+      
+      _&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt;fs &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; optim&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;sgd&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;feval&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt;x&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt;sgd_params&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+
+      &lt;span class=&quot;co&quot;&gt;-- Functions in optim all return two things:&lt;/span&gt;
+      &lt;span class=&quot;co&quot;&gt;--   + the new x, found by the optimization method (here SGD)&lt;/span&gt;
+      &lt;span class=&quot;co&quot;&gt;--   + the value of the loss functions at all points that were used by&lt;/span&gt;
+      &lt;span class=&quot;co&quot;&gt;--     the algorithm. SGD only estimates the function once, so&lt;/span&gt;
+      &lt;span class=&quot;co&quot;&gt;--     that list just contains one value.&lt;/span&gt;
+
+      current_loss &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; current_loss &lt;span class=&quot;ot&quot;&gt;+&lt;/span&gt; fs&lt;span class=&quot;ot&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;]&lt;/span&gt;
+   &lt;span class=&quot;kw&quot;&gt;end&lt;/span&gt;
+
+   &lt;span class=&quot;co&quot;&gt;-- report average error on epoch&lt;/span&gt;
+   current_loss &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; current_loss &lt;span class=&quot;ot&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;(#&lt;/span&gt;data&lt;span class=&quot;ot&quot;&gt;)[&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;]&lt;/span&gt;
+   &lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;&amp;#39;current loss = &amp;#39;&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;..&lt;/span&gt; current_loss&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;kw&quot;&gt;end&lt;/span&gt;
+
+
+&lt;span class=&quot;co&quot;&gt;----------------------------------------------------------------------&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- 5. Test the trained model.&lt;/span&gt;
+
+&lt;span class=&quot;co&quot;&gt;-- Now that the model is trained, one can test it by evaluating it&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- on new samples.&lt;/span&gt;
+
+&lt;span class=&quot;co&quot;&gt;-- The text solves the model exactly using matrix techniques and determines&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- that &lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;--   corn = 31.98 + 0.65 * fertilizer + 1.11 * insecticides&lt;/span&gt;
+
+&lt;span class=&quot;co&quot;&gt;-- We compare our approximate results with the text&amp;#39;s results.&lt;/span&gt;
+
+text &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;40.32&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;42.92&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;45.33&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;48.85&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;52.37&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;57&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;61.82&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;69.78&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;72.19&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;79.42&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;&amp;#39;id  approx   text&amp;#39;&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kw&quot;&gt;for&lt;/span&gt; i &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,(#&lt;/span&gt;data&lt;span class=&quot;ot&quot;&gt;)[&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;do&lt;/span&gt;
+   &lt;span class=&quot;kw&quot;&gt;local&lt;/span&gt; myPrediction &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; model:forward&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;data&lt;span class=&quot;ot&quot;&gt;[&lt;/span&gt;i&lt;span class=&quot;ot&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;])&lt;/span&gt;
+   &lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;fu&quot;&gt;string.format&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;&amp;quot;%2d  %6.2f %6.2f&amp;quot;&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; i&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; myPrediction&lt;span class=&quot;ot&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;],&lt;/span&gt; text&lt;span class=&quot;ot&quot;&gt;[&lt;/span&gt;i&lt;span class=&quot;ot&quot;&gt;]))&lt;/span&gt;
+&lt;span class=&quot;kw&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+</description>
+				<pubDate>Mon, 14 Sep 2015 00:00:00 +0800</pubDate>
+				<link>/lua/2015/09/14/linear-regression-example.html</link>
+				<guid isPermaLink="true">/lua/2015/09/14/linear-regression-example.html</guid>
+			</item>
+		
+			<item>
+				<title>Improving the way neural networks learn</title>
+				<description>&lt;p&gt;&lt;a href=&quot;http://neuralnetworksanddeeplearning.com/chap3.html&quot;&gt;LINK&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;why-sigmoid-quadratic-cost-function-learning-slow&quot;&gt;Why sigmoid + quadratic cost function learning slow?&lt;/h2&gt;
+&lt;p&gt;The quadratic cost function is given by &lt;span class=&quot;math display&quot;&gt;\[
+C=\frac {(y-a)^2}{2} \tag 1
+\]&lt;/span&gt; where &lt;span class=&quot;math inline&quot;&gt;\(a\)&lt;/span&gt; is the neuron’s output. &lt;span class=&quot;math inline&quot;&gt;\(a=\sigma (z)\)&lt;/span&gt;, where &lt;span class=&quot;math inline&quot;&gt;\(z=wx+b\)&lt;/span&gt;. Using the chain rule to differentiate with respect to the weight and bias we get &lt;span class=&quot;math display&quot;&gt;\[
+  \frac{\partial C}{\partial w}  =  (a-y)\sigma&amp;#39;(z) x = a \sigma&amp;#39;(z) \tag{2}\]&lt;/span&gt; &lt;span class=&quot;math display&quot;&gt;\[
+  \frac{\partial C}{\partial b}  =  (a-y)\sigma&amp;#39;(z) = a \sigma&amp;#39;(z)
+\tag{3}\]&lt;/span&gt; where I have substituted &lt;span class=&quot;math inline&quot;&gt;\(x=1\)&lt;/span&gt; and &lt;span class=&quot;math inline&quot;&gt;\(y=0\)&lt;/span&gt;. Recall the shape of the &lt;span class=&quot;math inline&quot;&gt;\(\sigma\)&lt;/span&gt; function: &lt;img src=&quot;/assets/images/8.jpg&quot; alt=&quot;sigmoid function&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;We can see from this graph that when the neuron’s output is close to 1, the curve gets very flat, and so &lt;span class=&quot;math inline&quot;&gt;\(\sigma &amp;#39;(z)\)&lt;/span&gt; gets very small. Equations (2) and (3) then tell us that &lt;span class=&quot;math inline&quot;&gt;\(\partial C/\partial w\)&lt;/span&gt; and &lt;span class=&quot;math inline&quot;&gt;\(\partial C/\partial b\)&lt;/span&gt; get very small.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;strong&gt;Using the quadratic cost when we have linear neurons in the output layer&lt;/strong&gt;. Suppose that we have a many-layer multi-neuron network. Suppose all the neurons in the final layer are linear neurons, meaning that the sigmoid activation function is not applied, and the outputs are simply &lt;span class=&quot;math inline&quot;&gt;\(a^L_j=z^L_j\)&lt;/span&gt;. Show that if we use the quadratic cost function then the output error &lt;span class=&quot;math inline&quot;&gt;\(δ^L\)&lt;/span&gt; for a single training example &lt;span class=&quot;math inline&quot;&gt;\(x\)&lt;/span&gt; is given by &lt;span class=&quot;math display&quot;&gt;\[δ^L=a^L−y\]&lt;/span&gt; Similarly to the previous problem, use this expression to show that the partial derivatives with respect to the weights and biases in the output layer are given by
+\begin{eqnarray}
+      \frac{\partial C}{\partial w^L_{jk}} &amp;amp; = &amp;amp; \frac{1}{n} \sum_x 
+      a^{L-1}_k  (a^L_j-y_j) \\
+      \frac{\partial C}{\partial b^L_{j}} &amp;amp; = &amp;amp; \frac{1}{n} \sum_x 
+      (a^L_j-y_j).
+  \end{eqnarray}
+&lt;/blockquote&gt;
+&lt;p&gt;This shows that if the output neurons are linear neurons then the quadratic cost will not give rise to any problems with a learning slowdown. In this case the quadratic cost is, in fact, an appropriate cost function to use.&lt;/p&gt;
+&lt;h2 id=&quot;sigmoid-cross-entropy-cost-function&quot;&gt;sigmoid + cross-entropy cost function&lt;/h2&gt;
+&lt;p&gt;The cross-entropy cost function &lt;span class=&quot;math display&quot;&gt;\[
+C = -\frac{1}{n} \sum_x \left[y \ln a + (1-y ) \ln (1-a) \right] \tag 4
+\]&lt;/span&gt; where &lt;span class=&quot;math inline&quot;&gt;\(n\)&lt;/span&gt; is the total number of items of training data, the sum is over all training inputs, &lt;span class=&quot;math inline&quot;&gt;\(x\)&lt;/span&gt;, and &lt;span class=&quot;math inline&quot;&gt;\(y\)&lt;/span&gt; is the corresponding desired output.&lt;/p&gt;
+The partial derivative of the cross-entropy cost with respect to the weights. We substitute &lt;span class=&quot;math inline&quot;&gt;\(a=\partial (z)\)&lt;/span&gt; into (4), and apply the chain rule twice, obtaining:
+\begin{eqnarray}
+  \frac{\partial C}{\partial w_j} &amp;amp; = &amp;amp; -\frac{1}{n} \sum_x \left(
+    \frac{y }{\sigma(z)} -\frac{(1-y)}{1-\sigma(z)} \right)
+  \frac{\partial \sigma}{\partial w_j} \tag{5}\\
+ &amp;amp; = &amp;amp; -\frac{1}{n} \sum_x \left( 
+    \frac{y}{\sigma(z)} 
+    -\frac{(1-y)}{1-\sigma(z)} \right)\sigma&amp;#39;(z) x_j.
+\tag{6}\end{eqnarray}
+Putting everything over a common denominator and simplifying this becomes:
+\begin{eqnarray}
+  \frac{\partial C}{\partial w_j} &amp;amp; = &amp;amp; \frac{1}{n}
+  \sum_x \frac{\sigma&amp;#39;(z) x_j}{\sigma(z) (1-\sigma(z))}
+  (\sigma(z)-y).
+\tag{7}\end{eqnarray}
+Using the definition of the sigmoid function, &lt;span class=&quot;math inline&quot;&gt;\(\sigma(z) =1/(1+e^{-z})\)&lt;/span&gt;, and a little algebra we can show that &lt;span class=&quot;math inline&quot;&gt;\(\sigma&amp;#39;(z) =\sigma(z)(1-\sigma(z))\)&lt;/span&gt;. We see that the &lt;span class=&quot;math inline&quot;&gt;\(\sigma &amp;#39; (z)\)&lt;/span&gt; and &lt;span class=&quot;math inline&quot;&gt;\(\sigma (z)(1-\sigma (z))\)&lt;/span&gt; terms cancel in the equation just above, and it simplifies to become:
+\begin{eqnarray} 
+  \frac{\partial C}{\partial w_j} =  \frac{1}{n} \sum_x x_j(\sigma(z)-y).
+\tag{8}\end{eqnarray}
+&lt;p&gt;This is a beautiful expression. It tells us that the rate at which the weight learns is controlled by &lt;span class=&quot;math inline&quot;&gt;\(σ(z)−y\)&lt;/span&gt;, i.e., by the error in the output. The larger the error, the faster the neuron will learn. In particular, it avoids the learning slowdown caused by the &lt;span class=&quot;math inline&quot;&gt;\(σ′(z)\)&lt;/span&gt; term in the analogous equation for the quadratic cost, Equation (2).&lt;/p&gt;
+In a similar way, we can compute the partial derivative for the bias.
+\begin{eqnarray} 
+  \frac{\partial C}{\partial b} = \frac{1}{n} \sum_x (\sigma(z)-y).
+\tag{9}\end{eqnarray}
+It’s easy to generalize the cross-entropy to many-neuron multi-layer networks. In particular, suppose &lt;span class=&quot;math inline&quot;&gt;\(y=y_1,y_2,...\)&lt;/span&gt; are the desired values at the output neurons, i.e., the neurons in the final layer, while &lt;span class=&quot;math inline&quot;&gt;\(a^L_1,a^L_2,...\)&lt;/span&gt; are the actual output values. Then we define the cross-entropy by
+\begin{eqnarray} C = -\frac{1}{n} \sum_x \sum_j \left[y_j \ln a^L_j + (1-y_j) \ln (1-a^L_j) \right]. \end{eqnarray}
+&lt;h2 id=&quot;softmax-log-likelihood-cost&quot;&gt;Softmax + log-likelihood cost&lt;/h2&gt;
+In a softmax layer we apply the so-called &lt;span class=&quot;math inline&quot;&gt;\(softmax function\)&lt;/span&gt; to the &lt;span class=&quot;math inline&quot;&gt;\(z^L_j\)&lt;/span&gt;. According to this function, the activation &lt;span class=&quot;math inline&quot;&gt;\(a^L_j\)&lt;/span&gt; of the &lt;span class=&quot;math inline&quot;&gt;\(j\)&lt;/span&gt;th output neuron is
+\begin{eqnarray} 
+  a^L_j = \frac{e^{z^L_j}}{\sum_k e^{z^L_k}},
+\tag{10}\end{eqnarray}
+&lt;p&gt;where in the denominator we sum over all the output neurons.&lt;/p&gt;
+The log-likelihood cost:
+\begin{eqnarray}
+  C \equiv -\ln a^L_y.
+\tag{11}\end{eqnarray}
+The partial derivative:
+\begin{eqnarray}
+  \frac{\partial C}{\partial b^L_j} &amp;amp; = &amp;amp; a^L_j-y_j  \tag{12}\\
+  \frac{\partial C}{\partial w^L_{jk}} &amp;amp; = &amp;amp; a^{L-1}_k (a^L_j-y_j) 
+\tag{13}\end{eqnarray}
+&lt;p&gt;These expressions ensure that we will not encounter a learning slowdown. In fact, it’s useful to think of a softmax output layer with log-likelihood cost as being quite similar to a sigmoid output layer with cross-entropy cost.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Given this similarity, should you use a sigmoid output layer and cross-entropy, or a softmax output layer and log-likelihood? In fact, in many situations both approaches work well. As a more general point of principle, softmax plus log-likelihood is worth using whenever you want to interpret the output activations as probabilities. That’s not always a concern, but can be useful with classification problems (like MNIST) involving disjoint classes.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;overfitting&quot;&gt;overfitting&lt;/h2&gt;
+&lt;p&gt;In general, one of the best ways of reducing overfitting is to increase the size of the training data. With enough training data it is difficult for even a very large network to overfit.&lt;/p&gt;
+</description>
+				<pubDate>Fri, 04 Sep 2015 00:00:00 +0800</pubDate>
+				<link>/foundation/2015/09/04/improving-the-way-neural-networks-learn.html</link>
+				<guid isPermaLink="true">/foundation/2015/09/04/improving-the-way-neural-networks-learn.html</guid>
+			</item>
+		
+			<item>
+				<title>Torch7 Tensor slicing</title>
+				<description>&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode lua&quot;&gt;&lt;code class=&quot;sourceCode lua&quot;&gt;&lt;span class=&quot;co&quot;&gt;----------------------------------------------------------------------&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- slicing.lua&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- &lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- This script demonstrates tensor slicing / manipulation.&lt;/span&gt;
+
+&lt;span class=&quot;co&quot;&gt;-- To run this script, simply do:&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- $ th A_slicing.lua&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;-- and then press &amp;#39;y&amp;#39; or &amp;#39;return&amp;#39; at each step, to keep going.&lt;/span&gt;
+
+&lt;span class=&quot;co&quot;&gt;-- little function to pause execution, and request user input&lt;/span&gt;
+&lt;span class=&quot;kw&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;fu&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;()&lt;/span&gt;
+   &lt;span class=&quot;kw&quot;&gt;local&lt;/span&gt; answer &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;nil&lt;/span&gt;
+   &lt;span class=&quot;kw&quot;&gt;while&lt;/span&gt; answer &lt;span class=&quot;ot&quot;&gt;~=&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;&amp;#39;&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;and&lt;/span&gt; answer &lt;span class=&quot;ot&quot;&gt;~=&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;y&amp;#39;&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;and&lt;/span&gt; answer &lt;span class=&quot;ot&quot;&gt;~=&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;Y&amp;#39;&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;and&lt;/span&gt; neverstall &lt;span class=&quot;ot&quot;&gt;~=&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;true&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;do&lt;/span&gt;
+      &lt;span class=&quot;fu&quot;&gt;io.write&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;&amp;quot;continue ([y]/n/!)? &amp;quot;&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;fu&quot;&gt;io.flush&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;()&lt;/span&gt;
+      answer&lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;fu&quot;&gt;io.read&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;()&lt;/span&gt;
+      &lt;span class=&quot;kw&quot;&gt;if&lt;/span&gt; answer &lt;span class=&quot;ot&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;!&amp;#39;&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;then&lt;/span&gt;
+         neverstall &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;true&lt;/span&gt;
+      &lt;span class=&quot;kw&quot;&gt;end&lt;/span&gt;
+      &lt;span class=&quot;kw&quot;&gt;if&lt;/span&gt; answer &lt;span class=&quot;ot&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;n&amp;#39;&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;then&lt;/span&gt;
+         &lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;&amp;#39;exiting...&amp;#39;&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+         &lt;span class=&quot;fu&quot;&gt;os.exit&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;()&lt;/span&gt;
+      &lt;span class=&quot;kw&quot;&gt;end&lt;/span&gt;
+   &lt;span class=&quot;kw&quot;&gt;end&lt;/span&gt;
+   &lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;kw&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;----------------------------------------------------------------------&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;creating a few tensors&amp;#39;&lt;/span&gt;
+
+t1 &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; torch&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;range&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;75&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;:resize&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;t1 = torch.range(1,75):resize(3,5,5)&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;t1 = &amp;#39;&lt;/span&gt;
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;t1&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+
+t2 &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; torch&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;range&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;25&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;:resize&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;t2 = torch.range(1,25):resize(5,5)&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;t2 = &amp;#39;&lt;/span&gt;
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;t2&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;done.&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;&amp;#39;&lt;/span&gt;
+
+&lt;span class=&quot;fu&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;----------------------------------------------------------------------&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;the most basic slicing is done using the [] operator&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;&amp;#39;&lt;/span&gt;
+
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;t1 =&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt; t1 &lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;t1[2] =&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt; t1&lt;span class=&quot;ot&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;fu&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;----------------------------------------------------------------------&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;t1_1 is a view in the existing t1 tensor: changing the values&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;in t1_1 directly affects t1:&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;&amp;#39;&lt;/span&gt;
+
+t1&lt;span class=&quot;ot&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;]&lt;/span&gt;:fill&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;t1[2]:fill(7)&amp;#39;&lt;/span&gt;
+
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;t1[2] =&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt; t1&lt;span class=&quot;ot&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;t1 =&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt; t1 &lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;fu&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;----------------------------------------------------------------------&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;more complex slicing can be done using the [{}] operator&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;this operator lets you specify one list/number per dimension&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;for example, t2 is a 2-dimensional tensor, therefore&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;we should pass 2 lists/numbers to the [{}] operator:&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;&amp;#39;&lt;/span&gt;
+
+t2_slice1 &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; t2&lt;span class=&quot;ot&quot;&gt;[{&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;{},&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;}]&lt;/span&gt;
+t2_slice2 &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; t2&lt;span class=&quot;ot&quot;&gt;[{&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,{}&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;}]&lt;/span&gt;      &lt;span class=&quot;co&quot;&gt;-- equivalent to t2[2]&lt;/span&gt;
+t2_slice3 &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; t2&lt;span class=&quot;ot&quot;&gt;[{&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;},{}&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;}]&lt;/span&gt;
+t2_slice4 &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; t2&lt;span class=&quot;ot&quot;&gt;[{&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;},{&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;}]&lt;/span&gt;
+t2_slice5 &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; t2&lt;span class=&quot;ot&quot;&gt;[{&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;},{&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;}]&lt;/span&gt;
+t2_slice6 &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; t2&lt;span class=&quot;ot&quot;&gt;[{&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;4&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;}]&lt;/span&gt;
+
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;t2 = &amp;#39;&lt;/span&gt;
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;t2&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;t2[{ {},2 }] =&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;t2_slice1&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;t2[{ 2,{} }] =&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;t2_slice2&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;t2[{ {2},{} }] =&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;t2_slice3&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;t2[{ {1,3},{3,4} }] =&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;t2_slice4&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;t2[{ {3},{4} }] =&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;t2_slice5&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;t2[{ 3,4 }] =&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;t2_slice6&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;fu&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;----------------------------------------------------------------------&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;negative indexes can also be used:&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;&amp;#39;&lt;/span&gt;
+
+t2_slice7 &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; t2&lt;span class=&quot;ot&quot;&gt;[{&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;{},{&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,-&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;}]&lt;/span&gt;
+t2_slice8 &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; t2&lt;span class=&quot;ot&quot;&gt;[{&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,-&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;}]&lt;/span&gt;
+
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;t2[{ {},{2,-2} }] =&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;t2_slice7&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;t2[{ -1,-1 }] =&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;t2_slice8&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;fu&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;----------------------------------------------------------------------&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;in basic Lua, the = operator cannot be overloaded (that speeds up the language parser&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;a lot...), but you can use the [{}] operator to copy tensors, and subtensors:&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;&amp;#39;&lt;/span&gt;
+
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;t3 = torch.Tensor(5)&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;t3[{}] = t2[{ {},1 }]&amp;#39;&lt;/span&gt;
+
+t3 &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; torch&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;Tensor&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+t3&lt;span class=&quot;ot&quot;&gt;[{}]&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; t2&lt;span class=&quot;ot&quot;&gt;[{&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;{},&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;}]&lt;/span&gt;
+
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;t3 =&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;t3&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;fu&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;----------------------------------------------------------------------&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;if you need to slice arbitrary subtensors, you will need to do it in steps:&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;&amp;#39;&lt;/span&gt;
+
+t4 &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; torch&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;Tensor&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+t4&lt;span class=&quot;ot&quot;&gt;[{&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;{},&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;}]&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; t2&lt;span class=&quot;ot&quot;&gt;[{&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;{},&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;}]&lt;/span&gt;
+t4&lt;span class=&quot;ot&quot;&gt;[{&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;{},&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;}]&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; t2&lt;span class=&quot;ot&quot;&gt;[{&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;{},&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;5&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;}]&lt;/span&gt;
+
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;[[&lt;/span&gt;
+&lt;span class=&quot;st&quot;&gt;t4 = torch.Tensor(5,2)&lt;/span&gt;
+&lt;span class=&quot;st&quot;&gt;t4[{ {},1 }] = t2[{ {},2 }]&lt;/span&gt;
+&lt;span class=&quot;st&quot;&gt;t4[{ {},2 }] = t2[{ {},5 }]&lt;/span&gt;
+&lt;span class=&quot;st&quot;&gt;]]&lt;/span&gt;
+
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;t4 =&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;t4&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+</description>
+				<pubDate>Thu, 03 Sep 2015 00:00:00 +0800</pubDate>
+				<link>/lua/2015/09/03/torch7-tensor-slicing.html</link>
+				<guid isPermaLink="true">/lua/2015/09/03/torch7-tensor-slicing.html</guid>
+			</item>
+		
+			<item>
+				<title>Brief overview of backward and forward</title>
+				<description>&lt;p&gt;Let’s say we only feed in one data point.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;out = model:forward(&lt;span class=&quot;math inline&quot;&gt;\(x_i\)&lt;/span&gt;)&lt;/strong&gt; computes &lt;span class=&quot;math inline&quot;&gt;\(f_w(x_i)\)&lt;/span&gt; where &lt;span class=&quot;math inline&quot;&gt;\(f_w\)&lt;/span&gt; is our model with its current parameters &lt;span class=&quot;math inline&quot;&gt;\(w\)&lt;/span&gt;, and stores the result in &lt;strong&gt;out&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;loss = criterion:forward(out, &lt;span class=&quot;math inline&quot;&gt;\(y_i\)&lt;/span&gt;)&lt;/strong&gt; computes the loss &lt;span class=&quot;math inline&quot;&gt;\(\ell (f_w(x_i),y_i)\)&lt;/span&gt; with respect to the true value &lt;span class=&quot;math inline&quot;&gt;\(y_i\)&lt;/span&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;dl_dout = criterion:backward(out, &lt;span class=&quot;math inline&quot;&gt;\(y_i\)&lt;/span&gt;)&lt;/strong&gt; computes &lt;span class=&quot;math inline&quot;&gt;\(\frac{\partial \ell(...)}{\partial f_w(x_i)}\)&lt;/span&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;model:backward(&lt;span class=&quot;math inline&quot;&gt;\(x_i\)&lt;/span&gt;, dl_dout)&lt;/strong&gt; computes &lt;span class=&quot;math inline&quot;&gt;\(\frac{\partial \ell(...)}{\partial w}\)&lt;/span&gt; and stores this gradient in a place we have a reference to, usually called &lt;strong&gt;gradParameters&lt;/strong&gt; in our code.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+				<pubDate>Thu, 03 Sep 2015 00:00:00 +0800</pubDate>
+				<link>/lua/2015/09/03/brief-overview-of-backward-and-forward.html</link>
+				<guid isPermaLink="true">/lua/2015/09/03/brief-overview-of-backward-and-forward.html</guid>
+			</item>
+		
+			<item>
+				<title>Understanding the difficulty of training deep feedforward neural networks</title>
+				<description>&lt;h2 id=&quot;softsign&quot;&gt;softsign&lt;/h2&gt;
+&lt;p&gt;A newly proposed activation function (Bergstra et al., 2009) called the &lt;span class=&quot;math inline&quot;&gt;\(softsign\)&lt;/span&gt;: &lt;span class=&quot;math display&quot;&gt;\[x/(1+|x|)\]&lt;/span&gt; The &lt;span class=&quot;math inline&quot;&gt;\(softsign\)&lt;/span&gt; is similar to the hyperbolic tangent but its tails are quadratic polynomials rather than exponentials, i.e., it approaches its asymptoes much slower.&lt;/p&gt;
+&lt;h2 id=&quot;normalized-initialization&quot;&gt;normalized initialization&lt;/h2&gt;
+&lt;p&gt;&lt;span class=&quot;math display&quot;&gt;\[
+W \sim U \left[ 
+-\frac{\sqrt 6}{\sqrt {n_j+n_{j+1}}},
+\frac{\sqrt 6}{\sqrt {n_j+n_{j+1}}}
+ \right]
+\]&lt;/span&gt;&lt;/p&gt;
+</description>
+				<pubDate>Wed, 02 Sep 2015 00:00:00 +0800</pubDate>
+				<link>/foundation/2015/09/02/understanding-the-difficulty-of-training-deep-feedforward-neural-networks.html</link>
+				<guid isPermaLink="true">/foundation/2015/09/02/understanding-the-difficulty-of-training-deep-feedforward-neural-networks.html</guid>
+			</item>
+		
+			<item>
+				<title>Gated Recurrent Units (GRU)</title>
+				<description>&lt;p&gt;Illustration: &lt;img src=&quot;/assets/images/6.jpg&quot; alt=&quot;Illustration 1&quot; /&gt; &lt;img src=&quot;/assets/images/7.jpg&quot; alt=&quot;Illustration 2&quot; /&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;update gate&lt;/strong&gt; &lt;span class=&quot;math display&quot;&gt;\[
+ u_t=\sigma(W^{u}_xx_t+W^{u}_hh_{t-1})
+ \]&lt;/span&gt; Update gate &lt;span class=&quot;math inline&quot;&gt;\(u\)&lt;/span&gt; controls how much of past state should matter now. If &lt;span class=&quot;math inline&quot;&gt;\(u\)&lt;/span&gt; close to 1, then we can copy information in that unit through many time steps. &lt;strong&gt;Less vanishing gradient.&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;reset gate&lt;/strong&gt; &lt;span class=&quot;math display&quot;&gt;\[
+ r_t=\sigma(W^{r}_xx_t+W^{r}_hh_{t-1})
+ \]&lt;/span&gt; If reset is close to 0, ignore previous hidden state&lt;span class=&quot;math inline&quot;&gt;\(\to\)&lt;/span&gt;Allows model to drop information that is irrelevant in the future.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;new memory&lt;/strong&gt; content &lt;span class=&quot;math display&quot;&gt;\[
+\widetilde h_t=tanh(W^{\widetilde h}_xx_t+r_t\circ W^{\widetilde h}_hh_{t-1})
+\]&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;final memory&lt;/strong&gt; at time step combines current and previous time steps: &lt;span class=&quot;math display&quot;&gt;\[
+h_t=u_t\circ h_{t-1}+(1-u_t)\circ \widetilde h_t
+\]&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+				<pubDate>Mon, 31 Aug 2015 00:00:00 +0800</pubDate>
+				<link>/foundation/2015/08/31/gated-recurrent-units-gru.html</link>
+				<guid isPermaLink="true">/foundation/2015/08/31/gated-recurrent-units-gru.html</guid>
+			</item>
+		
+			<item>
+				<title>Torch7 doc</title>
+				<description>&lt;h2 id=&quot;torch&quot;&gt;torch&lt;/h2&gt;
+&lt;h3 id=&quot;res-torch.clampres-tensor1-min_value-max_value&quot;&gt;[res] torch.clamp([res,] tensor1, min_value, max_value)&lt;/h3&gt;
+&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode lua&quot;&gt;&lt;code class=&quot;sourceCode lua&quot;&gt;&lt;span class=&quot;co&quot;&gt;--[[&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;Clamp all elements in the tensor into the range [min_value, max_value].&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;ie:&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;    y_i = x_i,  if x_i &amp;gt;= min_value or x_i &amp;lt;= max_value&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;    y_i = min_value,  if x_i &lt;/span&gt;&lt;span class=&quot;kw&quot;&gt;&amp;lt; min_value&lt;/span&gt;
+&lt;span class=&quot;ot&quot;&gt;    y_i = &lt;/span&gt;max&lt;span class=&quot;ot&quot;&gt;_value,  if x_i &lt;/span&gt;&lt;span class=&quot;kw&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;co&quot;&gt; max_value &lt;/span&gt;
+
+&lt;span class=&quot;co&quot;&gt;z=torch.clamp(x,0,1) will return a new tensor &lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;with the result of x bounded between 0 and 1.&lt;/span&gt;
+
+&lt;span class=&quot;co&quot;&gt;torch.clamp(z,x,0,1) will put the result in z .&lt;/span&gt;
+
+&lt;span class=&quot;co&quot;&gt;x:clamp(0,1) will perform the clamp operation in place&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;(putting the result in x ).&lt;/span&gt;
+
+&lt;span class=&quot;co&quot;&gt; z:clamp(x,0,1) will put the result in z .  &lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt; ]]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&quot;nn&quot;&gt;nn&lt;/h2&gt;
+&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode lua&quot;&gt;&lt;code class=&quot;sourceCode lua&quot;&gt;nn&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;SplitTable&lt;span class=&quot;ot&quot;&gt;()&lt;/span&gt;    &lt;span class=&quot;co&quot;&gt;-- (N)dim Tensor -&amp;gt; table of (N-1)dim Tensors&lt;/span&gt;
+nn&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;JoinTable&lt;span class=&quot;ot&quot;&gt;()&lt;/span&gt;    &lt;span class=&quot;co&quot;&gt;-- table of (N-1)dim Tensors -&amp;gt; (N)dim Tensor&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;--[[&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;This function returns noutput number of new nodes &lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;that each take a single component of the output of this &lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;node in the order they are returned.&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;]]&lt;/span&gt;
+nngraph&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;Node:split&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;noutput&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&quot;torch.tensor&quot;&gt;torch.Tensor&lt;/h2&gt;
+&lt;h3 id=&quot;result-viewresult-tensor-sizes&quot;&gt;[result] view([result,] tensor, sizes)&lt;/h3&gt;
+&lt;p&gt;Creates a view with different dimensions of the storage associated with &lt;code&gt;tensor&lt;/code&gt;. If &lt;code&gt;result&lt;/code&gt; is not passed, then a new tensor is returned, otherwise its storage is made to point to storage of &lt;code&gt;tensor&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sizes&lt;/code&gt; can either be a &lt;code&gt;torch.LongStorage&lt;/code&gt; or numbers. If one of the dimensions is -1, the size of that dimension is inferred from the rest of the elements.&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode lua&quot;&gt;&lt;code class=&quot;sourceCode lua&quot;&gt;x &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; torch&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;zeros&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;ot&quot;&gt;&amp;gt;&lt;/span&gt; x:view&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+ &lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt;
+ &lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt;
+&lt;span class=&quot;ot&quot;&gt;[&lt;/span&gt;torch&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;DoubleTensor of dimension 2x2&lt;span class=&quot;ot&quot;&gt;]&lt;/span&gt;
+
+&lt;span class=&quot;ot&quot;&gt;&amp;gt;&lt;/span&gt; x:view&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,-&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+ &lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt;
+ &lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt;
+&lt;span class=&quot;ot&quot;&gt;[&lt;/span&gt;torch&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;DoubleTensor of dimension 2x2&lt;span class=&quot;ot&quot;&gt;]&lt;/span&gt;
+
+&lt;span class=&quot;ot&quot;&gt;&amp;gt;&lt;/span&gt; x:view&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;torch&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;LongStorage&lt;span class=&quot;ot&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;})&lt;/span&gt;
+ &lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt;
+ &lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt;
+&lt;span class=&quot;ot&quot;&gt;[&lt;/span&gt;torch&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;DoubleTensor of dimension 2x2&lt;span class=&quot;ot&quot;&gt;]&lt;/span&gt;
+
+&lt;span class=&quot;ot&quot;&gt;&amp;gt;&lt;/span&gt; x
+ &lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt;
+ &lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt;
+ &lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt;
+ &lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt;
+&lt;span class=&quot;ot&quot;&gt;[&lt;/span&gt;torch&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;DoubleTensor of dimension &lt;span class=&quot;dv&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id=&quot;result-splitresult-tensor-size-dim&quot;&gt;[result] split([result,] tensor, size, [dim])&lt;/h3&gt;
+&lt;p&gt;Splits Tensor &lt;code&gt;tensor&lt;/code&gt; along dimension &lt;code&gt;dim&lt;/code&gt; into a &lt;code&gt;result&lt;/code&gt; table of Tensors of size &lt;code&gt;size&lt;/code&gt; (a number) or less (in the case of the last Tensor). The sizes of the non-&lt;code&gt;dim&lt;/code&gt; dimensions remain unchanged. Internally, a series of &lt;a href=&quot;#torch.Tensor.narrow&quot;&gt;narrows&lt;/a&gt; are performed along dimensions &lt;code&gt;dim&lt;/code&gt;. Argument &lt;code&gt;dim&lt;/code&gt; defaults to 1.&lt;/p&gt;
+&lt;p&gt;If &lt;code&gt;result&lt;/code&gt; is not passed, then a new table is returned, otherwise it is emptied and reused.&lt;/p&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode lua&quot;&gt;&lt;code class=&quot;sourceCode lua&quot;&gt;x &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; torch&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;randn&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;ot&quot;&gt;&amp;gt;&lt;/span&gt; x:split&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;ot&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt; : DoubleTensor &lt;span class=&quot;ot&quot;&gt;-&lt;/span&gt; size: 2x4x5
+  &lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt; : DoubleTensor &lt;span class=&quot;ot&quot;&gt;-&lt;/span&gt; size: 1x4x5
+&lt;span class=&quot;ot&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;ot&quot;&gt;&amp;gt;&lt;/span&gt; x:split&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;ot&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt; : DoubleTensor &lt;span class=&quot;ot&quot;&gt;-&lt;/span&gt; size: 3x3x5
+  &lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt; : DoubleTensor &lt;span class=&quot;ot&quot;&gt;-&lt;/span&gt; size: 3x1x5
+&lt;span class=&quot;ot&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;ot&quot;&gt;&amp;gt;&lt;/span&gt; x:split&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;ot&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt; : DoubleTensor &lt;span class=&quot;ot&quot;&gt;-&lt;/span&gt; size: 3x4x2
+  &lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt; : DoubleTensor &lt;span class=&quot;ot&quot;&gt;-&lt;/span&gt; size: 3x4x2
+  &lt;span class=&quot;dv&quot;&gt;3&lt;/span&gt; : DoubleTensor &lt;span class=&quot;ot&quot;&gt;-&lt;/span&gt; size: 3x4x1
+&lt;span class=&quot;ot&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id=&quot;tensor-indexdim-index&quot;&gt;[Tensor] index(dim, index)&lt;/h3&gt;
+&lt;p&gt;Returns a new &lt;code&gt;Tensor&lt;/code&gt; which indexes the original &lt;code&gt;Tensor&lt;/code&gt; along dimension &lt;code&gt;dim&lt;/code&gt; using the entries in &lt;code&gt;torch.LongTensor&lt;/code&gt; &lt;code&gt;index&lt;/code&gt;. The returned &lt;code&gt;Tensor&lt;/code&gt; has the same number of dimensions as the original &lt;code&gt;Tensor&lt;/code&gt;. The returned &lt;code&gt;Tensor&lt;/code&gt; does &lt;strong&gt;not&lt;/strong&gt; use the same storage as the original &lt;code&gt;Tensor&lt;/code&gt; – see below for storing the result in an existing &lt;code&gt;Tensor&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode lua&quot;&gt;&lt;code class=&quot;sourceCode lua&quot;&gt;x &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; torch&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;rand&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;ot&quot;&gt;&amp;gt;&lt;/span&gt; x
+ &lt;span class=&quot;dv&quot;&gt;0.8020&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.7246&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.1204&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.3419&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.4385&lt;/span&gt;
+ &lt;span class=&quot;dv&quot;&gt;0.0369&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.4158&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.0985&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.3024&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.8186&lt;/span&gt;
+ &lt;span class=&quot;dv&quot;&gt;0.2746&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.9362&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.2546&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.8586&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.6674&lt;/span&gt;
+ &lt;span class=&quot;dv&quot;&gt;0.7473&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.9028&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.1046&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.9085&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.6622&lt;/span&gt;
+ &lt;span class=&quot;dv&quot;&gt;0.1412&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.6784&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.1624&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.8113&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.3949&lt;/span&gt;
+&lt;span class=&quot;ot&quot;&gt;[&lt;/span&gt;torch&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;DoubleTensor of dimension 5x5&lt;span class=&quot;ot&quot;&gt;]&lt;/span&gt;
+
+y &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; x:index&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt;torch&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;LongTensor&lt;span class=&quot;ot&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;})&lt;/span&gt;
+&lt;span class=&quot;ot&quot;&gt;&amp;gt;&lt;/span&gt; y
+ &lt;span class=&quot;dv&quot;&gt;0.2746&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.9362&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.2546&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.8586&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.6674&lt;/span&gt;
+ &lt;span class=&quot;dv&quot;&gt;0.8020&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.7246&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.1204&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.3419&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.4385&lt;/span&gt;
+&lt;span class=&quot;ot&quot;&gt;[&lt;/span&gt;torch&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;DoubleTensor of dimension 2x5&lt;span class=&quot;ot&quot;&gt;]&lt;/span&gt;
+
+y:fill&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;ot&quot;&gt;&amp;gt;&lt;/span&gt; y
+ &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;
+ &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;
+&lt;span class=&quot;ot&quot;&gt;[&lt;/span&gt;torch&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;DoubleTensor of dimension 2x5&lt;span class=&quot;ot&quot;&gt;]&lt;/span&gt;
+
+&lt;span class=&quot;ot&quot;&gt;&amp;gt;&lt;/span&gt; x
+ &lt;span class=&quot;dv&quot;&gt;0.8020&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.7246&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.1204&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.3419&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.4385&lt;/span&gt;
+ &lt;span class=&quot;dv&quot;&gt;0.0369&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.4158&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.0985&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.3024&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.8186&lt;/span&gt;
+ &lt;span class=&quot;dv&quot;&gt;0.2746&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.9362&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.2546&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.8586&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.6674&lt;/span&gt;
+ &lt;span class=&quot;dv&quot;&gt;0.7473&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.9028&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.1046&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.9085&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.6622&lt;/span&gt;
+ &lt;span class=&quot;dv&quot;&gt;0.1412&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.6784&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.1624&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.8113&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.3949&lt;/span&gt;
+&lt;span class=&quot;ot&quot;&gt;[&lt;/span&gt;torch&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;DoubleTensor of dimension 5x5&lt;span class=&quot;ot&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Note the explicit &lt;code&gt;index&lt;/code&gt; function is different than the indexing operator &lt;code&gt;[]&lt;/code&gt;. The indexing operator &lt;code&gt;[]&lt;/code&gt; is a syntactic shortcut for a series of select and narrow operations, therefore it always returns a new view on the original tensor that shares the same storage. However, the explicit &lt;code&gt;index&lt;/code&gt; function can not use the same storage.&lt;/p&gt;
+&lt;p&gt;It is possible to store the result into an existing Tensor with &lt;code&gt;result:index(source, ...)&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode lua&quot;&gt;&lt;code class=&quot;sourceCode lua&quot;&gt;x &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; torch&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;rand&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;ot&quot;&gt;&amp;gt;&lt;/span&gt; x
+ &lt;span class=&quot;dv&quot;&gt;0.8020&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.7246&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.1204&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.3419&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.4385&lt;/span&gt;
+ &lt;span class=&quot;dv&quot;&gt;0.0369&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.4158&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.0985&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.3024&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.8186&lt;/span&gt;
+ &lt;span class=&quot;dv&quot;&gt;0.2746&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.9362&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.2546&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.8586&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.6674&lt;/span&gt;
+ &lt;span class=&quot;dv&quot;&gt;0.7473&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.9028&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.1046&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.9085&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.6622&lt;/span&gt;
+ &lt;span class=&quot;dv&quot;&gt;0.1412&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.6784&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.1624&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.8113&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.3949&lt;/span&gt;
+&lt;span class=&quot;ot&quot;&gt;[&lt;/span&gt;torch&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;DoubleTensor of dimension 5x5&lt;span class=&quot;ot&quot;&gt;]&lt;/span&gt;
+
+y &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; torch&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;Tensor&lt;span class=&quot;ot&quot;&gt;()&lt;/span&gt;
+y:index&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt;torch&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;LongTensor&lt;span class=&quot;ot&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;})&lt;/span&gt;
+&lt;span class=&quot;ot&quot;&gt;&amp;gt;&lt;/span&gt; y
+ &lt;span class=&quot;dv&quot;&gt;0.2746&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.9362&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.2546&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.8586&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.6674&lt;/span&gt;
+ &lt;span class=&quot;dv&quot;&gt;0.8020&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.7246&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.1204&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.3419&lt;/span&gt;  &lt;span class=&quot;dv&quot;&gt;0.4385&lt;/span&gt;
+&lt;span class=&quot;ot&quot;&gt;[&lt;/span&gt;torch&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;DoubleTensor of dimension 2x5&lt;span class=&quot;ot&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&quot;nn.module&quot;&gt;nn.Module&lt;/h2&gt;
+&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode lua&quot;&gt;&lt;code class=&quot;sourceCode lua&quot;&gt;:training&lt;span class=&quot;ot&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;--[[&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;This sets the mode of the Module (or sub-modules) to train=true. &lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;This is useful for modules like Dropout that &lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;have a different behaviour during training vs evaluation.&lt;/span&gt;
+&lt;span class=&quot;co&quot;&gt;]]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+</description>
+				<pubDate>Fri, 28 Aug 2015 00:00:00 +0800</pubDate>
+				<link>/lua/2015/08/28/torch7-doc.html</link>
+				<guid isPermaLink="true">/lua/2015/08/28/torch7-doc.html</guid>
 			</item>
 		
 	</channel>
