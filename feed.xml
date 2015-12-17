@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title></title>
+		<description>An elder's memo.</description>
+		<link>/</link>
+		<atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
+		
+			<item>
+				<title>pcall</title>
+				<description>&lt;p&gt;If you need to handle errors in Lua, you must use the &lt;strong&gt;pcall&lt;/strong&gt; (&lt;em&gt;protected call&lt;/em&gt;) function to encapsulate your code.&lt;/p&gt;
+&lt;p&gt;The &lt;strong&gt;pcall&lt;/strong&gt; function calls its first argument in &lt;em&gt;protected mode&lt;/em&gt;, so that it catches any errors while the function is running. If there are no errors, &lt;strong&gt;pcall&lt;/strong&gt; returns &lt;strong&gt;true&lt;/strong&gt;, plus any values returned by the call. Otherwise, it returns &lt;strong&gt;false&lt;/strong&gt;, plus the error message.&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode lua&quot;&gt;&lt;code class=&quot;sourceCode lua&quot;&gt;&lt;span class=&quot;kw&quot;&gt;local&lt;/span&gt; status&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; err &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;fu&quot;&gt;pcall&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kw&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;()&lt;/span&gt;
+   &lt;span class=&quot;fu&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;({&lt;/span&gt;code&lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;121&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;})&lt;/span&gt;
+&lt;span class=&quot;kw&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;err&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;code&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;co&quot;&gt;--&amp;gt; 121&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+</description>
+				<pubDate>Wed, 19 Aug 2015 00:00:00 +0800</pubDate>
+				<link>/lua/2015/08/19/pcall.html</link>
+				<guid isPermaLink="true">/lua/2015/08/19/pcall.html</guid>
+			</item>
+		
+			<item>
+				<title>Defining your own Neural Net Module</title>
+				<description>&lt;p&gt;Modules are bricks to build neural networks. A &lt;strong&gt;Module&lt;/strong&gt; is a neural network by itself, but it can be combined with other networks using container classes to create complex neural networks. &lt;strong&gt;Module&lt;/strong&gt; is an abstract class which defines fundamental methods necessary for a training a neural network. All modules are serializable.&lt;/p&gt;
+&lt;p&gt;Modules contain two states variables: &lt;em&gt;output&lt;/em&gt; and &lt;em&gt;gradInput&lt;/em&gt;. Here we review the set of basic functions that a Module has to implement:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;[output] forward(input)&lt;/strong&gt; Takes an input object, and computes the corresponding output of the module. In general input and output are Tensors. However, some special sub-classes like table layers might expect something else.&lt;/p&gt;
+&lt;p&gt;After a forward(), the output state variable should have been updated to the new value.&lt;/p&gt;
+&lt;p&gt;It is not advised to override this function. Instead, one should implement &lt;strong&gt;updateOutput(input)&lt;/strong&gt; function. The forward module in the abstract parent class Module will call &lt;strong&gt;updateOutput(input).&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;[gradInput] backward(input, gradOutput)&lt;/strong&gt; Performs a backpropagation step through the module, with respect to the given input. In general this method makes the assumption &lt;strong&gt;forward(input)&lt;/strong&gt; has been called before, with the same input. This is necessary for optimization reasons. If you do not respect this rule, backward() will compute incorrect gradients.&lt;/p&gt;
+&lt;p&gt;A backpropagation step consist in computing two kind of gradients at input given gradOutput (gradients with respect to the output of the module). This function simply performs this task using two function calls:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A function call to &lt;strong&gt;updateGradInput(input, gradOutput)&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;A function call to &lt;strong&gt;accGradParameters(input,gradOutput)&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;It is not advised to override this function call in custom classes. It is better to override &lt;strong&gt;updateGradInput(input, gradOutput)&lt;/strong&gt; and &lt;strong&gt;accGradParameters(input, gradOutput)&lt;/strong&gt; functions.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;[output] updateOutput(input, gradOutput)&lt;/strong&gt; When defining a new module, this method should be overloaded.&lt;/p&gt;
+&lt;p&gt;Computes the output using the current parameter set of the class and input. This function returns the result which is stored in the output field.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;[gradInput] updateGradInput(input, gradOutput)&lt;/strong&gt; When defining a new module, this method should be overloaded.&lt;/p&gt;
+&lt;p&gt;Computing the gradient of the module with respect to its own input. This is returned in gradInput. Also, the gradInput state variable is updated accordingly.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;[gradInput] accGradParameters(input, gradOutput)&lt;/strong&gt; When defining a new module, this method may need to be overloaded, if the module has trainable parameters.&lt;/p&gt;
+&lt;p&gt;Computing the gradient of the module with respect to its own parameters. Many modules do not perform this step as they do not have any parameters. The state variable name for the parameters is module dependent. The module is expected to accumulate the gradients with respect to the parameters in some variable.&lt;/p&gt;
+&lt;p&gt;Zeroing this accumulation is achieved with &lt;strong&gt;zeroGradParameters()&lt;/strong&gt; and updating the parameters according to this accumulation is done with &lt;strong&gt;updateParameters()&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;reset()&lt;/strong&gt; This method defines how the trainable parameters are reset, i.e. initialized before training.&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;Modules provide a few other methods that you might want to define, if you are not planing to use the &lt;strong&gt;optim&lt;/strong&gt; package. These methods help &lt;strong&gt;zero()&lt;/strong&gt; the parameters, and update them using very basic techniques.&lt;/p&gt;
+&lt;p&gt;In terms of code structure, &lt;em&gt;Torch&lt;/em&gt; provides a class model, which we use for inheritance, and in general for the definition of all the modules in &lt;em&gt;nn&lt;/em&gt;. Here is an empty holder for a typical new class:&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode lua&quot;&gt;&lt;code class=&quot;sourceCode lua&quot;&gt;&lt;span class=&quot;kw&quot;&gt;local&lt;/span&gt; NewClass&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; Parent &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; torch&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;class&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;&amp;#39;nn.NewClass&amp;#39;&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;nn.Module&amp;#39;&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+ 
+&lt;span class=&quot;kw&quot;&gt;function&lt;/span&gt; NewClass:__init&lt;span class=&quot;ot&quot;&gt;()&lt;/span&gt;
+   parent&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;__init&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;self&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kw&quot;&gt;end&lt;/span&gt;
+ 
+&lt;span class=&quot;kw&quot;&gt;function&lt;/span&gt; NewClass:updateOutput&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;input&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kw&quot;&gt;end&lt;/span&gt;
+ 
+&lt;span class=&quot;kw&quot;&gt;function&lt;/span&gt; NewClass:updateGradInput&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;input&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; gradOutput&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kw&quot;&gt;end&lt;/span&gt;
+ 
+&lt;span class=&quot;kw&quot;&gt;function&lt;/span&gt; NewClass:accGradParameters&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;input&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; gradOutput&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kw&quot;&gt;end&lt;/span&gt;
+ 
+&lt;span class=&quot;kw&quot;&gt;function&lt;/span&gt; NewClass:reset&lt;span class=&quot;ot&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;kw&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;When defining a new class, all we need to do is fill in these empty functions. Note that when defining the constructor *__init()*, we always call the parent’s constructor first.&lt;/p&gt;
+&lt;h3 id=&quot;dropout-activation-units&quot;&gt;Dropout Activation Units&lt;/h3&gt;
+&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode lua&quot;&gt;&lt;code class=&quot;sourceCode lua&quot;&gt;&lt;span class=&quot;kw&quot;&gt;local&lt;/span&gt; Dropout&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; Parent &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; torch&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;class&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;&amp;#39;nn.Dropout&amp;#39;&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;nn.Module&amp;#39;&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+ 
+&lt;span class=&quot;kw&quot;&gt;function&lt;/span&gt; Dropout:__init&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;percentage&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+   Parent&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;__init&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;self&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+   self&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;p &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; percentage &lt;span class=&quot;kw&quot;&gt;or&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;0.5&lt;/span&gt;
+   &lt;span class=&quot;kw&quot;&gt;if&lt;/span&gt; self&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;p &lt;span class=&quot;ot&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;or&lt;/span&gt; self&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;p &lt;span class=&quot;ot&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;then&lt;/span&gt;
+      &lt;span class=&quot;fu&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;&amp;#39;&amp;lt;Dropout&amp;gt; illegal percentage, must be 0 &amp;lt;= p &amp;lt;= 1&amp;#39;&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+   &lt;span class=&quot;kw&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;kw&quot;&gt;end&lt;/span&gt;
+ 
+&lt;span class=&quot;kw&quot;&gt;function&lt;/span&gt; Dropout:updateOutput&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;input&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+   self&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;noise &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; torch&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;rand&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;input:size&lt;span class=&quot;ot&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;co&quot;&gt;-- uniform noise between 0 and 1&lt;/span&gt;
+   self&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;noise:add&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;-&lt;/span&gt; self&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;p&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;:&lt;span class=&quot;fu&quot;&gt;floor&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;()&lt;/span&gt;  &lt;span class=&quot;co&quot;&gt;-- a percentage of noise&lt;/span&gt;
+   self&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;output:resizeAs&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;input&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;:copy&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;input&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+   self&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;output:cmul&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;self&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;noise&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+   &lt;span class=&quot;kw&quot;&gt;return&lt;/span&gt; self&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;output
+&lt;span class=&quot;kw&quot;&gt;end&lt;/span&gt;
+ 
+&lt;span class=&quot;kw&quot;&gt;function&lt;/span&gt; Dropout:updateGradInput&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;input&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; gradOutput&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+   self&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;gradInput:resizeAs&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;gradOutput&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;:copy&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;gradOutput&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+   self&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;gradInput:cmul&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;self&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;noise&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;co&quot;&gt;-- simply mask the gradients with the noise vector&lt;/span&gt;
+   &lt;span class=&quot;kw&quot;&gt;return&lt;/span&gt; self&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;gradInput
+&lt;span class=&quot;kw&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The file is provided in this directory, in &lt;em&gt;Dropout.lua&lt;/em&gt;. The script &lt;em&gt;1_dropout.lua&lt;/em&gt; demonstrates how to create an instance of this module, and test it on some data (lena):&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode lua&quot;&gt;&lt;code class=&quot;sourceCode lua&quot;&gt;&lt;span class=&quot;co&quot;&gt;-- in this file, we test the dropout module we&amp;#39;ve defined:&lt;/span&gt;
+&lt;span class=&quot;fu&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;nn&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;fu&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;Dropout&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;fu&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;image&amp;#39;&lt;/span&gt;
+ 
+&lt;span class=&quot;co&quot;&gt;-- define a dropout object:&lt;/span&gt;
+n &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; nn&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;Dropout&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+ 
+&lt;span class=&quot;co&quot;&gt;-- load an image:&lt;/span&gt;
+i &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; image&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;lena&lt;span class=&quot;ot&quot;&gt;()&lt;/span&gt;
+ 
+&lt;span class=&quot;co&quot;&gt;-- process the image:&lt;/span&gt;
+result &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; n:forward&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;i&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+ 
+&lt;span class=&quot;co&quot;&gt;-- display results:&lt;/span&gt;
+image&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;display&lt;span class=&quot;ot&quot;&gt;{&lt;/span&gt;image&lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt;i&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; legend&lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;&amp;#39;original image&amp;#39;&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;}&lt;/span&gt;
+image&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;display&lt;span class=&quot;ot&quot;&gt;{&lt;/span&gt;image&lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt;result&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; legend&lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;&amp;#39;dropout-processed image&amp;#39;&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;}&lt;/span&gt;
+ 
+&lt;span class=&quot;co&quot;&gt;-- some stats:&lt;/span&gt;
+mse &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; i:dist&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;result&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;fu&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;&amp;#39;mse between original imgae and dropout-processed image: &amp;#39;&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;..&lt;/span&gt; mse&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+</description>
+				<pubDate>Tue, 18 Aug 2015 00:00:00 +0800</pubDate>
+				<link>/lua/2015/08/18/defining-your-own-neural-net-module.html</link>
+				<guid isPermaLink="true">/lua/2015/08/18/defining-your-own-neural-net-module.html</guid>
+			</item>
+		
+			<item>
+				<title>The ReQU unit</title>
+				<description>&lt;p&gt;Here, we’ll implement a made-up activation function that we’ll call the Rectified Quadratic Unit(ReQU). Like the sigmoid and ReLU and several others, it is applied element-wise to all its inputs:&lt;/p&gt;
+&lt;p&gt;&lt;span class=&quot;math display&quot;&gt;\[z_i=\Bbb I[x_i&amp;gt;0]x^2_i=\begin{cases}x^2_i &amp;amp; if \ x_i&amp;gt;0\\
+0&amp;amp;otherwise
+ \end{cases}\]&lt;/span&gt;&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode lua&quot;&gt;&lt;code class=&quot;sourceCode lua&quot;&gt;&lt;span class=&quot;fu&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;nn&amp;#39;&lt;/span&gt;
+
+&lt;span class=&quot;kw&quot;&gt;local&lt;/span&gt; ReQU &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; torch&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;class&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;&amp;#39;nn.ReQU&amp;#39;&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;nn.Module&amp;#39;&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;kw&quot;&gt;function&lt;/span&gt; ReQU:updateOutput&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;input&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;co&quot;&gt;-- TODO&lt;/span&gt;
+  self&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;output:resizeAs&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;input&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;:copy&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;input&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+  self&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;output&lt;span class=&quot;ot&quot;&gt;[&lt;/span&gt;torch&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;lt&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;self&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;output&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;)]&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt;
+  self&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;output:pow&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;co&quot;&gt;-- ...something here...&lt;/span&gt;
+  &lt;span class=&quot;kw&quot;&gt;return&lt;/span&gt; self&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;output
+&lt;span class=&quot;kw&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;kw&quot;&gt;function&lt;/span&gt; ReQU:updateGradInput&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;input&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; gradOutput&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;co&quot;&gt;-- TODO&lt;/span&gt;
+  self&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;gradInput:resizeAs&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;gradOutput&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;:copy&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;gradOutput&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+  self&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;gradInput&lt;span class=&quot;ot&quot;&gt;[&lt;/span&gt;torch&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;lt&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;input&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;)]&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt;
+  self&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;gradInput:mul&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;:cmul&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;input&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;co&quot;&gt;-- ...something here...&lt;/span&gt;
+  &lt;span class=&quot;kw&quot;&gt;return&lt;/span&gt; self&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;gradInput
+&lt;span class=&quot;kw&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+</description>
+				<pubDate>Mon, 17 Aug 2015 00:00:00 +0800</pubDate>
+				<link>/foundation/lua/2015/08/17/the-requ-unit.html</link>
+				<guid isPermaLink="true">/foundation/lua/2015/08/17/the-requ-unit.html</guid>
+			</item>
+		
+			<item>
+				<title>optim package</title>
+				<description>&lt;h1 id=&quot;optimization-package&quot;&gt;Optimization package&lt;/h1&gt;
+&lt;p&gt;This package contains several optimization routines for &lt;a href=&quot;https://github.com/torch/torch7/blob/master/README.md&quot;&gt;Torch&lt;/a&gt;. Each optimization algorithm is based on the same interface:&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode lua&quot;&gt;&lt;code class=&quot;sourceCode lua&quot;&gt;x&lt;span class=&quot;ot&quot;&gt;*,&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;{&lt;/span&gt;f&lt;span class=&quot;ot&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;...&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; optim&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;method&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;func&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; x&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt; state&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;where:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;func&lt;/code&gt;: a user-defined closure that respects this API: &lt;span class=&quot;math inline&quot;&gt;\((f, df/dx) = func(x)\)&lt;/span&gt;. Here &lt;span class=&quot;math inline&quot;&gt;\(f\)&lt;/span&gt; could be the &lt;span class=&quot;math inline&quot;&gt;\(loss\)&lt;/span&gt; for the network.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;x&lt;/code&gt;: the current parameter vector (a 1D &lt;code&gt;torch.Tensor&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;state&lt;/code&gt;: a table of parameters, and state variables, dependent upon the algorithm&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;x*&lt;/code&gt;: the new parameter vector that minimizes &lt;span class=&quot;math inline&quot;&gt;\(f\)&lt;/span&gt;, &lt;span class=&quot;math inline&quot;&gt;\(x^* = argmin_x f(x)\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;{f}&lt;/code&gt;: a table of all f values, in the order they’ve been evaluated (for some simple algorithms, like SGD, &lt;code&gt;#f == 1&lt;/code&gt;)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;important-note&quot;&gt;Important Note&lt;/h2&gt;
+&lt;p&gt;The state table is used to hold the state of the algorihtm. It’s usually initialized once, by the user, and then passed to the optim function as a black box. Example:&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode lua&quot;&gt;&lt;code class=&quot;sourceCode lua&quot;&gt;state &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;{&lt;/span&gt;
+   learningRate &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;1e-3&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt;
+   momentum &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;0.5&lt;/span&gt;
+&lt;span class=&quot;ot&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kw&quot;&gt;for&lt;/span&gt; i&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt;sample &lt;span class=&quot;kw&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;fu&quot;&gt;ipairs&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;training_samples&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;kw&quot;&gt;local&lt;/span&gt; func &lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+       &lt;span class=&quot;co&quot;&gt;-- define eval function&lt;/span&gt;
+       &lt;span class=&quot;kw&quot;&gt;return&lt;/span&gt; f&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt;df_dx
+    &lt;span class=&quot;kw&quot;&gt;end&lt;/span&gt;
+    optim&lt;span class=&quot;ot&quot;&gt;.&lt;/span&gt;sgd&lt;span class=&quot;ot&quot;&gt;(&lt;/span&gt;func&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt;x&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt;state&lt;span class=&quot;ot&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kw&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+</description>
+				<pubDate>Fri, 14 Aug 2015 00:00:00 +0800</pubDate>
+				<link>/lua/2015/08/14/optim-package.html</link>
+				<guid isPermaLink="true">/lua/2015/08/14/optim-package.html</guid>
+			</item>
+		
+			<item>
+				<title>Jacobian</title>
+				<description>Liquid error: invalid byte sequence in GBK</description>
+				<pubDate>Fri, 14 Aug 2015 00:00:00 +0800</pubDate>
+				<link>/foundation/2015/08/14/jacobian.html</link>
+				<guid isPermaLink="true">/foundation/2015/08/14/jacobian.html</guid>
+			</item>
+		
+			<item>
+				<title>Energy Function</title>
+				<description>&lt;p&gt;&lt;img src=&quot;/assets/images/3.jpg&quot; alt=&quot;能量函数描述&quot; /&gt; 能量函数&lt;/p&gt;
+</description>
+				<pubDate>Thu, 13 Aug 2015 00:00:00 +0800</pubDate>
+				<link>/foundation/2015/08/13/energy-function.html</link>
+				<guid isPermaLink="true">/foundation/2015/08/13/energy-function.html</guid>
+			</item>
+		
+			<item>
+				<title>Analysis of Discrete Data|STAT 504</title>
+				<description>&lt;p&gt;&lt;a href=&quot;https://onlinecourses.science.psu.edu/statprogram/node/153&quot;&gt;来源&lt;/a&gt; #Matrix Algebra Review To multiply two vectors with the same length together is to take the &lt;strong&gt;dot product&lt;/strong&gt;, also called &lt;strong&gt;inner product&lt;/strong&gt;. &lt;img src=&quot;/assets/images/1.jpg&quot; alt=&quot;&quot; /&gt; &lt;a href=&quot;https://onlinecourses.science.psu.edu/statprogram/node/153&quot;&gt;Advanced Matrix Properties&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;5.1 - Advanced Matrix Properties&lt;/li&gt;
+&lt;li&gt;5.2 - Range, Nullspace, and Projections&lt;/li&gt;
+&lt;li&gt;5.3 - Gauss-Jordan Elimination&lt;/li&gt;
+&lt;li&gt;5.4 - Eigendecomposition&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure&gt;
+&lt;img src=&quot;/assets/images/2.jpg&quot; alt=&quot;&quot; /&gt;
+&lt;/figure&gt;
+</description>
+				<pubDate>Thu, 13 Aug 2015 00:00:00 +0800</pubDate>
+				<link>/foundation/2015/08/13/analysis-of-discrete-data-stat-504.html</link>
+				<guid isPermaLink="true">/foundation/2015/08/13/analysis-of-discrete-data-stat-504.html</guid>
+			</item>
+		
+	</channel>
+</rss>
