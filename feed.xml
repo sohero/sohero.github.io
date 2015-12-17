@@ -34,7 +34,7 @@
 			</item>
 		
 			<item>
-				<title>Probabilistic Language Modeling</title>
+				<title>Language Modeling</title>
 				<description>&lt;ul&gt;
 &lt;li&gt;Goal: compute the probability of a sentence or a sequence of words: &lt;span class=&quot;math display&quot;&gt;\[
 P(W)=P(w_1,w_2,w_3,...,w_n)
@@ -65,10 +65,22 @@ P(w_1w_2···w_n)\approx \prod_i P(w_i|w_{i-1})
 \]&lt;/span&gt;&lt;/li&gt;
 &lt;li&gt;N-gram model&lt;/li&gt;
 &lt;/ul&gt;
+&lt;h2 id=&quot;estimating-bigram-probabilities&quot;&gt;Estimating bigram probabilities&lt;/h2&gt;
+&lt;p&gt;The Maximum Likelihood Estimate &lt;span class=&quot;math display&quot;&gt;\[
+P(w_i|w_{i-1})=\frac{count(w_{i-1},w_i)}{count(w_{i-1})}
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;h3 id=&quot;practical-issues&quot;&gt;Practical Issues&lt;/h3&gt;
+&lt;p&gt;do everything in log space&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Avoid underflow&lt;/li&gt;
+&lt;li&gt;also adding is faster than multiplying &lt;span class=&quot;math display&quot;&gt;\[
+p_1\times p_2\times p_3\times p_4=logp_1+logp_2+logp_3+logp_4
+\]&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
 </description>
 				<pubDate>Thu, 17 Dec 2015 00:00:00 +0800</pubDate>
-				<link>/nlp/2015/12/17/probabilistic-language-modeling.html</link>
-				<guid isPermaLink="true">/nlp/2015/12/17/probabilistic-language-modeling.html</guid>
+				<link>/nlp/2015/12/17/language-modeling.html</link>
+				<guid isPermaLink="true">/nlp/2015/12/17/language-modeling.html</guid>
 			</item>
 		
 			<item>

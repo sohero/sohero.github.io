@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Probabilistic Language Modeling</title>
+	<title>Language Modeling</title>
 	
 	<meta name="author" content="sohero">
 
@@ -136,7 +136,7 @@
 
 	<div class="col-sm-9 col-sm-offset-3">
 		<div class="page-header">
-  <h1>Probabilistic Language Modeling </h1>
+  <h1>Language Modeling </h1>
 </div>
 	
 <article>
@@ -175,6 +175,18 @@ P(w_1w_2···w_n)\approx \prod_i P(w_i)
 P(w_1w_2···w_n)\approx \prod_i P(w_i|w_{i-1})
 \]</span></li>
 <li>N-gram model</li>
+</ul>
+<h2 id="estimating-bigram-probabilities">Estimating bigram probabilities</h2>
+<p>The Maximum Likelihood Estimate <span class="math display">\[
+P(w_i|w_{i-1})=\frac{count(w_{i-1},w_i)}{count(w_{i-1})}
+\]</span></p>
+<h3 id="practical-issues">Practical Issues</h3>
+<p>do everything in log space</p>
+<ul>
+<li>Avoid underflow</li>
+<li>also adding is faster than multiplying <span class="math display">\[
+p_1\times p_2\times p_3\times p_4=logp_1+logp_2+logp_3+logp_4
+\]</span></li>
 </ul>
 
 	  </div>
@@ -217,7 +229,7 @@ P(w_1w_2···w_n)\approx \prod_i P(w_i|w_{i-1})
 		<div>
       <section class="share col-sm-12">
         <h4 class="section-title">Share Post</h4>
-        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=Probabilistic Language Modeling"
+        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=Language Modeling"
            onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
           <i class="fa fa-twitter fa-lg"></i>
           Twitter
