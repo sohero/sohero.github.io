@@ -25,6 +25,15 @@
 			</item>
 		
 			<item>
+				<title>git笔记 & cheatsheet</title>
+				<description>&lt;p&gt;&lt;a class=&quot;btn btn-default&quot; href=&quot;https://github.com/sohero/git&quot;&gt;Go.&lt;/a&gt; &lt;a class=&quot;btn btn-default&quot; href=&quot;http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000&quot;&gt;原文&lt;/a&gt;&lt;/p&gt;
+</description>
+				<pubDate>Thu, 17 Dec 2015 00:00:00 +0800</pubDate>
+				<link>/tools/log/2015/12/17/git-note.html</link>
+				<guid isPermaLink="true">/tools/log/2015/12/17/git-note.html</guid>
+			</item>
+		
+			<item>
 				<title>word2vec</title>
 				<description>&lt;h2 id=&quot;main-idea-of-word2vec&quot;&gt;Main idea of word2vec&lt;/h2&gt;
 &lt;ul&gt;
@@ -873,17 +882,6 @@ D(i-1, j-1) +
 				<pubDate>Wed, 11 Nov 2015 00:00:00 +0800</pubDate>
 				<link>/foundation/2015/11/11/what-are-the-continuous-bag-of-words-cbow-and-skip-gram.html</link>
 				<guid isPermaLink="true">/foundation/2015/11/11/what-are-the-continuous-bag-of-words-cbow-and-skip-gram.html</guid>
-			</item>
-		
-			<item>
-				<title>求导公式</title>
-				<description>&lt;figure&gt;
-&lt;img src=&quot;/assets/images/9.png&quot; alt=&quot;求导公式&quot; /&gt;&lt;figcaption&gt;求导公式&lt;/figcaption&gt;
-&lt;/figure&gt;
-</description>
-				<pubDate>Fri, 06 Nov 2015 00:00:00 +0800</pubDate>
-				<link>/foundation/2015/11/06/derivative-formula.html</link>
-				<guid isPermaLink="true">/foundation/2015/11/06/derivative-formula.html</guid>
 			</item>
 		
 	</channel>
