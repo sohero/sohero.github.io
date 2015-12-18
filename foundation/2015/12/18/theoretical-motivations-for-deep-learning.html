@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Gated Recurrent Units (GRU)</title>
+	<title>Theoretical Motivations for Deep Learning</title>
 	
 	<meta name="author" content="sohero">
 
@@ -136,31 +136,19 @@
 
 	<div class="col-sm-9 col-sm-offset-3">
 		<div class="page-header">
-  <h1>Gated Recurrent Units (GRU) </h1>
+  <h1>Theoretical Motivations for Deep Learning </h1>
 </div>
 	
 <article>
 
 	<div class="col-sm-10">
 	 <span class="post-date">
-	 	2015-08-31 
+	 	2015-12-18 
 	 </span>
 	  <div class="article_body">
-	  <p>Illustration: <img src="/assets/images/6.jpg" alt="Illustration 1" /> <img src="/assets/images/7.jpg" alt="Illustration 2" /></p>
-<ul>
-<li><strong>update gate</strong> <span class="math display">\[
- u_t=\sigma(W^{u}_xx_t+W^{u}_hh_{t-1})
- \]</span> Update gate <span class="math inline">\(u\)</span> controls how much of past state should matter now. If <span class="math inline">\(u\)</span> close to 1, then we can copy information in that unit through many time steps. <strong>Less vanishing gradient.</strong></li>
-<li><strong>reset gate</strong> <span class="math display">\[
- r_t=\sigma(W^{r}_xx_t+W^{r}_hh_{t-1})
- \]</span> If reset is close to 0, ignore previous hidden state<span class="math inline">\(\to\)</span>Allows model to drop information that is irrelevant in the future.</li>
-<li><strong>new memory</strong> content <span class="math display">\[
-\widetilde h_t=tanh(W^{\widetilde h}_xx_t+r_t\circ W^{\widetilde h}_hh_{t-1})
-\]</span></li>
-<li><strong>final memory</strong> at time step combines current and previous time steps: <span class="math display">\[
-h_t=u_t\circ h_{t-1}+(1-u_t)\circ \widetilde h_t
-\]</span></li>
-</ul>
+	  <p>With distributed representations, it is possible to represent exponential number of regions with a linear number of parameters. The magic of distributed representation is that it can learn a very complicated function(with many ups and downs) with a low number of examples.</p>
+<p>Depth is not necessary to have a flexible family of functions. Deeper networks does not correspond to a higher capacity. Deeper doesn’t mean we can represent more functions. If the functions we trying to learn has a particular characteristic obtained through composition of many operations, then it is much better to approximate these functions with a deep neural network.</p>
+<p>There is new theoretical result that deeper nets with rectifier/maxout units are exponentially more expressive than shallow ones because they can split the input space in many more linear regions, with constraints.</p>
 
 	  </div>
 
@@ -188,6 +176,13 @@ h_t=u_t\circ h_{t-1}+(1-u_t)\circ \widetilde h_t
 				<li>
 					<a href="/tags.html#foundation-ref">
 					foundation <span>(19)</span>
+					,
+					</a>
+				</li>
+			 
+				<li>
+					<a href="/tags.html#deep learning-ref">
+					deep learning <span>(1)</span>
 					
 					</a>
 				</li>
@@ -202,7 +197,7 @@ h_t=u_t\circ h_{t-1}+(1-u_t)\circ \widetilde h_t
 		<div>
       <section class="share col-sm-12">
         <h4 class="section-title">Share Post</h4>
-        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=Gated Recurrent Units (GRU)"
+        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=Theoretical Motivations for Deep Learning"
            onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
           <i class="fa fa-twitter fa-lg"></i>
           Twitter
@@ -224,10 +219,10 @@ h_t=u_t\circ h_{t-1}+(1-u_t)\circ \widetilde h_t
 
 		<ul class="pager">
 		  
-		  <li class="previous"><a href="/lua/2015/08/28/torch7-doc.html" title="Torch7 doc">&larr; Previous</a></li>
+		  <li class="previous"><a href="/tools/log/2015/12/17/jekyll-render-with-pandoc-on-windows.html" title="Jekyll render with pandoc on windows">&larr; Previous</a></li>
 		  
 		  
-		  <li class="next"><a href="/foundation/2015/09/02/understanding-the-difficulty-of-training-deep-feedforward-neural-networks.html" title="Understanding the difficulty of training deep feedforward neural networks">Next &rarr;</a></li>
+			<li class="next disabled"><a>Next &rarr;</a>
 		  
 		</ul>
 

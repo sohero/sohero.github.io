@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Gated Recurrent Units (GRU)</title>
+	<title>memo</title>
 	
 	<meta name="author" content="sohero">
 
@@ -136,110 +136,51 @@
 
 	<div class="col-sm-9 col-sm-offset-3">
 		<div class="page-header">
-  <h1>Gated Recurrent Units (GRU) </h1>
+  <h1>memo </h1>
 </div>
-	
-<article>
 
-	<div class="col-sm-10">
-	 <span class="post-date">
-	 	2015-08-31 
-	 </span>
-	  <div class="article_body">
-	  <p>Illustration: <img src="/assets/images/6.jpg" alt="Illustration 1" /> <img src="/assets/images/7.jpg" alt="Illustration 2" /></p>
-<ul>
-<li><strong>update gate</strong> <span class="math display">\[
- u_t=\sigma(W^{u}_xx_t+W^{u}_hh_{t-1})
- \]</span> Update gate <span class="math inline">\(u\)</span> controls how much of past state should matter now. If <span class="math inline">\(u\)</span> close to 1, then we can copy information in that unit through many time steps. <strong>Less vanishing gradient.</strong></li>
-<li><strong>reset gate</strong> <span class="math display">\[
- r_t=\sigma(W^{r}_xx_t+W^{r}_hh_{t-1})
- \]</span> If reset is close to 0, ignore previous hidden state<span class="math inline">\(\to\)</span>Allows model to drop information that is irrelevant in the future.</li>
-<li><strong>new memory</strong> content <span class="math display">\[
-\widetilde h_t=tanh(W^{\widetilde h}_xx_t+r_t\circ W^{\widetilde h}_hh_{t-1})
-\]</span></li>
-<li><strong>final memory</strong> at time step combines current and previous time steps: <span class="math display">\[
-h_t=u_t\circ h_{t-1}+(1-u_t)\circ \widetilde h_t
-\]</span></li>
-</ul>
 
-	  </div>
 
-		
-		<ul class="tag_box list-unstyled list-inline">
-		  <li><i class="fa fa-folder-open"></i></li>
-		  
-		  
-			 
-				<li><a href="/categories.html#foundation-ref">
-					foundation <span>(19)</span>
-					
-				</a></li>
-			
-		  
-		</ul>
-		  
+<article class="home">
+  <h2>
+    <a href="/foundation/2015/08/13/analysis-of-discrete-data-stat-504.html">Analysis of Discrete Data|STAT 504</a>
+  </h2>
+  <span class="post-date">
+    2015-08-13 
+  </span>
+  <div>
+    
+    
+    ...
+    
+    
+  </div>
 
-		
-		<ul class="list-inline">
-		  <li><i class="fa fa-tags"></i></li>
-		  
-		  
-			 
-				<li>
-					<a href="/tags.html#foundation-ref">
-					foundation <span>(19)</span>
-					
-					</a>
-				</li>
-			
-		  
-		  
-		</ul>
-		  
-
-		<hr>
-
-		<div>
-      <section class="share col-sm-12">
-        <h4 class="section-title">Share Post</h4>
-        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=Gated Recurrent Units (GRU)"
-           onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
-          <i class="fa fa-twitter fa-lg"></i>
-          Twitter
-        </a>
-        <a class="btn btn-default btn-sm facebook" href="https://www.facebook.com/sharer/sharer.php"
-           onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
-          <i class="fa fa-facebook fa-lg"></i>
-          Facebook
-        </a>
-        <a class="btn btn-default btn-sm gplus"
-           onclick="window.open('https://plus.google.com/share?url='+window.location.href, 'google-plus-share', 'width=490,height=530');return false;">
-          <i class="fa fa-google-plus fa-lg"></i>
-          Google+
-        </a>
-      </section>
-    </div>
-
-    <div class="clearfix"></div>
-
-		<ul class="pager">
-		  
-		  <li class="previous"><a href="/lua/2015/08/28/torch7-doc.html" title="Torch7 doc">&larr; Previous</a></li>
-		  
-		  
-		  <li class="next"><a href="/foundation/2015/09/02/understanding-the-difficulty-of-training-deep-feedforward-neural-networks.html" title="Understanding the difficulty of training deep feedforward neural networks">Next &rarr;</a></li>
-		  
-		</ul>
-
-		<hr>
-	</div>
-	
-	<div class="col-sm-2 sidebar-2">
-	
-	</div>
 </article>
-<div class="clearfix"></div>
 
+<hr/>
+
+<ul class="pager"> 
+
+  
+  <li class="previous">
+    
+    <a href="/page3">&larr; Newer</a>
+    
+  </li>
+  
+  
+  <li>
+    <span class="page_number">Page: 4 of 4</span>
+  </li>
+
+  
+  <li class="next disabled">
+    <a>Older &rarr;</a>        
+  </li>
+  
+
+</ul>
 
 
 
