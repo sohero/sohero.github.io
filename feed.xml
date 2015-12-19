@@ -7,6 +7,50 @@
 		<atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>OXFORD Machine Learning</title>
+				<description>&lt;p&gt;&lt;a href=&quot;https://www.cs.ox.ac.uk/people/nando.defreitas/machinelearning/&quot;&gt;Course Page&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;lecture-2-linear-supervised-learning&quot;&gt;Lecture 2 Linear supervised learning&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Many real processes can be &lt;em&gt;approximated&lt;/em&gt; with linear models.&lt;/li&gt;
+&lt;li&gt;Linear regression often appears as a &lt;em&gt;module&lt;/em&gt; of larger systems.&lt;/li&gt;
+&lt;li&gt;Linear problems can be solved &lt;em&gt;analytically&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;Linear prediction provides an introduction to many of the &lt;em&gt;core concepts&lt;/em&gt; of machine learning.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure&gt;
+&lt;img src=&quot;/assets/images/19.png&quot; alt=&quot;&quot; /&gt;
+&lt;/figure&gt;
+&lt;h2 id=&quot;lecture-3&quot;&gt;Lecture 3&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/20.png&quot; alt=&quot;&quot; /&gt; &lt;img src=&quot;/assets/images/21.png&quot; alt=&quot;&quot; /&gt; &lt;img src=&quot;/assets/images/22.png&quot; alt=&quot;&quot; /&gt; &lt;img src=&quot;/assets/images/23.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+</description>
+				<pubDate>Sat, 19 Dec 2015 00:00:00 +0800</pubDate>
+				<link>/foundation/2015/12/19/oxford-machine-learning.html</link>
+				<guid isPermaLink="true">/foundation/2015/12/19/oxford-machine-learning.html</guid>
+			</item>
+		
+			<item>
+				<title>How to Choose a Neural Network</title>
+				<description>&lt;figure&gt;
+&lt;img src=&quot;/assets/images/18.png&quot; alt=&quot;&quot; /&gt;
+&lt;/figure&gt;
+</description>
+				<pubDate>Sat, 19 Dec 2015 00:00:00 +0800</pubDate>
+				<link>/method/2015/12/19/how-to-choose-a-neural-network.html</link>
+				<guid isPermaLink="true">/method/2015/12/19/how-to-choose-a-neural-network.html</guid>
+			</item>
+		
+			<item>
+				<title>Basic conception</title>
+				<description>&lt;h2 id=&quot;standard-deviation&quot;&gt;Standard Deviation&lt;/h2&gt;
+&lt;p&gt;In statistics and probability theory, the standard deviation (SD) (represented by the Greek letter sigma, &lt;span class=&quot;math inline&quot;&gt;\(\sigma\)&lt;/span&gt;) measures the amount of variation or dispersion from the average. A low standard deviation indicates that the data points tend to be very close to the mean (also called expected value); a high standard deviation indicates that the data points are spread out over a large range of values.&lt;/p&gt;
+&lt;h2 id=&quot;derivative&quot;&gt;Derivative&lt;/h2&gt;
+&lt;p&gt;The derivative of a function of a real variable measures the sensitivity to change of a quantity (a function or dependent variable) which is determined by another quantity (the independent variable). For example, the derivative of the position of a moving object with respect to time is the object’s velocity: this measures how quickly the position of the object changes when time is advanced.当x变化时，y的变化量。&lt;/p&gt;
+</description>
+				<pubDate>Sat, 19 Dec 2015 00:00:00 +0800</pubDate>
+				<link>/foundation/2015/12/19/basic-conception.html</link>
+				<guid isPermaLink="true">/foundation/2015/12/19/basic-conception.html</guid>
+			</item>
+		
+			<item>
 				<title>Theoretical Motivations for Deep Learning</title>
 				<description>&lt;p&gt;With distributed representations, it is possible to represent exponential number of regions with a linear number of parameters. The magic of distributed representation is that it can learn a very complicated function(with many ups and downs) with a low number of examples.&lt;/p&gt;
 &lt;p&gt;Depth is not necessary to have a flexible family of functions. Deeper networks does not correspond to a higher capacity. Deeper doesn’t mean we can represent more functions. If the functions we trying to learn has a particular characteristic obtained through composition of many operations, then it is much better to approximate these functions with a deep neural network.&lt;/p&gt;
@@ -177,94 +221,6 @@ u^{k+1}=u^k+o^k
 				<pubDate>Mon, 14 Dec 2015 00:00:00 +0800</pubDate>
 				<link>/foundation/paper/2015/12/14/end-to-end-memory-networks.html</link>
 				<guid isPermaLink="true">/foundation/paper/2015/12/14/end-to-end-memory-networks.html</guid>
-			</item>
-		
-			<item>
-				<title>Edit Distance</title>
-				<description>&lt;p&gt;The minimum edit distance between two strings is the minimum number of editing operations &lt;code&gt;Insertion&lt;/code&gt; &lt;code&gt;Deletion&lt;/code&gt; &lt;code&gt;Substitution&lt;/code&gt; needed to transform one into other.&lt;/p&gt;
-&lt;h2 id=&quot;defining-min-edit-distance&quot;&gt;Defining Min Edit Distance&lt;/h2&gt;
-&lt;p&gt;For two Strings:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;span class=&quot;math inline&quot;&gt;\(X\)&lt;/span&gt; of length &lt;span class=&quot;math inline&quot;&gt;\(n\)&lt;/span&gt;&lt;/li&gt;
-&lt;li&gt;&lt;span class=&quot;math inline&quot;&gt;\(Y\)&lt;/span&gt; of length &lt;span class=&quot;math inline&quot;&gt;\(m\)&lt;/span&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;We define &lt;span class=&quot;math inline&quot;&gt;\(D(i,j)\)&lt;/span&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;the edit distance between &lt;span class=&quot;math inline&quot;&gt;\(X[1..i]\)&lt;/span&gt; and &lt;span class=&quot;math inline&quot;&gt;\(Y[1..j]\)&lt;/span&gt;, i.e. the first &lt;span class=&quot;math inline&quot;&gt;\(i\)&lt;/span&gt; characters of &lt;span class=&quot;math inline&quot;&gt;\(X\)&lt;/span&gt; and the first &lt;span class=&quot;math inline&quot;&gt;\(j\)&lt;/span&gt; characters of &lt;span class=&quot;math inline&quot;&gt;\(Y\)&lt;/span&gt;.&lt;/li&gt;
-&lt;li&gt;the edit distance between &lt;span class=&quot;math inline&quot;&gt;\(X\)&lt;/span&gt; and &lt;span class=&quot;math inline&quot;&gt;\(Y\)&lt;/span&gt; is thus &lt;span class=&quot;math inline&quot;&gt;\(D(n,m)\)&lt;/span&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&quot;computing-min-edit-distance-levenshtein&quot;&gt;Computing Min Edit Distance (Levenshtein)&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;Initialization &lt;span class=&quot;math inline&quot;&gt;\(D(i,0)=i\)&lt;/span&gt;, &lt;span class=&quot;math inline&quot;&gt;\(D(0,j)=j\)&lt;/span&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Recurrence Relation: for each i=i…M&lt;/p&gt;
-&lt;p&gt;for each j=1…N &lt;span class=&quot;math display&quot;&gt;\[
-D(i,j)=
-\begin{cases}
-D(i-1,j)+1 \\
-D(i, j-1)+1 \\
-D(i-1, j-1) + 
-\begin{cases}
-2 &amp;amp; \text{if $X(i) \neq Y(j)$}\\
-0 &amp;amp;\text{if $X(i) = Y(j)$}
-\end{cases} 
-\end{cases}
-\]&lt;/span&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Termination: &lt;span class=&quot;math inline&quot;&gt;\(D(N,M)\)&lt;/span&gt; is the distance. &lt;img src=&quot;/assets/images/17.jpg&quot; alt=&quot;edit distance table&quot; /&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-				<pubDate>Mon, 14 Dec 2015 00:00:00 +0800</pubDate>
-				<link>/foundation/nlp/2015/12/14/edit-distance.html</link>
-				<guid isPermaLink="true">/foundation/nlp/2015/12/14/edit-distance.html</guid>
-			</item>
-		
-			<item>
-				<title>the equations of backpropagation</title>
-				<description>&lt;p&gt;Typically, the last layer error vector: &lt;span class=&quot;math display&quot;&gt;\[
-\delta ^L = \nabla C \odot \sigma &amp;#39;(z^L)
-= a-y
-\]&lt;/span&gt; The middle &lt;span class=&quot;math inline&quot;&gt;\(l\)&lt;/span&gt; hidden layer error vector: &lt;span class=&quot;math display&quot;&gt;\[
-\delta ^l = (W^{l+1})^T\delta ^{l+1}\odot \sigma &amp;#39;(z^l)
-\]&lt;/span&gt; &lt;span class=&quot;math display&quot;&gt;\[
-\frac{\partial C}{\partial b^l}=\delta ^l
-\]&lt;/span&gt; &lt;span class=&quot;math display&quot;&gt;\[
-\frac{\partial C}{\partial W^l}=\delta ^l (a^{l-1})^T
-\]&lt;/span&gt; Here, &lt;span class=&quot;math inline&quot;&gt;\(W^l \in \Bbb R^{|l|\times|l-1|}\)&lt;/span&gt;,&lt;span class=&quot;math inline&quot;&gt;\(b^l\in \Bbb R^{|l|\times 1}\)&lt;/span&gt;,&lt;span class=&quot;math inline&quot;&gt;\(z^l\in \Bbb R^{|l|\times 1}\)&lt;/span&gt;,&lt;span class=&quot;math inline&quot;&gt;\(a^l\in \Bbb R^{|l|\times 1}\)&lt;/span&gt;,&lt;span class=&quot;math inline&quot;&gt;\(\delta^l\in \Bbb R^{|l|\times 1}\)&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;/assets/images/13.jpg&quot; alt=&quot;&quot; /&gt; &lt;img src=&quot;/assets/images/14.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-</description>
-				<pubDate>Mon, 07 Dec 2015 00:00:00 +0800</pubDate>
-				<link>/foundation/2015/12/07/the-equations-of-backpropagation.html</link>
-				<guid isPermaLink="true">/foundation/2015/12/07/the-equations-of-backpropagation.html</guid>
-			</item>
-		
-			<item>
-				<title>Rectified Linear Unit (ReLU)</title>
-				<description>&lt;figure&gt;
-&lt;img src=&quot;/assets/images/10.jpg&quot; alt=&quot;ReLU&quot; /&gt;&lt;figcaption&gt;ReLU&lt;/figcaption&gt;
-&lt;/figure&gt;
-&lt;p&gt;The Rectified Linear Unit (ReLU) computes the function &lt;span class=&quot;math inline&quot;&gt;\(f(x)=max(0,x)\)&lt;/span&gt;, which is simply thresholded at zero.&lt;/p&gt;
-&lt;p&gt;There are several pros and cons to using the ReLUs:&lt;/p&gt;
-&lt;ol type=&quot;1&quot;&gt;
-&lt;li&gt;(Pros) Compared to sigmoid/tanh neurons that involve expensive operations (exponentials, etc.), the ReLU can be implemented by simply thresholding a matrix of activations at zero. Meanwhile, ReLUs does not suffer from saturating.&lt;/li&gt;
-&lt;li&gt;(Pros) It was found to greatly accelerate the convergence of stochastic gradient descent compared to the sigmoid/tanh functions. It is argued that this is due to its linear, non-saturating form.&lt;/li&gt;
-&lt;li&gt;(Cons) Unfortunately, ReLU units can be fragile during training and can “die”. For example, a large gradient flowing through a ReLU neuron could cause the weights to update in such a way that the neuron will never activate on any datapoint again. If this happens, then the gradient flowing through the unit will forever be zero from that point on. That is, the ReLU units can irreversibly die during training since they can get knocked off the data manifold. For example, you may find that as much as 40% of your network can be “dead” (i.e., neurons that never activate across the entire training dataset) if the learning rate is set too high. With a proper setting of the learning rate this is less frequently an issue.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h2 id=&quot;leaky-relu&quot;&gt;Leaky ReLU&lt;/h2&gt;
-&lt;figure&gt;
-&lt;img src=&quot;/assets/images/11.jpg&quot; alt=&quot;Leaky ReLU&quot; /&gt;&lt;figcaption&gt;Leaky ReLU&lt;/figcaption&gt;
-&lt;/figure&gt;
-&lt;p&gt;Leaky ReLUs are one attempt to fix the “dying ReLU” problem. Instead of the function being zero when &lt;span class=&quot;math inline&quot;&gt;\(x&amp;lt;0\)&lt;/span&gt;, a leaky ReLU will instead have a small negative slope(of 0.01, or so). That is, the function computes &lt;span class=&quot;math inline&quot;&gt;\(f(x)=ax\)&lt;/span&gt; if &lt;span class=&quot;math inline&quot;&gt;\(x&amp;lt;0\)&lt;/span&gt; and &lt;span class=&quot;math inline&quot;&gt;\(f(x)=x\)&lt;/span&gt; if &lt;span class=&quot;math inline&quot;&gt;\(x\geqslant 0\)&lt;/span&gt;, where &lt;span class=&quot;math inline&quot;&gt;\(a\)&lt;/span&gt; is a small constant. Some people report success with this form of activation function, but the results are not always consistent.&lt;/p&gt;
-&lt;h2 id=&quot;parametric-relu&quot;&gt;Parametric ReLU&lt;/h2&gt;
-&lt;figure&gt;
-&lt;img src=&quot;/assets/images/12.jpg&quot; alt=&quot;rectified unit family&quot; /&gt;&lt;figcaption&gt;rectified unit family&lt;/figcaption&gt;
-&lt;/figure&gt;
-&lt;p&gt;The first variant is called parametric rectified linear unit (PReLU). In PReLU, the slopes of negative part are learned from data rather than pre-defined.&lt;/p&gt;
-&lt;h2 id=&quot;randomized-relu&quot;&gt;Randomized ReLU&lt;/h2&gt;
-&lt;p&gt;In RReLU, the slopes of negative parts are randomized in a given range in the training, and then fixed in the testing. As mentioned in [B. Xu, N. Wang, T. Chen, and M. Li. Empirical Evaluation of Rectified Activations in Convolution Network. In ICML Deep Learning Workshop, 2015.], in a recent Kaggle National Data Science Bowl (NDSB) competition, it is reported that RReLU could reduce overfitting due to its randomized nature. Moreover, suggested by the NDSB competition winner, the random &lt;span class=&quot;math inline&quot;&gt;\(a_i\)&lt;/span&gt; in training is sampled from &lt;span class=&quot;math inline&quot;&gt;\(1/U(3,8)\)&lt;/span&gt; and in test time it is fixed as its expectation, i.e., &lt;span class=&quot;math inline&quot;&gt;\(2/(l+u)=2/11\)&lt;/span&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;In conclusion, three types of ReLU variants all consistently outperform the original ReLU in these three data sets. And PReLU and RReLU seem better choices.&lt;/strong&gt;&lt;/p&gt;
-</description>
-				<pubDate>Wed, 18 Nov 2015 00:00:00 +0800</pubDate>
-				<link>/foundation/2015/11/18/rectified-linear-unit-relu.html</link>
-				<guid isPermaLink="true">/foundation/2015/11/18/rectified-linear-unit-relu.html</guid>
 			</item>
 		
 	</channel>
