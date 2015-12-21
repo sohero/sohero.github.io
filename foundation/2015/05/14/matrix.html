@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>理解矩阵</title>
+	
+	<meta name="author" content="sohero">
+
+	<!-- Enable responsive viewport -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Le styles -->
+    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+	<link href="/assets/css/syntax.css" rel="stylesheet">
+	<link href="/assets/css/style.css" rel="stylesheet">
+
+	<!-- Le fav and touch icons -->
+	<!-- Update these with your own images
+	<link rel="shortcut icon" href="images/favicon.ico">
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+	-->
+
+	<link rel="alternate" type="application/rss+xml" title="" href="/feed.xml">
+    <script type="text/javascript" src="http://static.blog.csdn.net/public/res/bower-libs/MathJax/MathJax.js?config=TeX-AMS_HTML"></script>
+    
+</head>
+
+<body>
+	<nav class="navbar navbar-default visible-xs" role="navigation">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			
+			<a type="button" class="navbar-toggle nav-link" href="http://github.com/sohero">
+				<i class="fa fa-github"></i>
+			</a>
+			
+			
+			
+			<a type="button" class="navbar-toggle nav-link" href="mailto:herosgq@gmail.com">
+				<i class="fa fa-envelope"></i>
+			</a>
+			
+		</div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="/">Home</a></li>
+				<li><a href="/categories.html">Categories</a></li>
+				<li><a href="/tags.html">Tags</a></li>
+			</ul>
+		</div><!-- /.navbar-collapse -->
+	</nav>
+
+	<!-- nav-menu-dropdown -->
+	<div class="btn-group hidden-xs" id="nav-menu">
+		<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+			<i class="fa fa-bars"></i>
+		</button>
+		<ul class="dropdown-menu" role="menu">
+			<li><a href="/"><i class="fa fa-home"></i>Home</a></li>
+			<li><a href="/categories.html"><i class="fa fa-folder"></i>Categories</a></li>
+			<li><a href="/tags.html"><i class="fa fa-tags"></i>Tags</a></li>
+			<li class="divider"></li>
+			<li><a href="#"><i class="fa fa-arrow-up"></i>Top of Page</a></li>
+		</ul>
+	</div>
+
+	<div class="col-sm-3 sidebar hidden-xs">
+		<!-- sidebar.html -->
+<header class="sidebar-header" role="banner">
+	<a href="/">
+		<img src="/assets/images/bl.png" class="img-circle" />
+	</a>
+	<h3 class="title">
+        <a href="/"></a>
+    </h3>
+</header>
+
+
+<div id="bio" class="text-center">
+	An elder's memo.
+</div>
+
+
+<div id="contact-list" class="text-center">
+	<ul class="list-unstyled list-inline">
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="https://github.com/sohero">
+				<i class="fa fa-github-alt fa-lg"></i>
+			</a>
+		</li>
+		
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="mailto:herosgq@gmail.com">
+				<i class="fa fa-envelope fa-lg"></i>
+			</a>
+		</li>
+		
+        <li>
+			<a class="btn btn-default btn-sm" href="/feed.xml">
+				<i class="fa fa-rss fa-lg"></i>
+			</a>
+		</li>
+	</ul>
+	<ul id="contact-list-secondary" class="list-unstyled list-inline">
+		
+		
+        
+		
+	</ul>
+</div>
+<!-- sidebar.html end -->
+
+	</div>
+
+	<div class="col-sm-9 col-sm-offset-3">
+		<div class="page-header">
+  <h1>理解矩阵 </h1>
+</div>
+	
+<article>
+
+	<div class="col-sm-10">
+	 <span class="post-date">
+	 	2015-05-14 
+	 </span>
+	  <div class="article_body">
+	  <html><head><meta charset="utf-8"><title>KindEditor</title>
+<style>
+html {margin:0;padding:0;}
+a {cursor:pointer}
+body {margin:0;padding:5px;}
+body.edit-mode {background:url(style/editor-inner-glow.jpg) no-repeat center top}
+body, td {font:12px/1.5 "宋体","sans serif",tahoma,verdana,helvetica;}
+body, p, div {word-wrap: break-word;}
+p {margin:0 0 5px;}
+table {border-collapse:collapse;}
+img {border:0;}
+table.ke-zeroborder td {border:1px dotted #AAA;}
+table {font-size: inherit; border-collapse: collapse;
+    margin-top: 10px; margin-bottom: 10px; display: table;
+}
+table td, table th{
+   word-break: break-all;
+   border: 1px solid #999;
+   padding: 5px 10px;
+   min-height: 25px;
+   min-width: 25px;
+   height: 25px;
+}
+table td>div {min-width: 2px;}
+img.ke-flash {
+	border:1px solid #AAA;
+	background-image:url(themes/common/flash.gif);
+	background-position:center center;
+	background-repeat:no-repeat;
+	width:100px;
+	height:100px;
+}
+img.ke-rm {
+	border:1px solid #AAA;
+	background-image:url(themes/common/rm.gif);
+	background-position:center center;
+	background-repeat:no-repeat;
+	width:100px;
+	height:100px;
+}
+img.ke-media {
+	border:1px solid #AAA;
+	background-image:url(themes/common/media.gif);
+	background-position:center center;
+	background-repeat:no-repeat;
+	width:100px;
+	height:100px;
+}
+img.ke-anchor {
+	border:1px dashed #666;
+	width:16px;
+	height:16px;
+}
+.ke-script {
+	display:none;
+	font-size:0;
+	width:0;
+	height:0;
+}
+.ke-pagebreak {
+	border:1px dotted #AAA;
+	font-size:0;
+	height:2px;
+}
+.ke-content {
+	font-family: "微软雅黑", "Microsoft Yahei", Helvetica Neue, Hiragino Sans GB,"宋体", simsun, "黑体", Arial, sans-serif;
+	font-size: 16px;
+	word-break: break-all;
+	word-wrap: break-word;
+	min-height:300px
+}
+div.remind-wrap {
+	width:550px;
+	min-height:18px;
+	font-size:14px;
+	border:none;
+	display:inline-block;
+	position:relative;
+	vertical-align:top;
+}
+div.remind-wrap.selected, div.remind-wrap.mover, div.remind-wrap:hover {
+	background:#ffffd6;
+}
+div.remind-wrap.mover .remind-text{
+	background:#ffffd6;
+}
+.remind-textarea:focus{
+	background:#ffffd6;
+}
+div.remind-mask {
+	position:absolute!important;
+	width:550px;
+	display:block;
+	height:18px;
+	z-index:999;
+	background:white;
+	opacity:0;
+	filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+}
+div.remind-content {
+	padding-left:50px;
+	line-height:18px;
+	height:18px;
+	overflow:hidden;
+}
+div.remind-content .remind-textarea{
+	resize: none;
+	height: 18px;
+	font-size: 13px;
+	line-height: 18px;
+	width:100%;
+	display:inline-block;
+	padding:0px;
+	outline:none;
+	z-index:3;
+	font:inherit;
+	letter-spacing:inherit;
+	word-spacing:inherit;
+	border:none;
+	white-space:nowrap;
+	background:inherit;
+}
+.remind-content .remind-textarea-holder {
+	z-index:-1!important;
+	position:absolute;
+	display:none;
+	top:0px;
+	left:9999px;
+}
+.view-mode .remind-textarea {
+	display:none;
+}
+span.original-todo {
+	display:none;
+}
+input.remind-checked {
+	position:absolute;
+	left: 5px;
+	top: 2px;
+	*top: -2px;
+	margin:0px;
+	padding:0px;
+}
+i.remind-watch {
+	position:absolute;
+	left: 25px;
+	width: 16px;
+	height: 16px;
+	cursor: pointer;
+	top: -1px;
+	background: url(style/remind.png);
+	background-position: -26px -2px;
+}
+.expired i.remind-watch {
+	background-position: -5px -2px;
+}
+.invalid i.remind-watch {
+	background-position: -48px -2px;
+}
+.remind-text {
+	overflow:hidden;
+	display:none;
+	width:100%;
+	height:100%;
+	text-overflow:ellipsis;
+	cursor:default;
+	white-space:nowrap;
+	background:inherit;
+	border:none;
+	font:inherit;
+	letter-spacing:inherit;
+	word-spacing:inherit;
+	border:none;
+	white-space:nowrap;
+}
+.view-mode .remind-text {
+	display:inline-block;
+}
+.invalid .remind-text {
+	color:#999;
+	text-decoration:line-through;
+}
+.lt-550 .remind-wrap{
+	width:100%;
+}
+.from-tcWeiboShare a{
+	color: #006A92;
+	text-decoration: none;
+}
+</style>
+</head><body class="ke-content editor-body">
+<p><a class="btn btn-default" href="http://www.52cs.org/?p=175" target="_blank">原文</a></p>
+<p style="box-sizing:border-box;border:0px;font-family:'Microsoft YaHei', 'Open Sans', Arial, sans-serif;margin-bottom:1.5em;outline:0px;padding:0px;vertical-align:baseline;color:#333333;background-color:#FFFFFF;"><span style="box-sizing:border-box;border:0px;font-family:inherit;font-size:medium;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;">今天先谈谈对线形空间和矩阵的几个核心概念的理解。这些东西大部分是凭着自己的理解写出来的，基本上不抄书，可能有错误的地方，希望能够被指出。但我希望做到直觉，也就是说能把数学背后说的实质问题说出来。</span> </p><p style="box-sizing:border-box;border:0px;font-family:'Microsoft YaHei', 'Open Sans', Arial, sans-serif;margin-bottom:1.5em;outline:0px;padding:0px;vertical-align:baseline;color:#333333;background-color:#FFFFFF;"><span style="box-sizing:border-box;border:0px;font-family:inherit;font-size:medium;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;">首先说说空间(space)，这个概念是现代数学的命根子之一，从拓扑空间开始，一步步往上加定义，可以形成很多空间。线形空间其实还是比较初级的，如果在里面定义了范数，就成了赋范线性空间。赋范线性空间满足完备性，就成了巴那赫空间；赋范线性空间中定义角度，就有了内积空间，内积空间再满足完备性，就得到希尔伯特空间。</span> </p><p style="box-sizing:border-box;border:0px;font-family:'Microsoft YaHei', 'Open Sans', Arial, sans-serif;margin-bottom:1.5em;outline:0px;padding:0px;vertical-align:baseline;color:#333333;background-color:#FFFFFF;"><span style="box-sizing:border-box;border:0px;font-family:inherit;font-size:medium;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;">总之，空间有很多种。你要是去看某种空间的数学定义，大致都是“存在一个集合，在这个集合上定义某某概念，然后满足某些性质”，就可以被称为空间。这未免有点奇怪，为什么要用“空间”来称呼一些这样的集合呢？大家将会看到，其实这是很有道理的。</span> </p><p style="box-sizing:border-box;border:0px;font-family:'Microsoft YaHei', 'Open Sans', Arial, sans-serif;margin-bottom:1.5em;outline:0px;padding:0px;vertical-align:baseline;color:#333333;background-color:#FFFFFF;"><span style="box-sizing:border-box;border:0px;font-family:inherit;font-size:medium;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;">我们一般人最熟悉的空间，毫无疑问就是我们生活在其中的（按照牛顿的绝对时空观）的三维空间，从数学上说，这是一个三维的欧几里德空间，我们先不管那么多，先看看我们熟悉的这样一个空间有些什么最基本的特点。仔细想想我们就会知道，这个三维的空间：1. 由很多（实际上是无穷多个）位置点组成；2. 这些点之间存在相对的关系；3. 可以在空间中定义长度、角度；4.&nbsp;<strong style="box-sizing:border-box;border:0px;font-family:inherit;font-size:16px;font-style:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;"><span style="box-sizing:border-box;border:0px;font-family:inherit;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;color:#FF0000;">这个空间可以容纳运动，这里我们所说的运动是从一个点到另一个点的移动（变换），而不是微积分意义上的“连续”性的运动，</span></strong></span> </p><p style="box-sizing:border-box;border:0px;font-family:'Microsoft YaHei', 'Open Sans', Arial, sans-serif;margin-bottom:1.5em;outline:0px;padding:0px;vertical-align:baseline;color:#333333;background-color:#FFFFFF;"><span style="box-sizing:border-box;border:0px;font-family:inherit;font-size:medium;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;">上面的这些性质中，最最关键的是第4条。第1、2条只能说是空间的基础，不算是空间特有的性质，凡是讨论数学问题，都得有一个集合，大多数还得在这个集合上定义一些结构（关系），并不是说有了这些就算是空间。而第3条太特殊，其他的空间不需要具备，更不是关键的性质。只有第4条是空间的本质，也就是说，<strong style="box-sizing:border-box;border:0px;font-family:inherit;font-size:16px;font-style:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;"><span style="box-sizing:border-box;border:0px;font-family:inherit;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;color:#FF0000;">容纳运动是空间的本质特征。</span></strong></span> </p><p style="box-sizing:border-box;border:0px;font-family:'Microsoft YaHei', 'Open Sans', Arial, sans-serif;margin-bottom:1.5em;outline:0px;padding:0px;vertical-align:baseline;color:#333333;background-color:#FFFFFF;"><span style="box-sizing:border-box;border:0px;font-family:inherit;font-size:medium;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;">认识到了这些，我们就可以把我们关于三维空间的认识扩展到其他的空间。<strong style="box-sizing:border-box;border:0px;font-family:inherit;font-size:16px;font-style:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;"><span style="box-sizing:border-box;border:0px;font-family:inherit;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;color:#FF0000;">事实上，不管是什么空间，都必须容纳和支持在其中发生的符合规则的运动（变换）。你会发现，在某种空间中往往会存在一种相对应的变换，比如拓扑空间中有拓扑变换，线性空间中有线性变换，仿射空间中有仿射变换，其实这些变换都只不过是对应空间中允许的运动形式而已。</span></strong></span> </p><div style="box-sizing:border-box;border:0px;font-family:'Microsoft YaHei', 'Open Sans', Arial, sans-serif;margin-bottom:1.5em;outline:0px;padding:0px;vertical-align:baseline;color:#333333;background-color:#FFFFFF;"><span style="box-sizing:border-box;border:0px;font-family:inherit;font-size:medium;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;">因此只要知道<strong style="box-sizing:border-box;border:0px;font-family:inherit;font-size:16px;font-style:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;"><span style="box-sizing:border-box;border:0px;font-family:inherit;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;color:#FF0000;">，“空间”是容纳运动的一个对象集合，而变换则规定了对应空间的运动。</span></strong></span> </div><div style="box-sizing:border-box;border:0px;font-family:'Microsoft YaHei', 'Open Sans', Arial, sans-serif;margin-bottom:1.5em;outline:0px;padding:0px;vertical-align:baseline;color:#333333;background-color:#FFFFFF;"><span style="box-sizing:border-box;border:0px;font-family:inherit;font-size:medium;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;"><strong style="box-sizing:border-box;border:0px;font-family:inherit;font-size:16px;font-style:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;"><span style="box-sizing:border-box;border:0px;font-family:inherit;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;color:#FF0000;"><strong style="box-sizing:border-box;border:0px;font-family:'Microsoft YaHei', 'Open Sans', Arial, sans-serif;font-size:medium;margin:0px;outline:0px;padding:0px;vertical-align:baseline;color:#333333;background-color:#FFFFFF;"><span style="box-sizing:border-box;border:0px;font-family:inherit;font-size:16px;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;color:#FF0000;">线性空间中的任何一个对象，通过选取基和坐标的办法，都可以表达为向量的形式。</span></strong></span></strong></span> </div><div style="box-sizing:border-box;border:0px;font-family:'Microsoft YaHei', 'Open Sans', Arial, sans-serif;margin-bottom:1.5em;outline:0px;padding:0px;vertical-align:baseline;color:#333333;background-color:#FFFFFF;"><span style="box-sizing:border-box;border:0px;font-family:inherit;font-size:medium;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;"><strong style="box-sizing:border-box;border:0px;font-family:inherit;font-size:16px;font-style:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;"><span style="box-sizing:border-box;border:0px;font-family:inherit;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;color:#FF0000;"> <p style="box-sizing:border-box;border:0px;font-family:'Microsoft YaHei', 'Open Sans', Arial, sans-serif;margin-bottom:1.5em;outline:0px;padding:0px;vertical-align:baseline;color:#333333;background-color:#FFFFFF;"><span style="box-sizing:border-box;border:0px;font-family:inherit;font-size:medium;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;">线性空间中的运动，被称为线性变换。也就是说，你从线性空间中的一个点运动到任意的另外一个点，都可以通过一个线性变化来完成。那么，线性变换如何表示呢？<strong style="box-sizing:border-box;border:0px;font-family:inherit;font-size:16px;font-style:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;"><span style="box-sizing:border-box;border:0px;font-family:inherit;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;color:#FF0000;">很有意思，在线性空间中，当你选定一组基之后，不仅可以用一个向量来描述空间中的任何一个对象，而且可以用矩阵来描述该空间中的任何一个运动（变换）。而使某个对象发生对应运动的方法，就是用代表那个运动的矩阵，乘以代表那个对象的向量。</span></strong></span> </p><p style="box-sizing:border-box;border:0px;font-family:'Microsoft YaHei', 'Open Sans', Arial, sans-serif;margin-bottom:1.5em;outline:0px;padding:0px;vertical-align:baseline;color:#333333;background-color:#FFFFFF;"><span style="box-sizing:border-box;border:0px;font-family:inherit;font-size:medium;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;">简而言之，<strong style="box-sizing:border-box;border:0px;font-family:inherit;font-size:16px;font-style:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;"><span style="box-sizing:border-box;border:0px;font-family:inherit;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;color:#FF0000;">在线性空间中选定基之后，向量刻画对象，矩阵刻画对象的运动，用矩阵与向量的乘法施加运动。</span></strong></span> </p><p style="box-sizing:border-box;border:0px;font-family:'Microsoft YaHei', 'Open Sans', Arial, sans-serif;margin-bottom:1.5em;outline:0px;padding:0px;vertical-align:baseline;color:#333333;background-color:#FFFFFF;"><span style="box-sizing:border-box;border:0px;font-family:inherit;font-size:medium;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;">是的，矩阵的本质是运动的描述。如果以后有人问你矩阵是什么，那么你就可以响亮地告诉他，<span style="box-sizing:border-box;border:0px;font-family:inherit;font-size:16px;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;text-decoration:underline;"><strong style="box-sizing:border-box;border:0px;font-family:inherit;font-style:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;"><span style="box-sizing:border-box;border:0px;font-family:inherit;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;color:#FF0000;">矩阵的本质是运动的描述</span></strong></span>。</span> </p></span></strong></span> <div><span style="box-sizing:border-box;border:0px;font-family:inherit;font-size:medium;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;"><strong style="box-sizing:border-box;border:0px;font-family:inherit;font-size:16px;font-style:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;"><span style="box-sizing:border-box;border:0px;font-family:inherit;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;color:#FF0000;"><span style="color:#333333;font-family:'Microsoft YaHei', 'Open Sans', Arial, sans-serif;font-size:medium;background-color:#FFFFFF;">可是多么有意思啊，向量本身不是也可以看成是n x 1矩阵吗？这实在是很奇妙，</span><strong style="box-sizing:border-box;border:0px;font-family:'Microsoft YaHei', 'Open Sans', Arial, sans-serif;font-size:medium;margin:0px;outline:0px;padding:0px;vertical-align:baseline;color:#333333;background-color:#FFFFFF;"><span style="box-sizing:border-box;border:0px;font-family:inherit;font-size:16px;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;color:#FF0000;">一个空间中的对象和运动竟然可以用相类同的方式表示。</span></strong><span style="color:#333333;font-family:'Microsoft YaHei', 'Open Sans', Arial, sans-serif;font-size:medium;background-color:#FFFFFF;">能说这是巧合吗？如果是巧合的话，那可真是幸运的巧合！可以说，线性代数中大多数奇妙的性质，均与这个巧合有直接的关系。</span></span></strong></span> </div><div><span style="box-sizing:border-box;border:0px;font-family:inherit;font-size:medium;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;"><strong style="box-sizing:border-box;border:0px;font-family:inherit;font-size:16px;font-style:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;"><span style="box-sizing:border-box;border:0px;font-family:inherit;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;color:#FF0000;"><span style="color:#444444;font-family:'Microsoft YaHei', 'Open Sans', Arial, sans-serif;font-size:medium;background-color:#FFFFFF;">“矩阵是线性空间里跃迁的描述”。</span><br> </span></strong></span> </div><div><span style="box-sizing:border-box;border:0px;font-family:inherit;font-size:medium;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;"><strong style="box-sizing:border-box;border:0px;font-family:inherit;font-size:16px;font-style:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;"><span style="box-sizing:border-box;border:0px;font-family:inherit;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;color:#FF0000;"><span style="box-sizing:border-box;border:0px;font-family:'Microsoft YaHei', 'Open Sans', Arial, sans-serif;font-size:medium;margin:0px;outline:0px;padding:0px;vertical-align:baseline;color:#FF0000;background-color:#FFFFFF;"><strong style="box-sizing:border-box;border:0px;font-family:inherit;font-size:16px;font-style:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;">所谓变换，其实就是空间里从一个点（元素/对象）到另一个点（元素/对象）的跃迁</strong></span><span style="color:#444444;font-family:'Microsoft YaHei', 'Open Sans', Arial, sans-serif;font-size:medium;background-color:#FFFFFF;">。</span></span></strong></span> </div><div><span style="box-sizing:border-box;border:0px;font-family:inherit;font-size:medium;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;"><strong style="box-sizing:border-box;border:0px;font-family:inherit;font-size:16px;font-style:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;"><span style="box-sizing:border-box;border:0px;font-family:inherit;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;color:#FF0000;">(<span style="color:#444444;font-family:'Microsoft YaHei', 'Open Sans', Arial, sans-serif;font-size:medium;background-color:#FFFFFF;">做计算机图形学的朋友都知道，尽管描述一个三维对象只需要三维向量，但所有的计算机图形学变换矩阵都是4 x 4的。说其原因，很多书上都写着“为了使用中方便”，这在我看来简直就是企图蒙混过关。真正的原因，是因为在计算机图形学里应用的图形变换，实际上是在仿射空间而不是向量空间中进行的。</span>) </span></strong></span> </div><div><span style="box-sizing:border-box;border:0px;font-family:inherit;font-size:medium;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;"><strong style="box-sizing:border-box;border:0px;font-family:inherit;font-size:16px;font-style:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;"><span style="box-sizing:border-box;border:0px;font-family:inherit;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;color:#FF0000;"><strong style="box-sizing:border-box;border:0px;font-family:'Microsoft YaHei', 'Open Sans', Arial, sans-serif;font-size:medium;margin:0px;outline:0px;padding:0px;vertical-align:baseline;color:#FF0000;background-color:#FFFFFF;">“矩阵是线性空间里的变换的描述。”</strong></span></strong></span> </div><div><span style="box-sizing:border-box;border:0px;font-family:inherit;font-size:medium;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;"><strong style="box-sizing:border-box;border:0px;font-family:inherit;font-size:16px;font-style:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;"><span style="box-sizing:border-box;border:0px;font-family:inherit;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;color:#FF0000;"><strong style="box-sizing:border-box;border:0px;font-family:'Microsoft YaHei', 'Open Sans', Arial, sans-serif;font-size:medium;margin:0px;outline:0px;padding:0px;vertical-align:baseline;color:#444444;background-color:#FFFFFF;"><span style="box-sizing:border-box;border:0px;font-family:inherit;font-size:16px;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;color:#FF0000;">把基看成是线性空间里的坐标系就可以了。</span></strong><strong style="box-sizing:border-box;border:0px;font-family:'Microsoft YaHei', 'Open Sans', Arial, sans-serif;font-size:medium;margin:0px;outline:0px;padding:0px;vertical-align:baseline;color:#FF0000;background-color:#FFFFFF;">“矩阵是线性空间中的线性变换的一个描述。在一个线性空间中，只要我们选定一组基，那么对于任何一个线性变换，都能够用一个确定的矩阵来加以描述。”</strong></span></strong></span> </div><div><span style="box-sizing:border-box;border:0px;font-family:inherit;font-size:medium;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;"><strong style="box-sizing:border-box;border:0px;font-family:inherit;font-size:16px;font-style:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;"><span style="box-sizing:border-box;border:0px;font-family:inherit;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;color:#FF0000;"><strong style="box-sizing:border-box;border:0px;font-family:'Microsoft YaHei', 'Open Sans', Arial, sans-serif;font-size:medium;margin:0px;outline:0px;padding:0px;vertical-align:baseline;color:#FF0000;background-color:#FFFFFF;">同样的，对于一个线性变换，只要你选定一组基，那么就可以找到一个矩阵来描述这个线性变换。换一组基，就得到一个不同的矩阵。所有这些矩阵都是这同一个线性变换的描述，但又都不是线性变换本身。</strong><br> </span></strong></span> </div><div><span style="box-sizing:border-box;border:0px;font-family:inherit;font-size:medium;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;"><strong style="box-sizing:border-box;border:0px;font-family:inherit;font-size:16px;font-style:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;"><span style="box-sizing:border-box;border:0px;font-family:inherit;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;color:#FF0000;"> <p style="box-sizing:border-box;border:0px;font-family:'Microsoft YaHei', 'Open Sans', Arial, sans-serif;margin-bottom:1.5em;outline:0px;padding:0px;vertical-align:baseline;color:#444444;background-color:#FFFFFF;"><span style="box-sizing:border-box;border:0px;font-family:inherit;font-size:medium;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;">若矩阵A与B是同一个线性变换的两个不同的描述（之所以会不同，是因为选定了不同的基，也就是选定了不同的坐标系），则一定能找到一个非奇异矩阵P，使得A、B之间满足这样的关系：</span> </p><p style="box-sizing:border-box;border:0px;font-family:'Microsoft YaHei', 'Open Sans', Arial, sans-serif;margin-bottom:1.5em;outline:0px;padding:0px;vertical-align:baseline;color:#444444;background-color:#FFFFFF;"><span style="box-sizing:border-box;border:0px;font-family:inherit;font-size:medium;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;">A = P<span style="box-sizing:border-box;border:0px;font-family:inherit;font-size:12px;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;height:0px;line-height:0;position:relative;bottom:1ex;">-1</span>BP</span> </p><p style="box-sizing:border-box;border:0px;font-family:'Microsoft YaHei', 'Open Sans', Arial, sans-serif;margin-bottom:1.5em;outline:0px;padding:0px;vertical-align:baseline;color:#444444;background-color:#FFFFFF;"><span style="box-sizing:border-box;border:0px;font-family:inherit;font-size:medium;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;">线性代数稍微熟一点的读者一下就看出来，这就是相似矩阵的定义。没错，<strong style="box-sizing:border-box;border:0px;font-family:inherit;font-size:16px;font-style:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;"><span style="box-sizing:border-box;border:0px;font-family:inherit;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;color:#FF0000;">所谓相似矩阵，就是同一个线性变换的不同的描述矩阵。</span></strong></span> </p></span></strong></span> <div><span style="box-sizing:border-box;border:0px;font-family:inherit;font-size:medium;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;"><strong style="box-sizing:border-box;border:0px;font-family:inherit;font-size:16px;font-style:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;"><span style="box-sizing:border-box;border:0px;font-family:inherit;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;color:#FF0000;"><strong style="box-sizing:border-box;border:0px;font-family:'Microsoft YaHei', 'Open Sans', Arial, sans-serif;font-size:medium;margin:0px;outline:0px;padding:0px;vertical-align:baseline;color:#444444;background-color:#FFFFFF;"><span style="box-sizing:border-box;border:0px;font-family:inherit;font-size:16px;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;color:#FF0000;">原来一族相似矩阵都是同一个线性变换的描述啊！</span></strong></span></strong></span> </div><div><span style="box-sizing:border-box;border:0px;font-family:inherit;font-size:medium;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;"><strong style="box-sizing:border-box;border:0px;font-family:inherit;font-size:16px;font-style:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;"><span style="box-sizing:border-box;border:0px;font-family:inherit;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;color:#FF0000;"><strong style="box-sizing:border-box;border:0px;font-family:'Microsoft YaHei', 'Open Sans', Arial, sans-serif;font-size:medium;margin:0px;outline:0px;padding:0px;vertical-align:baseline;color:#444444;background-color:#FFFFFF;"><span style="box-sizing:border-box;border:0px;font-family:inherit;font-size:16px;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;color:#FF0000;">矩阵不仅可以作为线性变换的描述，而且可以作为一组基的描述。</span><span style="box-sizing:border-box;border:0px;font-family:inherit;font-size:16px;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;color:#FF0000;">而作为变换的矩阵，不但可以把线性空间中的一个点给变换到另一个点去，而且也能够把线性空间中的一个坐标系（基）表换到另一个坐标系（基）去。而且，变换点与变换坐标系，具有异曲同工的效果。线性代数里最有趣的奥妙，就蕴含在其中。理解了这些内容，线性代数里很多定理和规则会变得更加清晰、直觉。</span></strong></span></strong></span> </div><div><span style="box-sizing:border-box;border:0px;font-family:inherit;font-size:medium;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;"><strong style="box-sizing:border-box;border:0px;font-family:inherit;font-size:16px;font-style:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;"><span style="box-sizing:border-box;border:0px;font-family:inherit;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;color:#FF0000;"> <p style="box-sizing:border-box;border:0px;font-family:'Microsoft YaHei', 'Open Sans', Arial, sans-serif;margin-bottom:1.5em;outline:0px;padding:0px;vertical-align:baseline;color:#444444;background-color:#FFFFFF;">下面让我们把视力集中到一点以改变我们以往看待矩阵的方式。我们知道，线性空间里的基本对象是向量，而向量是这么表示的：</p><p style="box-sizing:border-box;border:0px;font-family:'Microsoft YaHei', 'Open Sans', Arial, sans-serif;margin-bottom:1.5em;outline:0px;padding:0px;vertical-align:baseline;color:#444444;background-color:#FFFFFF;">[a<span style="box-sizing:border-box;border:0px;font-family:inherit;font-size:12px;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;height:0px;line-height:0;position:relative;top:0.5ex;">1</span>, a<span style="box-sizing:border-box;border:0px;font-family:inherit;font-size:12px;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;height:0px;line-height:0;position:relative;top:0.5ex;">2</span>, a<span style="box-sizing:border-box;border:0px;font-family:inherit;font-size:12px;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;height:0px;line-height:0;position:relative;top:0.5ex;">3</span>, ..., a<span style="box-sizing:border-box;border:0px;font-family:inherit;font-size:12px;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;height:0px;line-height:0;position:relative;top:0.5ex;">n</span>]</p><p style="box-sizing:border-box;border:0px;font-family:'Microsoft YaHei', 'Open Sans', Arial, sans-serif;margin-bottom:1.5em;outline:0px;padding:0px;vertical-align:baseline;color:#444444;background-color:#FFFFFF;">矩阵呢？矩阵是这么表示的：</p><p style="box-sizing:border-box;border:0px;font-family:'Microsoft YaHei', 'Open Sans', Arial, sans-serif;margin-bottom:1.5em;outline:0px;padding:0px;vertical-align:baseline;color:#444444;background-color:#FFFFFF;">a<span style="box-sizing:border-box;border:0px;font-family:inherit;font-size:12px;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;height:0px;line-height:0;position:relative;top:0.5ex;">11</span>, a<span style="box-sizing:border-box;border:0px;font-family:inherit;font-size:12px;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;height:0px;line-height:0;position:relative;top:0.5ex;">12</span>, a<span style="box-sizing:border-box;border:0px;font-family:inherit;font-size:12px;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;height:0px;line-height:0;position:relative;top:0.5ex;">13</span>, ..., a<span style="box-sizing:border-box;border:0px;font-family:inherit;font-size:12px;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;height:0px;line-height:0;position:relative;top:0.5ex;">1n</span><br style="box-sizing:border-box;"> a<span style="box-sizing:border-box;border:0px;font-family:inherit;font-size:12px;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;height:0px;line-height:0;position:relative;top:0.5ex;">21</span>, a<span style="box-sizing:border-box;border:0px;font-family:inherit;font-size:12px;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;height:0px;line-height:0;position:relative;top:0.5ex;">22</span>, a<span style="box-sizing:border-box;border:0px;font-family:inherit;font-size:12px;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;height:0px;line-height:0;position:relative;top:0.5ex;">23</span>, ..., a<span style="box-sizing:border-box;border:0px;font-family:inherit;font-size:12px;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;height:0px;line-height:0;position:relative;top:0.5ex;">2n</span><br style="box-sizing:border-box;"> ...<br style="box-sizing:border-box;"> a<span style="box-sizing:border-box;border:0px;font-family:inherit;font-size:12px;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;height:0px;line-height:0;position:relative;top:0.5ex;">n1</span>, a<span style="box-sizing:border-box;border:0px;font-family:inherit;font-size:12px;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;height:0px;line-height:0;position:relative;top:0.5ex;">n2</span>, a<span style="box-sizing:border-box;border:0px;font-family:inherit;font-size:12px;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;height:0px;line-height:0;position:relative;top:0.5ex;">n3</span>, ..., a<span style="box-sizing:border-box;border:0px;font-family:inherit;font-size:12px;font-style:inherit;font-weight:inherit;margin:0px;outline:0px;padding:0px;vertical-align:baseline;height:0px;line-height:0;position:relative;top:0.5ex;">nn</span> </p><p style="box-sizing:border-box;border:0px;font-family:'Microsoft YaHei', 'Open Sans', Arial, sans-serif;margin-bottom:1.5em;outline:0px;padding:0px;vertical-align:baseline;color:#444444;background-color:#FFFFFF;">不用太聪明，我们就能看出来，矩阵是一组向量组成的。特别的，n维线性空间里的方阵是由n个n维向量组成的。我们在这里只讨论这个n阶的、非奇异的方阵，因为理解它就是理解矩阵的关键，它才是一般情况，而其他矩阵都是意外，都是不得不对付的讨厌状况，大可以放在一边。这里多一句嘴，学习东西要抓住主流，不要纠缠于旁支末节。很可惜我们的教材课本大多数都是把主线埋没在细节中的，搞得大家还没明白怎么回事就先被灌晕了。比如数学分析，明明最要紧的观念是说，一个对象可以表达为无穷多个合理选择的对象的线性和，这个概念是贯穿始终的，也是数学分析的精华。但是课本里自始至终不讲这句话，反正就是让你做吉米多维奇，掌握一大堆解偏题的技巧，记住各种特殊情况，两类间断点，怪异的可微和可积条件（谁还记得柯西条件、迪里赫莱条件...？），最后考试一过，一切忘光光。要我说，还不如反复强调这一个事情，把它深深刻在脑子里，别的东西忘了就忘了，真碰到问题了，再查数学手册嘛，何必因小失大呢？</p><p style="box-sizing:border-box;border:0px;font-family:'Microsoft YaHei', 'Open Sans', Arial, sans-serif;margin-bottom:1.5em;outline:0px;padding:0px;vertical-align:baseline;color:#444444;background-color:#FFFFFF;">言归正传。如果一组向量是彼此线性无关的话，那么它们就可以成为度量这个线性空间的一组基，从而事实上成为一个坐标系体系，其中每一个向量都躺在一根坐标轴上，并且成为那根坐标轴上的基本度量单位（长度1）。</p><p style="box-sizing:border-box;border:0px;font-family:'Microsoft YaHei', 'Open Sans', Arial, sans-serif;margin-bottom:1.5em;outline:0px;padding:0px;vertical-align:baseline;color:#444444;background-color:#FFFFFF;">现在到了关键的一步。看上去矩阵就是由一组向量组成的，而且如果矩阵非奇异的话（我说了，只考虑这种情况），那么组成这个矩阵的那一组向量也就是线性无关的了，也就可以成为度量线性空间的一个坐标系。结论：<span style="box-sizing:border-box;border:0px;font-family:inherit;font-style:inherit;font-weight:bold;margin:0px;outline:0px;padding:0px;vertical-align:baseline;color:#0000FF;">矩阵描述了一个坐标系。</span> </p><p style="box-sizing:border-box;border:0px;font-family:'Microsoft YaHei', 'Open Sans', Arial, sans-serif;margin-bottom:1.5em;outline:0px;padding:0px;vertical-align:baseline;color:#444444;background-color:#FFFFFF;">“慢着！”，你嚷嚷起来了，“你这个骗子！你不是说过，矩阵就是运动吗？怎么这会矩阵又是坐标系了？”</p><p style="box-sizing:border-box;border:0px;font-family:'Microsoft YaHei', 'Open Sans', Arial, sans-serif;margin-bottom:1.5em;outline:0px;padding:0px;vertical-align:baseline;color:#444444;background-color:#FFFFFF;">嗯，所以我说到了关键的一步。我并没有骗人，之所以矩阵又是运动，又是坐标系，那是因为——</p><p style="box-sizing:border-box;border:0px;font-family:'Microsoft YaHei', 'Open Sans', Arial, sans-serif;margin-bottom:1.5em;outline:0px;padding:0px;vertical-align:baseline;color:#444444;background-color:#FFFFFF;"><span style="box-sizing:border-box;border:0px;font-family:inherit;font-style:inherit;font-weight:bold;margin:0px;outline:0px;padding:0px;vertical-align:baseline;color:#0000FF;">“运动等价于坐标系变换”。</span> </p><p style="box-sizing:border-box;border:0px;font-family:'Microsoft YaHei', 'Open Sans', Arial, sans-serif;margin-bottom:1.5em;outline:0px;padding:0px;vertical-align:baseline;color:#444444;background-color:#FFFFFF;">对不起，这话其实不准确，我只是想让你印象深刻。准确的说法是：</p><p style="box-sizing:border-box;border:0px;font-family:'Microsoft YaHei', 'Open Sans', Arial, sans-serif;margin-bottom:1.5em;outline:0px;padding:0px;vertical-align:baseline;color:#444444;background-color:#FFFFFF;"><span style="box-sizing:border-box;border:0px;font-family:inherit;font-style:inherit;font-weight:bold;margin:0px;outline:0px;padding:0px;vertical-align:baseline;color:#0000FF;">“对象的变换等价于坐标系的变换”。</span><br style="box-sizing:border-box;font-weight:bold;color:#0000FF;"> <br style="box-sizing:border-box;"> 或者：</p><p style="box-sizing:border-box;border:0px;font-family:'Microsoft YaHei', 'Open Sans', Arial, sans-serif;margin-bottom:1.5em;outline:0px;padding:0px;vertical-align:baseline;color:#444444;background-color:#FFFFFF;"><span style="box-sizing:border-box;border:0px;font-family:inherit;font-style:inherit;font-weight:bold;margin:0px;outline:0px;padding:0px;vertical-align:baseline;color:#0000FF;">“固定坐标系下一个对象的变换等价于固定对象所处的坐标系变换。”</span> </p><p style="box-sizing:border-box;border:0px;font-family:'Microsoft YaHei', 'Open Sans', Arial, sans-serif;margin-bottom:1.5em;outline:0px;padding:0px;vertical-align:baseline;color:#444444;background-color:#FFFFFF;">说白了就是：</p><p style="box-sizing:border-box;border:0px;font-family:'Microsoft YaHei', 'Open Sans', Arial, sans-serif;margin-bottom:1.5em;outline:0px;padding:0px;vertical-align:baseline;color:#444444;background-color:#FFFFFF;"><span style="box-sizing:border-box;border:0px;font-family:inherit;font-style:inherit;font-weight:bold;margin:0px;outline:0px;padding:0px;vertical-align:baseline;color:#0000FF;">“运动是相对的。”</span> </p><span style="color:#444444;font-family:'Microsoft YaHei', 'Open Sans', Arial, sans-serif;background-color:#FFFFFF;">让我们想想，达成同一个变换的结果，比如把点(1, 1)变到点(2, 3)去，你可以有两种做法。第一，坐标系不动，点动，把(1, 1)点挪到(2, 3)去。第二，点不动，变坐标系，让x轴的度量（单位向量）变成原来的1/2，让y轴的度量（单位向量）变成原先的1/3，这样点还是那个点，可是点的坐标就变成(2, 3)了。方式不同，结果一样。</span></span></strong></span> </div></div></div></body></html>
+	  </div>
+
+		
+		<ul class="tag_box list-unstyled list-inline">
+		  <li><i class="fa fa-folder-open"></i></li>
+		  
+		  
+			 
+				<li><a href="/categories.html#foundation-ref">
+					foundation <span>(22)</span>
+					
+				</a></li>
+			
+		  
+		</ul>
+		  
+
+		
+		<ul class="list-inline">
+		  <li><i class="fa fa-tags"></i></li>
+		  
+		  
+			 
+				<li>
+					<a href="/tags.html#foundation-ref">
+					foundation <span>(22)</span>
+					
+					</a>
+				</li>
+			
+		  
+		  
+		</ul>
+		  
+
+		<hr>
+
+		<div>
+      <section class="share col-sm-12">
+        <h4 class="section-title">Share Post</h4>
+        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=理解矩阵"
+           onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+          <i class="fa fa-twitter fa-lg"></i>
+          Twitter
+        </a>
+        <a class="btn btn-default btn-sm facebook" href="https://www.facebook.com/sharer/sharer.php"
+           onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+          <i class="fa fa-facebook fa-lg"></i>
+          Facebook
+        </a>
+        <a class="btn btn-default btn-sm gplus"
+           onclick="window.open('https://plus.google.com/share?url='+window.location.href, 'google-plus-share', 'width=490,height=530');return false;">
+          <i class="fa fa-google-plus fa-lg"></i>
+          Google+
+        </a>
+      </section>
+    </div>
+
+    <div class="clearfix"></div>
+
+		<ul class="pager">
+		  
+		  <li class="previous disabled"><a>&larr; Previous</a></li>
+		  
+		  
+		  <li class="next"><a href="/lua/2015/07/27/learn-lua-in-an-hour.html" title="Learn Lua in an Hour">Next &rarr;</a></li>
+		  
+		</ul>
+
+		<hr>
+	</div>
+	
+	<div class="col-sm-2 sidebar-2">
+	
+	</div>
+</article>
+<div class="clearfix"></div>
+
+
+
+
+
+		<footer>
+			<hr/>
+			<p>
+				&copy; 2015 <a href="http://guoqiang.gq">sohero</a>.
+			</p>
+		</footer>
+	</div>
+
+	<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+	<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/assets/js/app.js"></script>
+</body>
+</html>
+
+
+
