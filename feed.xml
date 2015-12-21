@@ -7,6 +7,43 @@
 		<atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>Neural Reasoner</title>
+				<description>&lt;h2 id=&quot;overview-of-neural-reasoner&quot;&gt;Overview of Neural Reasoner&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Neural Reasoner&lt;/strong&gt; has a layered architecture to deal with the complicated logical relations in reasoning as illustrated in Figure 1:&lt;/p&gt;
+&lt;figure&gt;
+&lt;img src=&quot;/assets/images/24.png&quot; alt=&quot;&quot; /&gt;
+&lt;/figure&gt;
+&lt;p&gt;It consists of &lt;code&gt;one encoding layer&lt;/code&gt; and &lt;code&gt;multiple reasoning layers&lt;/code&gt;. The encoder layers first converts the question and facts from natural language sentences to vectorial representations. More specifically, &lt;span class=&quot;math display&quot;&gt;\[
+Q \quad \underrightarrow{encode} \quad q^{(0)} , F_k \quad \underrightarrow{encode} \quad f_k^{(0)},k=1,2,...,K.
+\]&lt;/span&gt; where &lt;span class=&quot;math inline&quot;&gt;\(q^{(0)} \in \Bbb R^{d_Q}\)&lt;/span&gt; and &lt;span class=&quot;math inline&quot;&gt;\(f_k^{(0)} \in \Bbb R^{d_F}\)&lt;/span&gt;. With the representations obtained from the encoding layer, the reasoning layer recursively updates the representations of questions and facts, &lt;span class=&quot;math display&quot;&gt;\[
+\{q^{(l)}f_1^{(l)}\dotsb f_K^{(l)}\}\quad \underrightarrow{reason} \quad\{q^{(l+1)}f_1^{(l+1)}\dotsb f_K^{(l+1)}\}
+\]&lt;/span&gt; through the interaction between question representation and fact representations. Intuitively, this interaction models the reasoning, including examination of the facts and comparison of the facts and the questions. Finally at layer-&lt;span class=&quot;math inline&quot;&gt;\(L\)&lt;/span&gt;, the resulted question representation &lt;span class=&quot;math inline&quot;&gt;\(q^{(L)}\)&lt;/span&gt; is fed to an answerer, which layer can be a classifier for choosing between a number of pre-determined classes (e.g., {Yes, No}) or a text generator for create a sentence.&lt;/p&gt;
+&lt;p&gt;Neural Reasoner has the following desired properties:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;it can handle varying number of facts, including irrelevant ones, and reach the final conclusion through repeated processing of filtering and combining;&lt;/li&gt;
+&lt;li&gt;it makes no assumption about the form of language, as long as enough training examples are given.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;model&quot;&gt;Model&lt;/h2&gt;
+&lt;figure&gt;
+&lt;img src=&quot;/assets/images/25.png&quot; alt=&quot;A diagram of implementation of Neural Reasoner with L reasoning layers, operating on one question and K facts&quot; /&gt;&lt;figcaption&gt;A diagram of implementation of Neural Reasoner with L reasoning layers, operating on one question and K facts&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;h2 id=&quot;auxiliary-training-for-questionfact-representation&quot;&gt;Auxiliary Training for Question/Fact Representation&lt;/h2&gt;
+&lt;p&gt;Use auxiliary training to facilitate the learning of representations of question and facts. Basically, in addition to using the learned representations of question and facts in the reasoning process, also use those representations to reconstruct the original questions or their more abstract forms with variables.&lt;/p&gt;
+&lt;p&gt;In the auxiliary training, intend to achieve the following two goals:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;to compensate the lack of supervision in the learning task. In experiments, the supervision can be fairly weak since for each instance it is merely a classification with no more than 12 classes, while the number of instances are 1K to 10K.&lt;/li&gt;
+&lt;li&gt;to introduce beneficial bias for the representation learning task. Since the network is a complicated nonlinear function, the back-propagation from the answering layer to the encoding layer can easily fail to learn well.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure&gt;
+&lt;img src=&quot;/assets/images/26.png&quot; alt=&quot;Auxiliary training for question representation. The training for fact representation is identical and therefore omitted&quot; /&gt;&lt;figcaption&gt;Auxiliary training for question representation. The training for fact representation is identical and therefore omitted&lt;/figcaption&gt;
+&lt;/figure&gt;
+</description>
+				<pubDate>Mon, 21 Dec 2015 00:00:00 +0800</pubDate>
+				<link>/foundation/paper/2015/12/21/neural-reasoner.html</link>
+				<guid isPermaLink="true">/foundation/paper/2015/12/21/neural-reasoner.html</guid>
+			</item>
+		
+			<item>
 				<title>OXFORD Machine Learning</title>
 				<description>&lt;p&gt;&lt;a href=&quot;https://www.cs.ox.ac.uk/people/nando.defreitas/machinelearning/&quot;&gt;Course Page&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&quot;lecture-2-linear-supervised-learning&quot;&gt;Lecture 2 Linear supervised learning&lt;/h2&gt;
@@ -186,41 +223,6 @@ J=\frac{1}{2} \sum_{ij} f(P_{ij})(w_i \cdot \tilde w_j-logP_{ij})^2
 				<pubDate>Mon, 14 Dec 2015 00:00:00 +0800</pubDate>
 				<link>/foundation/paper/2015/12/14/sense2vec-a-fast-and-accurate-method-for-word-sense-disambiguation-in-neural-word-embeddings.html</link>
 				<guid isPermaLink="true">/foundation/paper/2015/12/14/sense2vec-a-fast-and-accurate-method-for-word-sense-disambiguation-in-neural-word-embeddings.html</guid>
-			</item>
-		
-			<item>
-				<title>End-To-End Memory Networks</title>
-				<description>&lt;h2 id=&quot;single-layer&quot;&gt;Single Layer&lt;/h2&gt;
-&lt;p&gt;A layer has two memroy: &lt;code&gt;input memory&lt;/code&gt;,&lt;code&gt;output memory&lt;/code&gt;. Parameters are &lt;span class=&quot;math inline&quot;&gt;\(A \in \Bbb R^{d \times |V|}\)&lt;/span&gt;,&lt;span class=&quot;math inline&quot;&gt;\(B \in \Bbb R^{d \times |V|}\)&lt;/span&gt;,&lt;span class=&quot;math inline&quot;&gt;\(C \in \Bbb R^{d \times |V|}\)&lt;/span&gt;,&lt;span class=&quot;math inline&quot;&gt;\(W \in \Bbb R^{|V| \times d}\)&lt;/span&gt;.&lt;/p&gt;
-&lt;p&gt;Input set &lt;span class=&quot;math inline&quot;&gt;\(x_1,...,x_i\)&lt;/span&gt; (one hot encoding or distribute encoding? probably the one hot.)&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Input memory&lt;/strong&gt; The input memory represented by &lt;span class=&quot;math inline&quot;&gt;\(\\{m_i\\}\)&lt;/span&gt;, the &lt;span class=&quot;math inline&quot;&gt;\(m_i\)&lt;/span&gt; is computed by &lt;span class=&quot;math inline&quot;&gt;\(Ax_i\)&lt;/span&gt;, i.e. each &lt;span class=&quot;math inline&quot;&gt;\(m_i\)&lt;/span&gt; is transformed from &lt;span class=&quot;math inline&quot;&gt;\(x_i\)&lt;/span&gt; using &lt;span class=&quot;math inline&quot;&gt;\(A\)&lt;/span&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Query&lt;/strong&gt; The query &lt;span class=&quot;math inline&quot;&gt;\(q\)&lt;/span&gt; is transformed to the internal state &lt;span class=&quot;math inline&quot;&gt;\(u\)&lt;/span&gt; using &lt;span class=&quot;math inline&quot;&gt;\(Bq\)&lt;/span&gt;. Then, compute the match probability &lt;span class=&quot;math inline&quot;&gt;\(p_i\)&lt;/span&gt; between &lt;span class=&quot;math inline&quot;&gt;\(u\)&lt;/span&gt; and each memory &lt;span class=&quot;math inline&quot;&gt;\(m_i\)&lt;/span&gt; using softmax: &lt;span class=&quot;math display&quot;&gt;\[
-p_i=softmax(u^Tm_i)
-\]&lt;/span&gt; so &lt;span class=&quot;math inline&quot;&gt;\(p\)&lt;/span&gt; is a probability vecotr over the inputs.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Output memory&lt;/strong&gt; Each &lt;span class=&quot;math inline&quot;&gt;\(x_i\)&lt;/span&gt; is transformed to a output vecotr &lt;span class=&quot;math inline&quot;&gt;\(c_i\)&lt;/span&gt; by &lt;span class=&quot;math inline&quot;&gt;\(Cx_i\)&lt;/span&gt;. The response vector &lt;span class=&quot;math inline&quot;&gt;\(o\)&lt;/span&gt; from the memory computed by: &lt;span class=&quot;math display&quot;&gt;\[
-o=\sum_{i} p_ic_i
-\]&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Generating final prediction&lt;/strong&gt; The predicted label formula: &lt;span class=&quot;math display&quot;&gt;\[
-\hat a=softmax(W(o+u))
-\]&lt;/span&gt; &lt;img src=&quot;/assets/images/15.jpg&quot; alt=&quot;Figure 1&quot; /&gt;&lt;/p&gt;
-&lt;h2 id=&quot;mutltiple-layers&quot;&gt;Mutltiple Layers&lt;/h2&gt;
-&lt;p&gt;With &lt;span class=&quot;math inline&quot;&gt;\(K\)&lt;/span&gt; hop operations, the memory layers are stacked in the following way:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;The input tot layers above the first is the sum of the output &lt;span class=&quot;math inline&quot;&gt;\(o^k\)&lt;/span&gt; and the input &lt;span class=&quot;math inline&quot;&gt;\(u^k\)&lt;/span&gt; from layers &lt;span class=&quot;math inline&quot;&gt;\(k-1\)&lt;/span&gt;(different ways to combine &lt;span class=&quot;math inline&quot;&gt;\(o^k\)&lt;/span&gt; and &lt;span class=&quot;math inline&quot;&gt;\(u^k\)&lt;/span&gt; are proposed later): &lt;span class=&quot;math display&quot;&gt;\[
-u^{k+1}=u^k+o^k
-\]&lt;/span&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Each layer has its own embedding matrices &lt;span class=&quot;math inline&quot;&gt;\(A^k\)&lt;/span&gt;,&lt;span class=&quot;math inline&quot;&gt;\(C^k\)&lt;/span&gt;, used to embed the inputs &lt;span class=&quot;math inline&quot;&gt;\(\\{x_i\\}\)&lt;/span&gt;.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;At the top of network, the input &lt;span class=&quot;math inline&quot;&gt;\(W\)&lt;/span&gt; also combines the input and the output of the top memory layer:&lt;span class=&quot;math inline&quot;&gt;\(\hat a=softmax(Wu^{k+1})=softmax(W(o^K+u^K))\)&lt;/span&gt;.&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Two types of weights tying:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Adjacent&lt;/strong&gt;: the output embedding for one layer is the input embedding for the one above, i.e. &lt;span class=&quot;math inline&quot;&gt;\(A^{k+1}=C^k\)&lt;/span&gt;. also constrain (a) the answer prediction matrix to be the same as the final output embedding, i.e. &lt;span class=&quot;math inline&quot;&gt;\(W^T=C^K\)&lt;/span&gt;, and (b) the question embedding to match the input embedding of the first layer, i.e. &lt;span class=&quot;math inline&quot;&gt;\(B=A^1\)&lt;/span&gt;.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Layer-wise (RNN-like)&lt;/strong&gt;: the input and output embeddings are the same across different layers, i.e. &lt;span class=&quot;math inline&quot;&gt;\(A^1=A^2=...=A^K\)&lt;/span&gt; and &lt;span class=&quot;math inline&quot;&gt;\(C^1=C^2=...=C^K\)&lt;/span&gt;. found it useful to add a linear mapping &lt;span class=&quot;math inline&quot;&gt;\(H\)&lt;/span&gt; to the update of &lt;span class=&quot;math inline&quot;&gt;\(u\)&lt;/span&gt; between hops; that is, &lt;span class=&quot;math inline&quot;&gt;\(u^{k+1}=Hu^k+o^k\)&lt;/span&gt;. This mapping is learned from data and used throughout experiments for layer-wise weight tying.&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-				<pubDate>Mon, 14 Dec 2015 00:00:00 +0800</pubDate>
-				<link>/foundation/paper/2015/12/14/end-to-end-memory-networks.html</link>
-				<guid isPermaLink="true">/foundation/paper/2015/12/14/end-to-end-memory-networks.html</guid>
 			</item>
 		
 	</channel>

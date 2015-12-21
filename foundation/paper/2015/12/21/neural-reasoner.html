@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Gated Recurrent Units (GRU)</title>
+	<title>Neural Reasoner</title>
 	
 	<meta name="author" content="sohero">
 
@@ -132,31 +132,45 @@
 
 	<div class="col-sm-9 col-sm-offset-3">
 		<div class="page-header">
-  <h1>Gated Recurrent Units (GRU) </h1>
+  <h1>Neural Reasoner </h1>
 </div>
 	
 <article>
 
 	<div class="col-sm-10">
 	 <span class="post-date">
-	 	2015-08-31 
+	 	2015-12-21 
 	 </span>
 	  <div class="article_body">
-	  <p>Illustration: <img src="/assets/images/6.jpg" alt="Illustration 1" /> <img src="/assets/images/7.jpg" alt="Illustration 2" /></p>
+	  <h2 id="overview-of-neural-reasoner">Overview of Neural Reasoner</h2>
+<p><strong>Neural Reasoner</strong> has a layered architecture to deal with the complicated logical relations in reasoning as illustrated in Figure 1:</p>
+<figure>
+<img src="/assets/images/24.png" alt="" />
+</figure>
+<p>It consists of <code>one encoding layer</code> and <code>multiple reasoning layers</code>. The encoder layers first converts the question and facts from natural language sentences to vectorial representations. More specifically, <span class="math display">\[
+Q \quad \underrightarrow{encode} \quad q^{(0)} , F_k \quad \underrightarrow{encode} \quad f_k^{(0)},k=1,2,...,K.
+\]</span> where <span class="math inline">\(q^{(0)} \in \Bbb R^{d_Q}\)</span> and <span class="math inline">\(f_k^{(0)} \in \Bbb R^{d_F}\)</span>. With the representations obtained from the encoding layer, the reasoning layer recursively updates the representations of questions and facts, <span class="math display">\[
+\{q^{(l)}f_1^{(l)}\dotsb f_K^{(l)}\}\quad \underrightarrow{reason} \quad\{q^{(l+1)}f_1^{(l+1)}\dotsb f_K^{(l+1)}\}
+\]</span> through the interaction between question representation and fact representations. Intuitively, this interaction models the reasoning, including examination of the facts and comparison of the facts and the questions. Finally at layer-<span class="math inline">\(L\)</span>, the resulted question representation <span class="math inline">\(q^{(L)}\)</span> is fed to an answerer, which layer can be a classifier for choosing between a number of pre-determined classes (e.g., {Yes, No}) or a text generator for create a sentence.</p>
+<p>Neural Reasoner has the following desired properties:</p>
 <ul>
-<li><strong>update gate</strong> <span class="math display">\[
- u_t=\sigma(W^{u}_xx_t+W^{u}_hh_{t-1})
- \]</span> Update gate <span class="math inline">\(u\)</span> controls how much of past state should matter now. If <span class="math inline">\(u\)</span> close to 1, then we can copy information in that unit through many time steps. <strong>Less vanishing gradient.</strong></li>
-<li><strong>reset gate</strong> <span class="math display">\[
- r_t=\sigma(W^{r}_xx_t+W^{r}_hh_{t-1})
- \]</span> If reset is close to 0, ignore previous hidden state<span class="math inline">\(\to\)</span>Allows model to drop information that is irrelevant in the future.</li>
-<li><strong>new memory</strong> content <span class="math display">\[
-\widetilde h_t=tanh(W^{\widetilde h}_xx_t+r_t\circ W^{\widetilde h}_hh_{t-1})
-\]</span></li>
-<li><strong>final memory</strong> at time step combines current and previous time steps: <span class="math display">\[
-h_t=u_t\circ h_{t-1}+(1-u_t)\circ \widetilde h_t
-\]</span></li>
+<li>it can handle varying number of facts, including irrelevant ones, and reach the final conclusion through repeated processing of filtering and combining;</li>
+<li>it makes no assumption about the form of language, as long as enough training examples are given.</li>
 </ul>
+<h2 id="model">Model</h2>
+<figure>
+<img src="/assets/images/25.png" alt="A diagram of implementation of Neural Reasoner with L reasoning layers, operating on one question and K facts" /><figcaption>A diagram of implementation of Neural Reasoner with L reasoning layers, operating on one question and K facts</figcaption>
+</figure>
+<h2 id="auxiliary-training-for-questionfact-representation">Auxiliary Training for Question/Fact Representation</h2>
+<p>Use auxiliary training to facilitate the learning of representations of question and facts. Basically, in addition to using the learned representations of question and facts in the reasoning process, also use those representations to reconstruct the original questions or their more abstract forms with variables.</p>
+<p>In the auxiliary training, intend to achieve the following two goals:</p>
+<ul>
+<li>to compensate the lack of supervision in the learning task. In experiments, the supervision can be fairly weak since for each instance it is merely a classification with no more than 12 classes, while the number of instances are 1K to 10K.</li>
+<li>to introduce beneficial bias for the representation learning task. Since the network is a complicated nonlinear function, the back-propagation from the answering layer to the encoding layer can easily fail to learn well.</li>
+</ul>
+<figure>
+<img src="/assets/images/26.png" alt="Auxiliary training for question representation. The training for fact representation is identical and therefore omitted" /><figcaption>Auxiliary training for question representation. The training for fact representation is identical and therefore omitted</figcaption>
+</figure>
 
 	  </div>
 
@@ -168,6 +182,11 @@ h_t=u_t\circ h_{t-1}+(1-u_t)\circ \widetilde h_t
 			 
 				<li><a href="/categories.html#foundation-ref">
 					foundation <span>(23)</span>
+					,
+				</a></li>
+			 
+				<li><a href="/categories.html#paper-ref">
+					paper <span>(3)</span>
 					
 				</a></li>
 			
@@ -184,6 +203,13 @@ h_t=u_t\circ h_{t-1}+(1-u_t)\circ \widetilde h_t
 				<li>
 					<a href="/tags.html#foundation-ref">
 					foundation <span>(23)</span>
+					,
+					</a>
+				</li>
+			 
+				<li>
+					<a href="/tags.html#paper-ref">
+					paper <span>(3)</span>
 					
 					</a>
 				</li>
@@ -198,7 +224,7 @@ h_t=u_t\circ h_{t-1}+(1-u_t)\circ \widetilde h_t
 		<div>
       <section class="share col-sm-12">
         <h4 class="section-title">Share Post</h4>
-        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=Gated Recurrent Units (GRU)"
+        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=Neural Reasoner"
            onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
           <i class="fa fa-twitter fa-lg"></i>
           Twitter
@@ -220,10 +246,10 @@ h_t=u_t\circ h_{t-1}+(1-u_t)\circ \widetilde h_t
 
 		<ul class="pager">
 		  
-		  <li class="previous"><a href="/lua/2015/08/28/torch7-doc.html" title="Torch7 doc">&larr; Previous</a></li>
+		  <li class="previous"><a href="/foundation/2015/12/19/oxford-machine-learning.html" title="OXFORD Machine Learning">&larr; Previous</a></li>
 		  
 		  
-		  <li class="next"><a href="/foundation/2015/09/02/understanding-the-difficulty-of-training-deep-feedforward-neural-networks.html" title="Understanding the difficulty of training deep feedforward neural networks">Next &rarr;</a></li>
+			<li class="next disabled"><a>Next &rarr;</a>
 		  
 		</ul>
 
