@@ -7,6 +7,61 @@
 		<atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>Sentiment analysis</title>
+				<description>&lt;p&gt;Sentiment analysis has many other names&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Opinion extraction&lt;/li&gt;
+&lt;li&gt;Opinion mining&lt;/li&gt;
+&lt;li&gt;Sentiment mining&lt;/li&gt;
+&lt;li&gt;Subjectively analysis&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;learning-sentiment-lexicons&quot;&gt;Learning Sentiment Lexicons&lt;/h2&gt;
+&lt;h3 id=&quot;pointwise-mutual-information&quot;&gt;Pointwise Mutual Information&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Mutual information&lt;/strong&gt; between 2 random variables &lt;span class=&quot;math inline&quot;&gt;\(X\)&lt;/span&gt; and &lt;span class=&quot;math inline&quot;&gt;\(Y\)&lt;/span&gt; &lt;span class=&quot;math display&quot;&gt;\[
+I(X,Y)=\sum_x \sum_y P(x,y)log_2 \frac{P(x,y)}{P(x)P(y)}
+\]&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Pointwise mutual information&lt;/strong&gt;: How much more do events &lt;span class=&quot;math inline&quot;&gt;\(x\)&lt;/span&gt; and &lt;span class=&quot;math inline&quot;&gt;\(y\)&lt;/span&gt; co-occur than if they were independent? &lt;span class=&quot;math display&quot;&gt;\[
+PMI(X,Y)=log_2 \frac{P(x,y)}{P(x)P(y)}
+\]&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;PMI between two words&lt;/strong&gt;: &lt;span class=&quot;math display&quot;&gt;\[
+PMI(word_1, word_2)=log_2 \frac{P(word_1, word_2)}{P(word_1)P(word_2)}
+\]&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;how-to-estimate-pointwise-mutual-information&quot;&gt;How to Estimate Pointwise Mutual Information&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Query search engine (Altavista)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;span class=&quot;math inline&quot;&gt;\(P(word)\)&lt;/span&gt; estimated by &lt;span class=&quot;math inline&quot;&gt;\(hits(word)/N\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class=&quot;math inline&quot;&gt;\(P(word_1, word_2)\)&lt;/span&gt; by &lt;span class=&quot;math inline&quot;&gt;\(hits(word_1 \text{ NEAR } word_2)/N^2\)&lt;/span&gt; &lt;span class=&quot;math display&quot;&gt;\[
+PMI(word_1, word_2)=log_2 \frac{hits(word_1\text{ NEAR } word_2)}{hits(word_1)hits(word_2)}
+\]&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Does phrase appear more with “poor” or “excellent” &lt;span class=&quot;math display&quot;&gt;\[
+\begin{align}
+Polarity(phrase)&amp;amp;=PMI(phrase, \text{&amp;quot;excellent&amp;quot;})-PMI(phrase, \text{&amp;quot;poor&amp;quot;})\\
+&amp;amp;=log_2 \frac{hits(phrase \text{ NEAR &amp;quot;excellent&amp;quot;})}{hits(phrase)hits(\text{&amp;quot;excellent&amp;quot;})} - log_2 \frac{hits(phrase \text{ NEAR &amp;quot;poor&amp;quot;})}{hits(phrase)hits(\text{&amp;quot;poor&amp;quot;})} \\
+&amp;amp;=log_2 \frac{hits(phrase \text{ NEAR &amp;quot;excellent&amp;quot;})}{hits(phrase)hits(\text{&amp;quot;excellent&amp;quot;})} \frac{hits(phrase \text{ NEAR &amp;quot;poor&amp;quot;})}{hits(phrase)hits(\text{&amp;quot;poor&amp;quot;})} \\
+&amp;amp;=log_2\left( \frac{hits(phrase \text{ NEAR &amp;quot;excellent&amp;quot;})hits(\text{&amp;quot;poor&amp;quot;})}{hits(phrase \text{ NEAR &amp;quot;poor&amp;quot;})hits(\text{&amp;quot;excellent&amp;quot;})} \right)
+\end{align}
+\]&lt;/span&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;other-sentiment-tasks&quot;&gt;Other Sentiment Tasks&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Finding sentiment of a sentence
+&lt;ul&gt;
+&lt;li&gt;The food was great but the service was awful.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Finding aspect/attribute/target of sentiment&lt;/li&gt;
+&lt;li&gt;Detection of Friendliness&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+				<pubDate>Wed, 23 Dec 2015 00:00:00 +0800</pubDate>
+				<link>/foundation/nlp/2015/12/23/sentiment-analysis.html</link>
+				<guid isPermaLink="true">/foundation/nlp/2015/12/23/sentiment-analysis.html</guid>
+			</item>
+		
+			<item>
 				<title>Neural Reasoner</title>
 				<description>&lt;h2 id=&quot;overview-of-neural-reasoner&quot;&gt;Overview of Neural Reasoner&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;Neural Reasoner&lt;/strong&gt; has a layered architecture to deal with the complicated logical relations in reasoning as illustrated in Figure 1:&lt;/p&gt;
@@ -211,18 +266,6 @@ J=\frac{1}{2} \sum_{ij} f(P_{ij})(w_i \cdot \tilde w_j-logP_{ij})^2
 				<pubDate>Mon, 14 Dec 2015 00:00:00 +0800</pubDate>
 				<link>/foundation/2015/12/14/word2vec.html</link>
 				<guid isPermaLink="true">/foundation/2015/12/14/word2vec.html</guid>
-			</item>
-		
-			<item>
-				<title>sense2vec - a fast and accurate method for word sense disambiguation in neural word embeddings</title>
-				<description>&lt;p&gt;Despite these advancements, most word embedding techniques share a common problem in that each word must encode all of its potential meanings into a single vector.&lt;/p&gt;
-&lt;p&gt;This technique is inspired by the work of Huang et al. (2012), which uses a multi-prototype neural vector-space model that clusters contexts to generate prototypes. Given a pre-trained word embedding model, each context embedding is generated by computing a weighted sum of the words in the context (weighted by tf-idf). Then, for each term, the associated context embeddings are clustered. The clusters are used to re-label each occurrence of each word in the corpus. Once these terms have been re-labeled with the cluster’s number, a new word model is trained on the labeled embeddings (with a different vector for each) generating the word-sense embeddings.&lt;/p&gt;
-&lt;p&gt;We expand on the work of Huang et al. (2012) by leveraging supervised NLP labels instead of unsupervised clusters to determine a particular word nstance’s sense. This eliminates the need to train embeddings multiple times, eliminates the need for a clustering step, and creates an efficient method by which a supervised classifier may consume the appropriate word-sense embedding.&lt;/p&gt;
-&lt;p&gt;Given a labeled corpus (either by hand or by a model) with one or more labels per word, the sense2vec model first counts the number of uses (where a unique word maps set of one or more labels/uses) of each word and generates a random ”sense embedding” for each use. A model is then trained using either the CBOW, Skip-gram, or Structured Skip-gram model onfigurations. Instead of predicting a token given surrounding tokens, this model predicts a word sense given surrounding senses. &lt;img src=&quot;/assets/images/16.jpg&quot; alt=&quot;sense2vec&quot; /&gt;&lt;/p&gt;
-</description>
-				<pubDate>Mon, 14 Dec 2015 00:00:00 +0800</pubDate>
-				<link>/foundation/paper/2015/12/14/sense2vec-a-fast-and-accurate-method-for-word-sense-disambiguation-in-neural-word-embeddings.html</link>
-				<guid isPermaLink="true">/foundation/paper/2015/12/14/sense2vec-a-fast-and-accurate-method-for-word-sense-disambiguation-in-neural-word-embeddings.html</guid>
 			</item>
 		
 	</channel>

@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>second derivative & Hessian matrix</title>
+	<title>Sentiment analysis</title>
 	
 	<meta name="author" content="sohero">
 
@@ -132,25 +132,63 @@
 
 	<div class="col-sm-9 col-sm-offset-3">
 		<div class="page-header">
-  <h1>second derivative & Hessian matrix </h1>
+  <h1>Sentiment analysis </h1>
 </div>
 	
 <article>
 
 	<div class="col-sm-10">
 	 <span class="post-date">
-	 	2015-10-22 
+	 	2015-12-23 
 	 </span>
 	  <div class="article_body">
-	  <p>We are also sometimes interested in a derivative of a derivative. This is known as a <em>second derivative</em>. For example, <span class="math inline">\(\frac{\partial ^2}{\partial x_i \partial x_j}f\)</span> is the derivative with respect to <span class="math inline">\(x_i\)</span> of the derivative of <span class="math inline">\(f\)</span> with respect to <span class="math inline">\(x_j\)</span>. Note that the order of derivativation can be swapped, so that <span class="math inline">\(\frac{\partial ^2}{\partial x_i \partial x_j}f = \frac{\partial ^2}{\partial x_j \partial x_i}f\)</span>. In a single dimension, we can denote <span class="math inline">\(\frac{d^2}{dx^2}f\)</span> by <span class="math inline">\(f&#39;&#39;(x)\)</span>.</p>
-<p>The second derivative tells us how the first derivative will change as we vary the input. This means it can be useful for determining whether a critical point is a local maximum , a local minimum, or saddle point. Recall that on a critical point, <span class="math inline">\(f&#39;(x)=0\)</span>. When <span class="math inline">\(f&#39;&#39;(x)&gt;0\)</span>, this means that <span class="math inline">\(f&#39;(x)\)</span> increases as we move to the right, and <span class="math inline">\(f&#39;(x)\)</span> decreases as we move to the left. This means <span class="math inline">\(f&#39;(x-\epsilon)&lt;0\)</span> and <span class="math inline">\(f&#39;(x+\epsilon)&gt;0\)</span> for small enough <span class="math inline">\(\epsilon\)</span>. In other words, as we move right, the slope begins to point uphill to the right, and as we move left, the slope begins to point uphill to the left. Thus, when <span class="math inline">\(f&#39;(x)=0\)</span> and <span class="math inline">\(f&#39;&#39;(x)&gt;0\)</span>, we can conclude that <span class="math inline">\(x\)</span> is a <strong>local minimum</strong>. Similarly, when <span class="math inline">\(f&#39;(x)=0\)</span> and <span class="math inline">\(f&#39;&#39;(x)&lt;0\)</span>, we can conclude that <span class="math inline">\(x\)</span> is a local <strong>local maximum</strong>. This is known as the <em>second derivative test</em>. Unfortunately, when <span class="math inline">\(f&#39;&#39;(x)=0\)</span>, the test is inconclusive. In this case <span class="math inline">\(x\)</span> may be a saddle point, or a part of a flat region.</p>
-<p>In multiple dimensions, we need to examine all of the second derivatives of the function. These derivatives can be collected together into a matrix called the <em>Hessian matrix</em>. The Hessian matrix <span class="math inline">\(H(f)(x)\)</span> is defined such that <span class="math display">\[
-H(f)(x)_{i,j} = \frac{\partial ^2}{\partial x_i \partial x_j}f(x).
-\]</span> Equivalently, the Hessian is the Jacobian of the gradient.</p>
-<p>Anywhere that the second partial derivatives are continuous, the differential operators are commutative: <span class="math display">\[
-\frac{\partial ^2}{\partial x_i \partial x_j}f(x)=\frac{\partial ^2}{\partial x_j \partial x_i}f(x)
-\]</span> This implies that <span class="math inline">\(h_{i,j}=h_{j,i}\)</span>, so the Hessian matrix is symmetric at such points (which includes nearly all inputs to nearly all functions we encounter in deep learning). Because the Hessian matrix is real and symmetric, we can decompose it into a set of real eigenvalues and an orthogonal basis of eigenvectors. Using the eigendecomposition Hessian matrix, we can generalize the second derivative test to multiple dimensions. At a critical point, where <span class="math inline">\(\nabla_xf(x)=0\)</span>, we can examine the eigenvalues of the Hessian to determine whether the critical point is a local maximum, local minimum, or saddle point. When the Hessian is positive definite (all its eigenvalues are positive), the point is a <em>local minimum</em>. This can be seen by observing that the directional second derivative in any direction must be positive, and making reference to the univariate second derivative test. Likewise, when the Hessian is negative definite (all its eigenvalues are negative), the point is a <em>local maximum</em>. In multiple dimensions, it is actually possible to find positive evidence of saddle points in some cases. When at least one eigenvalue is positive and at least on eigenvalue is negative, we known that <span class="math inline">\(x\)</span> is a local maximum on one across section of <span class="math inline">\(f\)</span> but a local minimum on another cross section. Finally, the multidimensional second derivative test can be inconclusive, just like the univariate version. The test is inconclusive whenever all of the non-zero eigenvalues have the same sign, but at least one eigenvalue is zero. This is because the univariate second derivative test is inconclusive in the cross section corresponding to the zero eigenvalue.</p>
-<p>The Hessian can also be useful for understanding the performance of gradient descent. When the Hessian has a poor condition number, gradient descent performs poorly. This is because in one direction, the derivative increases rapidly, while in another direction, it increases slowly. Gradient descent is unaware of this change in the derivative so it does not know that it needs to explore preferentially in the direction where the derivative remains negative for longer.</p>
+	  <p>Sentiment analysis has many other names</p>
+<ul>
+<li>Opinion extraction</li>
+<li>Opinion mining</li>
+<li>Sentiment mining</li>
+<li>Subjectively analysis</li>
+</ul>
+<h2 id="learning-sentiment-lexicons">Learning Sentiment Lexicons</h2>
+<h3 id="pointwise-mutual-information">Pointwise Mutual Information</h3>
+<ul>
+<li><strong>Mutual information</strong> between 2 random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> <span class="math display">\[
+I(X,Y)=\sum_x \sum_y P(x,y)log_2 \frac{P(x,y)}{P(x)P(y)}
+\]</span></li>
+<li><strong>Pointwise mutual information</strong>: How much more do events <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> co-occur than if they were independent? <span class="math display">\[
+PMI(X,Y)=log_2 \frac{P(x,y)}{P(x)P(y)}
+\]</span></li>
+<li><strong>PMI between two words</strong>: <span class="math display">\[
+PMI(word_1, word_2)=log_2 \frac{P(word_1, word_2)}{P(word_1)P(word_2)}
+\]</span></li>
+</ul>
+<h3 id="how-to-estimate-pointwise-mutual-information">How to Estimate Pointwise Mutual Information</h3>
+<ul>
+<li><p>Query search engine (Altavista)</p>
+<ul>
+<li><span class="math inline">\(P(word)\)</span> estimated by <span class="math inline">\(hits(word)/N\)</span></li>
+<li><span class="math inline">\(P(word_1, word_2)\)</span> by <span class="math inline">\(hits(word_1 \text{ NEAR } word_2)/N^2\)</span> <span class="math display">\[
+PMI(word_1, word_2)=log_2 \frac{hits(word_1\text{ NEAR } word_2)}{hits(word_1)hits(word_2)}
+\]</span></li>
+</ul></li>
+<li><p>Does phrase appear more with “poor” or “excellent” <span class="math display">\[
+\begin{align}
+Polarity(phrase)&amp;=PMI(phrase, \text{&quot;excellent&quot;})-PMI(phrase, \text{&quot;poor&quot;})\\
+&amp;=log_2 \frac{hits(phrase \text{ NEAR &quot;excellent&quot;})}{hits(phrase)hits(\text{&quot;excellent&quot;})} - log_2 \frac{hits(phrase \text{ NEAR &quot;poor&quot;})}{hits(phrase)hits(\text{&quot;poor&quot;})} \\
+&amp;=log_2 \frac{hits(phrase \text{ NEAR &quot;excellent&quot;})}{hits(phrase)hits(\text{&quot;excellent&quot;})} \frac{hits(phrase \text{ NEAR &quot;poor&quot;})}{hits(phrase)hits(\text{&quot;poor&quot;})} \\
+&amp;=log_2\left( \frac{hits(phrase \text{ NEAR &quot;excellent&quot;})hits(\text{&quot;poor&quot;})}{hits(phrase \text{ NEAR &quot;poor&quot;})hits(\text{&quot;excellent&quot;})} \right)
+\end{align}
+\]</span></p></li>
+</ul>
+<h2 id="other-sentiment-tasks">Other Sentiment Tasks</h2>
+<ul>
+<li>Finding sentiment of a sentence
+<ul>
+<li>The food was great but the service was awful.</li>
+</ul></li>
+<li>Finding aspect/attribute/target of sentiment</li>
+<li>Detection of Friendliness</li>
+</ul>
 
 	  </div>
 
@@ -162,6 +200,11 @@ H(f)(x)_{i,j} = \frac{\partial ^2}{\partial x_i \partial x_j}f(x).
 			 
 				<li><a href="/categories.html#foundation-ref">
 					foundation <span>(24)</span>
+					,
+				</a></li>
+			 
+				<li><a href="/categories.html#nlp-ref">
+					nlp <span>(3)</span>
 					
 				</a></li>
 			
@@ -178,6 +221,13 @@ H(f)(x)_{i,j} = \frac{\partial ^2}{\partial x_i \partial x_j}f(x).
 				<li>
 					<a href="/tags.html#foundation-ref">
 					foundation <span>(24)</span>
+					,
+					</a>
+				</li>
+			 
+				<li>
+					<a href="/tags.html#nlp-ref">
+					nlp <span>(3)</span>
 					
 					</a>
 				</li>
@@ -192,7 +242,7 @@ H(f)(x)_{i,j} = \frac{\partial ^2}{\partial x_i \partial x_j}f(x).
 		<div>
       <section class="share col-sm-12">
         <h4 class="section-title">Share Post</h4>
-        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=second derivative & Hessian matrix"
+        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=Sentiment analysis"
            onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
           <i class="fa fa-twitter fa-lg"></i>
           Twitter
@@ -214,10 +264,10 @@ H(f)(x)_{i,j} = \frac{\partial ^2}{\partial x_i \partial x_j}f(x).
 
 		<ul class="pager">
 		  
-		  <li class="previous"><a href="/foundation/2015/10/22/determinant.html" title="Determinant">&larr; Previous</a></li>
+		  <li class="previous"><a href="/foundation/paper/2015/12/21/neural-reasoner.html" title="Neural Reasoner">&larr; Previous</a></li>
 		  
 		  
-		  <li class="next"><a href="/foundation/2015/11/06/derivative-formula.html" title="求导公式">Next &rarr;</a></li>
+			<li class="next disabled"><a>Next &rarr;</a>
 		  
 		</ul>
 
