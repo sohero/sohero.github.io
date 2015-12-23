@@ -62,6 +62,47 @@ Polarity(phrase)&amp;amp;=PMI(phrase, \text{&amp;quot;excellent&amp;quot;})-PMI(
 			</item>
 		
 			<item>
+				<title>Improving Word Representations via Global Context and Multiple Word Prototypes</title>
+				<description>&lt;h2 id=&quot;global-context-aware-neural-language-model&quot;&gt;Global Context-Aware Neural Language Model&lt;/h2&gt;
+&lt;h3 id=&quot;training-objective&quot;&gt;Training Objective&lt;/h3&gt;
+&lt;p&gt;Given a word sequence &lt;span class=&quot;math inline&quot;&gt;\(s\)&lt;/span&gt; and document &lt;span class=&quot;math inline&quot;&gt;\(d\)&lt;/span&gt; in which the sequence occurs, our goal is to discriminate the correct last word in &lt;span class=&quot;math inline&quot;&gt;\(s\)&lt;/span&gt; from other random words. We compute scores &lt;span class=&quot;math inline&quot;&gt;\(g(s,d)\)&lt;/span&gt; and &lt;span class=&quot;math inline&quot;&gt;\(g(s^w,d)\)&lt;/span&gt; where &lt;span class=&quot;math inline&quot;&gt;\(s^w\)&lt;/span&gt; is &lt;span class=&quot;math inline&quot;&gt;\(s\)&lt;/span&gt; with the last word replaced by word &lt;span class=&quot;math inline&quot;&gt;\(w\)&lt;/span&gt;, and &lt;span class=&quot;math inline&quot;&gt;\(g(·,·)\)&lt;/span&gt; is the scoring function that represents the neural networks used. We want &lt;span class=&quot;math inline&quot;&gt;\(g(s,d)\)&lt;/span&gt; to be larger than &lt;span class=&quot;math inline&quot;&gt;\(g(s^w,d)\)&lt;/span&gt; by a margin of 1, for any other word &lt;span class=&quot;math inline&quot;&gt;\(w\)&lt;/span&gt; in the vocabulary, which corresponds to the training objective of minimizing the ranking loss for each &lt;span class=&quot;math inline&quot;&gt;\((s,d)\)&lt;/span&gt; found in the corpus: &lt;span class=&quot;math display&quot;&gt;\[
+C_{s,d}=\sum_{w\in V} max(0, 1-g(s,d)+g(s^w,d))
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;h3 id=&quot;neural-network-architecture&quot;&gt;Neural Network Architecture&lt;/h3&gt;
+&lt;figure&gt;
+&lt;img src=&quot;/assets/images/27.png&quot; alt=&quot;An overview of the neural language model. The model makes use of both local and global context to compute a score that should be large for the actual next word (bank in the example), compare to the score for other words. When word meaning is still ambiguous given local context, information in global context can help disambiguation.&quot; /&gt;&lt;figcaption&gt;An overview of the neural language model. The model makes use of both local and global context to compute a score that should be large for the actual next word (bank in the example), compare to the score for other words. When word meaning is still ambiguous given local context, information in global context can help disambiguation.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;The score of local context uses the local word sequence &lt;span class=&quot;math inline&quot;&gt;\(s\)&lt;/span&gt;. We first represent the word sequence &lt;span class=&quot;math inline&quot;&gt;\(s\)&lt;/span&gt; as an ordered list of vectors &lt;span class=&quot;math inline&quot;&gt;\(x=(x_1,x_2,...,x_m)\)&lt;/span&gt; where &lt;span class=&quot;math inline&quot;&gt;\(x_i\)&lt;/span&gt; is the embedding of word &lt;span class=&quot;math inline&quot;&gt;\(i\)&lt;/span&gt; in the sequence, which is a column in the embedding matrix &lt;span class=&quot;math inline&quot;&gt;\(L\in \Bbb R^{n\times |V|}\)&lt;/span&gt; where &lt;span class=&quot;math inline&quot;&gt;\(|V|\)&lt;/span&gt; denotes the size of the vocabulary. &lt;strong&gt;The columns of this embedding matrix &lt;span class=&quot;math inline&quot;&gt;\(L\)&lt;/span&gt; are the word vectors and will be learned and updated during training.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;To compute the score of local context, &lt;span class=&quot;math inline&quot;&gt;\(socre_l\)&lt;/span&gt;, use a neural network with one hidden layer: &lt;span class=&quot;math display&quot;&gt;\[
+a_1=f(W_1[x_1;x_2;...;x_m]+b_1)
+\]&lt;/span&gt; &lt;span class=&quot;math display&quot;&gt;\[
+score_l=W_2a_1+b_2
+\]&lt;/span&gt; where &lt;span class=&quot;math inline&quot;&gt;\([x_1;x_2;...;x_m]\)&lt;/span&gt; is the concatenation of the &lt;span class=&quot;math inline&quot;&gt;\(m\)&lt;/span&gt; word embeddings representing sequence &lt;span class=&quot;math inline&quot;&gt;\(s\)&lt;/span&gt;, &lt;span class=&quot;math inline&quot;&gt;\(f\)&lt;/span&gt; is an element-wise activation function such as &lt;span class=&quot;math inline&quot;&gt;\(tanh\)&lt;/span&gt;, &lt;span class=&quot;math inline&quot;&gt;\(a_1\in \Bbb R^{h\times 1}\)&lt;/span&gt; is the activation of the hidden layer with &lt;span class=&quot;math inline&quot;&gt;\(h\)&lt;/span&gt; hidden nodes, &lt;span class=&quot;math inline&quot;&gt;\(W_1\in \Bbb R^{h\times \\(mn\\)}\)&lt;/span&gt; and &lt;span class=&quot;math inline&quot;&gt;\(W_2\in\Bbb R^{1\times h}\)&lt;/span&gt; are respectively the first and second layer weights of the neural network, and &lt;span class=&quot;math inline&quot;&gt;\(b_1\)&lt;/span&gt;, &lt;span class=&quot;math inline&quot;&gt;\(b_2\)&lt;/span&gt; are the biases of each layer.&lt;/p&gt;
+&lt;p&gt;For the score of the global context, we represent the document also as an ordered list of word embedding, &lt;span class=&quot;math inline&quot;&gt;\(d=(d_1,d_2,...,d_k)\)&lt;/span&gt;. First compute the weighted average of all word vectors in the document: &lt;span class=&quot;math display&quot;&gt;\[
+c=\frac{\sum_{i=1}^k w(t_i)d_i}{\sum_{i=1}^k w(t_i)}
+\]&lt;/span&gt; where &lt;span class=&quot;math inline&quot;&gt;\(w(·)\)&lt;/span&gt; can be any weighting function that captures the importance of word &lt;span class=&quot;math inline&quot;&gt;\(t_i\)&lt;/span&gt; in the document. We use idf-weighting as the weighting function. Use a two-layer neural network to compute the global context score, &lt;span class=&quot;math inline&quot;&gt;\(score_g\)&lt;/span&gt;, similar to the above: &lt;span class=&quot;math display&quot;&gt;\[
+a_1^g=f(W_1^g[c;x_m]+b_1^g)
+\]&lt;/span&gt; &lt;span class=&quot;math display&quot;&gt;\[
+score_g=W_2^ga_1^g+b_2^g
+\]&lt;/span&gt; where &lt;span class=&quot;math inline&quot;&gt;\([c;x_m]\)&lt;/span&gt; is the concatenation of the weighted average document vector and the vector of the last word in &lt;span class=&quot;math inline&quot;&gt;\(s\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Note that instead of using the document where the sequence occurs, we can also specify a fixed &lt;span class=&quot;math inline&quot;&gt;\(k&amp;gt;m\)&lt;/span&gt; that captures larger context.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The final score is the sum of the two scores: &lt;span class=&quot;math display&quot;&gt;\[
+score = score_l+score_g
+\]&lt;/span&gt; The local score preserves word order and syntactic information, while the global score uses a weighted average which is similar to bag-of-words features, capturing more of the semantics and topics of the document.&lt;/p&gt;
+&lt;h3 id=&quot;learning&quot;&gt;Learning&lt;/h3&gt;
+&lt;p&gt;Word embeddings move to good positions in the vector space faster when using &lt;code&gt;mini-batch L-BFGS&lt;/code&gt; (Liu and Nocedal, 1989) with 1000 pairs of good and corrupt examples per batch for training, compared to stochastic gradient descent.&lt;/p&gt;
+&lt;h2 id=&quot;multi-prototype-neural-language-model&quot;&gt;Multi-Prototype Neural Language Model&lt;/h2&gt;
+&lt;p&gt;In order to learn multiple prototypes, we first gather the fixed-sized context windows of all occurrences of a word (we use 5 words before and after the word occurrence). Each context is represented by a weighted average of the context words’ vectors, where again, we use &lt;code&gt;idf-weighting&lt;/code&gt; as the weighting function. Then use &lt;code&gt;spherical k-means&lt;/code&gt; to cluster these context representations. Finally, each word occurrence in the corpus is re-labeled to its associated cluster and is used to train the word representation for that cluster.&lt;/p&gt;
+&lt;p&gt;Similarity between a pair of words &lt;span class=&quot;math inline&quot;&gt;\((w, w&amp;#39;)\)&lt;/span&gt; using the multi-prototype approach can be computed with of without context, as defined by Reisinger and Mooney (2010b): &lt;span class=&quot;math display&quot;&gt;\[
+AvgSimC(w,w&amp;#39;)={1 \over K^2}\sum_{i=1}^k \sum_{j=1}^k p(c,w,i)p(c&amp;#39;,w&amp;#39;,j)d(\mu_i(w), \mu_j(w&amp;#39;))
+\]&lt;/span&gt; where &lt;span class=&quot;math inline&quot;&gt;\(p(c,w,i)\)&lt;/span&gt; is the likelihood that word &lt;span class=&quot;math inline&quot;&gt;\(w\)&lt;/span&gt; is in its cluser &lt;span class=&quot;math inline&quot;&gt;\(i\)&lt;/span&gt; given context &lt;span class=&quot;math inline&quot;&gt;\(c\)&lt;/span&gt;, &lt;span class=&quot;math inline&quot;&gt;\(\mu_i(w)\)&lt;/span&gt; is the vector representing the &lt;span class=&quot;math inline&quot;&gt;\(i\)&lt;/span&gt;-th cluster centroid of &lt;span class=&quot;math inline&quot;&gt;\(w\)&lt;/span&gt;, and &lt;span class=&quot;math inline&quot;&gt;\(d(v,v&amp;#39;)\)&lt;/span&gt; is a function computing similarity between two vectors, which can be any of the distance functions presented by Curran(2004). The similarity measure can be computed in absence of context by assuming uniform &lt;span class=&quot;math inline&quot;&gt;\(p(c,w,i)\)&lt;/span&gt; over &lt;span class=&quot;math inline&quot;&gt;\(i\)&lt;/span&gt;.&lt;/p&gt;
+</description>
+				<pubDate>Wed, 23 Dec 2015 00:00:00 +0800</pubDate>
+				<link>/foundation/paper/2015/12/23/improving-word-representations-via-global-context-and-multiple-word-prototypes.html</link>
+				<guid isPermaLink="true">/foundation/paper/2015/12/23/improving-word-representations-via-global-context-and-multiple-word-prototypes.html</guid>
+			</item>
+		
+			<item>
 				<title>Neural Reasoner</title>
 				<description>&lt;h2 id=&quot;overview-of-neural-reasoner&quot;&gt;Overview of Neural Reasoner&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;Neural Reasoner&lt;/strong&gt; has a layered architecture to deal with the complicated logical relations in reasoning as illustrated in Figure 1:&lt;/p&gt;
@@ -239,33 +280,6 @@ PP(W)=\sqrt[N]{\prod_{i=1}^N \frac{1}{P(w_i|w_{i-1})}}
 				<pubDate>Thu, 17 Dec 2015 00:00:00 +0800</pubDate>
 				<link>/nlp/2015/12/17/language-modeling.html</link>
 				<guid isPermaLink="true">/nlp/2015/12/17/language-modeling.html</guid>
-			</item>
-		
-			<item>
-				<title>word2vec</title>
-				<description>&lt;h2 id=&quot;main-idea-of-word2vec&quot;&gt;Main idea of word2vec&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;Instead of capturing cooccurrence counts directly&lt;/li&gt;
-&lt;li&gt;Predict surrounding words of every word&lt;/li&gt;
-&lt;li&gt;Faster and can easily incorporate a new sentence/document or add a word to the vocabulary&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&quot;details&quot;&gt;Details&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;Predict surrounding words in a window of length &lt;span class=&quot;math inline&quot;&gt;\(c\)&lt;/span&gt; of every word.&lt;/li&gt;
-&lt;li&gt;Objective function: Maximize the &lt;span class=&quot;math inline&quot;&gt;\(log\)&lt;/span&gt; probability of any context word given the current center word: &lt;span class=&quot;math display&quot;&gt;\[
-J(\theta)=\frac{1}{T} \sum_{t=1}^T \sum_{-c\leq j \leq c,j \neq 0} log p(w_{t+j}|w_t)
-\]&lt;/span&gt; &lt;span class=&quot;math display&quot;&gt;\[
-p(w_{t+j}|w_t)=p(w_o|w_i)=\frac{exp(v_{w_o}&amp;#39;^T v_{w_i})}{\sum_{w=1}^W exp(v_w&amp;#39;^T v_{w_i})}
-\]&lt;/span&gt; where &lt;span class=&quot;math inline&quot;&gt;\(v\)&lt;/span&gt; and &lt;span class=&quot;math inline&quot;&gt;\(v&amp;#39;\)&lt;/span&gt; are &lt;code&gt;input&lt;/code&gt; and &lt;code&gt;output&lt;/code&gt; vector representations of &lt;span class=&quot;math inline&quot;&gt;\(w\)&lt;/span&gt; (so every word has two vectors)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&quot;glove&quot;&gt;GloVe&lt;/h2&gt;
-&lt;p&gt;&lt;span class=&quot;math display&quot;&gt;\[
-J=\frac{1}{2} \sum_{ij} f(P_{ij})(w_i \cdot \tilde w_j-logP_{ij})^2
-\]&lt;/span&gt;&lt;/p&gt;
-</description>
-				<pubDate>Mon, 14 Dec 2015 00:00:00 +0800</pubDate>
-				<link>/foundation/2015/12/14/word2vec.html</link>
-				<guid isPermaLink="true">/foundation/2015/12/14/word2vec.html</guid>
 			</item>
 		
 	</channel>
