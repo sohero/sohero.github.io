@@ -173,7 +173,7 @@ Q \quad \underrightarrow{encode} \quad q^{(0)} , F_k \quad \underrightarrow{enco
 		
 			<item>
 				<title>git笔记 and cheatsheet</title>
-				<description>&lt;p&gt;&lt;a class=&quot;btn btn-default&quot; href=&quot;https://github.com/sohero/git&quot;&gt;Go.&lt;/a&gt; &lt;a class=&quot;btn btn-default&quot; href=&quot;http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000&quot;&gt;原文&lt;/a&gt;&lt;/p&gt;
+				<description>&lt;p&gt;&lt;a class=&quot;btn btn-default&quot; href=&quot;https://github.com/sohero/git&quot; target=&quot;_blank&quot;&gt;Go.&lt;/a&gt; &lt;a class=&quot;btn btn-default&quot; href=&quot;http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000&quot; target=&quot;_blank&quot;&gt;原文&lt;/a&gt;&lt;/p&gt;
 </description>
 				<pubDate>Thu, 17 Dec 2015 00:00:00 +0800</pubDate>
 				<link>/tools/log/2015/12/17/git-note.html</link>
