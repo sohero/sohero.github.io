@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>OXFORD Machine Learning</title>
+	<title>LSTM A Search Space Odyssey</title>
 	
 	<meta name="author" content="sohero">
 
@@ -132,29 +132,25 @@
 
 	<div class="col-sm-9 col-sm-offset-3">
 		<div class="page-header">
-  <h1>OXFORD Machine Learning </h1>
+  <h1>LSTM A Search Space Odyssey </h1>
 </div>
 	
 <article>
 
 	<div class="col-sm-10">
 	 <span class="post-date">
-	 	2015-12-19 
+	 	2015-12-24 
 	 </span>
 	  <div class="article_body">
-	  <p><a href="https://www.cs.ox.ac.uk/people/nando.defreitas/machinelearning/">Course Page</a></p>
-<h2 id="lecture-2-linear-supervised-learning">Lecture 2 Linear supervised learning</h2>
+	  <h2 id="conclusion">Conclusion</h2>
+<p>This paper reports the results of a large scale study on variations of the LSTM architecture.</p>
 <ul>
-<li>Many real processes can be <em>approximated</em> with linear models.</li>
-<li>Linear regression often appears as a <em>module</em> of larger systems.</li>
-<li>Linear problems can be solved <em>analytically</em>.</li>
-<li>Linear prediction provides an introduction to many of the <em>core concepts</em> of machine learning.</li>
+<li>The most commonly used LSTM architecture (vanilla LSTM) performs reasonably well on various datasets and using any of eight possible modifications does not significantly improve the LSTM performance.</li>
+<li>Certain modifications such as coupling the input and forget gates or removing peephole connections simplify LSTM without significantly hurting performance.</li>
+<li>The forget gate and the output activation function are the critical components of the LSTM block. While the first is crucial for LSTM performance, the second is necessary whenever the cell state is unbounded.</li>
+<li>Learning rate and network size are the most crucial tunable LSTM hyperparameters. Suerprisingly, the use of momentum was found to be unimportant (in setting of online gradient descent). Gaussian noise on the inputs was found to be moderately helpful for TIMIT, but harmful for other datasets.</li>
+<li>The analysis of hyperparameter interactions revealed that even the highest measured interaction (between learning rate and network size) is quite small. This implies that the hyperparameters can be tuned independently. In particular, the learning rate can be calibrated first using a fairly small network, thus saving a lot of experimentation time.</li>
 </ul>
-<figure>
-<img src="/assets/images/19.png" alt="" />
-</figure>
-<h2 id="lecture-3">Lecture 3</h2>
-<p><img src="/assets/images/20.png" alt="" /> <img src="/assets/images/21.png" alt="" /> <img src="/assets/images/22.png" alt="" /> <img src="/assets/images/23.png" alt="" /></p>
 
 	  </div>
 
@@ -166,6 +162,11 @@
 			 
 				<li><a href="/categories.html#foundation-ref">
 					foundation <span>(26)</span>
+					,
+				</a></li>
+			 
+				<li><a href="/categories.html#paper-ref">
+					paper <span>(5)</span>
 					
 				</a></li>
 			
@@ -182,6 +183,13 @@
 				<li>
 					<a href="/tags.html#foundation-ref">
 					foundation <span>(26)</span>
+					,
+					</a>
+				</li>
+			 
+				<li>
+					<a href="/tags.html#paper-ref">
+					paper <span>(5)</span>
 					
 					</a>
 				</li>
@@ -196,7 +204,7 @@
 		<div>
       <section class="share col-sm-12">
         <h4 class="section-title">Share Post</h4>
-        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=OXFORD Machine Learning"
+        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=LSTM A Search Space Odyssey"
            onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
           <i class="fa fa-twitter fa-lg"></i>
           Twitter
@@ -218,10 +226,10 @@
 
 		<ul class="pager">
 		  
-		  <li class="previous"><a href="/method/2015/12/19/how-to-choose-a-neural-network.html" title="How to Choose a Neural Network">&larr; Previous</a></li>
+		  <li class="previous"><a href="/foundation/nlp/2015/12/23/sentiment-analysis.html" title="Sentiment analysis">&larr; Previous</a></li>
 		  
 		  
-		  <li class="next"><a href="/foundation/paper/2015/12/21/neural-reasoner.html" title="Neural Reasoner">Next &rarr;</a></li>
+			<li class="next disabled"><a>Next &rarr;</a>
 		  
 		</ul>
 

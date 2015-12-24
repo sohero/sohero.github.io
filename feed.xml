@@ -7,6 +7,23 @@
 		<atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>LSTM A Search Space Odyssey</title>
+				<description>&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;This paper reports the results of a large scale study on variations of the LSTM architecture.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The most commonly used LSTM architecture (vanilla LSTM) performs reasonably well on various datasets and using any of eight possible modifications does not significantly improve the LSTM performance.&lt;/li&gt;
+&lt;li&gt;Certain modifications such as coupling the input and forget gates or removing peephole connections simplify LSTM without significantly hurting performance.&lt;/li&gt;
+&lt;li&gt;The forget gate and the output activation function are the critical components of the LSTM block. While the first is crucial for LSTM performance, the second is necessary whenever the cell state is unbounded.&lt;/li&gt;
+&lt;li&gt;Learning rate and network size are the most crucial tunable LSTM hyperparameters. Suerprisingly, the use of momentum was found to be unimportant (in setting of online gradient descent). Gaussian noise on the inputs was found to be moderately helpful for TIMIT, but harmful for other datasets.&lt;/li&gt;
+&lt;li&gt;The analysis of hyperparameter interactions revealed that even the highest measured interaction (between learning rate and network size) is quite small. This implies that the hyperparameters can be tuned independently. In particular, the learning rate can be calibrated first using a fairly small network, thus saving a lot of experimentation time.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+				<pubDate>Thu, 24 Dec 2015 00:00:00 +0800</pubDate>
+				<link>/foundation/paper/2015/12/24/lstm-a-search-space-odyssey.html</link>
+				<guid isPermaLink="true">/foundation/paper/2015/12/24/lstm-a-search-space-odyssey.html</guid>
+			</item>
+		
+			<item>
 				<title>Sentiment analysis</title>
 				<description>&lt;p&gt;Sentiment analysis has many other names&lt;/p&gt;
 &lt;ul&gt;
@@ -219,67 +236,6 @@ Q \quad \underrightarrow{encode} \quad q^{(0)} , F_k \quad \underrightarrow{enco
 				<pubDate>Thu, 17 Dec 2015 00:00:00 +0800</pubDate>
 				<link>/tools/log/2015/12/17/git-note.html</link>
 				<guid isPermaLink="true">/tools/log/2015/12/17/git-note.html</guid>
-			</item>
-		
-			<item>
-				<title>Language Modeling</title>
-				<description>&lt;ul&gt;
-&lt;li&gt;Goal: compute the probability of a sentence or a sequence of words: &lt;span class=&quot;math display&quot;&gt;\[
-P(W)=P(w_1,w_2,w_3,...,w_n)
-\]&lt;/span&gt;&lt;/li&gt;
-&lt;li&gt;Related task: probability of an upcoming word: &lt;span class=&quot;math display&quot;&gt;\[
-p(w_5|w_1,w_2,w_3,w_4)
-\]&lt;/span&gt;&lt;/li&gt;
-&lt;li&gt;A model that computes either of these &lt;span class=&quot;math inline&quot;&gt;\(P(W)\)&lt;/span&gt; or &lt;span class=&quot;math inline&quot;&gt;\(P(w_n|w_1,w_2,...,w_{n-1})\)&lt;/span&gt; is called a &lt;code&gt;language model&lt;/code&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&quot;the-chain-rule-of-probability&quot;&gt;The Chain Rule of Probability&lt;/h2&gt;
-&lt;p&gt;&lt;span class=&quot;math display&quot;&gt;\[
-P(A,B,C,D)=P(A)P(B|A)P(C|A,B)P(D|A,B,C)
-\]&lt;/span&gt; The chain rule in general: &lt;span class=&quot;math display&quot;&gt;\[
-P(x_1,x_2,x_3,…,x_n) = P(x_1)P(x_2|x_1)P(x_3|x_1,x_2)…P(x_n|x_1,…,x_{n-1})
-\]&lt;/span&gt; i.e. &lt;span class=&quot;math display&quot;&gt;\[
-P(w_1w_2···w_n)=\prod_i P(w_i|w_1w_2···w_{i-1})
-\]&lt;/span&gt;&lt;/p&gt;
-&lt;h2 id=&quot;markov-assumption&quot;&gt;Markov Assumption&lt;/h2&gt;
-&lt;p&gt;&lt;span class=&quot;math display&quot;&gt;\[
-P(w_1w_2···w_n)\approx \prod_i P(w_i|w_{i-k}···w_{i-1})
-\]&lt;/span&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Unigram model &lt;span class=&quot;math display&quot;&gt;\[
-P(w_1w_2···w_n)\approx \prod_i P(w_i)
-\]&lt;/span&gt;&lt;/li&gt;
-&lt;li&gt;Bigram model &lt;span class=&quot;math display&quot;&gt;\[
-P(w_1w_2···w_n)\approx \prod_i P(w_i|w_{i-1})
-\]&lt;/span&gt;&lt;/li&gt;
-&lt;li&gt;N-gram model&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&quot;estimating-bigram-probabilities&quot;&gt;Estimating bigram probabilities&lt;/h2&gt;
-&lt;p&gt;The Maximum Likelihood Estimate &lt;span class=&quot;math display&quot;&gt;\[
-P(w_i|w_{i-1})=\frac{count(w_{i-1},w_i)}{count(w_{i-1})}
-\]&lt;/span&gt;&lt;/p&gt;
-&lt;h3 id=&quot;practical-issues&quot;&gt;Practical Issues&lt;/h3&gt;
-&lt;p&gt;do everything in log space&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Avoid underflow&lt;/li&gt;
-&lt;li&gt;also adding is faster than multiplying &lt;span class=&quot;math display&quot;&gt;\[
-p_1\times p_2\times p_3\times p_4=logp_1+logp_2+logp_3+logp_4
-\]&lt;/span&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&quot;perplexity&quot;&gt;Perplexity&lt;/h2&gt;
-&lt;p&gt;The best language model is the one that best predicts an unseen test set. Perplexity is the probability of the test set, normalized by the number of words: &lt;span class=&quot;math display&quot;&gt;\[
-PP(W)=P(w_1w_2...w_N)^{-{1 \over N}}
-\]&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Chain rule:&lt;/strong&gt; &lt;span class=&quot;math display&quot;&gt;\[
-PP(W)=\sqrt[N]{\prod_{i=1}^N \frac{1}{P(w_i|w_1...w_{i-1})}}
-\]&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;For bigrams:&lt;/strong&gt; &lt;span class=&quot;math display&quot;&gt;\[
-PP(W)=\sqrt[N]{\prod_{i=1}^N \frac{1}{P(w_i|w_{i-1})}}
-\]&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;Minimizing perplexity is the same as maximizing probability.&lt;/p&gt;
-</description>
-				<pubDate>Thu, 17 Dec 2015 00:00:00 +0800</pubDate>
-				<link>/nlp/2015/12/17/language-modeling.html</link>
-				<guid isPermaLink="true">/nlp/2015/12/17/language-modeling.html</guid>
 			</item>
 		
 	</channel>
