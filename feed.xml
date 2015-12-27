@@ -7,6 +7,40 @@
 		<atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>Maximum Entropy Model</title>
+				<description>&lt;p&gt;&lt;a href=&quot;http://www.zhizhihu.com/html/y2011/3500.html&quot;&gt;原文链接&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;设随机变量&lt;span class=&quot;math inline&quot;&gt;\(\xi\)&lt;/span&gt;，他有&lt;span class=&quot;math inline&quot;&gt;\(A_1,A_2...A_n\)&lt;/span&gt;共&lt;span class=&quot;math inline&quot;&gt;\(n\)&lt;/span&gt;个不同的取值，每个取值出现的概率为&lt;span class=&quot;math inline&quot;&gt;\(p_1,p_2...p_n\)&lt;/span&gt;，那么&lt;span class=&quot;math inline&quot;&gt;\(\xi\)&lt;/span&gt;的不确定度，即信息熵为： &lt;span class=&quot;math display&quot;&gt;\[
+H(\xi)=\sum_{i=1}^n p_i log_2{1 \over p_i}=-\sum_{i=1}^n p_i log_2 p_i
+\]&lt;/span&gt; 熵越大，越不确定。熵为0，事件是确定的，例如抛硬币，每次事件发生的概率都是1/2的话，那么熵为1，即&lt;span class=&quot;math inline&quot;&gt;\(H(X)=-(0.5log_2 0.5+0.5log_2 0.5)=1\)&lt;/span&gt;。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;最大熵原理指出，当我们需要对一个随机事件的概率分布进行预测时，我们的预测应当满足全部已知的条件，而对未知的情况不要做任何主观假设。在这种情况下，概率分布最均匀，预测的风险最小。因为这时概率分布的信息熵最大，所以人们称这种模型叫“最大熵模型”。我们常说，不要把所有的鸡蛋放在一个篮子里，其实就是最大熵原理的一个朴素的说法，因为当我们遇到不确定性时，就要保留各种可能性。说白了，就是要保留全部的不确定性，将风险降到最小。—-摘自《Google黑板报》作者：吴军&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;自然语言处理的例子：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;“学习”这个词可能是动词，也可能是名词。可以可以被标为主语、谓语、宾语、定语…… 令&lt;span class=&quot;math inline&quot;&gt;\(x_1\)&lt;/span&gt;表示“学习”被标为名词，&lt;span class=&quot;math inline&quot;&gt;\(x_2\)&lt;/span&gt;表示“学习”被标为动词。令&lt;span class=&quot;math inline&quot;&gt;\(y_1\)&lt;/span&gt;表示“学习”被标为主语，&lt;span class=&quot;math inline&quot;&gt;\(y_2\)&lt;/span&gt;表示被标为谓语，&lt;span class=&quot;math inline&quot;&gt;\(y_3\)&lt;/span&gt;表示宾语，&lt;span class=&quot;math inline&quot;&gt;\(y_4\)&lt;/span&gt;表示定语。得到下面的表示： &lt;span class=&quot;math display&quot;&gt;\[
+p(x_1)+p(x_2)=1
+\]&lt;/span&gt;&lt;span class=&quot;math display&quot;&gt;\[
+\sum_{i=1}^4 p(y_i)=1
+\]&lt;/span&gt; 如果没有其他的知识，根据信息熵的理论，概率趋向于均匀。所以有： &lt;span class=&quot;math display&quot;&gt;\[
+p(x_1)=p(x_2)=0.5
+\]&lt;/span&gt;&lt;span class=&quot;math display&quot;&gt;\[
+p(y_1)=p(y_2)=p(y_3)=p(y_4)=0.25
+\]&lt;/span&gt; 但是在实际情况中，“学习”被标为定语的可能性很小，只有0.05。我们引入这个新的知识：&lt;span class=&quot;math inline&quot;&gt;\(p(y_4)=0.05\)&lt;/span&gt;，在满足了这个约束的情况下，其他的事件我们尽可能的让他们符合自然，符合均匀分布： &lt;span class=&quot;math display&quot;&gt;\[
+p(x_1)=p(x_2)=0.5
+\]&lt;/span&gt;&lt;span class=&quot;math display&quot;&gt;\[
+p(y_1)=p(y_2)=p(y_3)=0.953
+\]&lt;/span&gt; 嗯，如果再加入一个知识，当“学习”被标作动词的时候，它被标作谓语的概率为0.95，这个其实是很自然的事情。都已经是动词了，那么是谓语的可能性就很大了： &lt;span class=&quot;math display&quot;&gt;\[
+p(y_2|x_2)=0.95
+\]&lt;/span&gt; 已经有了两个知识了，第二个还是条件概率的知识，那么其他的我们尽可能的让他们不受约束，不受影响，分布的均匀一些，现在应该怎么让他们符合尽可能的均匀分布呢？&lt;/p&gt;
+&lt;p&gt;其实就是使熵尽可能的大就行了。也就是有个分布&lt;span class=&quot;math inline&quot;&gt;\(p\)&lt;/span&gt;，他尽可能的把训练集中的知识表示出来，损失最小，并且还能够保证&lt;span class=&quot;math inline&quot;&gt;\(p\)&lt;/span&gt;的熵最大： &lt;span class=&quot;math display&quot;&gt;\[
+p^*=\mathop{argmax}\limits_p H(p)
+\]&lt;/span&gt;&lt;/p&gt;
+</description>
+				<pubDate>Sun, 27 Dec 2015 00:00:00 +0800</pubDate>
+				<link>/foundation/2015/12/27/maximum-entropy-model.html</link>
+				<guid isPermaLink="true">/foundation/2015/12/27/maximum-entropy-model.html</guid>
+			</item>
+		
+			<item>
 				<title>LSTM A Search Space Odyssey</title>
 				<description>&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
 &lt;p&gt;This paper reports the results of a large scale study on variations of the LSTM architecture.&lt;/p&gt;
@@ -227,15 +261,6 @@ Q \quad \underrightarrow{encode} \quad q^{(0)} , F_k \quad \underrightarrow{enco
 				<pubDate>Thu, 17 Dec 2015 00:00:00 +0800</pubDate>
 				<link>/tools/log/2015/12/17/jekyll-render-with-pandoc-on-windows.html</link>
 				<guid isPermaLink="true">/tools/log/2015/12/17/jekyll-render-with-pandoc-on-windows.html</guid>
-			</item>
-		
-			<item>
-				<title>git笔记 and cheatsheet</title>
-				<description>&lt;p&gt;&lt;a class=&quot;btn btn-default&quot; href=&quot;https://github.com/sohero/git&quot; target=&quot;_blank&quot;&gt;Go.&lt;/a&gt; &lt;a class=&quot;btn btn-default&quot; href=&quot;http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000&quot; target=&quot;_blank&quot;&gt;原文&lt;/a&gt;&lt;/p&gt;
-</description>
-				<pubDate>Thu, 17 Dec 2015 00:00:00 +0800</pubDate>
-				<link>/tools/log/2015/12/17/git-note.html</link>
-				<guid isPermaLink="true">/tools/log/2015/12/17/git-note.html</guid>
 			</item>
 		
 	</channel>
