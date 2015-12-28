@@ -166,6 +166,7 @@ u^{k+1}=u^k+o^k
 <li><strong>Adjacent</strong>: the output embedding for one layer is the input embedding for the one above, i.e. <span class="math inline">\(A^{k+1}=C^k\)</span>. also constrain (a) the answer prediction matrix to be the same as the final output embedding, i.e. <span class="math inline">\(W^T=C^K\)</span>, and (b) the question embedding to match the input embedding of the first layer, i.e. <span class="math inline">\(B=A^1\)</span>.</li>
 <li><strong>Layer-wise (RNN-like)</strong>: the input and output embeddings are the same across different layers, i.e. <span class="math inline">\(A^1=A^2=...=A^K\)</span> and <span class="math inline">\(C^1=C^2=...=C^K\)</span>. found it useful to add a linear mapping <span class="math inline">\(H\)</span> to the update of <span class="math inline">\(u\)</span> between hops; that is, <span class="math inline">\(u^{k+1}=Hu^k+o^k\)</span>. This mapping is learned from data and used throughout experiments for layer-wise weight tying.</li>
 </ul>
+<p><a href="https://github.com/facebook/MemNN/tree/master/MemN2N-lang-model">Code Repository</a></p>
 
 	  </div>
 
