@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>memo</title>
+	<title>python note</title>
 	
 	<meta name="author" content="sohero">
 
@@ -129,213 +129,120 @@
 
 	<div class="col-sm-9 col-sm-offset-3">
 		<div class="page-header">
-  <h1>memo </h1>
+  <h1>python note </h1>
 </div>
+	
+<article>
 
-
-
-<article class="home">
-  <h2>
-    <a href="/lua/2015/08/28/torch7-doc.html" target="_blank">Torch7 doc</a>
-  </h2>
-  <span class="post-date">
-    2015-08-28 
-  </span>
-  <div>
-    
-    
-    ...
-    
-    
-  </div>
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/foundation/2015/08/22/lstm.html" target="_blank">LSTM</a>
-  </h2>
-  <span class="post-date">
-    2015-08-22 
-  </span>
-  <div>
-    
-    
-    ...
-    
-    
-  </div>
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/lua/2015/08/19/pcall.html" target="_blank">pcall</a>
-  </h2>
-  <span class="post-date">
-    2015-08-19 
-  </span>
-  <div>
-    
-    
-    ...
-    
-    
-  </div>
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/lua/2015/08/19/torch7-serialization.html" target="_blank">Torch7 Serialization</a>
-  </h2>
-  <span class="post-date">
-    2015-08-19 
-  </span>
-  <div>
-    
-    
-    ...
-    
-    
-  </div>
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/lua/2015/08/18/defining-your-own-neural-net-module.html" target="_blank">Defining your own Neural Net Module</a>
-  </h2>
-  <span class="post-date">
-    2015-08-18 
-  </span>
-  <div>
-    
-    
-    ...
-    
-    
-  </div>
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/foundation/lua/2015/08/17/the-requ-unit.html" target="_blank">The ReQU unit</a>
-  </h2>
-  <span class="post-date">
-    2015-08-17 
-  </span>
-  <div>
-    
-    
-    ...
-    
-    
-  </div>
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/lua/2015/08/14/optim-package.html" target="_blank">optim package</a>
-  </h2>
-  <span class="post-date">
-    2015-08-14 
-  </span>
-  <div>
-    
-    
-    ...
-    
-    
-  </div>
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/foundation/2015/08/14/jacobian.html" target="_blank">Jacobian</a>
-  </h2>
-  <span class="post-date">
-    2015-08-14 
-  </span>
-  <div>
-    
-    
-    ...
-    
-    
-  </div>
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/foundation/2015/08/13/energy-function.html" target="_blank">Energy Function</a>
-  </h2>
-  <span class="post-date">
-    2015-08-13 
-  </span>
-  <div>
-    
-    
-    ...
-    
-    
-  </div>
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/foundation/2015/08/13/analysis-of-discrete-data-stat-504.html" target="_blank">Analysis of Discrete Data|STAT 504</a>
-  </h2>
-  <span class="post-date">
-    2015-08-13 
-  </span>
-  <div>
-    
-    
-    ...
-    
-    
-  </div>
-
-</article>
-
-<hr/>
-
-<ul class="pager"> 
-
-  
-  <li class="previous">
-    
-    <a href="/page3">&larr; Newer</a>
-    
-  </li>
-  
-  
-  <li>
-    <span class="page_number">Page: 4 of 5</span>
-  </li>
-
-  
-  <li class="next">
-    <a href="/page5">Older &rarr;</a>
-  </li>
-  
-
+	<div class="col-sm-10">
+	 <span class="post-date">
+	 	2015-12-28 
+	 </span>
+	  <div class="article_body">
+	  <h2 id="python-pip">python pip</h2>
+<p><code>python pip</code>的安装,<a href="https://pip.pypa.io/en/latest/installing.html" class="uri">https://pip.pypa.io/en/latest/installing.html</a></p>
+<ul>
+<li>升级pip：命令行下运行 python -m pip install -U pip</li>
+<li>用pip安装package：python -m pip install <em>package_name</em></li>
+<li>package_name 在<a href="https://pypi.python.org/pypi" class="uri">https://pypi.python.org/pypi</a>搜索</li>
 </ul>
+<h2 id="module-search-path">Module Search Path</h2>
+<p>When a module named spam is imported, the interpreter first searches for a built-in module with that name. If not found, it then searches for a file named spam.py in a list of directories given by the variable <code>sys.path</code>. sys.path is initialized from these locations:</p>
+<ul>
+<li>the directory containing the input script (or the current directory).</li>
+<li>PYTHONPATH (a list of directory names, with the same syntax as the shell variable PATH).</li>
+<li>the installation-dependent default.</li>
+</ul>
+<h2 id="dir">dir()</h2>
+<p>he built-in function dir() is used to find out which names a module defines. It returns a sorted list of strings dir() does not list the names of built-in functions and variables. If you want a list of those, they are defined in the standard module <code>__builtin__</code>:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> __builtin__
+<span class="bu">dir</span>(__builtin__)</code></pre></div>
+<h2 id="并发map">并发map</h2>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">from</span> multiprocessing <span class="im">import</span> Pool
+<span class="im">from</span> multiprocessing.dummy <span class="im">import</span> Pool <span class="im">as</span> ThreadPool
+pool <span class="op">=</span> ThreadPool(<span class="dv">4</span>) <span class="co"># Sets the pool size to 4</span>
+results<span class="op">=</span>pool.<span class="bu">map</span>(urllib2.urlopen, urls)
+pool.close()
+pool.join()</code></pre></div>
+
+	  </div>
+
+		
+		<ul class="tag_box list-unstyled list-inline">
+		  <li><i class="fa fa-folder-open"></i></li>
+		  
+		  
+			 
+				<li><a href="/categories.html#python-ref">
+					python <span>(1)</span>
+					
+				</a></li>
+			
+		  
+		</ul>
+		  
+
+		
+		<ul class="list-inline">
+		  <li><i class="fa fa-tags"></i></li>
+		  
+		  
+			 
+				<li>
+					<a href="/tags.html#python-ref">
+					python <span>(1)</span>
+					
+					</a>
+				</li>
+			
+		  
+		  
+		</ul>
+		  
+
+		<hr>
+
+		<div>
+      <section class="share col-sm-12">
+        <h4 class="section-title">Share Post</h4>
+        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=python note"
+           onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+          <i class="fa fa-twitter fa-lg"></i>
+          Twitter
+        </a>
+        <a class="btn btn-default btn-sm facebook" href="https://www.facebook.com/sharer/sharer.php"
+           onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+          <i class="fa fa-facebook fa-lg"></i>
+          Facebook
+        </a>
+        <a class="btn btn-default btn-sm gplus"
+           onclick="window.open('https://plus.google.com/share?url='+window.location.href, 'google-plus-share', 'width=490,height=530');return false;">
+          <i class="fa fa-google-plus fa-lg"></i>
+          Google+
+        </a>
+      </section>
+    </div>
+
+    <div class="clearfix"></div>
+
+		<ul class="pager">
+		  
+		  <li class="previous"><a href="/foundation/2015/12/27/maximum-entropy-model.html" title="Maximum Entropy Model">&larr; Previous</a></li>
+		  
+		  
+			<li class="next disabled"><a>Next &rarr;</a>
+		  
+		</ul>
+
+		<hr>
+	</div>
+	
+	<div class="col-sm-2 sidebar-2">
+	
+	</div>
+</article>
+<div class="clearfix"></div>
+
 
 
 

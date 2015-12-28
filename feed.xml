@@ -7,6 +7,39 @@
 		<atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>python note</title>
+				<description>&lt;h2 id=&quot;python-pip&quot;&gt;python pip&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;python pip&lt;/code&gt;的安装,&lt;a href=&quot;https://pip.pypa.io/en/latest/installing.html&quot; class=&quot;uri&quot;&gt;https://pip.pypa.io/en/latest/installing.html&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;升级pip：命令行下运行 python -m pip install -U pip&lt;/li&gt;
+&lt;li&gt;用pip安装package：python -m pip install &lt;em&gt;package_name&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;package_name 在&lt;a href=&quot;https://pypi.python.org/pypi&quot; class=&quot;uri&quot;&gt;https://pypi.python.org/pypi&lt;/a&gt;搜索&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;module-search-path&quot;&gt;Module Search Path&lt;/h2&gt;
+&lt;p&gt;When a module named spam is imported, the interpreter first searches for a built-in module with that name. If not found, it then searches for a file named spam.py in a list of directories given by the variable &lt;code&gt;sys.path&lt;/code&gt;. sys.path is initialized from these locations:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;the directory containing the input script (or the current directory).&lt;/li&gt;
+&lt;li&gt;PYTHONPATH (a list of directory names, with the same syntax as the shell variable PATH).&lt;/li&gt;
+&lt;li&gt;the installation-dependent default.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;dir&quot;&gt;dir()&lt;/h2&gt;
+&lt;p&gt;he built-in function dir() is used to find out which names a module defines. It returns a sorted list of strings dir() does not list the names of built-in functions and variables. If you want a list of those, they are defined in the standard module &lt;code&gt;__builtin__&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;&lt;span class=&quot;im&quot;&gt;import&lt;/span&gt; __builtin__
+&lt;span class=&quot;bu&quot;&gt;dir&lt;/span&gt;(__builtin__)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&quot;并发map&quot;&gt;并发map&lt;/h2&gt;
+&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;&lt;span class=&quot;im&quot;&gt;from&lt;/span&gt; multiprocessing &lt;span class=&quot;im&quot;&gt;import&lt;/span&gt; Pool
+&lt;span class=&quot;im&quot;&gt;from&lt;/span&gt; multiprocessing.dummy &lt;span class=&quot;im&quot;&gt;import&lt;/span&gt; Pool &lt;span class=&quot;im&quot;&gt;as&lt;/span&gt; ThreadPool
+pool &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; ThreadPool(&lt;span class=&quot;dv&quot;&gt;4&lt;/span&gt;) &lt;span class=&quot;co&quot;&gt;# Sets the pool size to 4&lt;/span&gt;
+results&lt;span class=&quot;op&quot;&gt;=&lt;/span&gt;pool.&lt;span class=&quot;bu&quot;&gt;map&lt;/span&gt;(urllib2.urlopen, urls)
+pool.close()
+pool.join()&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+</description>
+				<pubDate>Mon, 28 Dec 2015 00:00:00 +0800</pubDate>
+				<link>/python/2015/12/28/python-note.html</link>
+				<guid isPermaLink="true">/python/2015/12/28/python-note.html</guid>
+			</item>
+		
+			<item>
 				<title>Maximum Entropy Model</title>
 				<description>&lt;p&gt;&lt;a href=&quot;http://www.zhizhihu.com/html/y2011/3500.html&quot;&gt;原文链接&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;设随机变量&lt;span class=&quot;math inline&quot;&gt;\(\xi\)&lt;/span&gt;，他有&lt;span class=&quot;math inline&quot;&gt;\(A_1,A_2...A_n\)&lt;/span&gt;共&lt;span class=&quot;math inline&quot;&gt;\(n\)&lt;/span&gt;个不同的取值，每个取值出现的概率为&lt;span class=&quot;math inline&quot;&gt;\(p_1,p_2...p_n\)&lt;/span&gt;，那么&lt;span class=&quot;math inline&quot;&gt;\(\xi\)&lt;/span&gt;的不确定度，即信息熵为： &lt;span class=&quot;math display&quot;&gt;\[
@@ -243,24 +276,6 @@ Q \quad \underrightarrow{encode} \quad q^{(0)} , F_k \quad \underrightarrow{enco
 				<pubDate>Fri, 18 Dec 2015 00:00:00 +0800</pubDate>
 				<link>/foundation/2015/12/18/theoretical-motivations-for-deep-learning.html</link>
 				<guid isPermaLink="true">/foundation/2015/12/18/theoretical-motivations-for-deep-learning.html</guid>
-			</item>
-		
-			<item>
-				<title>Jekyll render with pandoc on windows</title>
-				<description>&lt;h2 id=&quot;下载绿色版jekyll&quot;&gt;下载绿色版Jekyll&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;https://github.com/sohero/PortableJekyll&quot; title=&quot;下载地址&quot;&gt;下载地址&lt;/a&gt;，这个版本，在原Portable Jekyll的基础上，修改了一下setpath.cmd。这样在写的正文里有中文也不会报错了。&lt;/li&gt;
-&lt;li&gt;解压到任一目录，直接运行setpath.cmd，就可以使用了。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&quot;安装pandoc&quot;&gt;安装pandoc&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;Jekyll的两个markdown解析器，对于mathjax的支持都不完美。用pandoc没有问题，不过需要安装jekyll-pandoc插件，&lt;a href=&quot;https://github.com/sohero/jekyll-pandoc&quot;&gt;插件下载地址&lt;/a&gt;。这个版本修改了一下依赖的Jekyll版本号，这样就可以在Jekyll 3.0里使用了。&lt;/li&gt;
-&lt;li&gt;安装pandoc：&lt;a href=&quot;http://pandoc.org/&quot;&gt;下载地址&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-				<pubDate>Thu, 17 Dec 2015 00:00:00 +0800</pubDate>
-				<link>/tools/log/2015/12/17/jekyll-render-with-pandoc-on-windows.html</link>
-				<guid isPermaLink="true">/tools/log/2015/12/17/jekyll-render-with-pandoc-on-windows.html</guid>
 			</item>
 		
 	</channel>
