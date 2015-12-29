@@ -7,6 +7,75 @@
 		<atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>ipython parallel</title>
+				<description>&lt;p&gt;IPython 3.x&lt;/p&gt;
+&lt;h2 id=&quot;architecture-overview&quot;&gt;Architecture overview&lt;/h2&gt;
+&lt;figure&gt;
+&lt;img src=&quot;/assets/images/28.png&quot; alt=&quot;&quot; /&gt;
+&lt;/figure&gt;
+&lt;p&gt;The IPython architecture consists of four components:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The IPython engine.&lt;/li&gt;
+&lt;li&gt;The IPython hub.&lt;/li&gt;
+&lt;li&gt;The IPython schedulers.&lt;/li&gt;
+&lt;li&gt;The controller client.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;These components live in the &lt;code&gt;IPython.parallel&lt;/code&gt; package and are installed with IPython.&lt;/p&gt;
+&lt;h2 id=&quot;getting-started&quot;&gt;Getting Started&lt;/h2&gt;
+&lt;p&gt;To use IPython for parallel computing, you need to start one instance of the controller and one or more instances of the engine. Initially, it is best to simply start a controller and engines on a single host using the &lt;code&gt;ipcluster&lt;/code&gt; command. To start a controller and 4 engines on your localhost, just do:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;ipcluster start -n 4&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Once you have started the IPython controller and one or more engines, you are ready to use the engines to do something useful. To make sure everything is working correctly, try the following commands:&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;In [&lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;]: &lt;span class=&quot;im&quot;&gt;from&lt;/span&gt; IPython.parallel &lt;span class=&quot;im&quot;&gt;import&lt;/span&gt; Client
+
+In [&lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt;]: c &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; Client()
+
+In [&lt;span class=&quot;dv&quot;&gt;4&lt;/span&gt;]: c.ids
+Out[&lt;span class=&quot;dv&quot;&gt;4&lt;/span&gt;]: &lt;span class=&quot;bu&quot;&gt;set&lt;/span&gt;([&lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;, &lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt;, &lt;span class=&quot;dv&quot;&gt;3&lt;/span&gt;])
+
+In [&lt;span class=&quot;dv&quot;&gt;5&lt;/span&gt;]: c[:].apply_sync(&lt;span class=&quot;kw&quot;&gt;lambda&lt;/span&gt; : &lt;span class=&quot;st&quot;&gt;&amp;quot;Hello, World&amp;quot;&lt;/span&gt;)
+Out[&lt;span class=&quot;dv&quot;&gt;5&lt;/span&gt;]: [ &lt;span class=&quot;st&quot;&gt;&amp;#39;Hello, World&amp;#39;&lt;/span&gt;, &lt;span class=&quot;st&quot;&gt;&amp;#39;Hello, World&amp;#39;&lt;/span&gt;, &lt;span class=&quot;st&quot;&gt;&amp;#39;Hello, World&amp;#39;&lt;/span&gt;, &lt;span class=&quot;st&quot;&gt;&amp;#39;Hello, World&amp;#39;&lt;/span&gt; ]&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&quot;ipython-client-and-views&quot;&gt;IPython client and views&lt;/h2&gt;
+&lt;p&gt;There is one primary object, the &lt;code&gt;Client&lt;/code&gt;, for connecting to a cluster. For each execution model, there is a corresponding &lt;code&gt;View&lt;/code&gt;. These views allow users to interact with a set of engines through the interface. Here are the two default views:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The &lt;code&gt;DirectView&lt;/code&gt; class for explicit addressing.&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;LoadBalancedView&lt;/code&gt; class for destination-agnostic scheduling.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;creating-a-loadbalancedview-instance&quot;&gt;Creating a LoadBalancedView instance&lt;/h2&gt;
+&lt;p&gt;The first step is to import the IPython &lt;code&gt;IPython.parallel&lt;/code&gt; module and then create a &lt;code&gt;Client&lt;/code&gt; instance, and we will also be using a &lt;code&gt;LoadBalancedView&lt;/code&gt;, here called &lt;code&gt;lview&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;In [&lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;]: &lt;span class=&quot;im&quot;&gt;from&lt;/span&gt; IPython.parallel &lt;span class=&quot;im&quot;&gt;import&lt;/span&gt; Client
+
+In [&lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt;]: rc &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; Client()&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;This form assumes that the controller was started on localhost with default configuration. If not, the location of the controller must be given as an argument to the constructor:&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;&lt;span class=&quot;co&quot;&gt;# for a visible LAN controller listening on an external port:&lt;/span&gt;
+In [&lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt;]: rc &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; Client(&lt;span class=&quot;st&quot;&gt;&amp;#39;tcp://192.168.1.16:10101&amp;#39;&lt;/span&gt;)
+&lt;span class=&quot;co&quot;&gt;# or to connect with a specific profile you have set up:&lt;/span&gt;
+In [&lt;span class=&quot;dv&quot;&gt;3&lt;/span&gt;]: rc &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; Client(profile&lt;span class=&quot;op&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;&amp;#39;mpi&amp;#39;&lt;/span&gt;)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;For load-balanced execution, we will make use of a &lt;code&gt;LoadBalancedView&lt;/code&gt; object, which can be constructed via the client’s &lt;code&gt;load_balanced_view()&lt;/code&gt; method:&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;In [&lt;span class=&quot;dv&quot;&gt;4&lt;/span&gt;]: lview &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; rc.load_balanced_view() &lt;span class=&quot;co&quot;&gt;# default load-balanced view&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&quot;parallel-map&quot;&gt;Parallel map&lt;/h2&gt;
+&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;In [&lt;span class=&quot;dv&quot;&gt;62&lt;/span&gt;]: lview.block &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;va&quot;&gt;True&lt;/span&gt;
+
+In [&lt;span class=&quot;dv&quot;&gt;63&lt;/span&gt;]: serial_result &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bu&quot;&gt;map&lt;/span&gt;(&lt;span class=&quot;kw&quot;&gt;lambda&lt;/span&gt; x:x&lt;span class=&quot;op&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;10&lt;/span&gt;, &lt;span class=&quot;bu&quot;&gt;range&lt;/span&gt;(&lt;span class=&quot;dv&quot;&gt;32&lt;/span&gt;))
+
+In [&lt;span class=&quot;dv&quot;&gt;64&lt;/span&gt;]: parallel_result &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; lview.&lt;span class=&quot;bu&quot;&gt;map&lt;/span&gt;(&lt;span class=&quot;kw&quot;&gt;lambda&lt;/span&gt; x:x&lt;span class=&quot;op&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;10&lt;/span&gt;, &lt;span class=&quot;bu&quot;&gt;range&lt;/span&gt;(&lt;span class=&quot;dv&quot;&gt;32&lt;/span&gt;))
+
+In [&lt;span class=&quot;dv&quot;&gt;65&lt;/span&gt;]: serial_result&lt;span class=&quot;op&quot;&gt;==&lt;/span&gt;parallel_result
+Out[&lt;span class=&quot;dv&quot;&gt;65&lt;/span&gt;]: &lt;span class=&quot;va&quot;&gt;True&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&quot;parallel-function-decorator&quot;&gt;Parallel function decorator&lt;/h2&gt;
+&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;In [&lt;span class=&quot;dv&quot;&gt;10&lt;/span&gt;]: @lview.parallel()
+   ....: &lt;span class=&quot;kw&quot;&gt;def&lt;/span&gt; f(x):
+   ....:     &lt;span class=&quot;cf&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;fl&quot;&gt;10.0&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;*&lt;/span&gt;x&lt;span class=&quot;op&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;4&lt;/span&gt;
+   ....:
+
+In [&lt;span class=&quot;dv&quot;&gt;11&lt;/span&gt;]: f.&lt;span class=&quot;bu&quot;&gt;map&lt;/span&gt;(&lt;span class=&quot;bu&quot;&gt;range&lt;/span&gt;(&lt;span class=&quot;dv&quot;&gt;32&lt;/span&gt;))    &lt;span class=&quot;co&quot;&gt;# this is done in parallel&lt;/span&gt;
+Out[&lt;span class=&quot;dv&quot;&gt;11&lt;/span&gt;]: [&lt;span class=&quot;fl&quot;&gt;0.0&lt;/span&gt;,&lt;span class=&quot;fl&quot;&gt;10.0&lt;/span&gt;,&lt;span class=&quot;fl&quot;&gt;160.0&lt;/span&gt;,...]&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+</description>
+				<pubDate>Tue, 29 Dec 2015 00:00:00 +0800</pubDate>
+				<link>/python/2015/12/29/ipython-parallel.html</link>
+				<guid isPermaLink="true">/python/2015/12/29/ipython-parallel.html</guid>
+			</item>
+		
+			<item>
 				<title>python note</title>
 				<description>&lt;h2 id=&quot;python-pip&quot;&gt;python pip&lt;/h2&gt;
 &lt;p&gt;&lt;code&gt;python pip&lt;/code&gt;的安装,&lt;a href=&quot;https://pip.pypa.io/en/latest/installing.html&quot; class=&quot;uri&quot;&gt;https://pip.pypa.io/en/latest/installing.html&lt;/a&gt;&lt;/p&gt;
@@ -29,10 +98,11 @@
 &lt;h2 id=&quot;multiprocessing&quot;&gt;multiprocessing&lt;/h2&gt;
 &lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;&lt;span class=&quot;im&quot;&gt;from&lt;/span&gt; multiprocessing &lt;span class=&quot;im&quot;&gt;import&lt;/span&gt; Pool
 &lt;span class=&quot;im&quot;&gt;from&lt;/span&gt; multiprocessing.dummy &lt;span class=&quot;im&quot;&gt;import&lt;/span&gt; Pool &lt;span class=&quot;im&quot;&gt;as&lt;/span&gt; ThreadPool
-pool &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; ThreadPool(&lt;span class=&quot;dv&quot;&gt;4&lt;/span&gt;) &lt;span class=&quot;co&quot;&gt;# Sets the pool size to 4&lt;/span&gt;
-results&lt;span class=&quot;op&quot;&gt;=&lt;/span&gt;pool.&lt;span class=&quot;bu&quot;&gt;map&lt;/span&gt;(urllib2.urlopen, urls)
-pool.close()
-pool.join()&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&quot;cf&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;va&quot;&gt;__name__&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;&amp;quot;__main__&amp;quot;&lt;/span&gt;:
+    pool &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; ThreadPool(&lt;span class=&quot;dv&quot;&gt;4&lt;/span&gt;) &lt;span class=&quot;co&quot;&gt;# Sets the pool size to 4&lt;/span&gt;
+    results&lt;span class=&quot;op&quot;&gt;=&lt;/span&gt;pool.&lt;span class=&quot;bu&quot;&gt;map&lt;/span&gt;(urllib2.urlopen, urls)
+    pool.close()
+    pool.join()&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 </description>
 				<pubDate>Mon, 28 Dec 2015 00:00:00 +0800</pubDate>
 				<link>/python/2015/12/28/python-note.html</link>
@@ -265,17 +335,6 @@ Q \quad \underrightarrow{encode} \quad q^{(0)} , F_k \quad \underrightarrow{enco
 				<pubDate>Sat, 19 Dec 2015 00:00:00 +0800</pubDate>
 				<link>/foundation/2015/12/19/basic-conception.html</link>
 				<guid isPermaLink="true">/foundation/2015/12/19/basic-conception.html</guid>
-			</item>
-		
-			<item>
-				<title>Theoretical Motivations for Deep Learning</title>
-				<description>&lt;p&gt;With distributed representations, it is possible to represent exponential number of regions with a linear number of parameters. The magic of distributed representation is that it can learn a very complicated function(with many ups and downs) with a low number of examples.&lt;/p&gt;
-&lt;p&gt;Depth is not necessary to have a flexible family of functions. Deeper networks does not correspond to a higher capacity. Deeper doesn’t mean we can represent more functions. If the functions we trying to learn has a particular characteristic obtained through composition of many operations, then it is much better to approximate these functions with a deep neural network.&lt;/p&gt;
-&lt;p&gt;There is new theoretical result that deeper nets with rectifier/maxout units are exponentially more expressive than shallow ones because they can split the input space in many more linear regions, with constraints.&lt;/p&gt;
-</description>
-				<pubDate>Fri, 18 Dec 2015 00:00:00 +0800</pubDate>
-				<link>/foundation/2015/12/18/theoretical-motivations-for-deep-learning.html</link>
-				<guid isPermaLink="true">/foundation/2015/12/18/theoretical-motivations-for-deep-learning.html</guid>
 			</item>
 		
 	</channel>

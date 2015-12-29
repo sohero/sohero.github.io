@@ -160,10 +160,11 @@
 <h2 id="multiprocessing">multiprocessing</h2>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">from</span> multiprocessing <span class="im">import</span> Pool
 <span class="im">from</span> multiprocessing.dummy <span class="im">import</span> Pool <span class="im">as</span> ThreadPool
-pool <span class="op">=</span> ThreadPool(<span class="dv">4</span>) <span class="co"># Sets the pool size to 4</span>
-results<span class="op">=</span>pool.<span class="bu">map</span>(urllib2.urlopen, urls)
-pool.close()
-pool.join()</code></pre></div>
+<span class="cf">if</span> <span class="va">__name__</span><span class="op">==</span><span class="st">&quot;__main__&quot;</span>:
+    pool <span class="op">=</span> ThreadPool(<span class="dv">4</span>) <span class="co"># Sets the pool size to 4</span>
+    results<span class="op">=</span>pool.<span class="bu">map</span>(urllib2.urlopen, urls)
+    pool.close()
+    pool.join()</code></pre></div>
 
 	  </div>
 
@@ -174,7 +175,7 @@ pool.join()</code></pre></div>
 		  
 			 
 				<li><a href="/categories.html#python-ref">
-					python <span>(1)</span>
+					python <span>(2)</span>
 					
 				</a></li>
 			
@@ -190,7 +191,7 @@ pool.join()</code></pre></div>
 			 
 				<li>
 					<a href="/tags.html#python-ref">
-					python <span>(1)</span>
+					python <span>(2)</span>
 					
 					</a>
 				</li>
@@ -230,7 +231,7 @@ pool.join()</code></pre></div>
 		  <li class="previous"><a href="/foundation/2015/12/27/maximum-entropy-model.html" title="Maximum Entropy Model">&larr; Previous</a></li>
 		  
 		  
-			<li class="next disabled"><a>Next &rarr;</a>
+		  <li class="next"><a href="/python/2015/12/29/ipython-parallel.html" title="ipython parallel">Next &rarr;</a></li>
 		  
 		</ul>
 
@@ -242,7 +243,14 @@ pool.join()</code></pre></div>
 	</div>
 </article>
 <div class="clearfix"></div>
-
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
 
 
 
