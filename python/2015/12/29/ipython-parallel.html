@@ -225,6 +225,7 @@ Out[<span class="dv">17</span>]: [<span class="st">&#39;[0, 1]&#39;</span>, <spa
 In [<span class="dv">18</span>]: echo.<span class="bu">map</span>(<span class="bu">range</span>(<span class="dv">5</span>))
 Out[<span class="dv">18</span>]: [<span class="st">&#39;0&#39;</span>, <span class="st">&#39;1&#39;</span>, <span class="st">&#39;2&#39;</span>, <span class="st">&#39;3&#39;</span>, <span class="st">&#39;4&#39;</span>]</code></pre></div>
 <h3 id="calling-python-functions"><a href="http://ipython.org/ipython-doc/3/parallel/parallel_multiengine.html#calling-python-functions">Calling Python functions</a></h3>
+<p>The most basic type of operation that can be performed on the engines is to execute Python code or call Python functions. Executing Python code can be done in blocking or non-blocking mode (non-blocking is default) using the <code>View.execute()</code> method, and calling functions can be done via the <code>View.apply()</code> method.</p>
 <h3 id="moving-python-objects-around"><a href="http://ipython.org/ipython-doc/3/parallel/parallel_multiengine.html#moving-python-objects-around">Moving Python objects around</a></h3>
 <h3 id="other-things-to-look-at"><a href="http://ipython.org/ipython-doc/3/parallel/parallel_multiengine.html#other-things-to-look-at">Other things to look at</a></h3>
 <h4 id="how-to-do-parallel-list-comprehensions">How to do parallel list comprehensions</h4>
