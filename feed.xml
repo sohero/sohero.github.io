@@ -7,6 +7,24 @@
 		<atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>Representation Learning</title>
+				<description>&lt;p&gt;&lt;span class=&quot;math display&quot;&gt;\[
+ML=Representation + Objective + Optimization
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Power of human brains
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Low&lt;/code&gt; signal speed vs &lt;code&gt;High&lt;/code&gt; computation speed&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;High&lt;/code&gt; processing capacity vs &lt;code&gt;Low&lt;/code&gt; energy consumption&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+				<pubDate>Wed, 30 Dec 2015 00:00:00 +0800</pubDate>
+				<link>/others/2015/12/30/representation-learning.html</link>
+				<guid isPermaLink="true">/others/2015/12/30/representation-learning.html</guid>
+			</item>
+		
+			<item>
 				<title>ipython parallel</title>
 				<description>&lt;p&gt;IPython 3.x. Best using in the ipython environment, or in a py file may raising unpredictable error.&lt;/p&gt;
 &lt;h2 id=&quot;architecture-overview&quot;&gt;Architecture overview&lt;/h2&gt;
@@ -411,18 +429,6 @@ Q \quad \underrightarrow{encode} \quad q^{(0)} , F_k \quad \underrightarrow{enco
 				<pubDate>Sat, 19 Dec 2015 00:00:00 +0800</pubDate>
 				<link>/method/2015/12/19/how-to-choose-a-neural-network.html</link>
 				<guid isPermaLink="true">/method/2015/12/19/how-to-choose-a-neural-network.html</guid>
-			</item>
-		
-			<item>
-				<title>Basic conception</title>
-				<description>&lt;h2 id=&quot;standard-deviation&quot;&gt;Standard Deviation&lt;/h2&gt;
-&lt;p&gt;In statistics and probability theory, the standard deviation (SD) (represented by the Greek letter sigma, &lt;span class=&quot;math inline&quot;&gt;\(\sigma\)&lt;/span&gt;) measures the amount of variation or dispersion from the average. A low standard deviation indicates that the data points tend to be very close to the mean (also called expected value); a high standard deviation indicates that the data points are spread out over a large range of values.&lt;/p&gt;
-&lt;h2 id=&quot;derivative&quot;&gt;Derivative&lt;/h2&gt;
-&lt;p&gt;The derivative of a function of a real variable measures the sensitivity to change of a quantity (a function or dependent variable) which is determined by another quantity (the independent variable). For example, the derivative of the position of a moving object with respect to time is the object’s velocity: this measures how quickly the position of the object changes when time is advanced.当x变化时，y的变化量。&lt;/p&gt;
-</description>
-				<pubDate>Sat, 19 Dec 2015 00:00:00 +0800</pubDate>
-				<link>/foundation/2015/12/19/basic-conception.html</link>
-				<guid isPermaLink="true">/foundation/2015/12/19/basic-conception.html</guid>
 			</item>
 		
 	</channel>
