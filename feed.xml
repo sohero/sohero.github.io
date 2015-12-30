@@ -8,7 +8,7 @@
 		
 			<item>
 				<title>ipython parallel</title>
-				<description>&lt;p&gt;IPython 3.x&lt;/p&gt;
+				<description>&lt;p&gt;IPython 3.x. Best using in the ipython environment, or in a py file may raising unpredictable error.&lt;/p&gt;
 &lt;h2 id=&quot;architecture-overview&quot;&gt;Architecture overview&lt;/h2&gt;
 &lt;figure&gt;
 &lt;img src=&quot;/assets/images/28.png&quot; alt=&quot;&quot; /&gt;
@@ -191,14 +191,6 @@ In [&lt;span class=&quot;dv&quot;&gt;18&lt;/span&gt;]: &lt;span class=&quot;cf&q
 &lt;p&gt;he built-in function dir() is used to find out which names a module defines. It returns a sorted list of strings dir() does not list the names of built-in functions and variables. If you want a list of those, they are defined in the standard module &lt;code&gt;__builtin__&lt;/code&gt;:&lt;/p&gt;
 &lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;&lt;span class=&quot;im&quot;&gt;import&lt;/span&gt; __builtin__
 &lt;span class=&quot;bu&quot;&gt;dir&lt;/span&gt;(__builtin__)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2 id=&quot;multiprocessing&quot;&gt;multiprocessing&lt;/h2&gt;
-&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;&lt;span class=&quot;im&quot;&gt;from&lt;/span&gt; multiprocessing &lt;span class=&quot;im&quot;&gt;import&lt;/span&gt; Pool
-&lt;span class=&quot;im&quot;&gt;from&lt;/span&gt; multiprocessing.dummy &lt;span class=&quot;im&quot;&gt;import&lt;/span&gt; Pool &lt;span class=&quot;im&quot;&gt;as&lt;/span&gt; ThreadPool
-&lt;span class=&quot;cf&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;va&quot;&gt;__name__&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;&amp;quot;__main__&amp;quot;&lt;/span&gt;:
-    pool &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; ThreadPool(&lt;span class=&quot;dv&quot;&gt;4&lt;/span&gt;) &lt;span class=&quot;co&quot;&gt;# Sets the pool size to 4&lt;/span&gt;
-    results&lt;span class=&quot;op&quot;&gt;=&lt;/span&gt;pool.&lt;span class=&quot;bu&quot;&gt;map&lt;/span&gt;(urllib2.urlopen, urls)
-    pool.close()
-    pool.join()&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 </description>
 				<pubDate>Mon, 28 Dec 2015 00:00:00 +0800</pubDate>
 				<link>/python/2015/12/28/python-note.html</link>
