@@ -159,8 +159,10 @@
 <p>Note that the number of words we use depends on your setting for the window size.</p>
 <p><strong>Skip-gram</strong>: The input to the model is <span class="math inline">\(w_i\)</span>, and the output could be <span class="math inline">\(w_{i−1},w_{i−2},w_{i+1},w_{i+2}\)</span>. So the task here is “predicting the context given a word”. Also, the context is not limited to its immediate context, training instances can be created by skipping a constant number of words in its context, so for example, <span class="math inline">\(w_{i−3},w_{i−4},w_{i+3},w_{i+4}\)</span>, hence the name skip-gram.</p>
 <p>Note that the window size determines how far forward and backward to look for context words to predict.</p>
-<p><strong>According to Mikolov:</strong> &gt;Skip-gram: works well with small amount of the training data, represents well even rare words or phrases. CBOW: several times faster to train than the skip-gram, slightly better accuracy for the frequent words This can get even a bit more complicated if you consider that there are two different ways how to train the models: the normalized hierarchical softmax, and the un-normalized negative sampling. Both work quite differently.</p>
-<p>which makes sense since with skip gram, you can create a lot more training instances from limited amount of data, and for CBOW, you will need more since you are conditioning on context, which can get exponentially huge.</p>
+<p><strong>According to Mikolov:</strong></p>
+<blockquote>
+<p>Skip-gram: works well with small amount of the training data, represents well even rare words or phrases. CBOW: several times faster to train than the skip-gram, slightly better accuracy for the frequent words This can get even a bit more complicated if you consider that there are two different ways how to train the models: the normalized hierarchical softmax, and the un-normalized negative sampling. Both work quite differently. which makes sense since with skip gram, you can create a lot more training instances from limited amount of data, and for CBOW, you will need more since you are conditioning on context, which can get exponentially huge.</p>
+</blockquote>
 
 	  </div>
 
