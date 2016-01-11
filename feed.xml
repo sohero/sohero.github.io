@@ -7,6 +7,17 @@
 		<atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>Sublime Text 3 shortcut cheat sheet</title>
+				<description>&lt;figure&gt;
+&lt;img src=&quot;/assets/images/29.png&quot; alt=&quot;&quot; /&gt;
+&lt;/figure&gt;
+</description>
+				<pubDate>Mon, 11 Jan 2016 00:00:00 +0800</pubDate>
+				<link>/tools/2016/01/11/sublime-text-3-shortcut-cheat-sheet.html</link>
+				<guid isPermaLink="true">/tools/2016/01/11/sublime-text-3-shortcut-cheat-sheet.html</guid>
+			</item>
+		
+			<item>
 				<title>Representation Learning</title>
 				<description>&lt;p&gt;&lt;span class=&quot;math display&quot;&gt;\[
 ML=Representation + Objective + Optimization
@@ -418,17 +429,6 @@ Q \quad \underrightarrow{encode} \quad q^{(0)} , F_k \quad \underrightarrow{enco
 				<pubDate>Sat, 19 Dec 2015 00:00:00 +0800</pubDate>
 				<link>/foundation/2015/12/19/oxford-machine-learning.html</link>
 				<guid isPermaLink="true">/foundation/2015/12/19/oxford-machine-learning.html</guid>
-			</item>
-		
-			<item>
-				<title>How to Choose a Neural Network</title>
-				<description>&lt;figure&gt;
-&lt;img src=&quot;/assets/images/18.png&quot; alt=&quot;&quot; /&gt;
-&lt;/figure&gt;
-</description>
-				<pubDate>Sat, 19 Dec 2015 00:00:00 +0800</pubDate>
-				<link>/method/2015/12/19/how-to-choose-a-neural-network.html</link>
-				<guid isPermaLink="true">/method/2015/12/19/how-to-choose-a-neural-network.html</guid>
 			</item>
 		
 	</channel>
