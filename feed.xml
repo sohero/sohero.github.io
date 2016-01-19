@@ -7,6 +7,18 @@
 		<atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>A Neural Conversational Model</title>
+				<description>&lt;p&gt;&lt;a href=&quot;http://arxiv.org/abs/1506.05869&quot;&gt;arxiv link&lt;/a&gt;&lt;/p&gt;
+&lt;figure&gt;
+&lt;img src=&quot;/assets/images/30.png&quot; alt=&quot;&quot; /&gt;
+&lt;/figure&gt;
+</description>
+				<pubDate>Tue, 19 Jan 2016 00:00:00 +0800</pubDate>
+				<link>/paper/2016/01/19/a-neural-conversational-model.html</link>
+				<guid isPermaLink="true">/paper/2016/01/19/a-neural-conversational-model.html</guid>
+			</item>
+		
+			<item>
 				<title>Sublime Text 3 shortcut cheat sheet</title>
 				<description>&lt;figure&gt;
 &lt;img src=&quot;/assets/images/29.png&quot; alt=&quot;&quot; /&gt;
@@ -408,27 +420,6 @@ Q \quad \underrightarrow{encode} \quad q^{(0)} , F_k \quad \underrightarrow{enco
 				<pubDate>Mon, 21 Dec 2015 00:00:00 +0800</pubDate>
 				<link>/foundation/paper/2015/12/21/neural-reasoner.html</link>
 				<guid isPermaLink="true">/foundation/paper/2015/12/21/neural-reasoner.html</guid>
-			</item>
-		
-			<item>
-				<title>OXFORD Machine Learning</title>
-				<description>&lt;p&gt;&lt;a href=&quot;https://www.cs.ox.ac.uk/people/nando.defreitas/machinelearning/&quot;&gt;Course Page&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&quot;lecture-2-linear-supervised-learning&quot;&gt;Lecture 2 Linear supervised learning&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;Many real processes can be &lt;em&gt;approximated&lt;/em&gt; with linear models.&lt;/li&gt;
-&lt;li&gt;Linear regression often appears as a &lt;em&gt;module&lt;/em&gt; of larger systems.&lt;/li&gt;
-&lt;li&gt;Linear problems can be solved &lt;em&gt;analytically&lt;/em&gt;.&lt;/li&gt;
-&lt;li&gt;Linear prediction provides an introduction to many of the &lt;em&gt;core concepts&lt;/em&gt; of machine learning.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;figure&gt;
-&lt;img src=&quot;/assets/images/19.png&quot; alt=&quot;&quot; /&gt;
-&lt;/figure&gt;
-&lt;h2 id=&quot;lecture-3&quot;&gt;Lecture 3&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&quot;/assets/images/20.png&quot; alt=&quot;&quot; /&gt; &lt;img src=&quot;/assets/images/21.png&quot; alt=&quot;&quot; /&gt; &lt;img src=&quot;/assets/images/22.png&quot; alt=&quot;&quot; /&gt; &lt;img src=&quot;/assets/images/23.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-</description>
-				<pubDate>Sat, 19 Dec 2015 00:00:00 +0800</pubDate>
-				<link>/foundation/2015/12/19/oxford-machine-learning.html</link>
-				<guid isPermaLink="true">/foundation/2015/12/19/oxford-machine-learning.html</guid>
 			</item>
 		
 	</channel>
