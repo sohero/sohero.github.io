@@ -7,6 +7,15 @@
 		<atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>ipython cheat sheet</title>
+				<description>&lt;p&gt;&lt;img src=&quot;/assets/images/31.png&quot; alt=&quot;&quot; /&gt; &lt;img src=&quot;/assets/images/32.png&quot; alt=&quot;&quot; /&gt; &lt;img src=&quot;/assets/images/33.png&quot; alt=&quot;&quot; /&gt; &lt;img src=&quot;/assets/images/34.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+</description>
+				<pubDate>Tue, 19 Jan 2016 00:00:00 +0800</pubDate>
+				<link>/python/2016/01/19/ipython-cheat-sheet.html</link>
+				<guid isPermaLink="true">/python/2016/01/19/ipython-cheat-sheet.html</guid>
+			</item>
+		
+			<item>
 				<title>A Neural Conversational Model</title>
 				<description>&lt;p&gt;&lt;a href=&quot;http://arxiv.org/abs/1506.05869&quot;&gt;arxiv link&lt;/a&gt;&lt;/p&gt;
 &lt;figure&gt;
@@ -383,43 +392,6 @@ AvgSimC(w,w&amp;#39;)={1 \over K^2}\sum_{i=1}^k \sum_{j=1}^k p(c,w,i)p(c&amp;#39
 				<pubDate>Wed, 23 Dec 2015 00:00:00 +0800</pubDate>
 				<link>/foundation/paper/2015/12/23/improving-word-representations-via-global-context-and-multiple-word-prototypes.html</link>
 				<guid isPermaLink="true">/foundation/paper/2015/12/23/improving-word-representations-via-global-context-and-multiple-word-prototypes.html</guid>
-			</item>
-		
-			<item>
-				<title>Neural Reasoner</title>
-				<description>&lt;h2 id=&quot;overview-of-neural-reasoner&quot;&gt;Overview of Neural Reasoner&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;Neural Reasoner&lt;/strong&gt; has a layered architecture to deal with the complicated logical relations in reasoning as illustrated in Figure 1:&lt;/p&gt;
-&lt;figure&gt;
-&lt;img src=&quot;/assets/images/24.png&quot; alt=&quot;&quot; /&gt;
-&lt;/figure&gt;
-&lt;p&gt;It consists of &lt;code&gt;one encoding layer&lt;/code&gt; and &lt;code&gt;multiple reasoning layers&lt;/code&gt;. The encoder layers first converts the question and facts from natural language sentences to vectorial representations. More specifically, &lt;span class=&quot;math display&quot;&gt;\[
-Q \quad \underrightarrow{encode} \quad q^{(0)} , F_k \quad \underrightarrow{encode} \quad f_k^{(0)},k=1,2,...,K.
-\]&lt;/span&gt; where &lt;span class=&quot;math inline&quot;&gt;\(q^{(0)} \in \Bbb R^{d_Q}\)&lt;/span&gt; and &lt;span class=&quot;math inline&quot;&gt;\(f_k^{(0)} \in \Bbb R^{d_F}\)&lt;/span&gt;. With the representations obtained from the encoding layer, the reasoning layer recursively updates the representations of questions and facts, &lt;span class=&quot;math display&quot;&gt;\[
-\{q^{(l)}f_1^{(l)}\dotsb f_K^{(l)}\}\quad \underrightarrow{reason} \quad\{q^{(l+1)}f_1^{(l+1)}\dotsb f_K^{(l+1)}\}
-\]&lt;/span&gt; through the interaction between question representation and fact representations. Intuitively, this interaction models the reasoning, including examination of the facts and comparison of the facts and the questions. Finally at layer-&lt;span class=&quot;math inline&quot;&gt;\(L\)&lt;/span&gt;, the resulted question representation &lt;span class=&quot;math inline&quot;&gt;\(q^{(L)}\)&lt;/span&gt; is fed to an answerer, which layer can be a classifier for choosing between a number of pre-determined classes (e.g., {Yes, No}) or a text generator for create a sentence.&lt;/p&gt;
-&lt;p&gt;Neural Reasoner has the following desired properties:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;it can handle varying number of facts, including irrelevant ones, and reach the final conclusion through repeated processing of filtering and combining;&lt;/li&gt;
-&lt;li&gt;it makes no assumption about the form of language, as long as enough training examples are given.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&quot;model&quot;&gt;Model&lt;/h2&gt;
-&lt;figure&gt;
-&lt;img src=&quot;/assets/images/25.png&quot; alt=&quot;A diagram of implementation of Neural Reasoner with L reasoning layers, operating on one question and K facts&quot; /&gt;&lt;figcaption&gt;A diagram of implementation of Neural Reasoner with L reasoning layers, operating on one question and K facts&lt;/figcaption&gt;
-&lt;/figure&gt;
-&lt;h2 id=&quot;auxiliary-training-for-questionfact-representation&quot;&gt;Auxiliary Training for Question/Fact Representation&lt;/h2&gt;
-&lt;p&gt;Use auxiliary training to facilitate the learning of representations of question and facts. Basically, in addition to using the learned representations of question and facts in the reasoning process, also use those representations to reconstruct the original questions or their more abstract forms with variables.&lt;/p&gt;
-&lt;p&gt;In the auxiliary training, intend to achieve the following two goals:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;to compensate the lack of supervision in the learning task. In experiments, the supervision can be fairly weak since for each instance it is merely a classification with no more than 12 classes, while the number of instances are 1K to 10K.&lt;/li&gt;
-&lt;li&gt;to introduce beneficial bias for the representation learning task. Since the network is a complicated nonlinear function, the back-propagation from the answering layer to the encoding layer can easily fail to learn well.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;figure&gt;
-&lt;img src=&quot;/assets/images/26.png&quot; alt=&quot;Auxiliary training for question representation. The training for fact representation is identical and therefore omitted&quot; /&gt;&lt;figcaption&gt;Auxiliary training for question representation. The training for fact representation is identical and therefore omitted&lt;/figcaption&gt;
-&lt;/figure&gt;
-</description>
-				<pubDate>Mon, 21 Dec 2015 00:00:00 +0800</pubDate>
-				<link>/foundation/paper/2015/12/21/neural-reasoner.html</link>
-				<guid isPermaLink="true">/foundation/paper/2015/12/21/neural-reasoner.html</guid>
 			</item>
 		
 	</channel>
