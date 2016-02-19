@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>git笔记 and cheatsheet</title>
+	<title>Computational Network Toolkit</title>
 	
 	<meta name="author" content="sohero">
 
@@ -138,17 +138,90 @@
 
 	<div class="col-sm-9 col-sm-offset-3">
 		<div class="page-header">
-  <h1>git笔记 and cheatsheet </h1>
+  <h1>Computational Network Toolkit </h1>
 </div>
 	
 <article>
 
 	<div class="col-sm-10">
 	 <span class="post-date">
-	 	2015-12-17 
+	 	2016-02-19 
 	 </span>
 	  <div class="article_body">
-	  <p><a class="btn btn-default" href="https://github.com/sohero/git" target="_blank">Go.</a> <a class="btn btn-default" href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" target="_blank">原文</a></p>
+	  <ul>
+<li>A computational network is a style of computation where data flows through a graph and computations happen in the nodes of the graph.</li>
+<li>A user specifies a network using a simple text configuration file. The configuration file specifies the type of network, where to find the input data, and how to optimize the parameters. All of these design parameters are fixed in the configuration file.</li>
+<li>All configuration values are specified as a name-value pair. A value can be a numeric, a string, a list, or even a block of configurations.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">ModelDir <span class="op">=</span> <span class="st">&quot;$OutputDir$/Models&quot;</span> <span class="co">#define a variable</span>
+modelPath <span class="op">=</span> <span class="st">&quot;$ModelDir$/01_OneHidden&quot;</span>
+command<span class="op">=</span>mnistTrain
+deviceId <span class="op">=</span> <span class="dv">0</span> <span class="co"># auto, -1 for CPU, &gt;=0 to use a specific GPU</span>
+mnistTrain<span class="op">=</span>[
+    action<span class="op">=</span><span class="st">&quot;train&quot;</span>
+    NDLNetworkBuilder<span class="op">=</span>[
+        networkDescription<span class="op">=</span><span class="st">&quot;c:\cntk\config\sample.ndl&quot;</span>
+        run<span class="op">=</span>ndlMacroUse
+    ]
+
+    SGD<span class="op">=</span>[
+        modelPath<span class="op">=</span><span class="st">&quot;c:\cntk\model\mnist.cn&quot;</span>
+        learningRatesPerMB<span class="op">=</span><span class="fl">0.001</span>
+        minibatchSize<span class="op">=</span><span class="dv">32</span>
+        epochSize<span class="op">=</span><span class="dv">60000</span>
+        maxEpochs<span class="op">=</span><span class="dv">50</span>
+    ]
+
+    reader<span class="op">=</span>[
+        readerType<span class="op">=</span><span class="st">&quot;UCIFastReader&quot;</span>
+        <span class="bu">file</span><span class="op">=</span><span class="st">&quot;c:\cntk\data\mnist\mnist_train.txt&quot;</span>
+        features<span class="op">=</span>[
+            dim<span class="op">=</span><span class="dv">784</span>
+            start<span class="op">=</span><span class="dv">1</span>
+        ]
+
+        labels<span class="op">=</span>[
+            dim<span class="op">=</span><span class="dv">1</span>
+            start<span class="op">=</span><span class="dv">0</span>
+            labelDim<span class="op">=</span><span class="dv">10</span>
+            labelMappingFile<span class="op">=</span><span class="st">&quot;c:\cntk\data\mnist\mnistlabels.txt&quot;</span>
+        ]
+    ]
+]</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co">#Variables</span>
+<span class="co">#A variable can contain a matrix or scalar value. Variables are immutable, and assigning new values to an existing variable is not supported.</span>
+<span class="co">#The special node names FeatureNodes, LabelNodes, CriterionNodes, EvalNodes, OutputNodes are also reserved and may not be used as variable names.</span>
+SDim<span class="op">=</span><span class="dv">784</span>
+HDim<span class="op">=</span><span class="dv">256</span>
+LDim<span class="op">=</span><span class="dv">10</span>
+
+<span class="co">#Inputs</span>
+<span class="co">#Inputs are used to represent input data and labels associated with the samples. Input is a special function. They are represented as InputNodes internally and are not saved as part of the CN model.</span>
+features<span class="op">=</span>Input(SDim, <span class="dv">1</span>)
+labels<span class="op">=</span>Input(LDim, <span class="dv">1</span>)
+
+<span class="co">#Parameters</span>
+W0<span class="op">=</span>Parameter(HDim, SDim)
+B0<span class="op">=</span>Parameter(HDim, <span class="dv">1</span>)
+W1<span class="op">=</span>Parameter(LDim, HDim)
+B1<span class="op">=</span>Parameter(LDim, <span class="dv">1</span>)
+
+<span class="co">#Computation</span>
+Times1<span class="op">=</span>Times(W0, features)
+Plus1<span class="op">=</span>Plus(Times1, B0)
+RL1<span class="op">=</span>RectifiedLinear(Plus1)
+Times2<span class="op">=</span>Times(W1, RL1)
+Plus2<span class="op">=</span>Plus(Times2, B1)
+<span class="co">#Training Criterion</span>
+CE<span class="op">=</span>CrossEntropyWithSoftmax(labels, Plus2)
+<span class="co">#Test Objective Function</span>
+ErrPredict<span class="op">=</span>ErrorPrediction(labels, Plus2)
+<span class="co">#Special Nodes</span>
+FeatureNodes<span class="op">=</span>(features)
+LabelNodes<span class="op">=</span>(labels)
+CriterionNodes<span class="op">=</span>(CE)
+EvalNodes<span class="op">=</span>(ErrPredict)
+OutputNodes<span class="op">=</span>(Plus2)</code></pre></div>
 
 	  </div>
 
@@ -160,11 +233,6 @@
 			 
 				<li><a href="/categories.html#tools-ref">
 					tools <span>(5)</span>
-					,
-				</a></li>
-			 
-				<li><a href="/categories.html#log-ref">
-					log <span>(2)</span>
 					
 				</a></li>
 			
@@ -186,8 +254,15 @@
 				</li>
 			 
 				<li>
-					<a href="/tags.html#log-ref">
-					log <span>(2)</span>
+					<a href="/tags.html#Microsoft-ref">
+					Microsoft <span>(1)</span>
+					,
+					</a>
+				</li>
+			 
+				<li>
+					<a href="/tags.html#deep learning-ref">
+					deep learning <span>(2)</span>
 					
 					</a>
 				</li>
@@ -202,7 +277,7 @@
 		<div>
       <section class="share col-sm-12">
         <h4 class="section-title">Share Post</h4>
-        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=git笔记 and cheatsheet"
+        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=Computational Network Toolkit"
            onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
           <i class="fa fa-twitter fa-lg"></i>
           Twitter
@@ -224,10 +299,10 @@
 
 		<ul class="pager">
 		  
-		  <li class="previous"><a href="/nlp/2015/12/17/language-modeling.html" title="Language Modeling">&larr; Previous</a></li>
+		  <li class="previous"><a href="/foundation/2016/02/14/correlations.html" title="Correlations">&larr; Previous</a></li>
 		  
 		  
-		  <li class="next"><a href="/tools/log/2015/12/17/jekyll-render-with-pandoc-on-windows.html" title="Jekyll render with pandoc on windows">Next &rarr;</a></li>
+			<li class="next disabled"><a>Next &rarr;</a>
 		  
 		</ul>
 
