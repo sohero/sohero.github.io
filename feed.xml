@@ -13,10 +13,16 @@
 &lt;li&gt;A user specifies a network using a simple text configuration file. The configuration file specifies the type of network, where to find the input data, and how to optimize the parameters. All of these design parameters are fixed in the configuration file.&lt;/li&gt;
 &lt;li&gt;All configuration values are specified as a name-value pair. A value can be a numeric, a string, a list, or even a block of configurations.&lt;/li&gt;
 &lt;/ul&gt;
+&lt;h2 id=&quot;top-level-configurations&quot;&gt;&lt;a href=&quot;https://github.com/Microsoft/CNTK/wiki/Top-level-configurations&quot;&gt;Top level configurations&lt;/a&gt;&lt;/h2&gt;
 &lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;ModelDir &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;quot;$OutputDir$/Models&amp;quot;&lt;/span&gt; &lt;span class=&quot;co&quot;&gt;#define a variable&lt;/span&gt;
 modelPath &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;quot;$ModelDir$/01_OneHidden&amp;quot;&lt;/span&gt;
 command&lt;span class=&quot;op&quot;&gt;=&lt;/span&gt;mnistTrain
 deviceId &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;co&quot;&gt;# auto, -1 for CPU, &amp;gt;=0 to use a specific GPU&lt;/span&gt;
+precision &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;quot;float&amp;quot;&lt;/span&gt;
+traceLevel &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;co&quot;&gt;# larger values mean more output&lt;/span&gt;
+stderr &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;quot;c:\cntk\log\cntk&amp;quot;&lt;/span&gt;
+NumCPUThreads &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;4&lt;/span&gt; &lt;span class=&quot;co&quot;&gt;# By default the value is 0, which means using what ever number of threads determined by MKL, ACML, or OpenMP. If a positive number is specified, the number of threads will not be larger than the value specified and the number of hardware concurrency. If a negative number is specified, the actual number of thread will be the sum of the number of hardware concurrency and this value floored at 1.&lt;/span&gt;
+
 mnistTrain&lt;span class=&quot;op&quot;&gt;=&lt;/span&gt;[
     action&lt;span class=&quot;op&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;&amp;quot;train&amp;quot;&lt;/span&gt;
     NDLNetworkBuilder&lt;span class=&quot;op&quot;&gt;=&lt;/span&gt;[

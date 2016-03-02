@@ -153,10 +153,16 @@
 <li>A user specifies a network using a simple text configuration file. The configuration file specifies the type of network, where to find the input data, and how to optimize the parameters. All of these design parameters are fixed in the configuration file.</li>
 <li>All configuration values are specified as a name-value pair. A value can be a numeric, a string, a list, or even a block of configurations.</li>
 </ul>
+<h2 id="top-level-configurations"><a href="https://github.com/Microsoft/CNTK/wiki/Top-level-configurations">Top level configurations</a></h2>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">ModelDir <span class="op">=</span> <span class="st">&quot;$OutputDir$/Models&quot;</span> <span class="co">#define a variable</span>
 modelPath <span class="op">=</span> <span class="st">&quot;$ModelDir$/01_OneHidden&quot;</span>
 command<span class="op">=</span>mnistTrain
 deviceId <span class="op">=</span> <span class="dv">0</span> <span class="co"># auto, -1 for CPU, &gt;=0 to use a specific GPU</span>
+precision <span class="op">=</span> <span class="st">&quot;float&quot;</span>
+traceLevel <span class="op">=</span> <span class="dv">0</span> <span class="co"># larger values mean more output</span>
+stderr <span class="op">=</span> <span class="st">&quot;c:\cntk\log\cntk&quot;</span>
+NumCPUThreads <span class="op">=</span> <span class="dv">4</span> <span class="co"># By default the value is 0, which means using what ever number of threads determined by MKL, ACML, or OpenMP. If a positive number is specified, the number of threads will not be larger than the value specified and the number of hardware concurrency. If a negative number is specified, the actual number of thread will be the sum of the number of hardware concurrency and this value floored at 1.</span>
+
 mnistTrain<span class="op">=</span>[
     action<span class="op">=</span><span class="st">&quot;train&quot;</span>
     NDLNetworkBuilder<span class="op">=</span>[
