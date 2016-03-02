@@ -95,6 +95,14 @@ OutputNodes&lt;span class=&quot;op&quot;&gt;=&lt;/span&gt;(Plus2)&lt;/code&gt;&l
 &lt;p&gt;Macros can be defined as a one line function, or as a block of code.&lt;/p&gt;
 &lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;RFF(x1, w1, b1) &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; RectifiedLinear(Plus(Times(w1, x1), b1))&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;A macro can also be defined as a block of code:&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;&lt;span class=&quot;co&quot;&gt;# Block macro to define a layer with a sigmoid activation function&lt;/span&gt;
+DNNSigmoidLayer(inDim, outDim, x, parmScale) &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; [
+    W &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; LearnableParameter(outDim, inDim, init&lt;span class=&quot;op&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;&amp;quot;uniform&amp;quot;&lt;/span&gt;, initValueScale&lt;span class=&quot;op&quot;&gt;=&lt;/span&gt;parmScale) 
+    b &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; LearnableParameter(outDim, &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;,     init&lt;span class=&quot;op&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;&amp;quot;uniform&amp;quot;&lt;/span&gt;, initValueScale&lt;span class=&quot;op&quot;&gt;=&lt;/span&gt;parmScale) 
+    t &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; Times(W, x)
+    z &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; Plus(t, b)
+    y &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; Sigmoid(z)
+]&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;FF(X1, W1, B1)
 {
     F &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; RFF(X1, W1, B1)&lt;span class=&quot;op&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;co&quot;&gt;#A macro may call another macro. However recursion(i.e., calling itself) is not supported. Semicolons are not required, but can be used if desired.&lt;/span&gt;

@@ -235,6 +235,14 @@ OutputNodes<span class="op">=</span>(Plus2)</code></pre></div>
 <p>Macros can be defined as a one line function, or as a block of code.</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">RFF(x1, w1, b1) <span class="op">=</span> RectifiedLinear(Plus(Times(w1, x1), b1))</code></pre></div>
 <p>A macro can also be defined as a block of code:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co"># Block macro to define a layer with a sigmoid activation function</span>
+DNNSigmoidLayer(inDim, outDim, x, parmScale) <span class="op">=</span> [
+    W <span class="op">=</span> LearnableParameter(outDim, inDim, init<span class="op">=</span><span class="st">&quot;uniform&quot;</span>, initValueScale<span class="op">=</span>parmScale) 
+    b <span class="op">=</span> LearnableParameter(outDim, <span class="dv">1</span>,     init<span class="op">=</span><span class="st">&quot;uniform&quot;</span>, initValueScale<span class="op">=</span>parmScale) 
+    t <span class="op">=</span> Times(W, x)
+    z <span class="op">=</span> Plus(t, b)
+    y <span class="op">=</span> Sigmoid(z)
+]</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">FF(X1, W1, B1)
 {
     F <span class="op">=</span> RFF(X1, W1, B1)<span class="op">;</span> <span class="co">#A macro may call another macro. However recursion(i.e., calling itself) is not supported. Semicolons are not required, but can be used if desired.</span>
