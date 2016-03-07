@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>memo</title>
+	<title>CNTK pros cons</title>
 	
 	<meta name="author" content="sohero">
 
@@ -138,243 +138,128 @@
 
 	<div class="col-sm-9 col-sm-offset-3">
 		<div class="page-header">
-  <h1>memo </h1>
+  <h1>CNTK pros cons </h1>
 </div>
+	
+<article>
 
-
-
-<article class="home">
-  <h2>
-    <a href="/nlp/2015/12/17/language-modeling.html" target="_blank">Language Modeling</a>
-  </h2>
-  <span class="post-date">
-    2015-12-17 
-  </span>
-  <div>
-    
-    
-    ...
-    
-    
-  </div>
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/foundation/2015/12/14/word2vec.html" target="_blank">word2vec</a>
-  </h2>
-  <span class="post-date">
-    2015-12-14 
-  </span>
-  <div>
-    
-    
-    ...
-    
-    
-  </div>
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/foundation/paper/2015/12/14/sense2vec-a-fast-and-accurate-method-for-word-sense-disambiguation-in-neural-word-embeddings.html" target="_blank">sense2vec - a fast and accurate method for word sense disambiguation in neural word embeddings</a>
-  </h2>
-  <span class="post-date">
-    2015-12-14 
-  </span>
-  <div>
-    
-    
-    ...
-    
-    
-  </div>
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/foundation/paper/2015/12/14/end-to-end-memory-networks.html" target="_blank">End-To-End Memory Networks</a>
-  </h2>
-  <span class="post-date">
-    2015-12-14 
-  </span>
-  <div>
-    
-    
-    ...
-    
-    
-  </div>
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/foundation/nlp/2015/12/14/edit-distance.html" target="_blank">Edit Distance</a>
-  </h2>
-  <span class="post-date">
-    2015-12-14 
-  </span>
-  <div>
-    
-    
-    ...
-    
-    
-  </div>
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/foundation/2015/12/07/the-equations-of-backpropagation.html" target="_blank">the equations of backpropagation</a>
-  </h2>
-  <span class="post-date">
-    2015-12-07 
-  </span>
-  <div>
-    
-    
-    ...
-    
-    
-  </div>
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/foundation/2015/11/18/rectified-linear-unit-relu.html" target="_blank">Rectified Linear Unit (ReLU)</a>
-  </h2>
-  <span class="post-date">
-    2015-11-18 
-  </span>
-  <div>
-    
-    
-    ...
-    
-    
-  </div>
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/tools/2015/11/13/regular-expression.html" target="_blank">正则表达式</a>
-  </h2>
-  <span class="post-date">
-    2015-11-13 
-  </span>
-  <div>
-    
-    
-    ...
-    
-    
-  </div>
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/foundation/2015/11/11/what-are-the-continuous-bag-of-words-cbow-and-skip-gram.html" target="_blank">What are the continuous bag of words(CBOW) and skip-gram</a>
-  </h2>
-  <span class="post-date">
-    2015-11-11 
-  </span>
-  <div>
-    
-    
-    ...
-    
-    
-  </div>
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/foundation/2015/11/06/derivative-formula.html" target="_blank">求导公式</a>
-  </h2>
-  <span class="post-date">
-    2015-11-06 
-  </span>
-  <div>
-    
-    
-    ...
-    
-    
-  </div>
-
-</article>
-
-<hr/>
-
-<ul class="pager"> 
-
-  
-  <li class="previous">
-    
-    <a href="/page2">&larr; Newer</a>
-    
-  </li>
-  
-  
-  <li>
-  
-  
-    
-    <a href="/"><span class="page_number">1</span></a>
-    
-  
-  
-  
-    
-    <a href="/page2"><span class="page_number">2</span></a>
-    
-  
-  
-  
-    
-    <span class="page_number">3</span>
-    
-  
-  
-  
-    
-    <a href="/page4"><span class="page_number">4</span></a>
-    
-  
-  
-  
-    
-    <a href="/page5"><span class="page_number">5</span></a>
-    
-  
-  
-  </li>
-
-  
-  <li class="next">
-    <a href="/page4">Older &rarr;</a>
-  </li>
-  
-
+	<div class="col-sm-10">
+	 <span class="post-date">
+	 	2016-03-07 
+	 </span>
+	  <div class="article_body">
+	  <h2 id="pros">pros</h2>
+<ul>
+<li>The concept of computation graph is clear, easy to understand.</li>
+<li>Building the network using NDL is fast.</li>
 </ul>
+<h2 id="cons">cons</h2>
+<ul>
+<li>The syntax of config file is not familiar, may be using the json format or python is better to learn.</li>
+<li>The document is not yet complete, and some command in the examples are not listed in the document.</li>
+<li>Text processing reader (i.e., LM sequence reader, LU sequence reader) is hared to understand, it’s kind of counterintuitive.</li>
+</ul>
+<p>Finally, <strong>It is hard to master CNTK, and it is not the time to using it.</strong></p>
+
+	  </div>
+
+		
+		<ul class="tag_box list-unstyled list-inline">
+		  <li><i class="fa fa-folder-open"></i></li>
+		  
+		  
+			 
+				<li><a href="/categories.html#tools-ref">
+					tools <span>(6)</span>
+					
+				</a></li>
+			
+		  
+		</ul>
+		  
+
+		
+		<ul class="list-inline">
+		  <li><i class="fa fa-tags"></i></li>
+		  
+		  
+			 
+				<li>
+					<a href="/tags.html#tools-ref">
+					tools <span>(6)</span>
+					,
+					</a>
+				</li>
+			 
+				<li>
+					<a href="/tags.html#Microsoft-ref">
+					Microsoft <span>(2)</span>
+					,
+					</a>
+				</li>
+			 
+				<li>
+					<a href="/tags.html#deep learning-ref">
+					deep learning <span>(3)</span>
+					
+					</a>
+				</li>
+			
+		  
+		  
+		</ul>
+		  
+
+		<hr>
+
+		<div>
+      <section class="share col-sm-12">
+        <h4 class="section-title">Share Post</h4>
+        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=CNTK pros cons"
+           onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+          <i class="fa fa-twitter fa-lg"></i>
+          Twitter
+        </a>
+        <a class="btn btn-default btn-sm facebook" href="https://www.facebook.com/sharer/sharer.php"
+           onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+          <i class="fa fa-facebook fa-lg"></i>
+          Facebook
+        </a>
+        <a class="btn btn-default btn-sm gplus"
+           onclick="window.open('https://plus.google.com/share?url='+window.location.href, 'google-plus-share', 'width=490,height=530');return false;">
+          <i class="fa fa-google-plus fa-lg"></i>
+          Google+
+        </a>
+      </section>
+    </div>
+
+    <div class="clearfix"></div>
+
+		<ul class="pager">
+		  
+		  <li class="previous"><a href="/tools/2016/02/19/cntk.html" title="Computational Network Toolkit">&larr; Previous</a></li>
+		  
+		  
+			<li class="next disabled"><a>Next &rarr;</a>
+		  
+		</ul>
+
+		<hr>
+	</div>
+	
+	<div class="col-sm-2 sidebar-2">
+	
+	</div>
+</article>
+<div class="clearfix"></div>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
 
 
 

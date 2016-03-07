@@ -7,6 +7,26 @@
 		<atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>CNTK pros cons</title>
+				<description>&lt;h2 id=&quot;pros&quot;&gt;pros&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;The concept of computation graph is clear, easy to understand.&lt;/li&gt;
+&lt;li&gt;Building the network using NDL is fast.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;cons&quot;&gt;cons&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;The syntax of config file is not familiar, may be using the json format or python is better to learn.&lt;/li&gt;
+&lt;li&gt;The document is not yet complete, and some command in the examples are not listed in the document.&lt;/li&gt;
+&lt;li&gt;Text processing reader (i.e., LM sequence reader, LU sequence reader) is hared to understand, it’s kind of counterintuitive.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Finally, &lt;strong&gt;It is hard to master CNTK, and it is not the time to using it.&lt;/strong&gt;&lt;/p&gt;
+</description>
+				<pubDate>Mon, 07 Mar 2016 00:00:00 +0800</pubDate>
+				<link>/tools/2016/03/07/cntk-pros-and-cons.html</link>
+				<guid isPermaLink="true">/tools/2016/03/07/cntk-pros-and-cons.html</guid>
+			</item>
+		
+			<item>
 				<title>Computational Network Toolkit</title>
 				<description>&lt;ul&gt;
 &lt;li&gt;A computational network is a style of computation where data flows through a graph and computations happen in the nodes of the graph.&lt;/li&gt;
@@ -424,23 +444,6 @@ p^*=\mathop{argmax}\limits_p H(p)
 				<pubDate>Sun, 27 Dec 2015 00:00:00 +0800</pubDate>
 				<link>/foundation/2015/12/27/maximum-entropy-model.html</link>
 				<guid isPermaLink="true">/foundation/2015/12/27/maximum-entropy-model.html</guid>
-			</item>
-		
-			<item>
-				<title>LSTM A Search Space Odyssey</title>
-				<description>&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-&lt;p&gt;This paper reports the results of a large scale study on variations of the LSTM architecture.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;The most commonly used LSTM architecture (vanilla LSTM) performs reasonably well on various datasets and using any of eight possible modifications does not significantly improve the LSTM performance.&lt;/li&gt;
-&lt;li&gt;Certain modifications such as coupling the input and forget gates or removing peephole connections simplify LSTM without significantly hurting performance.&lt;/li&gt;
-&lt;li&gt;The forget gate and the output activation function are the critical components of the LSTM block. While the first is crucial for LSTM performance, the second is necessary whenever the cell state is unbounded.&lt;/li&gt;
-&lt;li&gt;Learning rate and network size are the most crucial tunable LSTM hyperparameters. Suerprisingly, the use of momentum was found to be unimportant (in setting of online gradient descent). Gaussian noise on the inputs was found to be moderately helpful for TIMIT, but harmful for other datasets.&lt;/li&gt;
-&lt;li&gt;The analysis of hyperparameter interactions revealed that even the highest measured interaction (between learning rate and network size) is quite small. This implies that the hyperparameters can be tuned independently. In particular, the learning rate can be calibrated first using a fairly small network, thus saving a lot of experimentation time.&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-				<pubDate>Thu, 24 Dec 2015 00:00:00 +0800</pubDate>
-				<link>/foundation/paper/2015/12/24/lstm-a-search-space-odyssey.html</link>
-				<guid isPermaLink="true">/foundation/paper/2015/12/24/lstm-a-search-space-odyssey.html</guid>
 			</item>
 		
 	</channel>
