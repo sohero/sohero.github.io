@@ -163,7 +163,12 @@ F((w_i-w_j)^T\tilde w_k)={P_{ik}\over P_{jk}}\tag{3}
 F((w_i-w_j)^T\tilde w_k)={F(w^T_i\tilde w_k)\over F(w^T_j\tilde w_k)}\tag{4}
 \]</span> which, by Eqn.(3), is solved by: <span class="math display">\[
 F(w^T_i\tilde w_k)=P_{ik}={X_{ik}\over X_i}\tag{5}
-\]</span> The solution to Eqn.(4) is <span class="math inline">\(F=exp\)</span>, or: <span class="math display">\[
+\]</span> The solution to Eqn.(4) is <span class="math inline">\(F=exp\)</span>:</p>
+<p><span class="math display">\[
+e^{(w_i-w_j)^T\tilde w_k}={e^{w^T_i\tilde w_k}\over e^{w^T_j\tilde w_k}}
+\]</span></p>
+<p>or:</p>
+<p><span class="math display">\[
 w^T_i\tilde w_k=log(P_{ik})=log(X_{ik})-log(X_i)\tag{6}
 \]</span> Note that Eqn.(6) would exhibit the exchange symmetry if not for the <span class="math inline">\(log(X_i)\)</span> on the right-hand side. However, this term is independent for <span class="math inline">\(k\)</span> so it can be absorbed into a bias <span class="math inline">\(b_i\)</span> for <span class="math inline">\(w_i\)</span>. Finally, adding an additional bias <span class="math inline">\(\tilde b_k\)</span> for <span class="math inline">\(\tilde w_k\)</span> restores the symmetry: <span class="math display">\[
 w^T_i\tilde w_k+b_i+\tilde b_k=log(X_{ik})\tag{7}

@@ -23,7 +23,12 @@ F((w_i-w_j)^T\tilde w_k)={P_{ik}\over P_{jk}}\tag{3}
 F((w_i-w_j)^T\tilde w_k)={F(w^T_i\tilde w_k)\over F(w^T_j\tilde w_k)}\tag{4}
 \]&lt;/span&gt; which, by Eqn.(3), is solved by: &lt;span class=&quot;math display&quot;&gt;\[
 F(w^T_i\tilde w_k)=P_{ik}={X_{ik}\over X_i}\tag{5}
-\]&lt;/span&gt; The solution to Eqn.(4) is &lt;span class=&quot;math inline&quot;&gt;\(F=exp\)&lt;/span&gt;, or: &lt;span class=&quot;math display&quot;&gt;\[
+\]&lt;/span&gt; The solution to Eqn.(4) is &lt;span class=&quot;math inline&quot;&gt;\(F=exp\)&lt;/span&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;span class=&quot;math display&quot;&gt;\[
+e^{(w_i-w_j)^T\tilde w_k}={e^{w^T_i\tilde w_k}\over e^{w^T_j\tilde w_k}}
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;or:&lt;/p&gt;
+&lt;p&gt;&lt;span class=&quot;math display&quot;&gt;\[
 w^T_i\tilde w_k=log(P_{ik})=log(X_{ik})-log(X_i)\tag{6}
 \]&lt;/span&gt; Note that Eqn.(6) would exhibit the exchange symmetry if not for the &lt;span class=&quot;math inline&quot;&gt;\(log(X_i)\)&lt;/span&gt; on the right-hand side. However, this term is independent for &lt;span class=&quot;math inline&quot;&gt;\(k\)&lt;/span&gt; so it can be absorbed into a bias &lt;span class=&quot;math inline&quot;&gt;\(b_i\)&lt;/span&gt; for &lt;span class=&quot;math inline&quot;&gt;\(w_i\)&lt;/span&gt;. Finally, adding an additional bias &lt;span class=&quot;math inline&quot;&gt;\(\tilde b_k\)&lt;/span&gt; for &lt;span class=&quot;math inline&quot;&gt;\(\tilde w_k\)&lt;/span&gt; restores the symmetry: &lt;span class=&quot;math display&quot;&gt;\[
 w^T_i\tilde w_k+b_i+\tilde b_k=log(X_{ik})\tag{7}
