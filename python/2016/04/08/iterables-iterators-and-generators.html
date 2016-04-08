@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>python note</title>
+	<title>Iterables, Iterators and Generators</title>
 	
 	<meta name="author" content="sohero">
 
@@ -138,34 +138,63 @@
 
 	<div class="col-sm-9 col-sm-offset-3">
 		<div class="page-header">
-  <h1>python note </h1>
+  <h1>Iterables, Iterators and Generators </h1>
 </div>
 	
 <article>
 
 	<div class="col-sm-10">
 	 <span class="post-date">
-	 	2015-12-28 
+	 	2016-04-08 
 	 </span>
 	  <div class="article_body">
-	  <h2 id="python-pip">python pip</h2>
-<p><code>python pip</code>的安装,<a href="https://pip.pypa.io/en/latest/installing.html" class="uri">https://pip.pypa.io/en/latest/installing.html</a></p>
-<ul>
-<li>升级pip：命令行下运行 python -m pip install -U pip</li>
-<li>用pip安装package：python -m pip install <em>package_name</em></li>
-<li>package_name 在<a href="https://pypi.python.org/pypi" class="uri">https://pypi.python.org/pypi</a>搜索</li>
-</ul>
-<h2 id="module-search-path">Module Search Path</h2>
-<p>When a module named spam is imported, the interpreter first searches for a built-in module with that name. If not found, it then searches for a file named spam.py in a list of directories given by the variable <code>sys.path</code>. sys.path is initialized from these locations:</p>
-<ul>
-<li>the directory containing the input script (or the current directory).</li>
-<li>PYTHONPATH (a list of directory names, with the same syntax as the shell variable PATH).</li>
-<li>the installation-dependent default.</li>
-</ul>
-<h2 id="dir">dir()</h2>
-<p>he built-in function dir() is used to find out which names a module defines. It returns a sorted list of strings dir() does not list the names of built-in functions and variables. If you want a list of those, they are defined in the standard module <code>__builtin__</code>:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> __builtin__
-<span class="bu">dir</span>(__builtin__)</code></pre></div>
+	  <h2 id="iterators">Iterators</h2>
+<p>Iterators are iterables with some kind of ‘position’ state and a <code>.next()</code>method. The .next() method may be called to produce the next item and update the internal state.</p>
+<p>Iterables are objects that produce an iterator when they are passed to the <code>iter()</code> builtin.</p>
+<figure>
+<img src="/assets/images/36.png" alt="" />
+</figure>
+<p>Calling <code>iter()</code> on our “classic” iterable object produces a plain iterator instance</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">i <span class="op">=</span> <span class="bu">iter</span>(lucky)
+<span class="op">&lt;</span>iterator at <span class="bn">0x288cc10</span><span class="op">&gt;</span></code></pre></div>
+<h3 id="a-better-iterable-class">A better iterable class</h3>
+<p>You can choose the iterator that will be returned by <code>iter()</code> by defining your own <code>.__iter__()</code> method:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="kw">class</span> Countdown(<span class="bu">object</span>):
+    <span class="kw">def</span> <span class="fu">__iter__</span>(<span class="va">self</span>): <span class="co"># must return an iterator!</span>
+        <span class="cf">return</span> <span class="bu">iter</span>([<span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="st">&#39;launch&#39;</span>])</code></pre></div>
+<h3 id="iterators-the-hard-way">Iterators the hard way</h3>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="kw">class</span> CountdownIterator(<span class="bu">object</span>):
+    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):
+        <span class="va">self</span>._remaining <span class="op">=</span> [<span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="st">&#39;launch&#39;</span>]
+
+    <span class="kw">def</span> <span class="fu">__iter__</span>(<span class="va">self</span>):
+        <span class="cf">return</span> <span class="va">self</span>
+
+    <span class="kw">def</span> <span class="bu">next</span>(<span class="va">self</span>):
+        <span class="cf">if</span> <span class="op">not</span> <span class="va">self</span>._remaining:
+            <span class="cf">raise</span> <span class="pp">StopIteration</span>
+        <span class="cf">return</span> <span class="va">self</span>._remaining.pop(<span class="dv">0</span>)</code></pre></div>
+<h2 id="generators">Generators</h2>
+<p>A generator function is a simpler way to create an iterator.</p>
+<p>Generator functions let you use local variables and the position of the program counter as state for a generator object. A new generator object is created and returned each time you call a generator function. The generator object is an iterator.</p>
+<figure>
+<img src="/assets/images/37.png" alt="" />
+</figure>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> countdown_generator():
+    <span class="cf">yield</span> <span class="dv">5</span>
+    <span class="cf">yield</span> <span class="dv">4</span>
+    <span class="cf">yield</span> <span class="dv">3</span>
+    <span class="cf">yield</span> <span class="dv">2</span>
+    <span class="cf">yield</span> <span class="dv">1</span>
+    <span class="cf">yield</span> <span class="st">&#39;launch&#39;</span></code></pre></div>
+<p>The <code>.__iter__()</code> method of our class can be written as a generator function:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="kw">class</span> Countdown(<span class="bu">object</span>):
+    <span class="kw">def</span> <span class="fu">__iter__</span>(<span class="va">self</span>):
+        <span class="cf">for</span> n <span class="op">in</span> [<span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="st">&#39;launch&#39;</span>]:
+            <span class="cf">yield</span> n
+
+<span class="cf">for</span> n <span class="op">in</span> Countdown():
+    <span class="bu">print</span>(n)</code></pre></div>
 
 	  </div>
 
@@ -207,7 +236,7 @@
 		<div>
       <section class="share col-sm-12">
         <h4 class="section-title">Share Post</h4>
-        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=python note"
+        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=Iterables, Iterators and Generators"
            onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
           <i class="fa fa-twitter fa-lg"></i>
           Twitter
@@ -229,10 +258,10 @@
 
 		<ul class="pager">
 		  
-		  <li class="previous"><a href="/foundation/2015/12/27/maximum-entropy-model.html" title="Maximum Entropy Model">&larr; Previous</a></li>
+		  <li class="previous"><a href="/foundation/2016/03/28/glove.html" title="GloVe">&larr; Previous</a></li>
 		  
 		  
-		  <li class="next"><a href="/python/2015/12/29/ipython-parallel.html" title="ipython parallel">Next &rarr;</a></li>
+			<li class="next disabled"><a>Next &rarr;</a>
 		  
 		</ul>
 

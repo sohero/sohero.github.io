@@ -7,6 +7,61 @@
 		<atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>Iterables, Iterators and Generators</title>
+				<description>&lt;h2 id=&quot;iterators&quot;&gt;Iterators&lt;/h2&gt;
+&lt;p&gt;Iterators are iterables with some kind of ‘position’ state and a &lt;code&gt;.next()&lt;/code&gt;method. The .next() method may be called to produce the next item and update the internal state.&lt;/p&gt;
+&lt;p&gt;Iterables are objects that produce an iterator when they are passed to the &lt;code&gt;iter()&lt;/code&gt; builtin.&lt;/p&gt;
+&lt;figure&gt;
+&lt;img src=&quot;/assets/images/36.png&quot; alt=&quot;&quot; /&gt;
+&lt;/figure&gt;
+&lt;p&gt;Calling &lt;code&gt;iter()&lt;/code&gt; on our “classic” iterable object produces a plain iterator instance&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;i &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bu&quot;&gt;iter&lt;/span&gt;(lucky)
+&lt;span class=&quot;op&quot;&gt;&amp;lt;&lt;/span&gt;iterator at &lt;span class=&quot;bn&quot;&gt;0x288cc10&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id=&quot;a-better-iterable-class&quot;&gt;A better iterable class&lt;/h3&gt;
+&lt;p&gt;You can choose the iterator that will be returned by &lt;code&gt;iter()&lt;/code&gt; by defining your own &lt;code&gt;.__iter__()&lt;/code&gt; method:&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;&lt;span class=&quot;kw&quot;&gt;class&lt;/span&gt; Countdown(&lt;span class=&quot;bu&quot;&gt;object&lt;/span&gt;):
+    &lt;span class=&quot;kw&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;fu&quot;&gt;__iter__&lt;/span&gt;(&lt;span class=&quot;va&quot;&gt;self&lt;/span&gt;): &lt;span class=&quot;co&quot;&gt;# must return an iterator!&lt;/span&gt;
+        &lt;span class=&quot;cf&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;bu&quot;&gt;iter&lt;/span&gt;([&lt;span class=&quot;dv&quot;&gt;5&lt;/span&gt;, &lt;span class=&quot;dv&quot;&gt;4&lt;/span&gt;, &lt;span class=&quot;dv&quot;&gt;3&lt;/span&gt;, &lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt;, &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;, &lt;span class=&quot;st&quot;&gt;&amp;#39;launch&amp;#39;&lt;/span&gt;])&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id=&quot;iterators-the-hard-way&quot;&gt;Iterators the hard way&lt;/h3&gt;
+&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;&lt;span class=&quot;kw&quot;&gt;class&lt;/span&gt; CountdownIterator(&lt;span class=&quot;bu&quot;&gt;object&lt;/span&gt;):
+    &lt;span class=&quot;kw&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;fu&quot;&gt;__init__&lt;/span&gt;(&lt;span class=&quot;va&quot;&gt;self&lt;/span&gt;):
+        &lt;span class=&quot;va&quot;&gt;self&lt;/span&gt;._remaining &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; [&lt;span class=&quot;dv&quot;&gt;5&lt;/span&gt;, &lt;span class=&quot;dv&quot;&gt;4&lt;/span&gt;, &lt;span class=&quot;dv&quot;&gt;3&lt;/span&gt;, &lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt;, &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;, &lt;span class=&quot;st&quot;&gt;&amp;#39;launch&amp;#39;&lt;/span&gt;]
+
+    &lt;span class=&quot;kw&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;fu&quot;&gt;__iter__&lt;/span&gt;(&lt;span class=&quot;va&quot;&gt;self&lt;/span&gt;):
+        &lt;span class=&quot;cf&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;va&quot;&gt;self&lt;/span&gt;
+
+    &lt;span class=&quot;kw&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;bu&quot;&gt;next&lt;/span&gt;(&lt;span class=&quot;va&quot;&gt;self&lt;/span&gt;):
+        &lt;span class=&quot;cf&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;op&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;va&quot;&gt;self&lt;/span&gt;._remaining:
+            &lt;span class=&quot;cf&quot;&gt;raise&lt;/span&gt; &lt;span class=&quot;pp&quot;&gt;StopIteration&lt;/span&gt;
+        &lt;span class=&quot;cf&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;va&quot;&gt;self&lt;/span&gt;._remaining.pop(&lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt;)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&quot;generators&quot;&gt;Generators&lt;/h2&gt;
+&lt;p&gt;A generator function is a simpler way to create an iterator.&lt;/p&gt;
+&lt;p&gt;Generator functions let you use local variables and the position of the program counter as state for a generator object. A new generator object is created and returned each time you call a generator function. The generator object is an iterator.&lt;/p&gt;
+&lt;figure&gt;
+&lt;img src=&quot;/assets/images/37.png&quot; alt=&quot;&quot; /&gt;
+&lt;/figure&gt;
+&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;&lt;span class=&quot;kw&quot;&gt;def&lt;/span&gt; countdown_generator():
+    &lt;span class=&quot;cf&quot;&gt;yield&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;5&lt;/span&gt;
+    &lt;span class=&quot;cf&quot;&gt;yield&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;4&lt;/span&gt;
+    &lt;span class=&quot;cf&quot;&gt;yield&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;3&lt;/span&gt;
+    &lt;span class=&quot;cf&quot;&gt;yield&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt;
+    &lt;span class=&quot;cf&quot;&gt;yield&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;
+    &lt;span class=&quot;cf&quot;&gt;yield&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;launch&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The &lt;code&gt;.__iter__()&lt;/code&gt; method of our class can be written as a generator function:&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;&lt;span class=&quot;kw&quot;&gt;class&lt;/span&gt; Countdown(&lt;span class=&quot;bu&quot;&gt;object&lt;/span&gt;):
+    &lt;span class=&quot;kw&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;fu&quot;&gt;__iter__&lt;/span&gt;(&lt;span class=&quot;va&quot;&gt;self&lt;/span&gt;):
+        &lt;span class=&quot;cf&quot;&gt;for&lt;/span&gt; n &lt;span class=&quot;op&quot;&gt;in&lt;/span&gt; [&lt;span class=&quot;dv&quot;&gt;5&lt;/span&gt;, &lt;span class=&quot;dv&quot;&gt;4&lt;/span&gt;, &lt;span class=&quot;dv&quot;&gt;3&lt;/span&gt;, &lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt;, &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;, &lt;span class=&quot;st&quot;&gt;&amp;#39;launch&amp;#39;&lt;/span&gt;]:
+            &lt;span class=&quot;cf&quot;&gt;yield&lt;/span&gt; n
+
+&lt;span class=&quot;cf&quot;&gt;for&lt;/span&gt; n &lt;span class=&quot;op&quot;&gt;in&lt;/span&gt; Countdown():
+    &lt;span class=&quot;bu&quot;&gt;print&lt;/span&gt;(n)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+</description>
+				<pubDate>Fri, 08 Apr 2016 00:00:00 +0800</pubDate>
+				<link>/python/2016/04/08/iterables-iterators-and-generators.html</link>
+				<guid isPermaLink="true">/python/2016/04/08/iterables-iterators-and-generators.html</guid>
+			</item>
+		
+			<item>
 				<title>GloVe</title>
 				<description>&lt;blockquote&gt;
 &lt;p&gt;Glove uses the matrix of word-word co-occurrence to produce the word vector, while word2vec using the local window context.&lt;/p&gt;
@@ -285,171 +340,6 @@ ML=Representation + Objective + Optimization
 				<pubDate>Wed, 30 Dec 2015 00:00:00 +0800</pubDate>
 				<link>/others/2015/12/30/representation-learning.html</link>
 				<guid isPermaLink="true">/others/2015/12/30/representation-learning.html</guid>
-			</item>
-		
-			<item>
-				<title>ipython parallel</title>
-				<description>&lt;p&gt;IPython 3.x. Best using in the ipython environment, or in a py file may raising unpredictable error.&lt;/p&gt;
-&lt;h2 id=&quot;architecture-overview&quot;&gt;Architecture overview&lt;/h2&gt;
-&lt;figure&gt;
-&lt;img src=&quot;/assets/images/28.png&quot; alt=&quot;&quot; /&gt;
-&lt;/figure&gt;
-&lt;p&gt;The IPython architecture consists of four components:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;The IPython engine.&lt;/li&gt;
-&lt;li&gt;The IPython hub.&lt;/li&gt;
-&lt;li&gt;The IPython schedulers.&lt;/li&gt;
-&lt;li&gt;The controller client.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;These components live in the &lt;code&gt;IPython.parallel&lt;/code&gt; package and are installed with IPython.&lt;/p&gt;
-&lt;h2 id=&quot;getting-started&quot;&gt;Getting Started&lt;/h2&gt;
-&lt;p&gt;To use IPython for parallel computing, you need to start one instance of the controller and one or more instances of the engine. Initially, it is best to simply start a controller and engines on a single host using the &lt;code&gt;ipcluster&lt;/code&gt; command. To start a controller and 4 engines on your localhost, just do:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;ipcluster start -n 4&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Once you have started the IPython controller and one or more engines, you are ready to use the engines to do something useful. To make sure everything is working correctly, try the following commands:&lt;/p&gt;
-&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;In [&lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;]: &lt;span class=&quot;im&quot;&gt;from&lt;/span&gt; IPython.parallel &lt;span class=&quot;im&quot;&gt;import&lt;/span&gt; Client
-
-In [&lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt;]: c &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; Client()
-
-In [&lt;span class=&quot;dv&quot;&gt;4&lt;/span&gt;]: c.ids
-Out[&lt;span class=&quot;dv&quot;&gt;4&lt;/span&gt;]: &lt;span class=&quot;bu&quot;&gt;set&lt;/span&gt;([&lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;, &lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt;, &lt;span class=&quot;dv&quot;&gt;3&lt;/span&gt;])
-
-In [&lt;span class=&quot;dv&quot;&gt;5&lt;/span&gt;]: c[:].apply_sync(&lt;span class=&quot;kw&quot;&gt;lambda&lt;/span&gt; : &lt;span class=&quot;st&quot;&gt;&amp;quot;Hello, World&amp;quot;&lt;/span&gt;)
-Out[&lt;span class=&quot;dv&quot;&gt;5&lt;/span&gt;]: [ &lt;span class=&quot;st&quot;&gt;&amp;#39;Hello, World&amp;#39;&lt;/span&gt;, &lt;span class=&quot;st&quot;&gt;&amp;#39;Hello, World&amp;#39;&lt;/span&gt;, &lt;span class=&quot;st&quot;&gt;&amp;#39;Hello, World&amp;#39;&lt;/span&gt;, &lt;span class=&quot;st&quot;&gt;&amp;#39;Hello, World&amp;#39;&lt;/span&gt; ]&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2 id=&quot;ipython-client-and-views&quot;&gt;IPython client and views&lt;/h2&gt;
-&lt;p&gt;There is one primary object, the &lt;code&gt;Client&lt;/code&gt;, for connecting to a cluster. For each execution model, there is a corresponding &lt;code&gt;View&lt;/code&gt;. These views allow users to interact with a set of engines through the interface. Here are the two default views:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;The &lt;code&gt;DirectView&lt;/code&gt; class for explicit addressing.&lt;/li&gt;
-&lt;li&gt;The &lt;code&gt;LoadBalancedView&lt;/code&gt; class for destination-agnostic scheduling.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;In [&lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;]: &lt;span class=&quot;im&quot;&gt;from&lt;/span&gt; IPython.parallel &lt;span class=&quot;im&quot;&gt;import&lt;/span&gt; Client
-In [&lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt;]: rc &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; Client()
-
-&lt;span class=&quot;co&quot;&gt;# for a visible LAN controller listening on an external port:&lt;/span&gt;
-In [&lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt;]: rc &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; Client(&lt;span class=&quot;st&quot;&gt;&amp;#39;tcp://192.168.1.16:10101&amp;#39;&lt;/span&gt;)
-&lt;span class=&quot;co&quot;&gt;# or to connect with a specific profile you have set up:&lt;/span&gt;
-In [&lt;span class=&quot;dv&quot;&gt;3&lt;/span&gt;]: rc &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; Client(profile&lt;span class=&quot;op&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;&amp;#39;mpi&amp;#39;&lt;/span&gt;)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2 id=&quot;directview&quot;&gt;DirectView&lt;/h2&gt;
-&lt;p&gt;For direct execution, we will make use of a &lt;code&gt;DirectView&lt;/code&gt; object, which can be constructed via list-access to the client:&lt;/p&gt;
-&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;In [&lt;span class=&quot;dv&quot;&gt;4&lt;/span&gt;]: dview &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; rc[:] &lt;span class=&quot;co&quot;&gt;# use all engines&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3 id=&quot;parallel-map&quot;&gt;Parallel map&lt;/h3&gt;
-&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;In [&lt;span class=&quot;dv&quot;&gt;62&lt;/span&gt;]: serial_result &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bu&quot;&gt;map&lt;/span&gt;(&lt;span class=&quot;kw&quot;&gt;lambda&lt;/span&gt; x:x&lt;span class=&quot;op&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;10&lt;/span&gt;, &lt;span class=&quot;bu&quot;&gt;range&lt;/span&gt;(&lt;span class=&quot;dv&quot;&gt;32&lt;/span&gt;))
-
-In [&lt;span class=&quot;dv&quot;&gt;63&lt;/span&gt;]: parallel_result &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; dview.map_sync(&lt;span class=&quot;kw&quot;&gt;lambda&lt;/span&gt; x: x&lt;span class=&quot;op&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;10&lt;/span&gt;, &lt;span class=&quot;bu&quot;&gt;range&lt;/span&gt;(&lt;span class=&quot;dv&quot;&gt;32&lt;/span&gt;))
-
-In [&lt;span class=&quot;dv&quot;&gt;67&lt;/span&gt;]: serial_result&lt;span class=&quot;op&quot;&gt;==&lt;/span&gt;parallel_result
-Out[&lt;span class=&quot;dv&quot;&gt;67&lt;/span&gt;]: &lt;span class=&quot;va&quot;&gt;True&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3 id=&quot;remote-function-decorators&quot;&gt;Remote function decorators&lt;/h3&gt;
-&lt;p&gt;Remote functions are just like normal functions, but when they are called, they execute on one or more engines, rather than locally. IPython provides two decorators:&lt;/p&gt;
-&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;In [&lt;span class=&quot;dv&quot;&gt;10&lt;/span&gt;]: @dview.remote(block&lt;span class=&quot;op&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;va&quot;&gt;True&lt;/span&gt;)
-   ....: &lt;span class=&quot;kw&quot;&gt;def&lt;/span&gt; getpid():
-   ....:     &lt;span class=&quot;im&quot;&gt;import&lt;/span&gt; os
-   ....:     &lt;span class=&quot;cf&quot;&gt;return&lt;/span&gt; os.getpid()
-   ....:
-
-In [&lt;span class=&quot;dv&quot;&gt;11&lt;/span&gt;]: getpid()
-Out[&lt;span class=&quot;dv&quot;&gt;11&lt;/span&gt;]: [&lt;span class=&quot;dv&quot;&gt;12345&lt;/span&gt;, &lt;span class=&quot;dv&quot;&gt;12346&lt;/span&gt;, &lt;span class=&quot;dv&quot;&gt;12347&lt;/span&gt;, &lt;span class=&quot;dv&quot;&gt;12348&lt;/span&gt;]&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;The &lt;code&gt;@parallel&lt;/code&gt; decorator creates parallel functions, that break up an element-wise operations and distribute them, reconstructing the result.&lt;/p&gt;
-&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;In [&lt;span class=&quot;dv&quot;&gt;12&lt;/span&gt;]: &lt;span class=&quot;im&quot;&gt;import&lt;/span&gt; numpy &lt;span class=&quot;im&quot;&gt;as&lt;/span&gt; np
-
-In [&lt;span class=&quot;dv&quot;&gt;13&lt;/span&gt;]: A &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; np.random.random((&lt;span class=&quot;dv&quot;&gt;64&lt;/span&gt;,&lt;span class=&quot;dv&quot;&gt;48&lt;/span&gt;))
-
-In [&lt;span class=&quot;dv&quot;&gt;14&lt;/span&gt;]: @dview.parallel(block&lt;span class=&quot;op&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;va&quot;&gt;True&lt;/span&gt;)
-   ....: &lt;span class=&quot;kw&quot;&gt;def&lt;/span&gt; pmul(A,B):
-   ....:     &lt;span class=&quot;cf&quot;&gt;return&lt;/span&gt; A&lt;span class=&quot;op&quot;&gt;*&lt;/span&gt;B
-
-In [&lt;span class=&quot;dv&quot;&gt;15&lt;/span&gt;]: C_local &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; A&lt;span class=&quot;op&quot;&gt;*&lt;/span&gt;A
-
-In [&lt;span class=&quot;dv&quot;&gt;16&lt;/span&gt;]: C_remote &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; pmul(A,A)
-
-In [&lt;span class=&quot;dv&quot;&gt;17&lt;/span&gt;]: (C_local &lt;span class=&quot;op&quot;&gt;==&lt;/span&gt; C_remote).&lt;span class=&quot;bu&quot;&gt;all&lt;/span&gt;()
-Out[&lt;span class=&quot;dv&quot;&gt;17&lt;/span&gt;]: &lt;span class=&quot;va&quot;&gt;True&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;A quick example to illustrate the difference in arguments for the two modes:&lt;/p&gt;
-&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;In [&lt;span class=&quot;dv&quot;&gt;16&lt;/span&gt;]: @dview.parallel(block&lt;span class=&quot;op&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;va&quot;&gt;True&lt;/span&gt;)
-   ....: &lt;span class=&quot;kw&quot;&gt;def&lt;/span&gt; echo(x):
-   ....:     &lt;span class=&quot;cf&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;bu&quot;&gt;str&lt;/span&gt;(x)
-   ....:
-
-In [&lt;span class=&quot;dv&quot;&gt;17&lt;/span&gt;]: echo(&lt;span class=&quot;bu&quot;&gt;range&lt;/span&gt;(&lt;span class=&quot;dv&quot;&gt;5&lt;/span&gt;))
-Out[&lt;span class=&quot;dv&quot;&gt;17&lt;/span&gt;]: [&lt;span class=&quot;st&quot;&gt;&amp;#39;[0, 1]&amp;#39;&lt;/span&gt;, &lt;span class=&quot;st&quot;&gt;&amp;#39;[2]&amp;#39;&lt;/span&gt;, &lt;span class=&quot;st&quot;&gt;&amp;#39;[3]&amp;#39;&lt;/span&gt;, &lt;span class=&quot;st&quot;&gt;&amp;#39;[4]&amp;#39;&lt;/span&gt;]
-
-In [&lt;span class=&quot;dv&quot;&gt;18&lt;/span&gt;]: echo.&lt;span class=&quot;bu&quot;&gt;map&lt;/span&gt;(&lt;span class=&quot;bu&quot;&gt;range&lt;/span&gt;(&lt;span class=&quot;dv&quot;&gt;5&lt;/span&gt;))
-Out[&lt;span class=&quot;dv&quot;&gt;18&lt;/span&gt;]: [&lt;span class=&quot;st&quot;&gt;&amp;#39;0&amp;#39;&lt;/span&gt;, &lt;span class=&quot;st&quot;&gt;&amp;#39;1&amp;#39;&lt;/span&gt;, &lt;span class=&quot;st&quot;&gt;&amp;#39;2&amp;#39;&lt;/span&gt;, &lt;span class=&quot;st&quot;&gt;&amp;#39;3&amp;#39;&lt;/span&gt;, &lt;span class=&quot;st&quot;&gt;&amp;#39;4&amp;#39;&lt;/span&gt;]&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3 id=&quot;calling-python-functions&quot;&gt;&lt;a href=&quot;http://ipython.org/ipython-doc/3/parallel/parallel_multiengine.html#calling-python-functions&quot;&gt;Calling Python functions&lt;/a&gt;&lt;/h3&gt;
-&lt;p&gt;The most basic type of operation that can be performed on the engines is to execute Python code or call Python functions. Executing Python code can be done in blocking or non-blocking mode (non-blocking is default) using the &lt;code&gt;View.execute()&lt;/code&gt; method, and calling functions can be done via the &lt;code&gt;View.apply()&lt;/code&gt; method.&lt;/p&gt;
-&lt;h3 id=&quot;moving-python-objects-around&quot;&gt;&lt;a href=&quot;http://ipython.org/ipython-doc/3/parallel/parallel_multiengine.html#moving-python-objects-around&quot;&gt;Moving Python objects around&lt;/a&gt;&lt;/h3&gt;
-&lt;h3 id=&quot;other-things-to-look-at&quot;&gt;&lt;a href=&quot;http://ipython.org/ipython-doc/3/parallel/parallel_multiengine.html#other-things-to-look-at&quot;&gt;Other things to look at&lt;/a&gt;&lt;/h3&gt;
-&lt;h4 id=&quot;how-to-do-parallel-list-comprehensions&quot;&gt;How to do parallel list comprehensions&lt;/h4&gt;
-&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;In [&lt;span class=&quot;dv&quot;&gt;66&lt;/span&gt;]: dview.scatter(&lt;span class=&quot;st&quot;&gt;&amp;#39;x&amp;#39;&lt;/span&gt;,&lt;span class=&quot;bu&quot;&gt;range&lt;/span&gt;(&lt;span class=&quot;dv&quot;&gt;64&lt;/span&gt;))
-
-In [&lt;span class=&quot;dv&quot;&gt;67&lt;/span&gt;]: &lt;span class=&quot;op&quot;&gt;%&lt;/span&gt;px y &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; [i&lt;span class=&quot;op&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;10&lt;/span&gt; &lt;span class=&quot;cf&quot;&gt;for&lt;/span&gt; i &lt;span class=&quot;op&quot;&gt;in&lt;/span&gt; x]
-Parallel execution on engines: [&lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;, &lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt;, &lt;span class=&quot;dv&quot;&gt;3&lt;/span&gt;]
-
-In [&lt;span class=&quot;dv&quot;&gt;68&lt;/span&gt;]: y &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; dview.gather(&lt;span class=&quot;st&quot;&gt;&amp;#39;y&amp;#39;&lt;/span&gt;)
-
-In [&lt;span class=&quot;dv&quot;&gt;69&lt;/span&gt;]: &lt;span class=&quot;bu&quot;&gt;print&lt;/span&gt; y
-[&lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;, &lt;span class=&quot;dv&quot;&gt;1024&lt;/span&gt;, &lt;span class=&quot;dv&quot;&gt;59049&lt;/span&gt;, &lt;span class=&quot;dv&quot;&gt;1048576&lt;/span&gt;, &lt;span class=&quot;dv&quot;&gt;9765625&lt;/span&gt;, &lt;span class=&quot;dv&quot;&gt;60466176&lt;/span&gt;, &lt;span class=&quot;dv&quot;&gt;282475249&lt;/span&gt;, &lt;span class=&quot;dv&quot;&gt;1073741824&lt;/span&gt;,...]&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h4 id=&quot;remote-imports&quot;&gt;Remote imports&lt;/h4&gt;
-&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;In [&lt;span class=&quot;dv&quot;&gt;69&lt;/span&gt;]: &lt;span class=&quot;cf&quot;&gt;with&lt;/span&gt; dview.sync_imports():
-   ....:     &lt;span class=&quot;im&quot;&gt;import&lt;/span&gt; numpy
-importing numpy on engine(s)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;blockquote&gt;
-&lt;p&gt;sync_imports() does not allow import foo as bar syntax, because the assignment represented by the as bar part is not available to the import hook.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h4 id=&quot;parallel-exceptions&quot;&gt;&lt;a href=&quot;http://ipython.org/ipython-doc/3/parallel/parallel_multiengine.html#parallel-exceptions&quot;&gt;Parallel exceptions&lt;/a&gt;&lt;/h4&gt;
-&lt;h2 id=&quot;loadbalancedview&quot;&gt;LoadBalancedView&lt;/h2&gt;
-&lt;p&gt;For load-balanced execution, we will make use of a &lt;code&gt;LoadBalancedView&lt;/code&gt; object, which can be constructed via the client’s &lt;code&gt;load_balanced_view()&lt;/code&gt; method:&lt;/p&gt;
-&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;In [&lt;span class=&quot;dv&quot;&gt;4&lt;/span&gt;]: lview &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; rc.load_balanced_view() &lt;span class=&quot;co&quot;&gt;# default load-balanced view&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3 id=&quot;parallel-map-1&quot;&gt;Parallel map&lt;/h3&gt;
-&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;In [&lt;span class=&quot;dv&quot;&gt;62&lt;/span&gt;]: lview.block &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;va&quot;&gt;True&lt;/span&gt;
-
-In [&lt;span class=&quot;dv&quot;&gt;63&lt;/span&gt;]: serial_result &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bu&quot;&gt;map&lt;/span&gt;(&lt;span class=&quot;kw&quot;&gt;lambda&lt;/span&gt; x:x&lt;span class=&quot;op&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;10&lt;/span&gt;, &lt;span class=&quot;bu&quot;&gt;range&lt;/span&gt;(&lt;span class=&quot;dv&quot;&gt;32&lt;/span&gt;))
-
-In [&lt;span class=&quot;dv&quot;&gt;64&lt;/span&gt;]: parallel_result &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; lview.&lt;span class=&quot;bu&quot;&gt;map&lt;/span&gt;(&lt;span class=&quot;kw&quot;&gt;lambda&lt;/span&gt; x:x&lt;span class=&quot;op&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;10&lt;/span&gt;, &lt;span class=&quot;bu&quot;&gt;range&lt;/span&gt;(&lt;span class=&quot;dv&quot;&gt;32&lt;/span&gt;))
-
-In [&lt;span class=&quot;dv&quot;&gt;65&lt;/span&gt;]: serial_result&lt;span class=&quot;op&quot;&gt;==&lt;/span&gt;parallel_result
-Out[&lt;span class=&quot;dv&quot;&gt;65&lt;/span&gt;]: &lt;span class=&quot;va&quot;&gt;True&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3 id=&quot;parallel-function-decorator&quot;&gt;Parallel function decorator&lt;/h3&gt;
-&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;In [&lt;span class=&quot;dv&quot;&gt;10&lt;/span&gt;]: @lview.parallel()
-   ....: &lt;span class=&quot;kw&quot;&gt;def&lt;/span&gt; f(x):
-   ....:     &lt;span class=&quot;cf&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;fl&quot;&gt;10.0&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;*&lt;/span&gt;x&lt;span class=&quot;op&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;4&lt;/span&gt;
-   ....:
-
-In [&lt;span class=&quot;dv&quot;&gt;11&lt;/span&gt;]: f.&lt;span class=&quot;bu&quot;&gt;map&lt;/span&gt;(&lt;span class=&quot;bu&quot;&gt;range&lt;/span&gt;(&lt;span class=&quot;dv&quot;&gt;32&lt;/span&gt;))    &lt;span class=&quot;co&quot;&gt;# this is done in parallel&lt;/span&gt;
-Out[&lt;span class=&quot;dv&quot;&gt;11&lt;/span&gt;]: [&lt;span class=&quot;fl&quot;&gt;0.0&lt;/span&gt;,&lt;span class=&quot;fl&quot;&gt;10.0&lt;/span&gt;,&lt;span class=&quot;fl&quot;&gt;160.0&lt;/span&gt;,...]&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3 id=&quot;dependencies&quot;&gt;Dependencies&lt;/h3&gt;
-&lt;h4 id=&quot;functional-dependencies&quot;&gt;Functional Dependencies&lt;/h4&gt;
-&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;In [&lt;span class=&quot;dv&quot;&gt;9&lt;/span&gt;]: &lt;span class=&quot;im&quot;&gt;from&lt;/span&gt; IPython.parallel &lt;span class=&quot;im&quot;&gt;import&lt;/span&gt; depend, require, dependent
-In [&lt;span class=&quot;dv&quot;&gt;10&lt;/span&gt;]: @require(&lt;span class=&quot;st&quot;&gt;&amp;#39;numpy&amp;#39;&lt;/span&gt;, &lt;span class=&quot;st&quot;&gt;&amp;#39;zmq&amp;#39;&lt;/span&gt;)
-   ....: &lt;span class=&quot;kw&quot;&gt;def&lt;/span&gt; myfunc():
-   ....:     &lt;span class=&quot;cf&quot;&gt;return&lt;/span&gt; dostuff()
-
-In [&lt;span class=&quot;dv&quot;&gt;10&lt;/span&gt;]: &lt;span class=&quot;kw&quot;&gt;def&lt;/span&gt; platform_specific(plat):
-   ....:    &lt;span class=&quot;im&quot;&gt;import&lt;/span&gt; sys
-   ....:    &lt;span class=&quot;cf&quot;&gt;return&lt;/span&gt; sys.platform &lt;span class=&quot;op&quot;&gt;==&lt;/span&gt; plat
-
-In [&lt;span class=&quot;dv&quot;&gt;11&lt;/span&gt;]: @depend(platform_specific, &lt;span class=&quot;st&quot;&gt;&amp;#39;darwin&amp;#39;&lt;/span&gt;)
-   ....: &lt;span class=&quot;kw&quot;&gt;def&lt;/span&gt; mactask():
-   ....:    do_mac_stuff()
-
-In [&lt;span class=&quot;dv&quot;&gt;12&lt;/span&gt;]: @depend(platform_specific, &lt;span class=&quot;st&quot;&gt;&amp;#39;nt&amp;#39;&lt;/span&gt;)
-   ....: &lt;span class=&quot;kw&quot;&gt;def&lt;/span&gt; wintask():
-   ....:    do_windows_stuff()&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h4 id=&quot;graph-dependencies&quot;&gt;Graph Dependencies&lt;/h4&gt;
-&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;In [&lt;span class=&quot;dv&quot;&gt;14&lt;/span&gt;]: client.block&lt;span class=&quot;op&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;va&quot;&gt;False&lt;/span&gt;
-
-In [&lt;span class=&quot;dv&quot;&gt;15&lt;/span&gt;]: ar &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; lview.&lt;span class=&quot;bu&quot;&gt;apply&lt;/span&gt;(f, args, kwargs)
-
-In [&lt;span class=&quot;dv&quot;&gt;16&lt;/span&gt;]: ar2 &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; lview.&lt;span class=&quot;bu&quot;&gt;apply&lt;/span&gt;(f2)
-
-In [&lt;span class=&quot;dv&quot;&gt;17&lt;/span&gt;]: &lt;span class=&quot;cf&quot;&gt;with&lt;/span&gt; lview.temp_flags(after&lt;span class=&quot;op&quot;&gt;=&lt;/span&gt;[ar,ar2]):
-   ....:    ar3 &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; lview.&lt;span class=&quot;bu&quot;&gt;apply&lt;/span&gt;(f3)
-
-In [&lt;span class=&quot;dv&quot;&gt;18&lt;/span&gt;]: &lt;span class=&quot;cf&quot;&gt;with&lt;/span&gt; lview.temp_flags(follow&lt;span class=&quot;op&quot;&gt;=&lt;/span&gt;[ar], timeout&lt;span class=&quot;op&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;fl&quot;&gt;2.5&lt;/span&gt;)
-   ....:    ar4 &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; lview.&lt;span class=&quot;bu&quot;&gt;apply&lt;/span&gt;(f3)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-</description>
-				<pubDate>Tue, 29 Dec 2015 00:00:00 +0800</pubDate>
-				<link>/python/2015/12/29/ipython-parallel.html</link>
-				<guid isPermaLink="true">/python/2015/12/29/ipython-parallel.html</guid>
 			</item>
 		
 	</channel>
