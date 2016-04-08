@@ -170,7 +170,7 @@
     <span class="kw">def</span> <span class="fu">__iter__</span>(<span class="va">self</span>):
         <span class="cf">return</span> <span class="va">self</span>
 
-    <span class="kw">def</span> <span class="bu">next</span>(<span class="va">self</span>):
+    <span class="kw">def</span> <span class="fu">__next__</span>(<span class="va">self</span>):
         <span class="cf">if</span> <span class="op">not</span> <span class="va">self</span>._remaining:
             <span class="cf">raise</span> <span class="pp">StopIteration</span>
         <span class="cf">return</span> <span class="va">self</span>._remaining.pop(<span class="dv">0</span>)</code></pre></div>

@@ -30,7 +30,7 @@
     &lt;span class=&quot;kw&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;fu&quot;&gt;__iter__&lt;/span&gt;(&lt;span class=&quot;va&quot;&gt;self&lt;/span&gt;):
         &lt;span class=&quot;cf&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;va&quot;&gt;self&lt;/span&gt;
 
-    &lt;span class=&quot;kw&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;bu&quot;&gt;next&lt;/span&gt;(&lt;span class=&quot;va&quot;&gt;self&lt;/span&gt;):
+    &lt;span class=&quot;kw&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;fu&quot;&gt;__next__&lt;/span&gt;(&lt;span class=&quot;va&quot;&gt;self&lt;/span&gt;):
         &lt;span class=&quot;cf&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;op&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;va&quot;&gt;self&lt;/span&gt;._remaining:
             &lt;span class=&quot;cf&quot;&gt;raise&lt;/span&gt; &lt;span class=&quot;pp&quot;&gt;StopIteration&lt;/span&gt;
         &lt;span class=&quot;cf&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;va&quot;&gt;self&lt;/span&gt;._remaining.pop(&lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt;)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
