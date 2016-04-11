@@ -9,7 +9,7 @@
 			<item>
 				<title>Iterables, Iterators and Generators</title>
 				<description>&lt;h2 id=&quot;iterators&quot;&gt;Iterators&lt;/h2&gt;
-&lt;p&gt;Iterators are iterables with some kind of ‘position’ state and a &lt;code&gt;.next()&lt;/code&gt;method. The .next() method may be called to produce the next item and update the internal state.&lt;/p&gt;
+&lt;p&gt;Iterators are iterables with some kind of ‘position’ state and a &lt;code&gt;.__next__()&lt;/code&gt;method. The &lt;code&gt;.__next__()&lt;/code&gt; method may be called to produce the next item and update the internal state.&lt;/p&gt;
 &lt;p&gt;Iterables are objects that produce an iterator when they are passed to the &lt;code&gt;iter()&lt;/code&gt; builtin.&lt;/p&gt;
 &lt;figure&gt;
 &lt;img src=&quot;/assets/images/36.png&quot; alt=&quot;&quot; /&gt;
