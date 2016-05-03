@@ -7,7 +7,7 @@
 		<atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
-				<title>A Full Hardware Guide to Deep Learning</title>
+				<title>Recurrent Neural Networks with External Memory</title>
 				<description>&lt;p&gt;&lt;a class=&quot;btn btn-default&quot; href=&quot;https://github.com/npow/RNN-EM&quot; target=&quot;_blank&quot;&gt;GitHub&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&quot;external-memory-read&quot;&gt;External memory read&lt;/h2&gt;
 &lt;p&gt;RNN-EM has an external memory &lt;span class=&quot;math inline&quot;&gt;\(M_t \in R^{m\times n}\)&lt;/span&gt;. It can be considered as a memory with &lt;span class=&quot;math inline&quot;&gt;\(n\)&lt;/span&gt; slots and each slot is a vector with &lt;span class=&quot;math inline&quot;&gt;\(m\)&lt;/span&gt; elements. Similar to the external memory in computers, the memory capacity of RNN-EM may be increased if using a large &lt;span class=&quot;math inline&quot;&gt;\(n\)&lt;/span&gt;.&lt;/p&gt;
