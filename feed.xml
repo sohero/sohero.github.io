@@ -14,7 +14,10 @@
 &lt;li&gt;Indecates how well agent is doing at step &lt;span class=&quot;math inline&quot;&gt;\(t\)&lt;/span&gt;&lt;/li&gt;
 &lt;li&gt;The agent’s job is to maximise cumulative reward&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Reinforcement learning is based on the &lt;code&gt;reward hypothesis&lt;/code&gt;: &amp;gt; All goals can be described by the maximisation of expected cumulative reward&lt;/p&gt;
+&lt;p&gt;Reinforcement learning is based on the &lt;code&gt;reward hypothesis&lt;/code&gt;:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;All goals can be described by the maximisation of expected cumulative reward&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h2 id=&quot;information-statea.k.a-markov-state&quot;&gt;Information State(a.k.a Markov state)&lt;/h2&gt;
 &lt;blockquote&gt;
 &lt;p&gt;A state &lt;span class=&quot;math inline&quot;&gt;\(S_t\)&lt;/span&gt; is &lt;code&gt;Markov&lt;/code&gt; if and only if &lt;span class=&quot;math display&quot;&gt;\[
@@ -40,9 +43,15 @@
 \end{array}
 \]&lt;/span&gt; where each row of the matrix sums to 1.&lt;/p&gt;
 &lt;h2 id=&quot;markov-process&quot;&gt;Markov Process&lt;/h2&gt;
-&lt;p&gt;A Markov process is a memoryless random process, i.e. a sequence of random states &lt;span class=&quot;math inline&quot;&gt;\(\mathcal S_1,\mathcal S_2,...\)&lt;/span&gt; with the Markov property. &amp;gt; A &lt;em&gt;Markov Process(or Markov Chain)&lt;/em&gt; is a tuple &lt;span class=&quot;math inline&quot;&gt;\(\left&amp;lt;\mathcal S,\mathcal P\right&amp;gt;\)&lt;/span&gt; &amp;gt; - &lt;span class=&quot;math inline&quot;&gt;\(\mathcal S\)&lt;/span&gt; is a (finite) set of states &amp;gt; - &lt;span class=&quot;math inline&quot;&gt;\(\mathcal P\)&lt;/span&gt; is state transition probability matrix&lt;/p&gt;
+&lt;p&gt;A Markov process is a memoryless random process, i.e. a sequence of random states &lt;span class=&quot;math inline&quot;&gt;\(\mathcal S_1,\mathcal S_2,...\)&lt;/span&gt; with the Markov property.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;A &lt;em&gt;Markov Process(or Markov Chain)&lt;/em&gt; is a tuple &lt;span class=&quot;math inline&quot;&gt;\(\left&amp;lt;\mathcal S,\mathcal P\right&amp;gt;\)&lt;/span&gt; - &lt;span class=&quot;math inline&quot;&gt;\(\mathcal S\)&lt;/span&gt; is a (finite) set of states - &lt;span class=&quot;math inline&quot;&gt;\(\mathcal P\)&lt;/span&gt; is state transition probability matrix&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h2 id=&quot;markov-reward-process&quot;&gt;Markov Reward Process&lt;/h2&gt;
-&lt;p&gt;A Markov reward process is a Markov chain with values. &amp;gt; A &lt;em&gt;Markov Reward Process&lt;/em&gt; is a tuple &lt;span class=&quot;math inline&quot;&gt;\(\left&amp;lt;\mathcal S,\mathcal P,\mathcal R,\gamma\right&amp;gt;\)&lt;/span&gt; &amp;gt; - &lt;span class=&quot;math inline&quot;&gt;\(\mathcal S\)&lt;/span&gt; is a finite set of states &amp;gt; - &lt;span class=&quot;math inline&quot;&gt;\(\mathcal P\)&lt;/span&gt; is a state transition probability matrix &amp;gt; - &lt;span class=&quot;math inline&quot;&gt;\(\mathcal R\)&lt;/span&gt; is a reward function, &lt;span class=&quot;math inline&quot;&gt;\(\mathcal R_s=\Bbb E[R_{t+1}|\mathcal S_t=\mathcal s]\)&lt;/span&gt; &amp;gt; - &lt;span class=&quot;math inline&quot;&gt;\(\gamma\)&lt;/span&gt; is a discount factor, &lt;span class=&quot;math inline&quot;&gt;\(\gamma \in [0,1]\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;A Markov reward process is a Markov chain with values.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;A &lt;em&gt;Markov Reward Process&lt;/em&gt; is a tuple &lt;span class=&quot;math inline&quot;&gt;\(\left&amp;lt;\mathcal S,\mathcal P,\mathcal R,\gamma\right&amp;gt;\)&lt;/span&gt; - &lt;span class=&quot;math inline&quot;&gt;\(\mathcal S\)&lt;/span&gt; is a finite set of states - &lt;span class=&quot;math inline&quot;&gt;\(\mathcal P\)&lt;/span&gt; is a state transition probability matrix - &lt;span class=&quot;math inline&quot;&gt;\(\mathcal R\)&lt;/span&gt; is a reward function, &lt;span class=&quot;math inline&quot;&gt;\(\mathcal R_s=\Bbb E[R_{t+1}|\mathcal S_t=\mathcal s]\)&lt;/span&gt; - &lt;span class=&quot;math inline&quot;&gt;\(\gamma\)&lt;/span&gt; is a discount factor, &lt;span class=&quot;math inline&quot;&gt;\(\gamma \in [0,1]\)&lt;/span&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h2 id=&quot;return&quot;&gt;Return&lt;/h2&gt;
 &lt;blockquote&gt;
 &lt;p&gt;The return &lt;span class=&quot;math inline&quot;&gt;\(G_t\)&lt;/span&gt;(Goal) is the total discounted reward from time-step &lt;span class=&quot;math inline&quot;&gt;\(t\)&lt;/span&gt;. &lt;span class=&quot;math display&quot;&gt;\[
@@ -50,13 +59,16 @@ G_t=R_{t+1}+\gamma R_{t+2}+...=\sum_{k=0}^\infty \gamma^kR_{t+k+1}
 \]&lt;/span&gt; The discount &lt;span class=&quot;math inline&quot;&gt;\(\gamma\in[0,1]\)&lt;/span&gt; is the present value of future rewords.&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2 id=&quot;value-function&quot;&gt;Value Function&lt;/h2&gt;
-&lt;p&gt;The value function &lt;span class=&quot;math inline&quot;&gt;\(v(s)\)&lt;/span&gt; gives the long-term value of state &lt;span class=&quot;math inline&quot;&gt;\(\mathcal s\)&lt;/span&gt;. &amp;gt; The &lt;em&gt;state value function&lt;/em&gt; &lt;span class=&quot;math inline&quot;&gt;\(v(s)\)&lt;/span&gt; of an MRP is the expected return starting from state &lt;span class=&quot;math inline&quot;&gt;\(\mathcal s\)&lt;/span&gt; &amp;gt; &lt;span class=&quot;math display&quot;&gt;\[
-&amp;gt; v(s)=\Bbb E[G_t|\mathcal S_t=\mathcal s]
-&amp;gt; \]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;The value function &lt;span class=&quot;math inline&quot;&gt;\(v(s)\)&lt;/span&gt; gives the long-term value of state &lt;span class=&quot;math inline&quot;&gt;\(\mathcal s\)&lt;/span&gt;.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The &lt;em&gt;state value function&lt;/em&gt; &lt;span class=&quot;math inline&quot;&gt;\(v(s)\)&lt;/span&gt; of an MRP is the expected return starting from state &lt;span class=&quot;math inline&quot;&gt;\(\mathcal s\)&lt;/span&gt; &lt;span class=&quot;math display&quot;&gt;\[
+v(s)=\Bbb E[G_t|\mathcal S_t=\mathcal s]
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
 </description>
 				<pubDate>Tue, 03 May 2016 00:00:00 +0800</pubDate>
-				<link>/reinforcement/tools/2016/05/03/reinforcement-learning.html</link>
-				<guid isPermaLink="true">/reinforcement/tools/2016/05/03/reinforcement-learning.html</guid>
+				<link>/reinforcement/2016/05/03/reinforcement-learning.html</link>
+				<guid isPermaLink="true">/reinforcement/2016/05/03/reinforcement-learning.html</guid>
 			</item>
 		
 			<item>

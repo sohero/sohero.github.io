@@ -154,7 +154,10 @@
 <li>Indecates how well agent is doing at step <span class="math inline">\(t\)</span></li>
 <li>The agent’s job is to maximise cumulative reward</li>
 </ul>
-<p>Reinforcement learning is based on the <code>reward hypothesis</code>: &gt; All goals can be described by the maximisation of expected cumulative reward</p>
+<p>Reinforcement learning is based on the <code>reward hypothesis</code>:</p>
+<blockquote>
+<p>All goals can be described by the maximisation of expected cumulative reward</p>
+</blockquote>
 <h2 id="information-statea.k.a-markov-state">Information State(a.k.a Markov state)</h2>
 <blockquote>
 <p>A state <span class="math inline">\(S_t\)</span> is <code>Markov</code> if and only if <span class="math display">\[
@@ -180,9 +183,15 @@
 \end{array}
 \]</span> where each row of the matrix sums to 1.</p>
 <h2 id="markov-process">Markov Process</h2>
-<p>A Markov process is a memoryless random process, i.e. a sequence of random states <span class="math inline">\(\mathcal S_1,\mathcal S_2,...\)</span> with the Markov property. &gt; A <em>Markov Process(or Markov Chain)</em> is a tuple <span class="math inline">\(\left&lt;\mathcal S,\mathcal P\right&gt;\)</span> &gt; - <span class="math inline">\(\mathcal S\)</span> is a (finite) set of states &gt; - <span class="math inline">\(\mathcal P\)</span> is state transition probability matrix</p>
+<p>A Markov process is a memoryless random process, i.e. a sequence of random states <span class="math inline">\(\mathcal S_1,\mathcal S_2,...\)</span> with the Markov property.</p>
+<blockquote>
+<p>A <em>Markov Process(or Markov Chain)</em> is a tuple <span class="math inline">\(\left&lt;\mathcal S,\mathcal P\right&gt;\)</span> - <span class="math inline">\(\mathcal S\)</span> is a (finite) set of states - <span class="math inline">\(\mathcal P\)</span> is state transition probability matrix</p>
+</blockquote>
 <h2 id="markov-reward-process">Markov Reward Process</h2>
-<p>A Markov reward process is a Markov chain with values. &gt; A <em>Markov Reward Process</em> is a tuple <span class="math inline">\(\left&lt;\mathcal S,\mathcal P,\mathcal R,\gamma\right&gt;\)</span> &gt; - <span class="math inline">\(\mathcal S\)</span> is a finite set of states &gt; - <span class="math inline">\(\mathcal P\)</span> is a state transition probability matrix &gt; - <span class="math inline">\(\mathcal R\)</span> is a reward function, <span class="math inline">\(\mathcal R_s=\Bbb E[R_{t+1}|\mathcal S_t=\mathcal s]\)</span> &gt; - <span class="math inline">\(\gamma\)</span> is a discount factor, <span class="math inline">\(\gamma \in [0,1]\)</span></p>
+<p>A Markov reward process is a Markov chain with values.</p>
+<blockquote>
+<p>A <em>Markov Reward Process</em> is a tuple <span class="math inline">\(\left&lt;\mathcal S,\mathcal P,\mathcal R,\gamma\right&gt;\)</span> - <span class="math inline">\(\mathcal S\)</span> is a finite set of states - <span class="math inline">\(\mathcal P\)</span> is a state transition probability matrix - <span class="math inline">\(\mathcal R\)</span> is a reward function, <span class="math inline">\(\mathcal R_s=\Bbb E[R_{t+1}|\mathcal S_t=\mathcal s]\)</span> - <span class="math inline">\(\gamma\)</span> is a discount factor, <span class="math inline">\(\gamma \in [0,1]\)</span></p>
+</blockquote>
 <h2 id="return">Return</h2>
 <blockquote>
 <p>The return <span class="math inline">\(G_t\)</span>(Goal) is the total discounted reward from time-step <span class="math inline">\(t\)</span>. <span class="math display">\[
@@ -190,9 +199,12 @@ G_t=R_{t+1}+\gamma R_{t+2}+...=\sum_{k=0}^\infty \gamma^kR_{t+k+1}
 \]</span> The discount <span class="math inline">\(\gamma\in[0,1]\)</span> is the present value of future rewords.</p>
 </blockquote>
 <h2 id="value-function">Value Function</h2>
-<p>The value function <span class="math inline">\(v(s)\)</span> gives the long-term value of state <span class="math inline">\(\mathcal s\)</span>. &gt; The <em>state value function</em> <span class="math inline">\(v(s)\)</span> of an MRP is the expected return starting from state <span class="math inline">\(\mathcal s\)</span> &gt; <span class="math display">\[
-&gt; v(s)=\Bbb E[G_t|\mathcal S_t=\mathcal s]
-&gt; \]</span></p>
+<p>The value function <span class="math inline">\(v(s)\)</span> gives the long-term value of state <span class="math inline">\(\mathcal s\)</span>.</p>
+<blockquote>
+<p>The <em>state value function</em> <span class="math inline">\(v(s)\)</span> of an MRP is the expected return starting from state <span class="math inline">\(\mathcal s\)</span> <span class="math display">\[
+v(s)=\Bbb E[G_t|\mathcal S_t=\mathcal s]
+\]</span></p>
+</blockquote>
 
 	  </div>
 
@@ -204,11 +216,6 @@ G_t=R_{t+1}+\gamma R_{t+2}+...=\sum_{k=0}^\infty \gamma^kR_{t+k+1}
 			 
 				<li><a href="/categories.html#reinforcement-ref">
 					reinforcement <span>(1)</span>
-					,
-				</a></li>
-			 
-				<li><a href="/categories.html#tools-ref">
-					tools <span>(8)</span>
 					
 				</a></li>
 			
@@ -225,13 +232,6 @@ G_t=R_{t+1}+\gamma R_{t+2}+...=\sum_{k=0}^\infty \gamma^kR_{t+k+1}
 				<li>
 					<a href="/tags.html#reinforcement learning-ref">
 					reinforcement learning <span>(1)</span>
-					,
-					</a>
-				</li>
-			 
-				<li>
-					<a href="/tags.html#tools-ref">
-					tools <span>(8)</span>
 					
 					</a>
 				</li>
