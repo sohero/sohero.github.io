@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>CNTK pros cons</title>
+	<title>A Full Hardware Guide to Deep Learning</title>
 	
 	<meta name="author" content="sohero">
 
@@ -138,28 +138,47 @@
 
 	<div class="col-sm-9 col-sm-offset-3">
 		<div class="page-header">
-  <h1>CNTK pros cons </h1>
+  <h1>A Full Hardware Guide to Deep Learning </h1>
 </div>
 	
 <article>
 
 	<div class="col-sm-10">
 	 <span class="post-date">
-	 	2016-03-07 
+	 	2016-05-03 
 	 </span>
 	  <div class="article_body">
-	  <h2 id="pros">pros</h2>
-<ul>
-<li>The concept of computation graph is clear, easy to understand.</li>
-<li>Building the network using NDL is fast.</li>
-</ul>
-<h2 id="cons">cons</h2>
-<ul>
-<li>The syntax of config file is not familiar, may be using the json format or python is better to learn.</li>
-<li>The document is not yet complete, and some command in the examples are not listed in the document.</li>
-<li>Text processing reader (i.e., LM sequence reader, LU sequence reader) is hared to understand, it’s kind of counterintuitive.</li>
-</ul>
-<p>Finally, <strong>It is hard to master CNTK, and it is not the time to using it.</strong></p>
+	  <p><a class="btn btn-default" href="https://github.com/npow/RNN-EM" target="_blank">GitHub</a></p>
+<h2 id="external-memory-read">External memory read</h2>
+<p>RNN-EM has an external memory <span class="math inline">\(M_t \in R^{m\times n}\)</span>. It can be considered as a memory with <span class="math inline">\(n\)</span> slots and each slot is a vector with <span class="math inline">\(m\)</span> elements. Similar to the external memory in computers, the memory capacity of RNN-EM may be increased if using a large <span class="math inline">\(n\)</span>.</p>
+<p>The model generates a key vector <span class="math inline">\(k_t\)</span> to search for content in the external memory. Though there are many possible ways to generate the key vector, we choose a simple linear function that relates hidden layer activity <span class="math inline">\(h_t\)</span> as follows <span class="math display">\[
+k_t=W_kh_t
+\]</span> where <span class="math inline">\(W_k\in R^{m\times p}\)</span> is a linear transformation matrix. Our intuition is that the memory should be in the same space of or affine to the hidden layer activity.</p>
+<p>We use cosine distance <span class="math inline">\(K(u,v)={u\cdot v \over ||u||||v||}\)</span> to compare this key vector with contents in the external memory. The weight for the <span class="math inline">\(c\)</span>-th slot <span class="math inline">\(M_t(:,c)\)</span> in memory <span class="math inline">\(M_t\)</span> is computed as follows <span class="math display">\[
+\hat w_t(c)=\frac{exp\beta_tK(k_t,M_t(:,c))}{\sum_qexp\beta_tK(k_t,M_t(:,q))}
+\]</span> where the above weight is normalized and sums to 1.0. <span class="math inline">\(\beta_t\)</span> is a scalar larger than 0.0. It sharpens the weight vector when <span class="math inline">\(\beta_t\)</span> is larger than 1.0. Conversely, it smooths or dampens the weight vector when <span class="math inline">\(\beta_t\)</span> is between 0.0 and 1.0. We use the following function to obtain <span class="math inline">\(\beta_t\)</span>; <span class="math display">\[
+\beta_t=log(1+exp(W_\beta h_t))
+\]</span> where <span class="math inline">\(W_\beta\in R^{1\times p}\)</span> maps the hidden layer activity <span class="math inline">\(h_t\)</span> to a scalar.</p>
+<p>Importantly, we also use a scalar coefficient <span class="math inline">\(g_t\)</span> to interpolate the above weight estimate with the past weight as follows <span class="math display">\[
+w_t=(1-g_t)w_{t-1}+g_t\hat w_t
+\]</span></p>
+<p>The memory content is retrieved from the external memory at time <span class="math inline">\(t-1\)</span> using <span class="math display">\[
+c_t=M_{t-1}w_{t-1}
+\]</span></p>
+<h2 id="external-memory-update">External memory update</h2>
+<p>RNN-EM generates a new content vector <span class="math inline">\(v_t\)</span> to be added to its memory <span class="math display">\[
+v_t=W_vh_t
+\]</span> where <span class="math inline">\(W_v\in R^{m\times p}\)</span>.</p>
+<p>RNN-EM has a forget gate as follows <span class="math display">\[
+f_t=1-w_t\odot e_t
+\]</span> where <span class="math inline">\(e_t\in R^{n\times 1}\)</span> is an erase vector, generated as <span class="math inline">\(e_t=\sigma(W_{he}h_t)\)</span>. Notice that the <span class="math inline">\(c\)</span>-th element in the forget gate is zero only if both read weight <span class="math inline">\(w_t\)</span> and erase vector <span class="math inline">\(e_t\)</span> have their <span class="math inline">\(c\)</span>-th element set to one. Therefore, memory cannot be forgotten if it is not to be read.</p>
+<p>RNN-EM has an update gate <span class="math inline">\(u_t\)</span>. It simply uses the weight <span class="math inline">\(w_t\)</span> as follows <span class="math display">\[
+u_t=w_t
+\]</span> Therefore, memory is only updated if it is to be read.</p>
+<p>With the above described two gates, the memory is updated as follows <span class="math display">\[
+M_t=diag(f_t)M_{t-1}+diag(u_t)v_t
+\]</span> where <span class="math inline">\(diag(\cdot)\)</span> transforms a vector to a diagonal matrix with diagonal elements from the vector.</p>
+<p>Notice that when the number of memory slots is small, it may have similar performances as a geted RNN.</p>
 
 	  </div>
 
@@ -169,8 +188,13 @@
 		  
 		  
 			 
-				<li><a href="/categories.html#tools-ref">
-					tools <span>(7)</span>
+				<li><a href="/categories.html#deep learning-ref">
+					deep learning <span>(3)</span>
+					,
+				</a></li>
+			 
+				<li><a href="/categories.html#rnn-ref">
+					rnn <span>(1)</span>
 					
 				</a></li>
 			
@@ -185,22 +209,15 @@
 		  
 			 
 				<li>
-					<a href="/tags.html#tools-ref">
-					tools <span>(7)</span>
-					,
-					</a>
-				</li>
-			 
-				<li>
-					<a href="/tags.html#Microsoft-ref">
-					Microsoft <span>(2)</span>
-					,
-					</a>
-				</li>
-			 
-				<li>
 					<a href="/tags.html#deep learning-ref">
 					deep learning <span>(6)</span>
+					,
+					</a>
+				</li>
+			 
+				<li>
+					<a href="/tags.html#rnn-ref">
+					rnn <span>(1)</span>
 					
 					</a>
 				</li>
@@ -215,7 +232,7 @@
 		<div>
       <section class="share col-sm-12">
         <h4 class="section-title">Share Post</h4>
-        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=CNTK pros cons"
+        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=A Full Hardware Guide to Deep Learning"
            onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
           <i class="fa fa-twitter fa-lg"></i>
           Twitter
@@ -237,10 +254,10 @@
 
 		<ul class="pager">
 		  
-		  <li class="previous"><a href="/tools/2016/02/19/cntk.html" title="Computational Network Toolkit">&larr; Previous</a></li>
+		  <li class="previous"><a href="/reinforcement/2016/05/03/reinforcement-learning.html" title="Reinforcement Learning">&larr; Previous</a></li>
 		  
 		  
-		  <li class="next"><a href="/foundation/paper/2016/03/27/dynamic-memory-network.html" title="Dynamic Memory Network">Next &rarr;</a></li>
+			<li class="next disabled"><a>Next &rarr;</a>
 		  
 		</ul>
 
