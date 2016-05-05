@@ -49,7 +49,7 @@ M_t=diag(f_t)M_{t-1}+diag(u_t)v_t
 				<title>Reinforcement Learning</title>
 				<description>&lt;h2 id=&quot;rewards&quot;&gt;Rewards&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;A &lt;code&gt;reward&lt;/code&gt; &lt;span class=&quot;math inline&quot;&gt;\(R_t\)&lt;/span&gt; is a scalar feedback sinal&lt;/li&gt;
+&lt;li&gt;A &lt;code&gt;reward&lt;/code&gt; &lt;span class=&quot;math inline&quot;&gt;\(R_t\)&lt;/span&gt; is a scalar feedback signal&lt;/li&gt;
 &lt;li&gt;Indecates how well agent is doing at step &lt;span class=&quot;math inline&quot;&gt;\(t\)&lt;/span&gt;&lt;/li&gt;
 &lt;li&gt;The agent’s job is to maximise cumulative reward&lt;/li&gt;
 &lt;/ul&gt;
@@ -58,52 +58,161 @@ M_t=diag(f_t)M_{t-1}+diag(u_t)v_t
 &lt;p&gt;All goals can be described by the maximisation of expected cumulative reward&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2 id=&quot;information-statea.k.a-markov-state&quot;&gt;Information State(a.k.a Markov state)&lt;/h2&gt;
-&lt;blockquote&gt;
 &lt;p&gt;A state &lt;span class=&quot;math inline&quot;&gt;\(S_t\)&lt;/span&gt; is &lt;code&gt;Markov&lt;/code&gt; if and only if &lt;span class=&quot;math display&quot;&gt;\[
 \Bbb P[S_{t+1}|S_t]=\Bbb P[S_{t+1}|S_1,...,S_t]
 \]&lt;/span&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;The future is independent of the past given the present&lt;/li&gt;
 &lt;li&gt;Once the state is known, the history may be thrown away&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&quot;state-transition-matrix&quot;&gt;State Transition Matrix&lt;/h2&gt;
+&lt;h2 id=&quot;markov-decision-processes&quot;&gt;Markov Decision Processes&lt;/h2&gt;
+&lt;h3 id=&quot;markov-processes&quot;&gt;Markov Processes&lt;/h3&gt;
+&lt;h4 id=&quot;state-transition-matrix&quot;&gt;State Transition Matrix&lt;/h4&gt;
 &lt;p&gt;For a Markov state &lt;span class=&quot;math inline&quot;&gt;\(\mathcal s\)&lt;/span&gt; and successor state &lt;span class=&quot;math inline&quot;&gt;\(\mathcal s&amp;#39;\)&lt;/span&gt;, the &lt;em&gt;state transition probability&lt;/em&gt; is defined by &lt;span class=&quot;math display&quot;&gt;\[
 \mathcal P_{\mathcal s\mathcal s&amp;#39;}=\Bbb P[\mathcal S_{t+1}=\mathcal s&amp;#39;|\mathcal S_t=\mathcal s]
 \]&lt;/span&gt; State transition matrix &lt;span class=&quot;math inline&quot;&gt;\(\mathcal P\)&lt;/span&gt; defines transition probabilities from all states &lt;span class=&quot;math inline&quot;&gt;\(s\)&lt;/span&gt; to all successor states &lt;span class=&quot;math inline&quot;&gt;\(\mathcal s&amp;#39;\)&lt;/span&gt;, &lt;span class=&quot;math display&quot;&gt;\[
 \mathcal P=\text{from}
 \begin{array}{c}
-\text{to} \\\\
+\text{to} \\
 \begin{bmatrix}
-\mathcal P_{11} &amp;amp; \cdots &amp;amp; \mathcal P_{1n} \\\\
-\vdots &amp;amp; \ddots &amp;amp; \vdots \\\\
+\mathcal P_{11} &amp;amp; \cdots &amp;amp; \mathcal P_{1n} \\
+\vdots &amp;amp; \ddots &amp;amp; \vdots \\
 \mathcal P_{n1} &amp;amp; \cdots &amp;amp; \mathcal P_{nn}
 \end{bmatrix}
 \end{array}
 \]&lt;/span&gt; where each row of the matrix sums to 1.&lt;/p&gt;
-&lt;h2 id=&quot;markov-process&quot;&gt;Markov Process&lt;/h2&gt;
+&lt;h4 id=&quot;markov-process&quot;&gt;Markov Process&lt;/h4&gt;
 &lt;p&gt;A Markov process is a memoryless random process, i.e. a sequence of random states &lt;span class=&quot;math inline&quot;&gt;\(\mathcal S_1,\mathcal S_2,...\)&lt;/span&gt; with the Markov property.&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;A &lt;em&gt;Markov Process(or Markov Chain)&lt;/em&gt; is a tuple &lt;span class=&quot;math inline&quot;&gt;\(\left&amp;lt;\mathcal S,\mathcal P\right&amp;gt;\)&lt;/span&gt; - &lt;span class=&quot;math inline&quot;&gt;\(\mathcal S\)&lt;/span&gt; is a (finite) set of states - &lt;span class=&quot;math inline&quot;&gt;\(\mathcal P\)&lt;/span&gt; is state transition probability matrix&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&quot;markov-reward-process&quot;&gt;Markov Reward Process&lt;/h2&gt;
+&lt;p&gt;A &lt;em&gt;Markov Process(or Markov Chain)&lt;/em&gt; is a tuple &lt;span class=&quot;math inline&quot;&gt;\(\left&amp;lt;\mathcal S,\mathcal P\right&amp;gt;\)&lt;/span&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;span class=&quot;math inline&quot;&gt;\(\mathcal S\)&lt;/span&gt; is a (finite) set of states&lt;/li&gt;
+&lt;li&gt;&lt;span class=&quot;math inline&quot;&gt;\(\mathcal P\)&lt;/span&gt; is state transition probability matrix&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;markov-reward-process&quot;&gt;Markov Reward Process&lt;/h3&gt;
 &lt;p&gt;A Markov reward process is a Markov chain with values.&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;A &lt;em&gt;Markov Reward Process&lt;/em&gt; is a tuple &lt;span class=&quot;math inline&quot;&gt;\(\left&amp;lt;\mathcal S,\mathcal P,\mathcal R,\gamma\right&amp;gt;\)&lt;/span&gt; - &lt;span class=&quot;math inline&quot;&gt;\(\mathcal S\)&lt;/span&gt; is a finite set of states - &lt;span class=&quot;math inline&quot;&gt;\(\mathcal P\)&lt;/span&gt; is a state transition probability matrix - &lt;span class=&quot;math inline&quot;&gt;\(\mathcal R\)&lt;/span&gt; is a reward function, &lt;span class=&quot;math inline&quot;&gt;\(\mathcal R_s=\Bbb E[R_{t+1}|\mathcal S_t=\mathcal s]\)&lt;/span&gt; - &lt;span class=&quot;math inline&quot;&gt;\(\gamma\)&lt;/span&gt; is a discount factor, &lt;span class=&quot;math inline&quot;&gt;\(\gamma \in [0,1]\)&lt;/span&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&quot;return&quot;&gt;Return&lt;/h2&gt;
-&lt;blockquote&gt;
+&lt;p&gt;A &lt;em&gt;Markov Reward Process&lt;/em&gt; is a tuple &lt;span class=&quot;math inline&quot;&gt;\(\left&amp;lt;\mathcal S,\mathcal P,\mathcal R,\gamma\right&amp;gt;\)&lt;/span&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;span class=&quot;math inline&quot;&gt;\(\mathcal S\)&lt;/span&gt; is a finite set of states&lt;/li&gt;
+&lt;li&gt;&lt;span class=&quot;math inline&quot;&gt;\(\mathcal P\)&lt;/span&gt; is a state transition probability matrix&lt;/li&gt;
+&lt;li&gt;&lt;span class=&quot;math inline&quot;&gt;\(\mathcal R\)&lt;/span&gt; is a reward function, &lt;span class=&quot;math inline&quot;&gt;\(\mathcal R_s=\Bbb E[R_{t+1}|\mathcal S_t=\mathcal s]\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class=&quot;math inline&quot;&gt;\(\gamma\)&lt;/span&gt; is a discount factor, &lt;span class=&quot;math inline&quot;&gt;\(\gamma \in [0,1]\)&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&quot;return&quot;&gt;Return&lt;/h4&gt;
 &lt;p&gt;The return &lt;span class=&quot;math inline&quot;&gt;\(G_t\)&lt;/span&gt;(Goal) is the total discounted reward from time-step &lt;span class=&quot;math inline&quot;&gt;\(t\)&lt;/span&gt;. &lt;span class=&quot;math display&quot;&gt;\[
 G_t=R_{t+1}+\gamma R_{t+2}+...=\sum_{k=0}^\infty \gamma^kR_{t+k+1}
 \]&lt;/span&gt; The discount &lt;span class=&quot;math inline&quot;&gt;\(\gamma\in[0,1]\)&lt;/span&gt; is the present value of future rewords.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&quot;value-function&quot;&gt;Value Function&lt;/h2&gt;
+&lt;h4 id=&quot;value-function&quot;&gt;Value Function&lt;/h4&gt;
 &lt;p&gt;The value function &lt;span class=&quot;math inline&quot;&gt;\(v(s)\)&lt;/span&gt; gives the long-term value of state &lt;span class=&quot;math inline&quot;&gt;\(\mathcal s\)&lt;/span&gt;.&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;The &lt;em&gt;state value function&lt;/em&gt; &lt;span class=&quot;math inline&quot;&gt;\(v(s)\)&lt;/span&gt; of an MRP is the expected return starting from state &lt;span class=&quot;math inline&quot;&gt;\(\mathcal s\)&lt;/span&gt; &lt;span class=&quot;math display&quot;&gt;\[
+&lt;p&gt;The &lt;em&gt;state value function&lt;/em&gt; &lt;span class=&quot;math inline&quot;&gt;\(v(s)\)&lt;/span&gt; of an MRP is the expected &lt;code&gt;Return&lt;/code&gt; starting from state &lt;span class=&quot;math inline&quot;&gt;\(\mathcal s\)&lt;/span&gt; &lt;span class=&quot;math display&quot;&gt;\[
 v(s)=\Bbb E[G_t|\mathcal S_t=\mathcal s]
 \]&lt;/span&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;h4 id=&quot;bellman-equation-for-mrps&quot;&gt;Bellman Equation for MRPs&lt;/h4&gt;
+&lt;p&gt;The value function can be decomposed into two parts:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;immediate reward &lt;span class=&quot;math inline&quot;&gt;\(R_{t+1}\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;discounted value of successor state &lt;span class=&quot;math inline&quot;&gt;\(\gamma v(S_{t+1})\)&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;span class=&quot;math display&quot;&gt;\[
+\begin{align}
+v(s) &amp;amp;= \Bbb E[G_t|S_t=s] \\
+&amp;amp;= \Bbb E[R_{t+1}+\gamma R_{t+2}+\gamma^2 R_{t+3}+...|S_t=s] \\
+&amp;amp;= \Bbb E[R_{t+1}+\gamma(R_{t+2}+\gamma R_{t+3}+...)|S_t=s] \\
+&amp;amp;= \Bbb E[R_{t+1}+\gamma G_{t+1}|S_t=s] \\
+&amp;amp;= \Bbb E[R_{t+1}+\gamma v(S_{t+1})|S_t=s]
+\end{align}
+\]&lt;/span&gt; &lt;span class=&quot;math display&quot;&gt;\[
+v(s)=\mathcal R_s+\gamma \sum_{s&amp;#39;\in\mathcal S} \mathcal P_{ss&amp;#39;}v(s&amp;#39;)
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;h4 id=&quot;bellman-equation-in-matrix-form&quot;&gt;Bellman Equation in Matrix Form&lt;/h4&gt;
+&lt;p&gt;The Bellman equation can be expressed concisely using matrices, &lt;span class=&quot;math display&quot;&gt;\[
+v=\mathcal R+\gamma \mathcal Pv
+\]&lt;/span&gt; where &lt;span class=&quot;math inline&quot;&gt;\(v\)&lt;/span&gt; is a column vector with one entry per state &lt;span class=&quot;math display&quot;&gt;\[
+\begin{bmatrix}
+v(1) \\
+\vdots \\
+v(n)
+\end{bmatrix}
+=
+\begin{bmatrix}
+\mathcal R_1 \\
+\vdots \\
+\mathcal R_n
+\end{bmatrix}
++\gamma \begin{bmatrix}
+\mathcal P_{11} &amp;amp; \cdots &amp;amp; \mathcal P_{1n} \\
+\vdots &amp;amp; \ddots &amp;amp; \vdots \\
+\mathcal P_{n1} &amp;amp; \cdots &amp;amp; \mathcal P_{nn}
+\end{bmatrix}
+\begin{bmatrix}
+v(1) \\
+\vdots \\
+v(n)
+\end{bmatrix}
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;h4 id=&quot;sloving-the-bellman-equation&quot;&gt;Sloving the Bellman Equation&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;The Bellman equation is a linear equation&lt;/li&gt;
+&lt;li&gt;It can be solved directly: &lt;span class=&quot;math display&quot;&gt;\[
+\begin{align}
+v &amp;amp;= \mathcal R+\gamma\mathcal Pv \\
+(I-\gamma\mathcal P)v &amp;amp;=\mathcal R \\
+v &amp;amp;= (I-\gamma\mathcal P)^{-1}\mathcal R
+\end{align}
+\]&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;Computational complexity is &lt;span class=&quot;math inline&quot;&gt;\(O(n^3)\)&lt;/span&gt; for &lt;span class=&quot;math inline&quot;&gt;\(n\)&lt;/span&gt; states&lt;/li&gt;
+&lt;li&gt;Direct solution only possible for small MRPs&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;markov-decision-process&quot;&gt;Markov Decision Process&lt;/h3&gt;
+&lt;p&gt;A Markov decision process(MDP) is a Markov reward process with decisions. It is an environment in which all states are Markov.&lt;/p&gt;
+&lt;p&gt;A Markov Decision Process is a tuple &lt;span class=&quot;math inline&quot;&gt;\(\left&amp;lt;\mathcal S,\mathcal A,\mathcal P,\mathcal R,\gamma\right&amp;gt;\)&lt;/span&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;span class=&quot;math inline&quot;&gt;\(\mathcal A\)&lt;/span&gt; is a finite set of actions&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&quot;policies&quot;&gt;Policies&lt;/h4&gt;
+&lt;p&gt;A policy &lt;span class=&quot;math inline&quot;&gt;\(\pi\)&lt;/span&gt; is a distribution over actions given states &lt;span class=&quot;math display&quot;&gt;\[
+\pi(a|s)=\Bbb P[A_t=a|S_t=s]
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A policy fully defines the behaviour of an agent&lt;/li&gt;
+&lt;li&gt;MDP policies depend on the current state (not the history)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&quot;value-function-1&quot;&gt;Value Function&lt;/h4&gt;
+&lt;p&gt;The &lt;em&gt;state-value function&lt;/em&gt; &lt;span class=&quot;math inline&quot;&gt;\(v_\pi(s)\)&lt;/span&gt; of an MDP is the expected return starting from state &lt;span class=&quot;math inline&quot;&gt;\(s\)&lt;/span&gt;, and then following policy &lt;span class=&quot;math inline&quot;&gt;\(\pi\)&lt;/span&gt; &lt;span class=&quot;math display&quot;&gt;\[
+v_\pi(s)=\Bbb E_\pi[G_t|S_t=s]
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;The &lt;em&gt;action-value function&lt;/em&gt; &lt;span class=&quot;math inline&quot;&gt;\(q_\pi(s,a)\)&lt;/span&gt; is the expected return starting from state &lt;span class=&quot;math inline&quot;&gt;\(s\)&lt;/span&gt;, taking action &lt;span class=&quot;math inline&quot;&gt;\(a\)&lt;/span&gt;, and then following policy &lt;span class=&quot;math inline&quot;&gt;\(\pi\)&lt;/span&gt; &lt;span class=&quot;math display&quot;&gt;\[
+q_\pi(s,a)=\Bbb E_\pi[G_t|S_t=s,A_t=a]
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;h4 id=&quot;bellman-expectation-equation&quot;&gt;Bellman Expectation Equation&lt;/h4&gt;
+&lt;p&gt;The state-value function can again be decomposed into immediate reward plus discounted value of successor state &lt;span class=&quot;math display&quot;&gt;\[
+\begin{align}
+v_\pi(s) &amp;amp;= \Bbb E_\pi[R_{t+1}+\gamma v_\pi(S_{t+1})|S_t=s] \\
+&amp;amp;=\sum_{a\in\mathcal A} \pi(a|s)q_\pi(s,a)
+\end{align}
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;The action-value function can similarly be decomposed, &lt;span class=&quot;math display&quot;&gt;\[
+\begin{align}
+q_\pi(s,a) &amp;amp;= \Bbb E_\pi[R_{t+1}+\gamma q_\pi(S_{t+1},A_{t+1})|S_t=s,A_t=a] \\
+&amp;amp;= \mathcal R_s^a + \gamma\sum_{s&amp;#39;\in\mathcal S} \mathcal P_{ss&amp;#39;}^a v_\pi(s&amp;#39;)
+\end{align}
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;h4 id=&quot;bellman-expectation-equation-matrix-form&quot;&gt;Bellman Expectation Equation (Matrix Form)&lt;/h4&gt;
+&lt;p&gt;The Bellman expectation equation can be expressed concisely using the induced MRP, &lt;span class=&quot;math display&quot;&gt;\[
+v_\pi=\mathcal R^\pi + \gamma \mathcal P^\pi v_\pi
+\]&lt;/span&gt; with direct solution &lt;span class=&quot;math display&quot;&gt;\[
+v_\pi=(I-\gamma\mathcal P^\pi)^{-1}\mathcal R^\pi
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;h4 id=&quot;optimal-value-function&quot;&gt;Optimal Value Function&lt;/h4&gt;
+&lt;p&gt;The &lt;em&gt;optimal state-value function&lt;/em&gt; &lt;span class=&quot;math inline&quot;&gt;\(v_*(s)\)&lt;/span&gt; is the maximum value function over all policies &lt;span class=&quot;math display&quot;&gt;\[
+v_*(s)=max_\pi v_\pi(s)
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;The &lt;em&gt;optimal action-value function&lt;/em&gt; &lt;span class=&quot;math inline&quot;&gt;\(q_*(s,a)\)&lt;/span&gt; is the maximum action-value function over all policies &lt;span class=&quot;math display&quot;&gt;\[
+q_*(s,a)=max_\pi q_\pi(s,a)
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The optimal value function specifies the best possible performance in the MDP.&lt;/li&gt;
+&lt;li&gt;An MDP is “solved” when we know the optimal value fn.&lt;/li&gt;
+&lt;/ul&gt;
 </description>
 				<pubDate>Tue, 03 May 2016 00:00:00 +0800</pubDate>
 				<link>/reinforcement/2016/05/03/reinforcement-learning.html</link>
