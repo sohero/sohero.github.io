@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Reinforcement Learning</title>
+	<title>Markov Decision Processes</title>
 	
 	<meta name="author" content="sohero">
 
@@ -138,7 +138,7 @@
 
 	<div class="col-sm-9 col-sm-offset-3">
 		<div class="page-header">
-  <h1>Reinforcement Learning </h1>
+  <h1>Markov Decision Processes </h1>
 </div>
 	
 <article>
@@ -207,6 +207,9 @@ G_t=R_{t+1}+\gamma R_{t+2}+...=\sum_{k=0}^\infty \gamma^kR_{t+k+1}
 <p>The <em>state value function</em> <span class="math inline">\(v(s)\)</span> of an MRP is the expected <code>Return</code> starting from state <span class="math inline">\(\mathcal s\)</span> <span class="math display">\[
 v(s)=\Bbb E[G_t|\mathcal S_t=\mathcal s]
 \]</span></p>
+<blockquote>
+<p>The reward signal indicates what is good in an immediate sense, a value function specifies what is good in the long run. Roughly speaking, the value of a state is the total amount of reward an agent can expect to accumulate over the future, starting from that state.</p>
+</blockquote>
 <h4 id="bellman-equation-for-mrps">Bellman Equation for MRPs</h4>
 <p>The value function can be decomposed into two parts:</p>
 <ul>
@@ -314,6 +317,15 @@ q_*(s,a)=max_\pi q_\pi(s,a)
 <li>The optimal value function specifies the best possible performance in the MDP.</li>
 <li>An MDP is “solved” when we know the optimal value fn.</li>
 </ul>
+<h3 id="partially-observable-mdps-pomdps">Partially Observable MDPs (POMDPs)</h3>
+<p>A Partially Observable Markov Decision Process is an MDP with hidden states. It is a hidden Markov model with actions.</p>
+<p>A POMDP is a tuple <span class="math inline">\(\left&lt;\mathcal S,\mathcal A,\mathcal O,\mathcal P,\mathcal R,\mathcal Z,\gamma\right&gt;\)</span></p>
+<ul>
+<li><span class="math inline">\(\mathcal O\)</span> is a finite set of observations</li>
+<li><span class="math inline">\(\mathcal Z\)</span> is an observation function, <span class="math display">\[
+\mathcal Z_{s&#39;o}^a=\Bbb P[O_{t+1}=o|S_{t+1}=s&#39;,A_t=a]
+\]</span></li>
+</ul>
 
 	  </div>
 
@@ -323,8 +335,8 @@ q_*(s,a)=max_\pi q_\pi(s,a)
 		  
 		  
 			 
-				<li><a href="/categories.html#reinforcement-ref">
-					reinforcement <span>(1)</span>
+				<li><a href="/categories.html#reinforcement learning-ref">
+					reinforcement learning <span>(1)</span>
 					
 				</a></li>
 			
@@ -355,7 +367,7 @@ q_*(s,a)=max_\pi q_\pi(s,a)
 		<div>
       <section class="share col-sm-12">
         <h4 class="section-title">Share Post</h4>
-        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=Reinforcement Learning"
+        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=Markov Decision Processes"
            onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
           <i class="fa fa-twitter fa-lg"></i>
           Twitter

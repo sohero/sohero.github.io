@@ -46,7 +46,7 @@ M_t=diag(f_t)M_{t-1}+diag(u_t)v_t
 			</item>
 		
 			<item>
-				<title>Reinforcement Learning</title>
+				<title>Markov Decision Processes</title>
 				<description>&lt;h2 id=&quot;rewards&quot;&gt;Rewards&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;A &lt;code&gt;reward&lt;/code&gt; &lt;span class=&quot;math inline&quot;&gt;\(R_t\)&lt;/span&gt; is a scalar feedback signal&lt;/li&gt;
@@ -106,6 +106,9 @@ G_t=R_{t+1}+\gamma R_{t+2}+...=\sum_{k=0}^\infty \gamma^kR_{t+k+1}
 &lt;p&gt;The &lt;em&gt;state value function&lt;/em&gt; &lt;span class=&quot;math inline&quot;&gt;\(v(s)\)&lt;/span&gt; of an MRP is the expected &lt;code&gt;Return&lt;/code&gt; starting from state &lt;span class=&quot;math inline&quot;&gt;\(\mathcal s\)&lt;/span&gt; &lt;span class=&quot;math display&quot;&gt;\[
 v(s)=\Bbb E[G_t|\mathcal S_t=\mathcal s]
 \]&lt;/span&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The reward signal indicates what is good in an immediate sense, a value function specifies what is good in the long run. Roughly speaking, the value of a state is the total amount of reward an agent can expect to accumulate over the future, starting from that state.&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h4 id=&quot;bellman-equation-for-mrps&quot;&gt;Bellman Equation for MRPs&lt;/h4&gt;
 &lt;p&gt;The value function can be decomposed into two parts:&lt;/p&gt;
 &lt;ul&gt;
@@ -213,10 +216,19 @@ q_*(s,a)=max_\pi q_\pi(s,a)
 &lt;li&gt;The optimal value function specifies the best possible performance in the MDP.&lt;/li&gt;
 &lt;li&gt;An MDP is “solved” when we know the optimal value fn.&lt;/li&gt;
 &lt;/ul&gt;
+&lt;h3 id=&quot;partially-observable-mdps-pomdps&quot;&gt;Partially Observable MDPs (POMDPs)&lt;/h3&gt;
+&lt;p&gt;A Partially Observable Markov Decision Process is an MDP with hidden states. It is a hidden Markov model with actions.&lt;/p&gt;
+&lt;p&gt;A POMDP is a tuple &lt;span class=&quot;math inline&quot;&gt;\(\left&amp;lt;\mathcal S,\mathcal A,\mathcal O,\mathcal P,\mathcal R,\mathcal Z,\gamma\right&amp;gt;\)&lt;/span&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;span class=&quot;math inline&quot;&gt;\(\mathcal O\)&lt;/span&gt; is a finite set of observations&lt;/li&gt;
+&lt;li&gt;&lt;span class=&quot;math inline&quot;&gt;\(\mathcal Z\)&lt;/span&gt; is an observation function, &lt;span class=&quot;math display&quot;&gt;\[
+\mathcal Z_{s&amp;#39;o}^a=\Bbb P[O_{t+1}=o|S_{t+1}=s&amp;#39;,A_t=a]
+\]&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
 </description>
 				<pubDate>Tue, 03 May 2016 00:00:00 +0800</pubDate>
-				<link>/reinforcement/2016/05/03/reinforcement-learning.html</link>
-				<guid isPermaLink="true">/reinforcement/2016/05/03/reinforcement-learning.html</guid>
+				<link>/reinforcement%20learning/2016/05/03/markov-decision-processes.html</link>
+				<guid isPermaLink="true">/reinforcement%20learning/2016/05/03/markov-decision-processes.html</guid>
 			</item>
 		
 			<item>
