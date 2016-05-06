@@ -1,7 +1,10 @@
 @import url(http://fonts.lug.ustc.edu.cn/css?family=Ubuntu:500&subset=latin,latin-ext);
+@import url(http://fonts.lug.ustc.edu.cn/css?family=Open+Sans:400,400italic);
 
 body{
 	color: #2c3e50;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 12pt;
 }
 
 .sidebar {
@@ -187,3 +190,12 @@ ul.dropdown-menu>li>a>i.fa {
     color: #000;
 }
 
+blockquote {
+    font-size: 12pt;
+    background-color: whitesmoke;
+    font-style: italic;
+}
+
+figure {
+    text-align: center;
+}

@@ -106,6 +106,12 @@ G_t=R_{t+1}+\gamma R_{t+2}+...=\sum_{k=0}^\infty \gamma^kR_{t+k+1}
 &lt;p&gt;The &lt;em&gt;state value function&lt;/em&gt; &lt;span class=&quot;math inline&quot;&gt;\(v(s)\)&lt;/span&gt; of an MRP is the expected &lt;code&gt;Return&lt;/code&gt; starting from state &lt;span class=&quot;math inline&quot;&gt;\(\mathcal s\)&lt;/span&gt; &lt;span class=&quot;math display&quot;&gt;\[
 v(s)=\Bbb E[G_t|\mathcal S_t=\mathcal s]
 \]&lt;/span&gt;&lt;/p&gt;
+&lt;figure&gt;
+&lt;img src=&quot;/assets/images/39.png&quot; alt=&quot;&quot; /&gt;
+&lt;/figure&gt;
+&lt;figure&gt;
+&lt;img src=&quot;/assets/images/38.png&quot; alt=&quot;&quot; /&gt;
+&lt;/figure&gt;
 &lt;blockquote&gt;
 &lt;p&gt;The reward signal indicates what is good in an immediate sense, a value function specifies what is good in the long run. Roughly speaking, the value of a state is the total amount of reward an agent can expect to accumulate over the future, starting from that state.&lt;/p&gt;
 &lt;/blockquote&gt;
