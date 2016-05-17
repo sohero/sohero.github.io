@@ -7,6 +7,46 @@
 		<atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>Dynamic Programming</title>
+				<description>&lt;p&gt;Dynamic programming assumes full knowledge of the MDP. It is used for &lt;em&gt;planning&lt;/em&gt; in an MDP.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;For prediction:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Input: MDP &lt;span class=&quot;math inline&quot;&gt;\(\left&amp;lt;\mathcal S,\mathcal A,\mathcal P,\mathcal R,\gamma \right&amp;gt;\)&lt;/span&gt; and policy &lt;span class=&quot;math inline&quot;&gt;\(\pi\)&lt;/span&gt; or MRP &lt;span class=&quot;math inline&quot;&gt;\(\left&amp;lt;\mathcal S,\mathcal P^\pi,\mathcal R^\pi,\gamma \right&amp;gt;\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Output: value function &lt;span class=&quot;math inline&quot;&gt;\(v_\pi\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;For control:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Input: MDP &lt;span class=&quot;math inline&quot;&gt;\(\left&amp;lt;\mathcal S,\mathcal A,\mathcal P,\mathcal R,\gamma \right&amp;gt;\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Output: optimal value function &lt;span class=&quot;math inline&quot;&gt;\(v_*\)&lt;/span&gt; and optimal policy &lt;span class=&quot;math inline&quot;&gt;\(\pi_*\)&lt;/span&gt;&lt;/p&gt;
+&lt;h2 id=&quot;iterative-policy-evaluation-more-precisely-policy-value-evaluation-maybe&quot;&gt;Iterative Policy Evaluation (more precisely Policy Value Evaluation maybe)&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Problem&lt;/strong&gt;: evaluate a given policy &lt;span class=&quot;math inline&quot;&gt;\(\pi\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Solution&lt;/strong&gt;: iterative application of Bellman expectation backup &lt;span class=&quot;math display&quot;&gt;\[
+v_1\to v_2 \to ... \to v_\pi
+\]&lt;/span&gt; Using &lt;em&gt;synchronous&lt;/em&gt; backups,&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;At each iteration &lt;span class=&quot;math inline&quot;&gt;\(k+1\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;For all state &lt;span class=&quot;math inline&quot;&gt;\(\mathcal s \in \mathcal S\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;Update &lt;span class=&quot;math inline&quot;&gt;\(v_{k+1}(\mathcal s)\)&lt;/span&gt; from &lt;span class=&quot;math inline&quot;&gt;\(v_k(\mathcal s&amp;#39;)\)&lt;/span&gt; where &lt;span class=&quot;math inline&quot;&gt;\(\mathcal s&amp;#39;\)&lt;/span&gt; is a successor state of &lt;span class=&quot;math inline&quot;&gt;\(\mathcal s\)&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;span class=&quot;math display&quot;&gt;\[
+v_{k+1}(\mathcal s)=\sum_{a\in\mathcal A} \pi(a|\mathcal s)\left(\mathcal R_{\mathcal s}^a+\gamma\sum_{\mathcal s&amp;#39;\in\mathcal S}\mathcal P^a_{\mathcal s\mathcal s&amp;#39;}v_k(\mathcal s&amp;#39;)\right)
+\]&lt;/span&gt; &lt;span class=&quot;math display&quot;&gt;\[
+v^{k+1}=\mathcal R^\pi + \gamma\mathcal P^\pi v^k
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;h2 id=&quot;how-to-improve-a-policy&quot;&gt;How to Improve a Policy&lt;/h2&gt;
+&lt;p&gt;Given a policy &lt;span class=&quot;math inline&quot;&gt;\(\pi\)&lt;/span&gt;, &lt;strong&gt;evaluate&lt;/strong&gt; the policy &lt;span class=&quot;math inline&quot;&gt;\(\pi\)&lt;/span&gt;: &lt;span class=&quot;math display&quot;&gt;\[
+v_\pi(s)=\Bbb E[R_{t+1}+\gamma R_{t+2}+...|S_t=s]
+\]&lt;/span&gt; &lt;strong&gt;Improve&lt;/strong&gt; the policy by acting greedily with respect to &lt;span class=&quot;math inline&quot;&gt;\(v_\pi\)&lt;/span&gt;: &lt;span class=&quot;math display&quot;&gt;\[
+\pi &amp;#39;=greedy(v_\pi)
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;h2 id=&quot;policy-iteration&quot;&gt;Policy Iteration&lt;/h2&gt;
+&lt;figure&gt;
+&lt;img src=&quot;/assets/images/41.png&quot; alt=&quot;&quot; /&gt;
+&lt;/figure&gt;
+</description>
+				<pubDate>Tue, 17 May 2016 00:00:00 +0800</pubDate>
+				<link>/reinforcement%20learning/2016/05/17/dynamic-programming.html</link>
+				<guid isPermaLink="true">/reinforcement%20learning/2016/05/17/dynamic-programming.html</guid>
+			</item>
+		
+			<item>
 				<title>Recurrent Neural Networks with External Memory</title>
 				<description>&lt;p&gt;&lt;a class=&quot;btn btn-default&quot; href=&quot;https://github.com/npow/RNN-EM&quot; target=&quot;_blank&quot;&gt;GitHub&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&quot;external-memory-read&quot;&gt;External memory read&lt;/h2&gt;
@@ -111,6 +151,9 @@ v(s)=\Bbb E[G_t|\mathcal S_t=\mathcal s]
 &lt;/figure&gt;
 &lt;figure&gt;
 &lt;img src=&quot;/assets/images/38.png&quot; alt=&quot;&quot; /&gt;
+&lt;/figure&gt;
+&lt;figure&gt;
+&lt;img src=&quot;/assets/images/40.png&quot; alt=&quot;&quot; /&gt;
 &lt;/figure&gt;
 &lt;blockquote&gt;
 &lt;p&gt;The reward signal indicates what is good in an immediate sense, a value function specifies what is good in the long run. Roughly speaking, the value of a state is the total amount of reward an agent can expect to accumulate over the future, starting from that state.&lt;/p&gt;
@@ -565,21 +608,6 @@ labels&lt;span class=&quot;op&quot;&gt;=&lt;/span&gt;Input(LDim, &lt;span class=
 				<pubDate>Fri, 19 Feb 2016 00:00:00 +0800</pubDate>
 				<link>/tools/2016/02/19/cntk.html</link>
 				<guid isPermaLink="true">/tools/2016/02/19/cntk.html</guid>
-			</item>
-		
-			<item>
-				<title>Correlations</title>
-				<description>&lt;p&gt;&lt;a href=&quot;http://www.statsoft.com/Textbook/Basic-Statistics#Correlations&quot;&gt;Origin Link&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&quot;what-is-correlation&quot;&gt;What is Correlation?&lt;/h2&gt;
-&lt;p&gt;Correlation is a measure of the relation between two or more variables. The measurement scales used should be at least interval scales, but other correlation coefficients are available to handle other types of data. Correlation coefficients can range from -1.00 to +1.00. The value of -1.00 represents a perfect &lt;code&gt;negative correlation&lt;/code&gt; while a value of +1.00 represents a perfect &lt;code&gt;positive correlation&lt;/code&gt;. A value of 0.00 represents a &lt;code&gt;lack of correlation&lt;/code&gt;.&lt;/p&gt;
-&lt;h2 id=&quot;pearson-correlation.&quot;&gt;Pearson Correlation.&lt;/h2&gt;
-&lt;p&gt;The most widely-used type of correlation coefficient is Pearson &lt;strong&gt;r&lt;/strong&gt; (Pearson, 1896), also called &lt;strong&gt;linear or product-moment correlation&lt;/strong&gt; (the term correlation was first used by Galton, 1888). Using non technical language, we can say that the correlation coefficient determines the extent to which values of two variables are “proportional” to each other. The value of the correlation (i.e., correlation coefficient) does not depend on the specific measurement units used; for example, the correlation between height and weight will be identical regardless of whether inches and pounds, or centimeters and kilograms are used as measurement units. &lt;strong&gt;Proportional means linearly related; that is, the correlation is high if it can be approximated by a straight line (sloped upwards or downwards).&lt;/strong&gt; This line is called the regression line or least squares line, because it is determined such that the sum of the squared distances of all the data points from the line is the lowest possible. Pearson correlation assumes that the two variables are measured on at least interval scales.&lt;/p&gt;
-&lt;h2 id=&quot;how-to-interpret-the-values-of-correlations.&quot;&gt;How to Interpret the Values of Correlations.&lt;/h2&gt;
-&lt;p&gt;As mentioned before, the correlation coefficient (&lt;span class=&quot;math inline&quot;&gt;\(r\)&lt;/span&gt;) represents the linear relationship between two variables. If the correlation coefficient is squared, then the resulting value (&lt;span class=&quot;math inline&quot;&gt;\(r^2\)&lt;/span&gt;, the coefficient of determination) will represent the proportion of common variation in the two variables (i.e., the “strength” or “magnitude” of the relationship).&lt;/p&gt;
-</description>
-				<pubDate>Sun, 14 Feb 2016 00:00:00 +0800</pubDate>
-				<link>/foundation/2016/02/14/correlations.html</link>
-				<guid isPermaLink="true">/foundation/2016/02/14/correlations.html</guid>
 			</item>
 		
 	</channel>
