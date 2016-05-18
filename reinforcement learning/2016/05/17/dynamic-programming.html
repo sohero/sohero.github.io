@@ -155,7 +155,7 @@
 <p><strong>For control:</strong></p>
 <p>Input: MDP <span class="math inline">\(\left&lt;\mathcal S,\mathcal A,\mathcal P,\mathcal R,\gamma \right&gt;\)</span></p>
 <p>Output: optimal value function <span class="math inline">\(v_*\)</span> and optimal policy <span class="math inline">\(\pi_*\)</span></p>
-<h2 id="iterative-policy-evaluation-more-precisely-policy-value-evaluation-maybe">Iterative Policy Evaluation (more precisely Policy Value Evaluation maybe)</h2>
+<h2 id="iterative-policy-evaluation-more-precisely-policy-value-evaluation">Iterative Policy Evaluation (more precisely Policy-Value Evaluation)</h2>
 <p><strong>Problem</strong>: evaluate a given policy <span class="math inline">\(\pi\)</span></p>
 <p><strong>Solution</strong>: iterative application of Bellman expectation backup <span class="math display">\[
 v_1\to v_2 \to ... \to v_\pi
@@ -180,6 +180,47 @@ v_\pi(s)=\Bbb E[R_{t+1}+\gamma R_{t+2}+...|S_t=s]
 <figure>
 <img src="/assets/images/41.png" alt="" />
 </figure>
+<h2 id="deterministic-value-iteration">Deterministic Value Iteration</h2>
+<p>If we know the solution to subproblems <span class="math inline">\(v_*(s&#39;)\)</span>. Then solution <span class="math inline">\(v_*(s)\)</span> can be found by one-step lookahead: <span class="math display">\[
+v_*(s)\leftarrow\max_{a\in\mathcal A}\mathcal R_s^a+\gamma\sum_{s&#39;\in\mathcal S}v_*(s&#39;)
+\]</span> The idea of value iteration is to apply these updates iteratively.</p>
+<p><strong>Intuition</strong>: start with final rewards and word backwards. <span class="math display">\[
+v_{k+1}(s)=\max_{a\in\mathcal A}\left(\mathcal R_s^a+\gamma\sum_{s&#39;\in\mathcal S}\mathcal R_{ss&#39;}^av_k(s&#39;)\right)
+\]</span> <span class="math display">\[
+v_{k+1}=\max_{a\in\mathcal A}\mathcal R^a+\gamma\mathcal P^av_k
+\]</span></p>
+<h2 id="synchronous-dynamic-programming-algorithms">Synchronous Dynamic Programming Algorithms</h2>
+<table style="width:50%;">
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 23%" />
+<col style="width: 15%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Problem</th>
+<th style="text-align: left;">Bellman Equation</th>
+<th style="text-align: left;">Algorithm</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Prediction</td>
+<td style="text-align: left;">Bellman Expectation Equation</td>
+<td style="text-align: left;">Iterative Policy Evaluation</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Control</td>
+<td style="text-align: left;">Bellman Expectation Equation + Greedy Policy Improvement</td>
+<td style="text-align: left;">Policy Iteration</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Control</td>
+<td style="text-align: left;">Bellman Optimally Equation</td>
+<td style="text-align: left;">Value Iteration</td>
+</tr>
+</tbody>
+</table>
 
 	  </div>
 

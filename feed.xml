@@ -15,7 +15,7 @@
 &lt;p&gt;&lt;strong&gt;For control:&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Input: MDP &lt;span class=&quot;math inline&quot;&gt;\(\left&amp;lt;\mathcal S,\mathcal A,\mathcal P,\mathcal R,\gamma \right&amp;gt;\)&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;Output: optimal value function &lt;span class=&quot;math inline&quot;&gt;\(v_*\)&lt;/span&gt; and optimal policy &lt;span class=&quot;math inline&quot;&gt;\(\pi_*\)&lt;/span&gt;&lt;/p&gt;
-&lt;h2 id=&quot;iterative-policy-evaluation-more-precisely-policy-value-evaluation-maybe&quot;&gt;Iterative Policy Evaluation (more precisely Policy Value Evaluation maybe)&lt;/h2&gt;
+&lt;h2 id=&quot;iterative-policy-evaluation-more-precisely-policy-value-evaluation&quot;&gt;Iterative Policy Evaluation (more precisely Policy-Value Evaluation)&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;Problem&lt;/strong&gt;: evaluate a given policy &lt;span class=&quot;math inline&quot;&gt;\(\pi\)&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Solution&lt;/strong&gt;: iterative application of Bellman expectation backup &lt;span class=&quot;math display&quot;&gt;\[
 v_1\to v_2 \to ... \to v_\pi
@@ -40,6 +40,47 @@ v_\pi(s)=\Bbb E[R_{t+1}+\gamma R_{t+2}+...|S_t=s]
 &lt;figure&gt;
 &lt;img src=&quot;/assets/images/41.png&quot; alt=&quot;&quot; /&gt;
 &lt;/figure&gt;
+&lt;h2 id=&quot;deterministic-value-iteration&quot;&gt;Deterministic Value Iteration&lt;/h2&gt;
+&lt;p&gt;If we know the solution to subproblems &lt;span class=&quot;math inline&quot;&gt;\(v_*(s&amp;#39;)\)&lt;/span&gt;. Then solution &lt;span class=&quot;math inline&quot;&gt;\(v_*(s)\)&lt;/span&gt; can be found by one-step lookahead: &lt;span class=&quot;math display&quot;&gt;\[
+v_*(s)\leftarrow\max_{a\in\mathcal A}\mathcal R_s^a+\gamma\sum_{s&amp;#39;\in\mathcal S}v_*(s&amp;#39;)
+\]&lt;/span&gt; The idea of value iteration is to apply these updates iteratively.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Intuition&lt;/strong&gt;: start with final rewards and word backwards. &lt;span class=&quot;math display&quot;&gt;\[
+v_{k+1}(s)=\max_{a\in\mathcal A}\left(\mathcal R_s^a+\gamma\sum_{s&amp;#39;\in\mathcal S}\mathcal R_{ss&amp;#39;}^av_k(s&amp;#39;)\right)
+\]&lt;/span&gt; &lt;span class=&quot;math display&quot;&gt;\[
+v_{k+1}=\max_{a\in\mathcal A}\mathcal R^a+\gamma\mathcal P^av_k
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;h2 id=&quot;synchronous-dynamic-programming-algorithms&quot;&gt;Synchronous Dynamic Programming Algorithms&lt;/h2&gt;
+&lt;table style=&quot;width:50%;&quot;&gt;
+&lt;colgroup&gt;
+&lt;col style=&quot;width: 11%&quot; /&gt;
+&lt;col style=&quot;width: 23%&quot; /&gt;
+&lt;col style=&quot;width: 15%&quot; /&gt;
+&lt;/colgroup&gt;
+&lt;thead&gt;
+&lt;tr class=&quot;header&quot;&gt;
+&lt;th style=&quot;text-align: left;&quot;&gt;Problem&lt;/th&gt;
+&lt;th style=&quot;text-align: left;&quot;&gt;Bellman Equation&lt;/th&gt;
+&lt;th style=&quot;text-align: left;&quot;&gt;Algorithm&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class=&quot;odd&quot;&gt;
+&lt;td style=&quot;text-align: left;&quot;&gt;Prediction&lt;/td&gt;
+&lt;td style=&quot;text-align: left;&quot;&gt;Bellman Expectation Equation&lt;/td&gt;
+&lt;td style=&quot;text-align: left;&quot;&gt;Iterative Policy Evaluation&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&quot;even&quot;&gt;
+&lt;td style=&quot;text-align: left;&quot;&gt;Control&lt;/td&gt;
+&lt;td style=&quot;text-align: left;&quot;&gt;Bellman Expectation Equation + Greedy Policy Improvement&lt;/td&gt;
+&lt;td style=&quot;text-align: left;&quot;&gt;Policy Iteration&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&quot;odd&quot;&gt;
+&lt;td style=&quot;text-align: left;&quot;&gt;Control&lt;/td&gt;
+&lt;td style=&quot;text-align: left;&quot;&gt;Bellman Optimally Equation&lt;/td&gt;
+&lt;td style=&quot;text-align: left;&quot;&gt;Value Iteration&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 </description>
 				<pubDate>Tue, 17 May 2016 00:00:00 +0800</pubDate>
 				<link>/reinforcement%20learning/2016/05/17/dynamic-programming.html</link>

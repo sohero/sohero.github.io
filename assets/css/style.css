@@ -199,3 +199,10 @@ blockquote {
 figure {
     text-align: center;
 }
+
+table td{
+	border: solid;
+    border-width: 1px;
+    border-color: darkgrey;
+    padding: 5px;
+}
