@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>memo</title>
+	<title>Temporal-Difference Learning</title>
 	
 	<meta name="author" content="sohero">
 
@@ -138,225 +138,119 @@
 
 	<div class="col-sm-9 col-sm-offset-3">
 		<div class="page-header">
-  <h1>memo </h1>
+  <h1>Temporal-Difference Learning </h1>
 </div>
+	
+<article>
 
-
-
-<article class="home">
-  <h2>
-    <a href="/tools/2016/03/07/cntk-pros-and-cons.html" target="_blank">CNTK pros cons</a>
-  </h2>
-  <span class="post-date">
-    2016-03-07 
-  </span>
-    
-    
-    
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/tools/2016/02/19/cntk.html" target="_blank">Computational Network Toolkit</a>
-  </h2>
-  <span class="post-date">
-    2016-02-19 
-  </span>
-    
-    
-    
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/foundation/2016/02/14/correlations.html" target="_blank">Correlations</a>
-  </h2>
-  <span class="post-date">
-    2016-02-14 
-  </span>
-    
-    
-    
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/python/2016/01/19/ipython-cheat-sheet.html" target="_blank">ipython cheat sheet</a>
-  </h2>
-  <span class="post-date">
-    2016-01-19 
-  </span>
-    
-    
-    
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/paper/2016/01/19/a-neural-conversational-model.html" target="_blank">A Neural Conversational Model</a>
-  </h2>
-  <span class="post-date">
-    2016-01-19 
-  </span>
-    
-    
-    
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/tools/2016/01/11/sublime-text-3-shortcut-cheat-sheet.html" target="_blank">Sublime Text 3 shortcut cheat sheet</a>
-  </h2>
-  <span class="post-date">
-    2016-01-11 
-  </span>
-    
-    
-    
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/others/2015/12/30/representation-learning.html" target="_blank">Representation Learning</a>
-  </h2>
-  <span class="post-date">
-    2015-12-30 
-  </span>
-    
-	<div>
-	<p><span class="math display">\[
-ML=Representation + Objective + Optimization
+	<div class="col-sm-12">
+	 <span class="post-date">
+	 	2016-05-19 
+	 </span>
+	  <div class="article_body">
+	  <ul>
+<li>TD methods learn directly from episodes of experience</li>
+<li>TD is <em>model-free</em>: no knowledge of MDP transitions / rewards</li>
+<li>TD learns from <em>incomplete</em> episodes, by <em>bootstrapping</em></li>
+<li>TD updates a guess towards a guess</li>
+</ul>
+<h2 id="mc-and-td">MC and TD</h2>
+<p><strong>Goal</strong>: learn <span class="math inline">\(v_\pi\)</span> online from experience under policy <span class="math inline">\(\pi\)</span>.</p>
+<h3 id="incremental-every-visit-monte-carlo">Incremental every-visit Monte-Carlo</h3>
+<p>Update value <span class="math inline">\(V(S_t)\)</span> toward <em>actual</em> return <span class="math inline">\(G_t\)</span>: <span class="math display">\[
+V(S_t) \leftarrow V(S_t) + \alpha(G_t-V(S_t))
 \]</span></p>
-<ul>
-<li>Power of human brains
-<ul>
-<li><code>Low</code> signal speed vs <code>High</code> computation speed</li>
-<li><code>High</code> processing capacity vs <code>Low</code> energy consumption</li>
-</ul></li>
-</ul>
+<h3 id="simplest-temporal-difference-learning-algorithm-td0">Simplest temporal-difference learning algorithm: TD(0)</h3>
+<p>Update value <span class="math inline">\(V(S_t)\)</span> toward <em>estimated</em> return <span class="math inline">\(R_{t+1}+\gamma V(S_{t+1})\)</span>: <span class="math display">\[
+V(S_t) \leftarrow V(S_t) + \alpha(R_{t+1}+\gamma V(S_{t+1})-V(S_t))
+\]</span> <span class="math inline">\(R_{t+1}+\gamma V(S_{t+1})\)</span> is called the <em>TD</em> target.</p>
+<p><span class="math inline">\(\delta_t=R_{t+1}+\gamma V(S_{t+1})-V(S_t)\)</span> is called the <em>TD</em> error.</p>
 
+	  </div>
+
+		
+		<ul class="tag_box list-unstyled list-inline">
+		  <li><i class="fa fa-folder-open"></i></li>
+		  
+		  
+			 
+				<li><a href="/categories.html#reinforcement learning-ref">
+					reinforcement learning <span>(4)</span>
+					
+				</a></li>
+			
+		  
+		</ul>
+		  
+
+		
+		<ul class="list-inline">
+		  <li><i class="fa fa-tags"></i></li>
+		  
+		  
+			 
+				<li>
+					<a href="/tags.html#reinforcement learning-ref">
+					reinforcement learning <span>(4)</span>
+					
+					</a>
+				</li>
+			
+		  
+		  
+		</ul>
+		  
+
+		<hr>
+
+		<div>
+      <section class="share col-sm-12">
+        <h4 class="section-title">Share Post</h4>
+        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=Temporal-Difference Learning"
+           onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+          <i class="fa fa-twitter fa-lg"></i>
+          Twitter
+        </a>
+        <a class="btn btn-default btn-sm facebook" href="https://www.facebook.com/sharer/sharer.php"
+           onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+          <i class="fa fa-facebook fa-lg"></i>
+          Facebook
+        </a>
+        <a class="btn btn-default btn-sm gplus"
+           onclick="window.open('https://plus.google.com/share?url='+window.location.href, 'google-plus-share', 'width=490,height=530');return false;">
+          <i class="fa fa-google-plus fa-lg"></i>
+          Google+
+        </a>
+      </section>
+    </div>
+
+    <div class="clearfix"></div>
+
+		<ul class="pager">
+		  
+		  <li class="previous"><a href="/reinforcement%20learning/2016/05/19/monte-carlo-reinforcement-learning.html" title="Monte-Carlo Reinforcement Learning">&larr; Previous</a></li>
+		  
+		  
+			<li class="next disabled"><a>Next &rarr;</a>
+		  
+		</ul>
+
+		<hr>
 	</div>
-    
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/python/2015/12/29/ipython-parallel.html" target="_blank">ipython parallel</a>
-  </h2>
-  <span class="post-date">
-    2015-12-29 
-  </span>
-    
-    
-    
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/python/2015/12/28/python-note.html" target="_blank">python note</a>
-  </h2>
-  <span class="post-date">
-    2015-12-28 
-  </span>
-    
-    
-    
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/foundation/2015/12/27/maximum-entropy-model.html" target="_blank">Maximum Entropy Model</a>
-  </h2>
-  <span class="post-date">
-    2015-12-27 
-  </span>
-    
-    
-	<div>
-    最大熵原理指出，当我们需要对一个随机事件的概率分布进行预测时，我们的预测应当满足全部已知的条件，而对未知的情况不要做任何主观假设。在这种情况下，概率分布最均匀，预测的风险最小。因为这时概率分布的信息熵最大，所以人们称这种模型叫“最大熵模型”。
+	
+	<div class="col-sm-2 sidebar-2">
+	
 	</div>
-    
-    
-
 </article>
-
-<hr/>
-
-<ul class="pager"> 
-
-  
-  <li class="previous">
-    
-    <a href="/">&larr; Newer</a>
-    
-  </li>
-  
-  
-  <li>
-  
-  
-    
-    <a href="/"><span class="page_number">1</span></a>
-    
-  
-  
-  
-    
-    <span class="page_number">2</span>
-    
-  
-  
-  
-    
-    <a href="/page3"><span class="page_number">3</span></a>
-    
-  
-  
-  
-    
-    <a href="/page4"><span class="page_number">4</span></a>
-    
-  
-  
-  
-    
-    <a href="/page5"><span class="page_number">5</span></a>
-    
-  
-  
-  
-    
-    <a href="/page6"><span class="page_number">6</span></a>
-    
-  
-  
-  </li>
-
-  
-  <li class="next">
-    <a href="/page3">Older &rarr;</a>
-  </li>
-  
-
-</ul>
+<div class="clearfix"></div>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
 
 
 

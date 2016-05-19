@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>memo</title>
+	<title>Monte-Carlo Reinforcement Learning</title>
 	
 	<meta name="author" content="sohero">
 
@@ -138,225 +138,132 @@
 
 	<div class="col-sm-9 col-sm-offset-3">
 		<div class="page-header">
-  <h1>memo </h1>
+  <h1>Monte-Carlo Reinforcement Learning </h1>
 </div>
+	
+<article>
 
-
-
-<article class="home">
-  <h2>
-    <a href="/tools/2016/03/07/cntk-pros-and-cons.html" target="_blank">CNTK pros cons</a>
-  </h2>
-  <span class="post-date">
-    2016-03-07 
-  </span>
-    
-    
-    
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/tools/2016/02/19/cntk.html" target="_blank">Computational Network Toolkit</a>
-  </h2>
-  <span class="post-date">
-    2016-02-19 
-  </span>
-    
-    
-    
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/foundation/2016/02/14/correlations.html" target="_blank">Correlations</a>
-  </h2>
-  <span class="post-date">
-    2016-02-14 
-  </span>
-    
-    
-    
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/python/2016/01/19/ipython-cheat-sheet.html" target="_blank">ipython cheat sheet</a>
-  </h2>
-  <span class="post-date">
-    2016-01-19 
-  </span>
-    
-    
-    
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/paper/2016/01/19/a-neural-conversational-model.html" target="_blank">A Neural Conversational Model</a>
-  </h2>
-  <span class="post-date">
-    2016-01-19 
-  </span>
-    
-    
-    
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/tools/2016/01/11/sublime-text-3-shortcut-cheat-sheet.html" target="_blank">Sublime Text 3 shortcut cheat sheet</a>
-  </h2>
-  <span class="post-date">
-    2016-01-11 
-  </span>
-    
-    
-    
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/others/2015/12/30/representation-learning.html" target="_blank">Representation Learning</a>
-  </h2>
-  <span class="post-date">
-    2015-12-30 
-  </span>
-    
-	<div>
-	<p><span class="math display">\[
-ML=Representation + Objective + Optimization
+	<div class="col-sm-12">
+	 <span class="post-date">
+	 	2016-05-19 
+	 </span>
+	  <div class="article_body">
+	  <ul>
+<li>MC methods learn directly from episodes of experience</li>
+<li>MC is <em>model-free</em>: no knowledge of MDP transitions / rewards</li>
+<li>MC learns from <em>complete</em> episodes: no bootstrapping</li>
+<li>MC uses the simplest possible idea: value = mean return</li>
+<li>Caveat: can only apply MC to <em>episodic</em> MDPs. All episodes must terminate.</li>
+</ul>
+<h2 id="monte-carlo-policy-evaluation">Monte-Carlo Policy Evaluation</h2>
+<p><strong>Goal</strong>: learn <span class="math inline">\(v_\pi\)</span> from episodes of experience under policy <span class="math inline">\(\pi\)</span>.</p>
+<p>Monte-Carlo policy evaluation uses <code>empirical mean return</code> instead of <em>expected return</em>.</p>
+<h2 id="incremental-mean">Incremental Mean</h2>
+<p>The mean <span class="math inline">\(\mu_1,\mu_2,...\)</span> of a sequence <span class="math inline">\(x_1,x_2,...\)</span> can be computed incrementally, <span class="math display">\[
+\begin{align}
+\mu_k &amp;= {1 \over k}\sum_{j=1}^k x_j \\
+&amp;= {1 \over k}\left(x_k+\sum_{j=1}^{k-1} x_j\right) \\
+&amp;= {1 \over k}\left(x_k+(k-1)\mu_{k-1} \right) \\
+&amp;= \mu_{k-1} + {1 \over k}(x_k - \mu_{k-1})
+\end{align}
 \]</span></p>
-<ul>
-<li>Power of human brains
-<ul>
-<li><code>Low</code> signal speed vs <code>High</code> computation speed</li>
-<li><code>High</code> processing capacity vs <code>Low</code> energy consumption</li>
-</ul></li>
-</ul>
+<h2 id="incremental-monte-carlo-updates">Incremental Monte-Carlo Updates</h2>
+<p>Update <span class="math inline">\(V(s)\)</span> incrementally after episode <span class="math inline">\(S_1,A_1,R_2,...,S_T\)</span>.</p>
+<p>For each state <span class="math inline">\(S_t\)</span> with return <span class="math inline">\(G_t\)</span> <span class="math display">\[
+\begin{align}
+N(S_t) &amp;\leftarrow N(S_t) + 1 \\
+V(S_t) &amp;\leftarrow V(S_t) + {1 \over N(S_t)}(G_t-V(S_t))
+\end{align}
+\]</span></p>
+<p>In non-stationary problems, it can be useful to track a running mean, i.e. forget old episodes. <span class="math display">\[
+V(S_t) \leftarrow V(S_t) + \alpha(G_t-V(S_t))
+\]</span></p>
 
+	  </div>
+
+		
+		<ul class="tag_box list-unstyled list-inline">
+		  <li><i class="fa fa-folder-open"></i></li>
+		  
+		  
+			 
+				<li><a href="/categories.html#reinforcement learning-ref">
+					reinforcement learning <span>(4)</span>
+					
+				</a></li>
+			
+		  
+		</ul>
+		  
+
+		
+		<ul class="list-inline">
+		  <li><i class="fa fa-tags"></i></li>
+		  
+		  
+			 
+				<li>
+					<a href="/tags.html#reinforcement learning-ref">
+					reinforcement learning <span>(4)</span>
+					
+					</a>
+				</li>
+			
+		  
+		  
+		</ul>
+		  
+
+		<hr>
+
+		<div>
+      <section class="share col-sm-12">
+        <h4 class="section-title">Share Post</h4>
+        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=Monte-Carlo Reinforcement Learning"
+           onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+          <i class="fa fa-twitter fa-lg"></i>
+          Twitter
+        </a>
+        <a class="btn btn-default btn-sm facebook" href="https://www.facebook.com/sharer/sharer.php"
+           onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+          <i class="fa fa-facebook fa-lg"></i>
+          Facebook
+        </a>
+        <a class="btn btn-default btn-sm gplus"
+           onclick="window.open('https://plus.google.com/share?url='+window.location.href, 'google-plus-share', 'width=490,height=530');return false;">
+          <i class="fa fa-google-plus fa-lg"></i>
+          Google+
+        </a>
+      </section>
+    </div>
+
+    <div class="clearfix"></div>
+
+		<ul class="pager">
+		  
+		  <li class="previous"><a href="/reinforcement%20learning/2016/05/17/dynamic-programming.html" title="Dynamic Programming">&larr; Previous</a></li>
+		  
+		  
+		  <li class="next"><a href="/reinforcement%20learning/2016/05/19/temporal-difference-learning.html" title="Temporal-Difference Learning">Next &rarr;</a></li>
+		  
+		</ul>
+
+		<hr>
 	</div>
-    
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/python/2015/12/29/ipython-parallel.html" target="_blank">ipython parallel</a>
-  </h2>
-  <span class="post-date">
-    2015-12-29 
-  </span>
-    
-    
-    
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/python/2015/12/28/python-note.html" target="_blank">python note</a>
-  </h2>
-  <span class="post-date">
-    2015-12-28 
-  </span>
-    
-    
-    
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/foundation/2015/12/27/maximum-entropy-model.html" target="_blank">Maximum Entropy Model</a>
-  </h2>
-  <span class="post-date">
-    2015-12-27 
-  </span>
-    
-    
-	<div>
-    最大熵原理指出，当我们需要对一个随机事件的概率分布进行预测时，我们的预测应当满足全部已知的条件，而对未知的情况不要做任何主观假设。在这种情况下，概率分布最均匀，预测的风险最小。因为这时概率分布的信息熵最大，所以人们称这种模型叫“最大熵模型”。
+	
+	<div class="col-sm-2 sidebar-2">
+	
 	</div>
-    
-    
-
 </article>
-
-<hr/>
-
-<ul class="pager"> 
-
-  
-  <li class="previous">
-    
-    <a href="/">&larr; Newer</a>
-    
-  </li>
-  
-  
-  <li>
-  
-  
-    
-    <a href="/"><span class="page_number">1</span></a>
-    
-  
-  
-  
-    
-    <span class="page_number">2</span>
-    
-  
-  
-  
-    
-    <a href="/page3"><span class="page_number">3</span></a>
-    
-  
-  
-  
-    
-    <a href="/page4"><span class="page_number">4</span></a>
-    
-  
-  
-  
-    
-    <a href="/page5"><span class="page_number">5</span></a>
-    
-  
-  
-  
-    
-    <a href="/page6"><span class="page_number">6</span></a>
-    
-  
-  
-  </li>
-
-  
-  <li class="next">
-    <a href="/page3">Older &rarr;</a>
-  </li>
-  
-
-</ul>
+<div class="clearfix"></div>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
 
 
 
