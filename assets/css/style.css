@@ -200,6 +200,14 @@ figure {
     text-align: center;
 }
 
+table {
+    width: 100%!important;
+}
+
+table th{
+    text-align: center!important;
+}
+
 table td{
 	border: solid;
     border-width: 1px;
