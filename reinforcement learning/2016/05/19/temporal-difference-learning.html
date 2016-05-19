@@ -165,6 +165,35 @@ V(S_t) \leftarrow V(S_t) + \alpha(G_t-V(S_t))
 V(S_t) \leftarrow V(S_t) + \alpha(R_{t+1}+\gamma V(S_{t+1})-V(S_t))
 \]</span> <span class="math inline">\(R_{t+1}+\gamma V(S_{t+1})\)</span> is called the <em>TD</em> target.</p>
 <p><span class="math inline">\(\delta_t=R_{t+1}+\gamma V(S_{t+1})-V(S_t)\)</span> is called the <em>TD</em> error.</p>
+<h2 id="monte-carlo-backup">Monte-Carlo Backup</h2>
+<figure>
+<img src="/assets/images/42.png" alt="" />
+</figure>
+<h2 id="temporal-difference-backup">Temporal-Difference Backup</h2>
+<figure>
+<img src="/assets/images/43.png" alt="" />
+</figure>
+<h2 id="dynamic-programming-backup">Dynamic Programming Backup</h2>
+<figure>
+<img src="/assets/images/44.png" alt="" />
+</figure>
+<h2 id="bootstrapping-and-sampling">Bootstrapping and Sampling</h2>
+<p><strong>Bootstrapping</strong>: update involves an estimate</p>
+<ul>
+<li>MC does not bootstrap</li>
+<li>DP bootstraps</li>
+<li>TD bootstraps</li>
+</ul>
+<p><strong>Sampling</strong>: update samples an expectation</p>
+<ul>
+<li>MC samples</li>
+<li>DP does not sample</li>
+<li>TD samples</li>
+</ul>
+<h2 id="unified-view-of-reinforcement-learning">Unified View of Reinforcement Learning</h2>
+<figure>
+<img src="/assets/images/45.png" alt="" />
+</figure>
 
 	  </div>
 
