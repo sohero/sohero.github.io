@@ -194,6 +194,22 @@ V(S_t) \leftarrow V(S_t) + \alpha(R_{t+1}+\gamma V(S_{t+1})-V(S_t))
 <figure>
 <img src="/assets/images/45.png" alt="" />
 </figure>
+<h2 id="eligibility-traces">Eligibility Traces</h2>
+<figure>
+<img src="/assets/images/46.png" alt="" />
+</figure>
+<p>Credit assignment problem: did bell or light cause shock?</p>
+<p><strong>Frequency heuristic</strong>: assign credit to most frequent states.</p>
+<p><strong>Recency heuristic</strong>: assign credit to most recent states.</p>
+<p><strong>Elegibility traces</strong> combine both heuristics: <span class="math display">\[
+\begin{align}
+E_0(s) &amp;= 0 \\
+E_t(s) &amp;= \gamma\lambda E_{t-1}(s) + 1(S_t=s)
+\end{align}
+\]</span></p>
+<figure>
+<img src="/assets/images/47.png" alt="" />
+</figure>
 
 	  </div>
 

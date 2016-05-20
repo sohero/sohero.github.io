@@ -54,6 +54,22 @@ V(S_t) \leftarrow V(S_t) + \alpha(R_{t+1}+\gamma V(S_{t+1})-V(S_t))
 &lt;figure&gt;
 &lt;img src=&quot;/assets/images/45.png&quot; alt=&quot;&quot; /&gt;
 &lt;/figure&gt;
+&lt;h2 id=&quot;eligibility-traces&quot;&gt;Eligibility Traces&lt;/h2&gt;
+&lt;figure&gt;
+&lt;img src=&quot;/assets/images/46.png&quot; alt=&quot;&quot; /&gt;
+&lt;/figure&gt;
+&lt;p&gt;Credit assignment problem: did bell or light cause shock?&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Frequency heuristic&lt;/strong&gt;: assign credit to most frequent states.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Recency heuristic&lt;/strong&gt;: assign credit to most recent states.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Elegibility traces&lt;/strong&gt; combine both heuristics: &lt;span class=&quot;math display&quot;&gt;\[
+\begin{align}
+E_0(s) &amp;amp;= 0 \\
+E_t(s) &amp;amp;= \gamma\lambda E_{t-1}(s) + 1(S_t=s)
+\end{align}
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;figure&gt;
+&lt;img src=&quot;/assets/images/47.png&quot; alt=&quot;&quot; /&gt;
+&lt;/figure&gt;
 </description>
 				<pubDate>Thu, 19 May 2016 00:00:00 +0800</pubDate>
 				<link>/reinforcement%20learning/2016/05/19/temporal-difference-learning.html</link>
