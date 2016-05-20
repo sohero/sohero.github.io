@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Dynamic Programming</title>
+	<title>RL Concepts</title>
 	
 	<meta name="author" content="sohero">
 
@@ -138,89 +138,20 @@
 
 	<div class="col-sm-9 col-sm-offset-3">
 		<div class="page-header">
-  <h1>Dynamic Programming </h1>
+  <h1>RL Concepts </h1>
 </div>
 	
 <article>
 
 	<div class="col-sm-12">
 	 <span class="post-date">
-	 	2016-05-17 
+	 	2016-05-20 
 	 </span>
 	  <div class="article_body">
-	  <p>Dynamic programming assumes full knowledge of the MDP. It is used for <em>planning</em> in an MDP.</p>
-<p><strong>For prediction:</strong></p>
-<p>Input: MDP <span class="math inline">\(\left&lt;\mathcal S,\mathcal A,\mathcal P,\mathcal R,\gamma \right&gt;\)</span> and policy <span class="math inline">\(\pi\)</span> or MRP <span class="math inline">\(\left&lt;\mathcal S,\mathcal P^\pi,\mathcal R^\pi,\gamma \right&gt;\)</span></p>
-<p>Output: value function <span class="math inline">\(v_\pi\)</span></p>
-<p><strong>For control:</strong></p>
-<p>Input: MDP <span class="math inline">\(\left&lt;\mathcal S,\mathcal A,\mathcal P,\mathcal R,\gamma \right&gt;\)</span></p>
-<p>Output: optimal value function <span class="math inline">\(v_*\)</span> and optimal policy <span class="math inline">\(\pi_*\)</span></p>
-<h2 id="iterative-policy-evaluation-more-precisely-policy-value-evaluation">Iterative Policy Evaluation (more precisely Policy-Value Evaluation)</h2>
-<p><strong>Problem</strong>: evaluate a given policy <span class="math inline">\(\pi\)</span></p>
-<p><strong>Solution</strong>: iterative application of Bellman expectation backup <span class="math display">\[
-v_1\to v_2 \to ... \to v_\pi
-\]</span> Using <em>synchronous</em> backups,</p>
-<ul>
-<li>At each iteration <span class="math inline">\(k+1\)</span></li>
-<li>For all state <span class="math inline">\(\mathcal s \in \mathcal S\)</span></li>
-<li>Update <span class="math inline">\(v_{k+1}(\mathcal s)\)</span> from <span class="math inline">\(v_k(\mathcal s&#39;)\)</span> where <span class="math inline">\(\mathcal s&#39;\)</span> is a successor state of <span class="math inline">\(\mathcal s\)</span></li>
-</ul>
-<p><span class="math display">\[
-v_{k+1}(\mathcal s)=\sum_{a\in\mathcal A} \pi(a|\mathcal s)\left(\mathcal R_{\mathcal s}^a+\gamma\sum_{\mathcal s&#39;\in\mathcal S}\mathcal P^a_{\mathcal s\mathcal s&#39;}v_k(\mathcal s&#39;)\right)
-\]</span> <span class="math display">\[
-v^{k+1}=\mathcal R^\pi + \gamma\mathcal P^\pi v^k
-\]</span></p>
-<h2 id="how-to-improve-a-policy">How to Improve a Policy</h2>
-<p>Given a policy <span class="math inline">\(\pi\)</span>, <strong>evaluate</strong> the policy <span class="math inline">\(\pi\)</span>: <span class="math display">\[
-v_\pi(s)=\Bbb E[R_{t+1}+\gamma R_{t+2}+...|S_t=s]
-\]</span> <strong>Improve</strong> the policy by acting greedily with respect to <span class="math inline">\(v_\pi\)</span>: <span class="math display">\[
-\pi &#39;=greedy(v_\pi)
-\]</span></p>
-<h2 id="policy-iteration">Policy Iteration</h2>
-<figure>
-<img src="/assets/images/41.png" alt="" />
-</figure>
-<h2 id="deterministic-value-iteration">Deterministic Value Iteration</h2>
-<p>If we know the solution to subproblems <span class="math inline">\(v_*(s&#39;)\)</span>. Then solution <span class="math inline">\(v_*(s)\)</span> can be found by one-step lookahead: <span class="math display">\[
-v_*(s)\leftarrow\max_{a\in\mathcal A}\mathcal R_s^a+\gamma\sum_{s&#39;\in\mathcal S}v_*(s&#39;)
-\]</span> The idea of value iteration is to apply these updates iteratively.</p>
-<p><strong>Intuition</strong>: start with final rewards and word backwards. <span class="math display">\[
-v_{k+1}(s)=\max_{a\in\mathcal A}\left(\mathcal R_s^a+\gamma\sum_{s&#39;\in\mathcal S}\mathcal R_{ss&#39;}^av_k(s&#39;)\right)
-\]</span> <span class="math display">\[
-v_{k+1}=\max_{a\in\mathcal A}\mathcal R^a+\gamma\mathcal P^av_k
-\]</span></p>
-<h2 id="synchronous-dynamic-programming-algorithms">Synchronous Dynamic Programming Algorithms</h2>
-<table style="width:50%;">
-<colgroup>
-<col style="width: 11%" />
-<col style="width: 23%" />
-<col style="width: 15%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Problem</th>
-<th style="text-align: left;">Bellman Equation</th>
-<th style="text-align: left;">Algorithm</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Prediction</td>
-<td style="text-align: left;">Bellman Expectation Equation</td>
-<td style="text-align: left;">Iterative Policy Evaluation</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Control</td>
-<td style="text-align: left;">Bellman Expectation Equation + Greedy Policy Improvement</td>
-<td style="text-align: left;">Policy Iteration</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Control</td>
-<td style="text-align: left;">Bellman Optimally Equation</td>
-<td style="text-align: left;">Value Iteration</td>
-</tr>
-</tbody>
-</table>
+	  <p><strong>experience</strong>: sample sequences of <em>states</em>, <em>actions</em>, and <em>rewards</em> from actual or simulated interaction with an environment.</p>
+<p><strong>nonstationary</strong>: The return after taking an action in one state depends on the actions taken in later states in the same episode. Because all action selections are undergoing learning, the problem becomes nonstationary from the point view of the earlier state.</p>
+<p><strong>prediction problem</strong>: The computation of <span class="math inline">\(v_\pi\)</span> and <span class="math inline">\(q_\pi\)</span> for a fixed solution policy <span class="math inline">\(\pi\)</span>.</p>
+<p><strong>bootstrapping</strong>: All of them update estimates of the values of states based on estimates of the values of successor states. That is, they update estimates on the basis of other estimates. We call this general idea <em>bootstrapping</em>.</p>
 
 	  </div>
 
@@ -262,7 +193,7 @@ v_{k+1}=\max_{a\in\mathcal A}\mathcal R^a+\gamma\mathcal P^av_k
 		<div>
       <section class="share col-sm-12">
         <h4 class="section-title">Share Post</h4>
-        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=Dynamic Programming"
+        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=RL Concepts"
            onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
           <i class="fa fa-twitter fa-lg"></i>
           Twitter
@@ -284,10 +215,10 @@ v_{k+1}=\max_{a\in\mathcal A}\mathcal R^a+\gamma\mathcal P^av_k
 
 		<ul class="pager">
 		  
-		  <li class="previous"><a href="/deep%20learning/rnn/2016/05/03/rnn-em.html" title="Recurrent Neural Networks with External Memory">&larr; Previous</a></li>
+		  <li class="previous"><a href="/reinforcement%20learning/2016/05/19/temporal-difference-learning.html" title="Temporal-Difference Learning">&larr; Previous</a></li>
 		  
 		  
-		  <li class="next"><a href="/reinforcement%20learning/2016/05/19/monte-carlo-reinforcement-learning.html" title="Monte-Carlo Reinforcement Learning">Next &rarr;</a></li>
+			<li class="next disabled"><a>Next &rarr;</a>
 		  
 		</ul>
 
