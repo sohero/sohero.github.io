@@ -214,3 +214,7 @@ table td, table th{
     border-color: grey;
     padding: 5px;
 }
+
+.pager li>span{
+	
+}

@@ -17,6 +17,7 @@
 &lt;p&gt;&lt;strong&gt;target policy&lt;/strong&gt;: The policy being learned about is called the &lt;em&gt;target policy&lt;/em&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;behavior policy&lt;/strong&gt;: The policy used to generate behavior is called the &lt;em&gt;behavior policy&lt;/em&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;off-policy learning&lt;/strong&gt;: Learning is from data “off” the target policy, and the overall process is termed &lt;em&gt;off-policy learning&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;importance sampling&lt;/strong&gt;: a general technique for estimating expected values under one distribution given samples from another.&lt;/p&gt;
 </description>
 				<pubDate>Fri, 20 May 2016 00:00:00 +0800</pubDate>
 				<link>/reinforcement%20learning/2016/05/20/rl-concepts.html</link>
