@@ -50,7 +50,7 @@ V(S_t) \leftarrow V(S_t) + \alpha(G_t-V(S_t))
 \]&lt;/span&gt;&lt;/p&gt;
 &lt;h3 id=&quot;simplest-temporal-difference-learning-algorithm-td0&quot;&gt;Simplest temporal-difference learning algorithm: TD(0)&lt;/h3&gt;
 &lt;p&gt;Update value &lt;span class=&quot;math inline&quot;&gt;\(V(S_t)\)&lt;/span&gt; toward &lt;em&gt;estimated&lt;/em&gt; return &lt;span class=&quot;math inline&quot;&gt;\(R_{t+1}+\gamma V(S_{t+1})\)&lt;/span&gt;: &lt;span class=&quot;math display&quot;&gt;\[
-V(S_t) \leftarrow V(S_t) + \alpha(R_{t+1}+\gamma V(S_{t+1})-V(S_t))
+V(S_t) \leftarrow V(S_t) + \alpha\left(R_{t+1}+\gamma V(S_{t+1})-V(S_t)\right)
 \]&lt;/span&gt; &lt;span class=&quot;math inline&quot;&gt;\(R_{t+1}+\gamma V(S_{t+1})\)&lt;/span&gt; is called the &lt;em&gt;TD&lt;/em&gt; target.&lt;/p&gt;
 &lt;p&gt;&lt;span class=&quot;math inline&quot;&gt;\(\delta_t=R_{t+1}+\gamma V(S_{t+1})-V(S_t)\)&lt;/span&gt; is called the &lt;em&gt;TD&lt;/em&gt; error.&lt;/p&gt;
 &lt;h2 id=&quot;monte-carlo-backup&quot;&gt;Monte-Carlo Backup&lt;/h2&gt;

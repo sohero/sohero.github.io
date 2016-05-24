@@ -162,7 +162,7 @@ V(S_t) \leftarrow V(S_t) + \alpha(G_t-V(S_t))
 \]</span></p>
 <h3 id="simplest-temporal-difference-learning-algorithm-td0">Simplest temporal-difference learning algorithm: TD(0)</h3>
 <p>Update value <span class="math inline">\(V(S_t)\)</span> toward <em>estimated</em> return <span class="math inline">\(R_{t+1}+\gamma V(S_{t+1})\)</span>: <span class="math display">\[
-V(S_t) \leftarrow V(S_t) + \alpha(R_{t+1}+\gamma V(S_{t+1})-V(S_t))
+V(S_t) \leftarrow V(S_t) + \alpha\left(R_{t+1}+\gamma V(S_{t+1})-V(S_t)\right)
 \]</span> <span class="math inline">\(R_{t+1}+\gamma V(S_{t+1})\)</span> is called the <em>TD</em> target.</p>
 <p><span class="math inline">\(\delta_t=R_{t+1}+\gamma V(S_{t+1})-V(S_t)\)</span> is called the <em>TD</em> error.</p>
 <h2 id="monte-carlo-backup">Monte-Carlo Backup</h2>
