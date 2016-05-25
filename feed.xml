@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
 		<title></title>
-		<description>An elder's memo.</description>
+		<description>Qiang Brother Notes.</description>
 		<link>/</link>
 		<atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
 		
@@ -144,14 +144,19 @@ V(S_t) \leftarrow V(S_t) + \alpha(G_t-V(S_t))
 		
 			<item>
 				<title>Dynamic Programming</title>
-				<description>&lt;p&gt;Dynamic programming assumes full knowledge of the MDP. It is used for &lt;em&gt;planning&lt;/em&gt; in an MDP.&lt;/p&gt;
+				<description>&lt;p&gt;A method for solving complex problems by breaking them down into subproblems:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Slove the subproblems&lt;/li&gt;
+&lt;li&gt;Combine solutions to subproblems&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Dynamic programming assumes full knowledge of the MDP. It is used for &lt;em&gt;planning&lt;/em&gt; in an MDP.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;For prediction:&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Input: MDP &lt;span class=&quot;math inline&quot;&gt;\(\left&amp;lt;\mathcal S,\mathcal A,\mathcal P,\mathcal R,\gamma \right&amp;gt;\)&lt;/span&gt; and policy &lt;span class=&quot;math inline&quot;&gt;\(\pi\)&lt;/span&gt; or MRP &lt;span class=&quot;math inline&quot;&gt;\(\left&amp;lt;\mathcal S,\mathcal P^\pi,\mathcal R^\pi,\gamma \right&amp;gt;\)&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;Output: value function &lt;span class=&quot;math inline&quot;&gt;\(v_\pi\)&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;For control:&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Input: MDP &lt;span class=&quot;math inline&quot;&gt;\(\left&amp;lt;\mathcal S,\mathcal A,\mathcal P,\mathcal R,\gamma \right&amp;gt;\)&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;Output: optimal value function &lt;span class=&quot;math inline&quot;&gt;\(v_*\)&lt;/span&gt; and optimal policy &lt;span class=&quot;math inline&quot;&gt;\(\pi_*\)&lt;/span&gt;&lt;/p&gt;
-&lt;h2 id=&quot;iterative-policy-evaluation-more-precisely-policy-value-evaluation&quot;&gt;Iterative Policy Evaluation (more precisely Policy-Value Evaluation)&lt;/h2&gt;
+&lt;h2 id=&quot;iterative-policy-evaluation&quot;&gt;Iterative Policy Evaluation&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;Problem&lt;/strong&gt;: evaluate a given policy &lt;span class=&quot;math inline&quot;&gt;\(\pi\)&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Solution&lt;/strong&gt;: iterative application of Bellman expectation backup &lt;span class=&quot;math display&quot;&gt;\[
 v_1\to v_2 \to ... \to v_\pi
@@ -164,7 +169,7 @@ v_1\to v_2 \to ... \to v_\pi
 &lt;p&gt;&lt;span class=&quot;math display&quot;&gt;\[
 v_{k+1}(\mathcal s)=\sum_{a\in\mathcal A} \pi(a|\mathcal s)\left(\mathcal R_{\mathcal s}^a+\gamma\sum_{\mathcal s&amp;#39;\in\mathcal S}\mathcal P^a_{\mathcal s\mathcal s&amp;#39;}v_k(\mathcal s&amp;#39;)\right)
 \]&lt;/span&gt; &lt;span class=&quot;math display&quot;&gt;\[
-v^{k+1}=\mathcal R^\pi + \gamma\mathcal P^\pi v^k
+\mathbf{v^{k+1}}=\mathbf{\mathcal R^\pi} + \gamma\mathbf{\mathcal P^\pi v^k}
 \]&lt;/span&gt;&lt;/p&gt;
 &lt;h2 id=&quot;how-to-improve-a-policy&quot;&gt;How to Improve a Policy&lt;/h2&gt;
 &lt;p&gt;Given a policy &lt;span class=&quot;math inline&quot;&gt;\(\pi\)&lt;/span&gt;, &lt;strong&gt;evaluate&lt;/strong&gt; the policy &lt;span class=&quot;math inline&quot;&gt;\(\pi\)&lt;/span&gt;: &lt;span class=&quot;math display&quot;&gt;\[

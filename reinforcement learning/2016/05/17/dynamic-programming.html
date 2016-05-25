@@ -94,7 +94,7 @@
 
 
 <div id="bio" class="text-center">
-	An elder's memo.
+	Qiang Brother Notes.
 </div>
 
 
@@ -148,14 +148,19 @@
 	 	2016-05-17 
 	 </span>
 	  <div class="article_body">
-	  <p>Dynamic programming assumes full knowledge of the MDP. It is used for <em>planning</em> in an MDP.</p>
+	  <p>A method for solving complex problems by breaking them down into subproblems:</p>
+<ul>
+<li>Slove the subproblems</li>
+<li>Combine solutions to subproblems</li>
+</ul>
+<p>Dynamic programming assumes full knowledge of the MDP. It is used for <em>planning</em> in an MDP.</p>
 <p><strong>For prediction:</strong></p>
 <p>Input: MDP <span class="math inline">\(\left&lt;\mathcal S,\mathcal A,\mathcal P,\mathcal R,\gamma \right&gt;\)</span> and policy <span class="math inline">\(\pi\)</span> or MRP <span class="math inline">\(\left&lt;\mathcal S,\mathcal P^\pi,\mathcal R^\pi,\gamma \right&gt;\)</span></p>
 <p>Output: value function <span class="math inline">\(v_\pi\)</span></p>
 <p><strong>For control:</strong></p>
 <p>Input: MDP <span class="math inline">\(\left&lt;\mathcal S,\mathcal A,\mathcal P,\mathcal R,\gamma \right&gt;\)</span></p>
 <p>Output: optimal value function <span class="math inline">\(v_*\)</span> and optimal policy <span class="math inline">\(\pi_*\)</span></p>
-<h2 id="iterative-policy-evaluation-more-precisely-policy-value-evaluation">Iterative Policy Evaluation (more precisely Policy-Value Evaluation)</h2>
+<h2 id="iterative-policy-evaluation">Iterative Policy Evaluation</h2>
 <p><strong>Problem</strong>: evaluate a given policy <span class="math inline">\(\pi\)</span></p>
 <p><strong>Solution</strong>: iterative application of Bellman expectation backup <span class="math display">\[
 v_1\to v_2 \to ... \to v_\pi
@@ -168,7 +173,7 @@ v_1\to v_2 \to ... \to v_\pi
 <p><span class="math display">\[
 v_{k+1}(\mathcal s)=\sum_{a\in\mathcal A} \pi(a|\mathcal s)\left(\mathcal R_{\mathcal s}^a+\gamma\sum_{\mathcal s&#39;\in\mathcal S}\mathcal P^a_{\mathcal s\mathcal s&#39;}v_k(\mathcal s&#39;)\right)
 \]</span> <span class="math display">\[
-v^{k+1}=\mathcal R^\pi + \gamma\mathcal P^\pi v^k
+\mathbf{v^{k+1}}=\mathbf{\mathcal R^\pi} + \gamma\mathbf{\mathcal P^\pi v^k}
 \]</span></p>
 <h2 id="how-to-improve-a-policy">How to Improve a Policy</h2>
 <p>Given a policy <span class="math inline">\(\pi\)</span>, <strong>evaluate</strong> the policy <span class="math inline">\(\pi\)</span>: <span class="math display">\[
