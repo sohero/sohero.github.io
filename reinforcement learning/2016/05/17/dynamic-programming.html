@@ -147,6 +147,7 @@
 	 <span class="post-date">
 	 	2016-05-17 
 	 </span>
+	 <div class="article-outline"></div>
 	  <div class="article_body">
 	  <p>A method for solving complex problems by breaking them down into subproblems:</p>
 <ul>
@@ -185,6 +186,13 @@ v_\pi(s)=\Bbb E[R_{t+1}+\gamma R_{t+2}+...|S_t=s]
 <figure>
 <img src="/assets/images/41.png" alt="" />
 </figure>
+<h2 id="principle-of-optimality">Principle of Optimality</h2>
+<p>Any optimal policy can be subdivided into two components:</p>
+<ul>
+<li>An optimal first Action <span class="math inline">\(A_*\)</span></li>
+<li>Followed by an optimal policy from successor state <span class="math inline">\(\mathcal{S&#39;}\)</span></li>
+</ul>
+<p>A policy <span class="math inline">\(\pi(a|s)\)</span> achieves the optimal value from state <span class="math inline">\(s\)</span>, <span class="math inline">\(v_\pi(s)=v_*(s)\)</span>, if and only if <strong>For any state <span class="math inline">\(s&#39;\)</span> reachable from <span class="math inline">\(s\)</span>, <span class="math inline">\(\pi\)</span> achieves the optimal value from state <span class="math inline">\(s&#39;\)</span>, <span class="math inline">\(v_\pi(s&#39;)=v_*(s&#39;)\)</span></strong></p>
 <h2 id="deterministic-value-iteration">Deterministic Value Iteration</h2>
 <p>If we know the solution to subproblems <span class="math inline">\(v_*(s&#39;)\)</span>. Then solution <span class="math inline">\(v_*(s)\)</span> can be found by one-step lookahead: <span class="math display">\[
 v_*(s)\leftarrow\max_{a\in\mathcal A}\mathcal R_s^a+\gamma\sum_{s&#39;\in\mathcal S}v_*(s&#39;)

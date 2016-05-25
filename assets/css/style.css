@@ -218,3 +218,15 @@ table td, table th{
 .pager li>span{
 	
 }
+
+.article-outline {
+    background-color: rgba(204,204,204,0.50);
+    border: solid 1px #CCC;
+    padding-left: 40px;
+    padding-top: 20px;
+    margin-top: 20px;
+}
+
+.article-outline dd {
+	padding-left: 25px;
+}

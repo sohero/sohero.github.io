@@ -13,4 +13,20 @@ $( document ).ready(function() {
 	
 	contact_list.mouseleave(function(){ scontacts.fadeOut(); });
 
+	//自动生成目录
+	var outline="";
+	$(".article_body > h2").each(function(){
+		function extract(obj, tag){
+			var $this=$(obj);
+			var id = $this.attr("id");
+			var text = $this.html();
+			return "<"+tag+"><a href='#"+ id +"'>"+ text +"</a></"+tag+">";
+		};
+		outline += extract(this, "dt");
+		
+		$(this).nextUntil("h2", "h3").each(function(){
+			outline += extract(this, "dd");
+		})
+	});
+	$(".article-outline").append("<dl>"+ outline +"</dl>");
 });
