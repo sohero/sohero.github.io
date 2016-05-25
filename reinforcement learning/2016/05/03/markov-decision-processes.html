@@ -213,9 +213,6 @@ v(s)=\Bbb E[G_t|\mathcal S_t=\mathcal s]
 <figure>
 <img src="/assets/images/38.png" alt="" />
 </figure>
-<figure>
-<img src="/assets/images/40.png" alt="" />
-</figure>
 <blockquote>
 <p>The reward signal indicates what is good in an immediate sense, a value function specifies what is good in the long run. Roughly speaking, the value of a state is the total amount of reward an agent can expect to accumulate over the future, starting from that state.</p>
 </blockquote>
@@ -281,6 +278,9 @@ v &amp;= (I-\gamma\mathcal P)^{-1}\mathcal R
 <ul>
 <li><span class="math inline">\(\mathcal A\)</span> is a finite set of actions</li>
 </ul>
+<figure>
+<img src="/assets/images/40.png" alt="" />
+</figure>
 <h4 id="policies">Policies</h4>
 <p>A policy <span class="math inline">\(\pi\)</span> is a distribution over actions given states <span class="math display">\[
 \pi(a|s)=\Bbb P[A_t=a|S_t=s]
@@ -317,10 +317,10 @@ v_\pi=(I-\gamma\mathcal P^\pi)^{-1}\mathcal R^\pi
 \]</span></p>
 <h4 id="optimal-value-function">Optimal Value Function</h4>
 <p>The <em>optimal state-value function</em> <span class="math inline">\(v_*(s)\)</span> is the maximum value function over all policies <span class="math display">\[
-v_*(s)=max_\pi v_\pi(s)
+v_*(s)=\max_\pi v_\pi(s)
 \]</span></p>
 <p>The <em>optimal action-value function</em> <span class="math inline">\(q_*(s,a)\)</span> is the maximum action-value function over all policies <span class="math display">\[
-q_*(s,a)=max_\pi q_\pi(s,a)
+q_*(s,a)=\max_\pi q_\pi(s,a)
 \]</span></p>
 <ul>
 <li>The optimal value function specifies the best possible performance in the MDP.</li>

@@ -329,9 +329,6 @@ v(s)=\Bbb E[G_t|\mathcal S_t=\mathcal s]
 &lt;figure&gt;
 &lt;img src=&quot;/assets/images/38.png&quot; alt=&quot;&quot; /&gt;
 &lt;/figure&gt;
-&lt;figure&gt;
-&lt;img src=&quot;/assets/images/40.png&quot; alt=&quot;&quot; /&gt;
-&lt;/figure&gt;
 &lt;blockquote&gt;
 &lt;p&gt;The reward signal indicates what is good in an immediate sense, a value function specifies what is good in the long run. Roughly speaking, the value of a state is the total amount of reward an agent can expect to accumulate over the future, starting from that state.&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -397,6 +394,9 @@ v &amp;amp;= (I-\gamma\mathcal P)^{-1}\mathcal R
 &lt;ul&gt;
 &lt;li&gt;&lt;span class=&quot;math inline&quot;&gt;\(\mathcal A\)&lt;/span&gt; is a finite set of actions&lt;/li&gt;
 &lt;/ul&gt;
+&lt;figure&gt;
+&lt;img src=&quot;/assets/images/40.png&quot; alt=&quot;&quot; /&gt;
+&lt;/figure&gt;
 &lt;h4 id=&quot;policies&quot;&gt;Policies&lt;/h4&gt;
 &lt;p&gt;A policy &lt;span class=&quot;math inline&quot;&gt;\(\pi\)&lt;/span&gt; is a distribution over actions given states &lt;span class=&quot;math display&quot;&gt;\[
 \pi(a|s)=\Bbb P[A_t=a|S_t=s]
@@ -433,10 +433,10 @@ v_\pi=(I-\gamma\mathcal P^\pi)^{-1}\mathcal R^\pi
 \]&lt;/span&gt;&lt;/p&gt;
 &lt;h4 id=&quot;optimal-value-function&quot;&gt;Optimal Value Function&lt;/h4&gt;
 &lt;p&gt;The &lt;em&gt;optimal state-value function&lt;/em&gt; &lt;span class=&quot;math inline&quot;&gt;\(v_*(s)\)&lt;/span&gt; is the maximum value function over all policies &lt;span class=&quot;math display&quot;&gt;\[
-v_*(s)=max_\pi v_\pi(s)
+v_*(s)=\max_\pi v_\pi(s)
 \]&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;The &lt;em&gt;optimal action-value function&lt;/em&gt; &lt;span class=&quot;math inline&quot;&gt;\(q_*(s,a)\)&lt;/span&gt; is the maximum action-value function over all policies &lt;span class=&quot;math display&quot;&gt;\[
-q_*(s,a)=max_\pi q_\pi(s,a)
+q_*(s,a)=\max_\pi q_\pi(s,a)
 \]&lt;/span&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;The optimal value function specifies the best possible performance in the MDP.&lt;/li&gt;
