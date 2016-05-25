@@ -28,5 +28,8 @@ $( document ).ready(function() {
 			outline += extract(this, "dd");
 		})
 	});
-	$(".article-outline").append("<dl>"+ outline +"</dl>");
+	if(""==outline)
+		$(".article-outline").hide();
+	else
+		$(".article-outline").append("<dl>"+ outline +"</dl>");
 });
