@@ -149,7 +149,8 @@
 	 </span>
 	 <div class="article-outline"></div>
 	  <div class="article_body">
-	  <p><strong>experience</strong>: sample sequences of <em>states</em>, <em>actions</em>, and <em>rewards</em> from actual or simulated interaction with an environment.</p>
+	  <p><strong>backup</strong>: We <em>back up</em> the value of the state after each greedy move to the state before the move.</p>
+<p><strong>experience</strong>: sample sequences of <em>states</em>, <em>actions</em>, and <em>rewards</em> from actual or simulated interaction with an environment.</p>
 <p><strong>nonstationary</strong>: The return after taking an action in one state depends on the actions taken in later states in the same episode. Because all action selections are undergoing learning, the problem becomes nonstationary from the point view of the earlier state.</p>
 <p><strong>prediction problem</strong>: The computation of <span class="math inline">\(v_\pi\)</span> and <span class="math inline">\(q_\pi\)</span> for a fixed solution policy <span class="math inline">\(\pi\)</span>.</p>
 <p><strong>bootstrapping</strong>: All of them update estimates of the values of states based on estimates of the values of successor states. That is, they update estimates on the basis of other estimates. We call this general idea <em>bootstrapping</em>.</p>

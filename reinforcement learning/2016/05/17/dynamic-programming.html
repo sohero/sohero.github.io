@@ -234,6 +234,63 @@ v_{k+1}=\max_{a\in\mathcal A}\mathcal R^a+\gamma\mathcal P^av_k
 </tr>
 </tbody>
 </table>
+<ul>
+<li>Algorithms are based on state-value function <span class="math inline">\(v_\pi(s)\)</span> or <span class="math inline">\(v_*(s)\)</span>. Complexity <span class="math inline">\(O(mn^2)\)</span> per iteration for <span class="math inline">\(m\)</span> actions and <span class="math inline">\(n\)</span> states.</li>
+<li>Could also apply to action-value function <span class="math inline">\(q_\pi(s,a)\)</span> or <span class="math inline">\(q_*(s,a)\)</span>. Complexity <span class="math inline">\(O(m^2n^2)\)</span> per iteration.</li>
+</ul>
+<h2 id="asynchronous-dynamic-programming">Asynchronous Dynamic Programming</h2>
+<p>Asynchronous DP backs up states individually in any order. For each selected state, apply the appropriate backup. Can significantly reduce computation. Guaranteed to converge if all states continue to be selected.</p>
+<h3 id="in-place-dynamic-programming">In-Place Dynamic Programming</h3>
+<p><strong>Synchronous value iteration</strong> stores two copies of value function for all <span class="math inline">\(s\)</span> in <span class="math inline">\(\mathcal{S}\)</span> <span class="math display">\[
+\begin{align}
+v_{new}(s) &amp;\leftarrow \max_{a\in{\mathcal{A}}}\left(\mathcal{R}_s^a+
+\gamma\sum_{s&#39;\in{\mathcal{S}}}\mathcal{P}^a_{ss&#39;}v_{old}(s&#39;)
+\right) \\
+v_{old} &amp;\leftarrow v_{new}
+\end{align}
+\]</span> <strong>In-place value iteration</strong> only stores one copy of value function for all <span class="math inline">\(s\)</span> in <span class="math inline">\(\mathcal{S}\)</span> <span class="math display">\[
+v(s) \leftarrow \max_{a\in\mathcal{A}}\left(
+\mathcal{R}_s^a+\gamma\sum_{s&#39;\in\mathcal{S}}\mathcal{P}_{ss&#39;}^av(s&#39;)
+\right)
+\]</span></p>
+<h3 id="prioritised-sweeping">Prioritised Sweeping</h3>
+<p>Use magnitude of Bellman error to guide state selection, e.g. <span class="math display">\[
+\left|
+\max_{a\in\mathcal{A}}
+\left(
+\mathcal{R}_s^a + \gamma\sum_{s&#39;\in\mathcal{S}}\mathcal{P}_{ss&#39;}^av(s&#39;)
+\right) - v(s)
+\right|
+\]</span></p>
+<ul>
+<li>Backup the state with the largest remaining Bellman error</li>
+<li>Update Bellman error of affected states after each backup</li>
+<li>Requires knowledge of reverse dynamics (predecessor states)</li>
+<li>Can be implemented efficiently by maintaining a priority queue</li>
+</ul>
+<h3 id="real-time-dynamic-programming">Real-Time Dynamic Programming</h3>
+<p><strong>Idea</strong>: only states that are relevant to agent. Use agent’s experience to guide the selection of states. After each time-step <span class="math inline">\(S_t, A_t, R_{t+1}\)</span>, backup the state <span class="math inline">\(S_t\)</span>: <span class="math display">\[
+v(S_t) \leftarrow \max_{a\in\mathcal{A}} \left(
+\mathcal{R}_{S_t}^a + \gamma\sum_{s&#39;\in\mathcal{S}}
+\mathcal{P}_{S_ts&#39;}^av(s&#39;)
+\right)
+\]</span></p>
+<h2 id="full-width-and-sample-backups">Full-width and sample backups</h2>
+<h3 id="full-width-backups">Full-Width Backups</h3>
+<p>DP uses <em>full-width</em> backups. For each backup (sync or async):</p>
+<ul>
+<li>Every successor state and action is considered</li>
+<li>Using knowledge of the MDP transitions and reward function</li>
+</ul>
+<p>DP is effective for medium-sized problems (millions of states). For large problems DP suffers Bellman’s <em>curse of dimensionality</em> (Number of states <span class="math inline">\(n=|\mathcal{S}|\)</span> grows exponentially with number of state variables). Even one backup can be too expensive.</p>
+<h3 id="sample-backups">Sample Backups</h3>
+<p>Using sample rewards and sample transitions <span class="math inline">\(\left&lt;\mathcal{S,A,R,S&#39;}\right&gt;\)</span> instead of reward function <span class="math inline">\(\mathcal{R}\)</span> and transition dynamics <span class="math inline">\(\mathcal{P}\)</span>.</p>
+<p><strong>Advantages</strong>:</p>
+<ul>
+<li>Model-free: no advance knowledge of MDP required</li>
+<li>Breaks the curse of dimensionality through sampling</li>
+<li>Cost of backup is constant, independent of <span class="math inline">\(n=|\mathcal{S}|\)</span></li>
+</ul>
 
 	  </div>
 

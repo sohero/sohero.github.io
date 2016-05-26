@@ -8,7 +8,8 @@
 		
 			<item>
 				<title>RL Concepts</title>
-				<description>&lt;p&gt;&lt;strong&gt;experience&lt;/strong&gt;: sample sequences of &lt;em&gt;states&lt;/em&gt;, &lt;em&gt;actions&lt;/em&gt;, and &lt;em&gt;rewards&lt;/em&gt; from actual or simulated interaction with an environment.&lt;/p&gt;
+				<description>&lt;p&gt;&lt;strong&gt;backup&lt;/strong&gt;: We &lt;em&gt;back up&lt;/em&gt; the value of the state after each greedy move to the state before the move.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;experience&lt;/strong&gt;: sample sequences of &lt;em&gt;states&lt;/em&gt;, &lt;em&gt;actions&lt;/em&gt;, and &lt;em&gt;rewards&lt;/em&gt; from actual or simulated interaction with an environment.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;nonstationary&lt;/strong&gt;: The return after taking an action in one state depends on the actions taken in later states in the same episode. Because all action selections are undergoing learning, the problem becomes nonstationary from the point view of the earlier state.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;prediction problem&lt;/strong&gt;: The computation of &lt;span class=&quot;math inline&quot;&gt;\(v_\pi\)&lt;/span&gt; and &lt;span class=&quot;math inline&quot;&gt;\(q_\pi\)&lt;/span&gt; for a fixed solution policy &lt;span class=&quot;math inline&quot;&gt;\(\pi\)&lt;/span&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;bootstrapping&lt;/strong&gt;: All of them update estimates of the values of states based on estimates of the values of successor states. That is, they update estimates on the basis of other estimates. We call this general idea &lt;em&gt;bootstrapping&lt;/em&gt;.&lt;/p&gt;
@@ -229,6 +230,63 @@ v_{k+1}=\max_{a\in\mathcal A}\mathcal R^a+\gamma\mathcal P^av_k
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
+&lt;ul&gt;
+&lt;li&gt;Algorithms are based on state-value function &lt;span class=&quot;math inline&quot;&gt;\(v_\pi(s)\)&lt;/span&gt; or &lt;span class=&quot;math inline&quot;&gt;\(v_*(s)\)&lt;/span&gt;. Complexity &lt;span class=&quot;math inline&quot;&gt;\(O(mn^2)\)&lt;/span&gt; per iteration for &lt;span class=&quot;math inline&quot;&gt;\(m\)&lt;/span&gt; actions and &lt;span class=&quot;math inline&quot;&gt;\(n\)&lt;/span&gt; states.&lt;/li&gt;
+&lt;li&gt;Could also apply to action-value function &lt;span class=&quot;math inline&quot;&gt;\(q_\pi(s,a)\)&lt;/span&gt; or &lt;span class=&quot;math inline&quot;&gt;\(q_*(s,a)\)&lt;/span&gt;. Complexity &lt;span class=&quot;math inline&quot;&gt;\(O(m^2n^2)\)&lt;/span&gt; per iteration.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;asynchronous-dynamic-programming&quot;&gt;Asynchronous Dynamic Programming&lt;/h2&gt;
+&lt;p&gt;Asynchronous DP backs up states individually in any order. For each selected state, apply the appropriate backup. Can significantly reduce computation. Guaranteed to converge if all states continue to be selected.&lt;/p&gt;
+&lt;h3 id=&quot;in-place-dynamic-programming&quot;&gt;In-Place Dynamic Programming&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Synchronous value iteration&lt;/strong&gt; stores two copies of value function for all &lt;span class=&quot;math inline&quot;&gt;\(s\)&lt;/span&gt; in &lt;span class=&quot;math inline&quot;&gt;\(\mathcal{S}\)&lt;/span&gt; &lt;span class=&quot;math display&quot;&gt;\[
+\begin{align}
+v_{new}(s) &amp;amp;\leftarrow \max_{a\in{\mathcal{A}}}\left(\mathcal{R}_s^a+
+\gamma\sum_{s&amp;#39;\in{\mathcal{S}}}\mathcal{P}^a_{ss&amp;#39;}v_{old}(s&amp;#39;)
+\right) \\
+v_{old} &amp;amp;\leftarrow v_{new}
+\end{align}
+\]&lt;/span&gt; &lt;strong&gt;In-place value iteration&lt;/strong&gt; only stores one copy of value function for all &lt;span class=&quot;math inline&quot;&gt;\(s\)&lt;/span&gt; in &lt;span class=&quot;math inline&quot;&gt;\(\mathcal{S}\)&lt;/span&gt; &lt;span class=&quot;math display&quot;&gt;\[
+v(s) \leftarrow \max_{a\in\mathcal{A}}\left(
+\mathcal{R}_s^a+\gamma\sum_{s&amp;#39;\in\mathcal{S}}\mathcal{P}_{ss&amp;#39;}^av(s&amp;#39;)
+\right)
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;h3 id=&quot;prioritised-sweeping&quot;&gt;Prioritised Sweeping&lt;/h3&gt;
+&lt;p&gt;Use magnitude of Bellman error to guide state selection, e.g. &lt;span class=&quot;math display&quot;&gt;\[
+\left|
+\max_{a\in\mathcal{A}}
+\left(
+\mathcal{R}_s^a + \gamma\sum_{s&amp;#39;\in\mathcal{S}}\mathcal{P}_{ss&amp;#39;}^av(s&amp;#39;)
+\right) - v(s)
+\right|
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Backup the state with the largest remaining Bellman error&lt;/li&gt;
+&lt;li&gt;Update Bellman error of affected states after each backup&lt;/li&gt;
+&lt;li&gt;Requires knowledge of reverse dynamics (predecessor states)&lt;/li&gt;
+&lt;li&gt;Can be implemented efficiently by maintaining a priority queue&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;real-time-dynamic-programming&quot;&gt;Real-Time Dynamic Programming&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Idea&lt;/strong&gt;: only states that are relevant to agent. Use agent’s experience to guide the selection of states. After each time-step &lt;span class=&quot;math inline&quot;&gt;\(S_t, A_t, R_{t+1}\)&lt;/span&gt;, backup the state &lt;span class=&quot;math inline&quot;&gt;\(S_t\)&lt;/span&gt;: &lt;span class=&quot;math display&quot;&gt;\[
+v(S_t) \leftarrow \max_{a\in\mathcal{A}} \left(
+\mathcal{R}_{S_t}^a + \gamma\sum_{s&amp;#39;\in\mathcal{S}}
+\mathcal{P}_{S_ts&amp;#39;}^av(s&amp;#39;)
+\right)
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;h2 id=&quot;full-width-and-sample-backups&quot;&gt;Full-width and sample backups&lt;/h2&gt;
+&lt;h3 id=&quot;full-width-backups&quot;&gt;Full-Width Backups&lt;/h3&gt;
+&lt;p&gt;DP uses &lt;em&gt;full-width&lt;/em&gt; backups. For each backup (sync or async):&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Every successor state and action is considered&lt;/li&gt;
+&lt;li&gt;Using knowledge of the MDP transitions and reward function&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;DP is effective for medium-sized problems (millions of states). For large problems DP suffers Bellman’s &lt;em&gt;curse of dimensionality&lt;/em&gt; (Number of states &lt;span class=&quot;math inline&quot;&gt;\(n=|\mathcal{S}|\)&lt;/span&gt; grows exponentially with number of state variables). Even one backup can be too expensive.&lt;/p&gt;
+&lt;h3 id=&quot;sample-backups&quot;&gt;Sample Backups&lt;/h3&gt;
+&lt;p&gt;Using sample rewards and sample transitions &lt;span class=&quot;math inline&quot;&gt;\(\left&amp;lt;\mathcal{S,A,R,S&amp;#39;}\right&amp;gt;\)&lt;/span&gt; instead of reward function &lt;span class=&quot;math inline&quot;&gt;\(\mathcal{R}\)&lt;/span&gt; and transition dynamics &lt;span class=&quot;math inline&quot;&gt;\(\mathcal{P}\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Advantages&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Model-free: no advance knowledge of MDP required&lt;/li&gt;
+&lt;li&gt;Breaks the curse of dimensionality through sampling&lt;/li&gt;
+&lt;li&gt;Cost of backup is constant, independent of &lt;span class=&quot;math inline&quot;&gt;\(n=|\mathcal{S}|\)&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
 </description>
 				<pubDate>Tue, 17 May 2016 00:00:00 +0800</pubDate>
 				<link>/reinforcement%20learning/2016/05/17/dynamic-programming.html</link>
