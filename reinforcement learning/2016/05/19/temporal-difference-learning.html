@@ -166,6 +166,34 @@ V(S_t) \leftarrow V(S_t) + \alpha(G_t-V(S_t))
 V(S_t) \leftarrow V(S_t) + \alpha\left(R_{t+1}+\gamma V(S_{t+1})-V(S_t)\right)
 \]</span> <span class="math inline">\(R_{t+1}+\gamma V(S_{t+1})\)</span> is called the <em>TD</em> target.</p>
 <p><span class="math inline">\(\delta_t=R_{t+1}+\gamma V(S_{t+1})-V(S_t)\)</span> is called the <em>TD</em> error.</p>
+<h2 id="biasvariance-trade-off">Bias/Variance Trade-Off</h2>
+<ul>
+<li>Return <span class="math inline">\(G_t=R_{t+1}+\gamma R_{t+2}+...+\gamma^{T-1}R_T\)</span> is <em>unbiased</em> estimate of <span class="math inline">\(v_\pi(S_t)\)</span></li>
+<li>True TD target <span class="math inline">\(R_{t+1}+\gamma v_\pi(S_{t+1})\)</span> is <em>unbiased</em> estimate of <span class="math inline">\(v_\pi(S_t)\)</span></li>
+<li>TD target <span class="math inline">\(R_{t+1}+\gamma V(S_{t+1})\)</span> is <em>biased</em> estimate of <span class="math inline">\(v_\pi(S_t)\)</span></li>
+<li>TD target is much lower variance than the return:
+<ul>
+<li>Return depends on <em>many</em> random actions, transitions, rewards</li>
+<li>TD target depends on <em>one</em> random action, transition, reward</li>
+</ul></li>
+</ul>
+<h2 id="advantages-and-disadvantages-of-mc-vs.td">Advantages and Disadvantages of MC vs. TD</h2>
+<ul>
+<li>MC has high variance, zero bias
+<ul>
+<li>Good convergence properties</li>
+<li>(even with function approximation)</li>
+<li>Not very sensitive to initial value</li>
+<li>Very simple to understand and use</li>
+</ul></li>
+<li>TD has low variance, some bias
+<ul>
+<li>Usually more efficient than MC</li>
+<li>TD(0) converges to <span class="math inline">\(v_\pi(s)\)</span></li>
+<li>(but not always with function approximation)</li>
+<li>More sensitive to initial value</li>
+</ul></li>
+</ul>
 <h2 id="monte-carlo-backup">Monte-Carlo Backup</h2>
 <figure>
 <img src="/assets/images/42.png" alt="" />

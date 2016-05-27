@@ -54,6 +54,34 @@ V(S_t) \leftarrow V(S_t) + \alpha(G_t-V(S_t))
 V(S_t) \leftarrow V(S_t) + \alpha\left(R_{t+1}+\gamma V(S_{t+1})-V(S_t)\right)
 \]&lt;/span&gt; &lt;span class=&quot;math inline&quot;&gt;\(R_{t+1}+\gamma V(S_{t+1})\)&lt;/span&gt; is called the &lt;em&gt;TD&lt;/em&gt; target.&lt;/p&gt;
 &lt;p&gt;&lt;span class=&quot;math inline&quot;&gt;\(\delta_t=R_{t+1}+\gamma V(S_{t+1})-V(S_t)\)&lt;/span&gt; is called the &lt;em&gt;TD&lt;/em&gt; error.&lt;/p&gt;
+&lt;h2 id=&quot;biasvariance-trade-off&quot;&gt;Bias/Variance Trade-Off&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Return &lt;span class=&quot;math inline&quot;&gt;\(G_t=R_{t+1}+\gamma R_{t+2}+...+\gamma^{T-1}R_T\)&lt;/span&gt; is &lt;em&gt;unbiased&lt;/em&gt; estimate of &lt;span class=&quot;math inline&quot;&gt;\(v_\pi(S_t)\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;True TD target &lt;span class=&quot;math inline&quot;&gt;\(R_{t+1}+\gamma v_\pi(S_{t+1})\)&lt;/span&gt; is &lt;em&gt;unbiased&lt;/em&gt; estimate of &lt;span class=&quot;math inline&quot;&gt;\(v_\pi(S_t)\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;TD target &lt;span class=&quot;math inline&quot;&gt;\(R_{t+1}+\gamma V(S_{t+1})\)&lt;/span&gt; is &lt;em&gt;biased&lt;/em&gt; estimate of &lt;span class=&quot;math inline&quot;&gt;\(v_\pi(S_t)\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;TD target is much lower variance than the return:
+&lt;ul&gt;
+&lt;li&gt;Return depends on &lt;em&gt;many&lt;/em&gt; random actions, transitions, rewards&lt;/li&gt;
+&lt;li&gt;TD target depends on &lt;em&gt;one&lt;/em&gt; random action, transition, reward&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;advantages-and-disadvantages-of-mc-vs.td&quot;&gt;Advantages and Disadvantages of MC vs. TD&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;MC has high variance, zero bias
+&lt;ul&gt;
+&lt;li&gt;Good convergence properties&lt;/li&gt;
+&lt;li&gt;(even with function approximation)&lt;/li&gt;
+&lt;li&gt;Not very sensitive to initial value&lt;/li&gt;
+&lt;li&gt;Very simple to understand and use&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;TD has low variance, some bias
+&lt;ul&gt;
+&lt;li&gt;Usually more efficient than MC&lt;/li&gt;
+&lt;li&gt;TD(0) converges to &lt;span class=&quot;math inline&quot;&gt;\(v_\pi(s)\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;(but not always with function approximation)&lt;/li&gt;
+&lt;li&gt;More sensitive to initial value&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2 id=&quot;monte-carlo-backup&quot;&gt;Monte-Carlo Backup&lt;/h2&gt;
 &lt;figure&gt;
 &lt;img src=&quot;/assets/images/42.png&quot; alt=&quot;&quot; /&gt;
