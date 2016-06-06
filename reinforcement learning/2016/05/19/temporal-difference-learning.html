@@ -223,7 +223,24 @@ V(S_t) \leftarrow V(S_t) + \alpha\left(R_{t+1}+\gamma V(S_{t+1})-V(S_t)\right)
 <figure>
 <img src="/assets/images/45.png" alt="" />
 </figure>
-<h2 id="eligibility-traces">Eligibility Traces</h2>
+<h2 id="tdlambda">TD(<span class="math inline">\(\lambda\)</span>)</h2>
+<h3 id="n-step-return"><span class="math inline">\(n\)</span>-step return</h3>
+<p>Define the <span class="math inline">\(n\)</span>-step return: <span class="math display">\[
+G_t^{(n)}=R_{t+1}+\gamma R_{t+2}+...+\gamma^{n-1}R_{t+n}+\gamma^nV(S_{t+n})
+\]</span> <span class="math inline">\(n\)</span>-step temporal-difference learning <span class="math display">\[
+V(S_t) \leftarrow V(S_t)+\alpha\left(G_t^{(n)}-V(S_t)\right)
+\]</span></p>
+<h3 id="averaging-n-step-returns">averaging <span class="math inline">\(n\)</span>-step returns</h3>
+<p>e.g. average the 2-step and 4-step returns <span class="math display">\[
+{1 \over 2}G^{(2)} + {1 \over 2}G^{(4)}
+\]</span></p>
+<h3 id="lambda-return"><span class="math inline">\(\lambda\)</span>-return</h3>
+<p>The <span class="math inline">\(\lambda\)</span>-return <span class="math inline">\(G_t^{\lambda}\)</span> combines all <span class="math inline">\(n\)</span>-step returns <span class="math inline">\(G_t^{(n)}\)</span>. Using weight <span class="math inline">\((1-\lambda)\lambda^{n-1}\)</span>: <span class="math display">\[
+G_t^\lambda=(1-\lambda)\sum_{n=1}^\infty \lambda^{n-1}G_t^{(n)}
+\]</span> Forward-view TD(<span class="math inline">\(\lambda\)</span>) <span class="math display">\[
+V(S_t) \leftarrow V(S_t) + \alpha\left(G_t^\lambda-V(S_t)\right)
+\]</span></p>
+<h3 id="eligibility-traces">Eligibility Traces</h3>
 <figure>
 <img src="/assets/images/46.png" alt="" />
 </figure>
@@ -239,6 +256,13 @@ E_t(s) &amp;= \gamma\lambda E_{t-1}(s) + 1(S_t=s)
 <figure>
 <img src="/assets/images/47.png" alt="" />
 </figure>
+<h3 id="backward-view-tdlambda">Backward view TD(<span class="math inline">\(\lambda\)</span>)</h3>
+<p>Keep an eligibility trace for every state <span class="math inline">\(s\)</span>. Update value <span class="math inline">\(V(s)\)</span> for every state <span class="math inline">\(s\)</span>. In proportion to TD-error <span class="math inline">\(\delta_t\)</span> and eligibility trace <span class="math inline">\(E_t(s)\)</span>: <span class="math display">\[
+\begin{align}
+\delta_t &amp;= R_{t+1}+\gamma V(S_{t+1})-V(S_t) \\
+V(s) &amp;\leftarrow V(s)+\alpha\delta_t E_t(s)
+\end{align}
+\]</span></p>
 
 	  </div>
 
