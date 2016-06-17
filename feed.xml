@@ -7,6 +7,29 @@
 		<atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>Model free Control</title>
+				<description>&lt;p&gt;&lt;strong&gt;Model-free prediction&lt;/strong&gt;: &lt;em&gt;Estimate&lt;/em&gt; the value function of an &lt;em&gt;unknown&lt;/em&gt; MDP.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Model-free Control&lt;/strong&gt;: &lt;em&gt;Optimise&lt;/em&gt; the value function of an &lt;em&gt;unknown&lt;/em&gt; MDP.&lt;/p&gt;
+&lt;h2 id=&quot;on-and-off-policy-learning&quot;&gt;On and Off-Policy Learning&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;On-policy learning
+&lt;ul&gt;
+&lt;li&gt;“Learn on the job”&lt;/li&gt;
+&lt;li&gt;Learn about policy &lt;span class=&quot;math inline&quot;&gt;\(\pi\)&lt;/span&gt; from experience sampled from &lt;span class=&quot;math inline&quot;&gt;\(\pi\)&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Off-policy learning
+&lt;ul&gt;
+&lt;li&gt;“Look over someone’s shoulder”&lt;/li&gt;
+&lt;li&gt;Learn about policy &lt;span class=&quot;math inline&quot;&gt;\(\pi\)&lt;/span&gt; from experience sampled from &lt;span class=&quot;math inline&quot;&gt;\(\mu\)&lt;/span&gt;.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+				<pubDate>Sat, 11 Jun 2016 00:00:00 +0800</pubDate>
+				<link>/reinforcement%20learning/2016/06/11/model-free-control.html</link>
+				<guid isPermaLink="true">/reinforcement%20learning/2016/06/11/model-free-control.html</guid>
+			</item>
+		
+			<item>
 				<title>RL Concepts</title>
 				<description>&lt;p&gt;&lt;strong&gt;backup&lt;/strong&gt;: We &lt;em&gt;back up&lt;/em&gt; the value of the state after each greedy move to the state before the move.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;experience&lt;/strong&gt;: sample sequences of &lt;em&gt;states&lt;/em&gt;, &lt;em&gt;actions&lt;/em&gt;, and &lt;em&gt;rewards&lt;/em&gt; from actual or simulated interaction with an environment.&lt;/p&gt;
@@ -691,61 +714,6 @@ q_*(s,a)=\max_\pi q_\pi(s,a)
 				<pubDate>Fri, 08 Apr 2016 00:00:00 +0800</pubDate>
 				<link>/python/2016/04/08/iterables-iterators-and-generators.html</link>
 				<guid isPermaLink="true">/python/2016/04/08/iterables-iterators-and-generators.html</guid>
-			</item>
-		
-			<item>
-				<title>GloVe</title>
-				<description>&lt;blockquote&gt;
-&lt;p&gt;Glove uses the matrix of word-word co-occurrence to produce the word vector, while word2vec using the local window context.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;The &lt;strong&gt;statistics of word occurrences&lt;/strong&gt; in a corpus is the &lt;strong&gt;primary source&lt;/strong&gt; of information available to all unsupervised methods for &lt;strong&gt;learning word representations&lt;/strong&gt;, and although many such methods now exist, the question still remains as to &lt;strong&gt;how meaning is generated from these statistics&lt;/strong&gt;, and &lt;strong&gt;how the resulting word vectors might represent that meaning&lt;/strong&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;span class=&quot;math inline&quot;&gt;\(X\)&lt;/span&gt; denote the matrix of word-word co-occurrence counts, the entries &lt;span class=&quot;math inline&quot;&gt;\(X_{ij}\)&lt;/span&gt; tabulate the number of times word &lt;span class=&quot;math inline&quot;&gt;\(j\)&lt;/span&gt; occurs in the context of word &lt;span class=&quot;math inline&quot;&gt;\(i\)&lt;/span&gt;. Let &lt;span class=&quot;math inline&quot;&gt;\(X_i=\sum_k X_{ik}\)&lt;/span&gt; be the nubmer of times any word appears in the context of word &lt;span class=&quot;math inline&quot;&gt;\(i\)&lt;/span&gt;. Let &lt;span class=&quot;math inline&quot;&gt;\(P_{ij}=P(j|i)={X_{ij} \over X_i}\)&lt;/span&gt; be the probability that word &lt;span class=&quot;math inline&quot;&gt;\(j\)&lt;/span&gt; appear in the context of word &lt;span class=&quot;math inline&quot;&gt;\(i\)&lt;/span&gt;.&lt;/p&gt;
-&lt;p&gt;We take &lt;span class=&quot;math inline&quot;&gt;\(i=ice\)&lt;/span&gt; and &lt;span class=&quot;math inline&quot;&gt;\(j=steam\)&lt;/span&gt;, for words &lt;span class=&quot;math inline&quot;&gt;\(k\)&lt;/span&gt; related to &lt;span class=&quot;math inline&quot;&gt;\(i\)&lt;/span&gt; but not &lt;span class=&quot;math inline&quot;&gt;\(j\)&lt;/span&gt;, say &lt;span class=&quot;math inline&quot;&gt;\(k=solid\)&lt;/span&gt;, we expect the ratio &lt;span class=&quot;math inline&quot;&gt;\(P_{ik} \over P_{jk}\)&lt;/span&gt; will be large. Similarly, say &lt;span class=&quot;math inline&quot;&gt;\(k=gas\)&lt;/span&gt;, the ratio should be small. For words &lt;span class=&quot;math inline&quot;&gt;\(k\)&lt;/span&gt; like &lt;span class=&quot;math inline&quot;&gt;\(water\)&lt;/span&gt; or &lt;span class=&quot;math inline&quot;&gt;\(fashion\)&lt;/span&gt;, that are either related to both &lt;span class=&quot;math inline&quot;&gt;\(ice\)&lt;/span&gt; and &lt;span class=&quot;math inline&quot;&gt;\(steam\)&lt;/span&gt;, or to neither, the ratio should be close to &lt;strong&gt;one&lt;/strong&gt;.&lt;/p&gt;
-&lt;p&gt;Noting that the ratio &lt;span class=&quot;math inline&quot;&gt;\(P_{ik} \over P_{jk}\)&lt;/span&gt; depends on three words &lt;span class=&quot;math inline&quot;&gt;\(i\)&lt;/span&gt;, &lt;span class=&quot;math inline&quot;&gt;\(j\)&lt;/span&gt; and &lt;span class=&quot;math inline&quot;&gt;\(k\)&lt;/span&gt;, the most general model takes the form: &lt;span class=&quot;math display&quot;&gt;\[
-F(w_i,w_j,\tilde w_k)={P_{ik} \over P_{jk}}\tag{1}
-\]&lt;/span&gt; where &lt;span class=&quot;math inline&quot;&gt;\(w\in\Bbb R^d\)&lt;/span&gt; are word vectors and &lt;span class=&quot;math inline&quot;&gt;\(\tilde w\in\Bbb R^d\)&lt;/span&gt; are separate context word vectors. &lt;span class=&quot;math inline&quot;&gt;\(F\)&lt;/span&gt; may depend on some as-of-yet unspecified parameters, and the number of possibilites for &lt;span class=&quot;math inline&quot;&gt;\(F\)&lt;/span&gt; is vast.&lt;/p&gt;
-&lt;p&gt;Since &lt;strong&gt;vector spaces are inherently linear structures&lt;/strong&gt;, the most natural way to do this is with vector differences. With this aim, we can restrict our consideration to those functions &lt;span class=&quot;math inline&quot;&gt;\(F\)&lt;/span&gt; that depend only on the difference of the two target words, modifying Eqn.(1) to: &lt;span class=&quot;math display&quot;&gt;\[
-F(w_i-w_j,\tilde w_k)={P_{ik}\over P_{jk}}\tag{2}
-\]&lt;/span&gt; note that the arguments of &lt;span class=&quot;math inline&quot;&gt;\(F\)&lt;/span&gt; are vectors while the right-hand side is a scalar. While &lt;span class=&quot;math inline&quot;&gt;\(F\)&lt;/span&gt; could be taken to be a complicated function parameterized by, e.g., a neural network, doing so would obfuscate the linear structure we are trying to capture. To avoid this issue, we can first take the dot product of the arguments: &lt;span class=&quot;math display&quot;&gt;\[
-F((w_i-w_j)^T\tilde w_k)={P_{ik}\over P_{jk}}\tag{3}
-\]&lt;/span&gt; which prevents &lt;span class=&quot;math inline&quot;&gt;\(F\)&lt;/span&gt; from mixing the vector dimensions in undesirable ways.&lt;/p&gt;
-&lt;p&gt;Note that for word-word co-occurrence matrices, the distinction between a word a context word is arbitrary and that we are free to exchange the two roles. To do so consistently, we must not only exchange &lt;span class=&quot;math inline&quot;&gt;\(w\leftrightarrow \tilde w\)&lt;/span&gt; but also &lt;span class=&quot;math inline&quot;&gt;\(X\leftrightarrow X^T\)&lt;/span&gt;. Our final model should be invariant under this relabeling, but Eqn.(3) is not. However, the &lt;strong&gt;symmetry&lt;/strong&gt; can be restored in two steps. First, we require that &lt;span class=&quot;math inline&quot;&gt;\(F\)&lt;/span&gt; be a homomorphism between the group &lt;span class=&quot;math inline&quot;&gt;\((\Bbb R, +)\)&lt;/span&gt; and &lt;span class=&quot;math inline&quot;&gt;\((\Bbb R_{&amp;gt;0}, \times)\)&lt;/span&gt;, i.e., &lt;span class=&quot;math display&quot;&gt;\[
-F((w_i-w_j)^T\tilde w_k)={F(w^T_i\tilde w_k)\over F(w^T_j\tilde w_k)}\tag{4}
-\]&lt;/span&gt; which, by Eqn.(3), is solved by: &lt;span class=&quot;math display&quot;&gt;\[
-F(w^T_i\tilde w_k)=P_{ik}={X_{ik}\over X_i}\tag{5}
-\]&lt;/span&gt; The solution to Eqn.(4) is &lt;span class=&quot;math inline&quot;&gt;\(F=exp\)&lt;/span&gt;:&lt;/p&gt;
-&lt;p&gt;&lt;span class=&quot;math display&quot;&gt;\[
-e^{(w_i-w_j)^T\tilde w_k}={e^{w^T_i\tilde w_k}\over e^{w^T_j\tilde w_k}}
-\]&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;or:&lt;/p&gt;
-&lt;p&gt;&lt;span class=&quot;math display&quot;&gt;\[
-w^T_i\tilde w_k=log(P_{ik})=log(X_{ik})-log(X_i)\tag{6}
-\]&lt;/span&gt; Note that Eqn.(6) would exhibit the exchange symmetry if not for the &lt;span class=&quot;math inline&quot;&gt;\(log(X_i)\)&lt;/span&gt; on the right-hand side. However, this term is independent for &lt;span class=&quot;math inline&quot;&gt;\(k\)&lt;/span&gt; so it can be absorbed into a bias &lt;span class=&quot;math inline&quot;&gt;\(b_i\)&lt;/span&gt; for &lt;span class=&quot;math inline&quot;&gt;\(w_i\)&lt;/span&gt;. Finally, adding an additional bias &lt;span class=&quot;math inline&quot;&gt;\(\tilde b_k\)&lt;/span&gt; for &lt;span class=&quot;math inline&quot;&gt;\(\tilde w_k\)&lt;/span&gt; restores the symmetry: &lt;span class=&quot;math display&quot;&gt;\[
-w^T_i\tilde w_k+b_i+\tilde b_k=log(X_{ik})\tag{7}
-\]&lt;/span&gt; Eqn.(7) is a drastic simplification over Eqn.(1), but it is actually ill-defined since the logarithm diverges whenever its argument is zero. One resolution to this issue is to include an additive shift in the logarithm, &lt;span class=&quot;math inline&quot;&gt;\(log(X_{ik})\rightarrow log(1+X_{ik})\)&lt;/span&gt;, which maintains the sparsity of &lt;span class=&quot;math inline&quot;&gt;\(X\)&lt;/span&gt; while avoiding the divergences.&lt;/p&gt;
-&lt;p&gt;A main drawback to this model is that it weighs all co-occurrences equally, even those that happen rarely or never. Such rare co-occurrences are noisy and carry less information than the more frequent ones —— yet even just the zero entries account for 75-95% of the data in &lt;span class=&quot;math inline&quot;&gt;\(X\)&lt;/span&gt;, depending on the vocabulary size and corpus.&lt;/p&gt;
-&lt;p&gt;They propose a new weighted least squares regression model that addresses these problems. Casting Eqn.(7) as a &lt;strong&gt;least squares problem&lt;/strong&gt; and introducing a weighting function &lt;span class=&quot;math inline&quot;&gt;\(f(X_{ij})\)&lt;/span&gt; into the cost function gives us the model: &lt;span class=&quot;math display&quot;&gt;\[
-J=\sum^V_{i,j=1} f(X_{ij})(w^T_i\tilde w_j+b_i+\tilde b_j-logX_{ij})^2\tag{8}
-\]&lt;/span&gt; where &lt;span class=&quot;math inline&quot;&gt;\(V\)&lt;/span&gt; is the size of the vocabulary. The weighting function should obey the following properties:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;span class=&quot;math inline&quot;&gt;\(f(0)=0\)&lt;/span&gt;. If &lt;span class=&quot;math inline&quot;&gt;\(f\)&lt;/span&gt; is viewed as a continuous function, it should vanish as &lt;span class=&quot;math inline&quot;&gt;\(x\rightarrow 0\)&lt;/span&gt; fast enough that the &lt;span class=&quot;math inline&quot;&gt;\(\lim_{x\to 0}f(x)log^2x\)&lt;/span&gt; is finite.&lt;/li&gt;
-&lt;li&gt;&lt;span class=&quot;math inline&quot;&gt;\(f(x)\)&lt;/span&gt; should be non-decreasing so that rare co-occurrences are not overweighted.&lt;/li&gt;
-&lt;li&gt;&lt;span class=&quot;math inline&quot;&gt;\(f(x)\)&lt;/span&gt; should be relatively small for large values of &lt;span class=&quot;math inline&quot;&gt;\(x\)&lt;/span&gt;, so that frequent co-occurrences are not overweighted.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;span class=&quot;math display&quot;&gt;\[
-f(x)=\begin{cases}
-(x/x_{max})^\alpha &amp;amp; \text{if $x&amp;lt;x_{max}$} \\\\
-1 &amp;amp; \text{otherwise}
-\end{cases}\tag{9}
-\]&lt;/span&gt;&lt;/p&gt;
-&lt;figure&gt;
-&lt;img src=&quot;/assets/images/35.png&quot; alt=&quot;&quot; /&gt;
-&lt;/figure&gt;
-&lt;p&gt;The performance of the model depends weakly on the cutoff, which we fix to &lt;span class=&quot;math inline&quot;&gt;\(x_{max}=100\)&lt;/span&gt; for all our experiments. We found that &lt;span class=&quot;math inline&quot;&gt;\(\alpha=3/4\)&lt;/span&gt; gives a modest improvement over a linear version with &lt;span class=&quot;math inline&quot;&gt;\(\alpha=1\)&lt;/span&gt;. Although we offer only empirical motivation for choosing the value 3/4, it is interesting that a similar fractional power scaling was found to give the best performance in (Mikolove et al., 2013a).&lt;/p&gt;
-</description>
-				<pubDate>Mon, 28 Mar 2016 00:00:00 +0800</pubDate>
-				<link>/foundation/2016/03/28/glove.html</link>
-				<guid isPermaLink="true">/foundation/2016/03/28/glove.html</guid>
 			</item>
 		
 	</channel>

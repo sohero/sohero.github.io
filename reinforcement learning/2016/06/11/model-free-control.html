@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Qiang Brother Notes</title>
+	<title>Model free Control</title>
 	
 	<meta name="author" content="sohero">
 	<!-- Enable responsive viewport -->
@@ -115,215 +115,110 @@
 
 	<div class="col-sm-9 col-sm-offset-3">
 		<div class="page-header">
-  <h1>Qiang Brother Notes </h1>
+  <h1>Model free Control </h1>
 </div>
+	
+<article>
 
-
-
-<article class="home">
-  <h2>
-    <a href="/foundation/2015/11/11/what-are-the-continuous-bag-of-words-cbow-and-skip-gram.html" target="_blank">What are the continuous bag of words(CBOW) and skip-gram</a>
-  </h2>
-  <span class="post-date">
-    2015-11-11 
-  </span>
-    
-    
-    
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/foundation/2015/11/06/derivative-formula.html" target="_blank">求导公式</a>
-  </h2>
-  <span class="post-date">
-    2015-11-06 
-  </span>
-    
-    
-    
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/foundation/2015/10/22/second-derivative-and-hessian-matrix.html" target="_blank">second derivative & Hessian matrix</a>
-  </h2>
-  <span class="post-date">
-    2015-10-22 
-  </span>
-    
-    
-    
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/foundation/2015/10/22/determinant.html" target="_blank">Determinant</a>
-  </h2>
-  <span class="post-date">
-    2015-10-22 
-  </span>
-    
-    
-    
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/lua/2015/09/14/linear-regression-example.html" target="_blank">linear regression example</a>
-  </h2>
-  <span class="post-date">
-    2015-09-14 
-  </span>
-    
-    
-    
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/foundation/2015/09/04/improving-the-way-neural-networks-learn.html" target="_blank">Improving the way neural networks learn</a>
-  </h2>
-  <span class="post-date">
-    2015-09-04 
-  </span>
-    
-    
-    
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/lua/2015/09/03/torch7-tensor-slicing.html" target="_blank">Torch7 Tensor slicing</a>
-  </h2>
-  <span class="post-date">
-    2015-09-03 
-  </span>
-    
-    
-    
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/lua/2015/09/03/brief-overview-of-backward-and-forward.html" target="_blank">Brief overview of backward and forward</a>
-  </h2>
-  <span class="post-date">
-    2015-09-03 
-  </span>
-    
-    
-    
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/foundation/2015/09/02/understanding-the-difficulty-of-training-deep-feedforward-neural-networks.html" target="_blank">Understanding the difficulty of training deep feedforward neural networks</a>
-  </h2>
-  <span class="post-date">
-    2015-09-02 
-  </span>
-    
-    
-    
-
-</article>
-
-
-<article class="home">
-  <h2>
-    <a href="/foundation/2015/08/31/gated-recurrent-units-gru.html" target="_blank">Gated Recurrent Units (GRU)</a>
-  </h2>
-  <span class="post-date">
-    2015-08-31 
-  </span>
-    
-    
-    
-
-</article>
-
-<hr/>
-
-<ul class="pager"> 
-
-  
-  <li class="previous">
-    
-    <a href="/page4">&larr; Newer</a>
-    
-  </li>
-  
-  
-  <li>
-  
-  
-    
-    <a href="/"><span class="page_number">1</span></a>
-    
-  
-  
-  
-    
-    <a href="/page2"><span class="page_number">2</span></a>
-    
-  
-  
-  
-    
-    <a href="/page3"><span class="page_number">3</span></a>
-    
-  
-  
-  
-    
-    <a href="/page4"><span class="page_number">4</span></a>
-    
-  
-  
-  
-    
-    <span class="page_number">5</span>
-    
-  
-  
-  
-    
-    <a href="/page6"><span class="page_number">6</span></a>
-    
-  
-  
-  
-    
-    <a href="/page7"><span class="page_number">7</span></a>
-    
-  
-  
-  </li>
-
-  
-  <li class="next">
-    <a href="/page6">Older &rarr;</a>
-  </li>
-  
-
+	<div class="col-sm-12">
+	 <span class="post-date">
+	 	2016-06-11 
+	 </span>
+	 <div class="article-outline"></div>
+	  <div class="article_body">
+	  <p><strong>Model-free prediction</strong>: <em>Estimate</em> the value function of an <em>unknown</em> MDP.</p>
+<p><strong>Model-free Control</strong>: <em>Optimise</em> the value function of an <em>unknown</em> MDP.</p>
+<h2 id="on-and-off-policy-learning">On and Off-Policy Learning</h2>
+<ul>
+<li>On-policy learning
+<ul>
+<li>“Learn on the job”</li>
+<li>Learn about policy <span class="math inline">\(\pi\)</span> from experience sampled from <span class="math inline">\(\pi\)</span></li>
+</ul></li>
+<li>Off-policy learning
+<ul>
+<li>“Look over someone’s shoulder”</li>
+<li>Learn about policy <span class="math inline">\(\pi\)</span> from experience sampled from <span class="math inline">\(\mu\)</span>.</li>
+</ul></li>
 </ul>
+
+	  </div>
+
+		
+		<ul class="tag_box list-unstyled list-inline">
+		  <li><i class="fa fa-folder-open"></i></li>
+		  
+		  
+			 
+				<li><a href="/categories.html#reinforcement learning-ref">
+					reinforcement learning <span>(6)</span>
+					
+				</a></li>
+			
+		  
+		</ul>
+		  
+
+		
+		<ul class="list-inline">
+		  <li><i class="fa fa-tags"></i></li>
+		  
+		  
+			 
+				<li>
+					<a href="/tags.html#reinforcement learning-ref">
+					reinforcement learning <span>(6)</span>
+					
+					</a>
+				</li>
+			
+		  
+		  
+		</ul>
+		  
+
+		<hr>
+
+		<div>
+      <section class="share col-sm-12">
+        <h4 class="section-title">Share Post</h4>
+        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=Model free Control"
+           onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+          <i class="fa fa-twitter fa-lg"></i>
+          Twitter
+        </a>
+        <a class="btn btn-default btn-sm facebook" href="https://www.facebook.com/sharer/sharer.php"
+           onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+          <i class="fa fa-facebook fa-lg"></i>
+          Facebook
+        </a>
+        <a class="btn btn-default btn-sm gplus"
+           onclick="window.open('https://plus.google.com/share?url='+window.location.href, 'google-plus-share', 'width=490,height=530');return false;">
+          <i class="fa fa-google-plus fa-lg"></i>
+          Google+
+        </a>
+      </section>
+    </div>
+
+    <div class="clearfix"></div>
+
+		<ul class="pager">
+		  
+		  <li class="previous"><a href="/reinforcement%20learning/2016/05/20/rl-concepts.html" title="RL Concepts">&larr; Previous</a></li>
+		  
+		  
+			<li class="next disabled"><a>Next &rarr;</a>
+		  
+		</ul>
+
+		<hr>
+	</div>
+	
+	<div class="col-sm-2 sidebar-2">
+	
+	</div>
+</article>
+<div class="clearfix"></div>
 
 
 
