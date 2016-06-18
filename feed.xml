@@ -33,7 +33,7 @@
 &lt;/ul&gt;
 &lt;p&gt;For example, &lt;span class=&quot;math inline&quot;&gt;\(\epsilon\)&lt;/span&gt;-greedy is GLIE if &lt;span class=&quot;math inline&quot;&gt;\(\epsilon\)&lt;/span&gt; reduces to zero at &lt;span class=&quot;math inline&quot;&gt;\(\epsilon_k={1\over k}\)&lt;/span&gt;.&lt;/p&gt;
 &lt;h2 id=&quot;glie-monte-carlo-control&quot;&gt;GLIE Monte-Carlo Control&lt;/h2&gt;
-&lt;p&gt;Sample &lt;span class=&quot;math inline&quot;&gt;\(k\)&lt;/span&gt;th episode using &lt;span class=&quot;math inline&quot;&gt;\(\pi\)&lt;/span&gt;:&lt;span class=&quot;math inline&quot;&gt;\(\{\mathcal{S_1,A_1,R_2,...,S_T}\sim\pi\}\)&lt;/span&gt;, for each state &lt;span class=&quot;math inline&quot;&gt;\(\mathcal S_t\)&lt;/span&gt; and action &lt;span class=&quot;math inline&quot;&gt;\(\mathcal A_t\)&lt;/span&gt; in the episode &lt;span class=&quot;math display&quot;&gt;\[
+&lt;p&gt;Sample &lt;span class=&quot;math inline&quot;&gt;\(k\)&lt;/span&gt;th episode using &lt;span class=&quot;math inline&quot;&gt;\(\pi\)&lt;/span&gt;:&lt;span class=&quot;math inline&quot;&gt;\(\{\mathcal{S_1,A_1,R_2,...,S_T}\}\sim\pi\)&lt;/span&gt;, for each state &lt;span class=&quot;math inline&quot;&gt;\(\mathcal S_t\)&lt;/span&gt; and action &lt;span class=&quot;math inline&quot;&gt;\(\mathcal A_t\)&lt;/span&gt; in the episode &lt;span class=&quot;math display&quot;&gt;\[
 \begin{align}
 N(\mathcal{S_t,A_t}) &amp;amp;\leftarrow N(\mathcal{S_t,A_t})+1 \\
 Q(\mathcal{S_t,A_t}) &amp;amp;\leftarrow Q(\mathcal{S_t,A_t}) + {1\over N(\mathcal{S_t,A_t})}\left(G_t-Q(\mathcal{S_t,A_t})\right)

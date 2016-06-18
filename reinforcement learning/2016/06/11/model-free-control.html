@@ -151,7 +151,7 @@
 </ul>
 <p>For example, <span class="math inline">\(\epsilon\)</span>-greedy is GLIE if <span class="math inline">\(\epsilon\)</span> reduces to zero at <span class="math inline">\(\epsilon_k={1\over k}\)</span>.</p>
 <h2 id="glie-monte-carlo-control">GLIE Monte-Carlo Control</h2>
-<p>Sample <span class="math inline">\(k\)</span>th episode using <span class="math inline">\(\pi\)</span>:<span class="math inline">\(\{\mathcal{S_1,A_1,R_2,...,S_T}\sim\pi\}\)</span>, for each state <span class="math inline">\(\mathcal S_t\)</span> and action <span class="math inline">\(\mathcal A_t\)</span> in the episode <span class="math display">\[
+<p>Sample <span class="math inline">\(k\)</span>th episode using <span class="math inline">\(\pi\)</span>:<span class="math inline">\(\{\mathcal{S_1,A_1,R_2,...,S_T}\}\sim\pi\)</span>, for each state <span class="math inline">\(\mathcal S_t\)</span> and action <span class="math inline">\(\mathcal A_t\)</span> in the episode <span class="math display">\[
 \begin{align}
 N(\mathcal{S_t,A_t}) &amp;\leftarrow N(\mathcal{S_t,A_t})+1 \\
 Q(\mathcal{S_t,A_t}) &amp;\leftarrow Q(\mathcal{S_t,A_t}) + {1\over N(\mathcal{S_t,A_t})}\left(G_t-Q(\mathcal{S_t,A_t})\right)
