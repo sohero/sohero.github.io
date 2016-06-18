@@ -141,6 +141,28 @@
 <li>Learn about policy <span class="math inline">\(\pi\)</span> from experience sampled from <span class="math inline">\(\mu\)</span>.</li>
 </ul></li>
 </ul>
+<h2 id="glie">GLIE</h2>
+<p><em>Greedy in the Limit with Infinite Exploration</em> (GLIE).</p>
+<ul>
+<li>All state-action pairs are explored infinitely many times, <span class="math inline">\(\lim\limits_{k\to\infty}N_k(s,a)=\infty\)</span></li>
+<li>The policy converges on a greedy policy, <span class="math display">\[
+\lim\limits_{k\to\infty}\pi_k(a|s)=1(a=\mathop{\text{argmax}}\limits_{a&#39;\in\mathcal{A}}Q_k(s,a&#39;))
+\]</span></li>
+</ul>
+<p>For example, <span class="math inline">\(\epsilon\)</span>-greedy is GLIE if <span class="math inline">\(\epsilon\)</span> reduces to zero at <span class="math inline">\(\epsilon_k={1\over k}\)</span>.</p>
+<h2 id="glie-monte-carlo-control">GLIE Monte-Carlo Control</h2>
+<p>Sample <span class="math inline">\(k\)</span>th episode using <span class="math inline">\(\pi\)</span>:<span class="math inline">\(\{\mathcal{S_1,A_1,R_2,...,S_T}\sim\pi\}\)</span>, for each state <span class="math inline">\(\mathcal S_t\)</span> and action <span class="math inline">\(\mathcal A_t\)</span> in the episode <span class="math display">\[
+\begin{align}
+N(\mathcal{S_t,A_t}) &amp;\leftarrow N(\mathcal{S_t,A_t})+1 \\
+Q(\mathcal{S_t,A_t}) &amp;\leftarrow Q(\mathcal{S_t,A_t}) + {1\over N(\mathcal{S_t,A_t})}\left(G_t-Q(\mathcal{S_t,A_t})\right)
+\end{align}
+\]</span></p>
+<p>Improve policy based on new action-value function <span class="math display">\[
+\begin{align}
+\epsilon &amp;\leftarrow {1\over k} \\
+\pi &amp;\leftarrow \epsilon\text{-greedy}(Q)
+\end{align}
+\]</span></p>
 
 	  </div>
 

@@ -23,6 +23,28 @@
 &lt;li&gt;Learn about policy &lt;span class=&quot;math inline&quot;&gt;\(\pi\)&lt;/span&gt; from experience sampled from &lt;span class=&quot;math inline&quot;&gt;\(\mu\)&lt;/span&gt;.&lt;/li&gt;
 &lt;/ul&gt;&lt;/li&gt;
 &lt;/ul&gt;
+&lt;h2 id=&quot;glie&quot;&gt;GLIE&lt;/h2&gt;
+&lt;p&gt;&lt;em&gt;Greedy in the Limit with Infinite Exploration&lt;/em&gt; (GLIE).&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;All state-action pairs are explored infinitely many times, &lt;span class=&quot;math inline&quot;&gt;\(\lim\limits_{k\to\infty}N_k(s,a)=\infty\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;The policy converges on a greedy policy, &lt;span class=&quot;math display&quot;&gt;\[
+\lim\limits_{k\to\infty}\pi_k(a|s)=1(a=\mathop{\text{argmax}}\limits_{a&amp;#39;\in\mathcal{A}}Q_k(s,a&amp;#39;))
+\]&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;For example, &lt;span class=&quot;math inline&quot;&gt;\(\epsilon\)&lt;/span&gt;-greedy is GLIE if &lt;span class=&quot;math inline&quot;&gt;\(\epsilon\)&lt;/span&gt; reduces to zero at &lt;span class=&quot;math inline&quot;&gt;\(\epsilon_k={1\over k}\)&lt;/span&gt;.&lt;/p&gt;
+&lt;h2 id=&quot;glie-monte-carlo-control&quot;&gt;GLIE Monte-Carlo Control&lt;/h2&gt;
+&lt;p&gt;Sample &lt;span class=&quot;math inline&quot;&gt;\(k\)&lt;/span&gt;th episode using &lt;span class=&quot;math inline&quot;&gt;\(\pi\)&lt;/span&gt;:&lt;span class=&quot;math inline&quot;&gt;\(\{\mathcal{S_1,A_1,R_2,...,S_T}\sim\pi\}\)&lt;/span&gt;, for each state &lt;span class=&quot;math inline&quot;&gt;\(\mathcal S_t\)&lt;/span&gt; and action &lt;span class=&quot;math inline&quot;&gt;\(\mathcal A_t\)&lt;/span&gt; in the episode &lt;span class=&quot;math display&quot;&gt;\[
+\begin{align}
+N(\mathcal{S_t,A_t}) &amp;amp;\leftarrow N(\mathcal{S_t,A_t})+1 \\
+Q(\mathcal{S_t,A_t}) &amp;amp;\leftarrow Q(\mathcal{S_t,A_t}) + {1\over N(\mathcal{S_t,A_t})}\left(G_t-Q(\mathcal{S_t,A_t})\right)
+\end{align}
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Improve policy based on new action-value function &lt;span class=&quot;math display&quot;&gt;\[
+\begin{align}
+\epsilon &amp;amp;\leftarrow {1\over k} \\
+\pi &amp;amp;\leftarrow \epsilon\text{-greedy}(Q)
+\end{align}
+\]&lt;/span&gt;&lt;/p&gt;
 </description>
 				<pubDate>Sat, 11 Jun 2016 00:00:00 +0800</pubDate>
 				<link>/reinforcement%20learning/2016/06/11/model-free-control.html</link>
