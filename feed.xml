@@ -45,6 +45,77 @@ Q(\mathcal{S_t,A_t}) &amp;amp;\leftarrow Q(\mathcal{S_t,A_t}) + {1\over N(\mathc
 \pi &amp;amp;\leftarrow \epsilon\text{-greedy}(Q)
 \end{align}
 \]&lt;/span&gt;&lt;/p&gt;
+&lt;h2 id=&quot;saralambda&quot;&gt;Sara(&lt;span class=&quot;math inline&quot;&gt;\(\lambda\)&lt;/span&gt;)&lt;/h2&gt;
+&lt;p&gt;&lt;span class=&quot;math display&quot;&gt;\[
+Q(\mathcal{S,A})\leftarrow Q(\mathcal{S,A})+\alpha(R+\gamma Q(\mathcal{S&amp;#39;,A&amp;#39;})-Q(\mathcal{S,A}))
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;h3 id=&quot;n-step-sarsa&quot;&gt;&lt;span class=&quot;math inline&quot;&gt;\(n\)&lt;/span&gt;-Step Sarsa&lt;/h3&gt;
+&lt;p&gt;Define the &lt;span class=&quot;math inline&quot;&gt;\(n\)&lt;/span&gt;-step &lt;span class=&quot;math inline&quot;&gt;\(Q\)&lt;/span&gt;-return &lt;span class=&quot;math display&quot;&gt;\[
+q_t^{(n)}=R_{t+1}+\gamma R_{t+2}+...+\gamma^{n-1}R_{t+n}+\gamma^nQ(S_{t+n})
+\]&lt;/span&gt; &lt;span class=&quot;math inline&quot;&gt;\(n\)&lt;/span&gt;-step Sarsa updates &lt;span class=&quot;math inline&quot;&gt;\(Q(s,a)\)&lt;/span&gt; towards the &lt;span class=&quot;math inline&quot;&gt;\(n\)&lt;/span&gt;-step &lt;span class=&quot;math inline&quot;&gt;\(Q\)&lt;/span&gt;-return &lt;span class=&quot;math display&quot;&gt;\[
+Q(S_t, A_t)\leftarrow Q(S_t, A_t)+\alpha\left(q_t^{(n)}-Q(S_t,A_t)\right)
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;h3 id=&quot;forward-view-sarsalambda&quot;&gt;Forward View Sarsa(&lt;span class=&quot;math inline&quot;&gt;\(\lambda\)&lt;/span&gt;)&lt;/h3&gt;
+&lt;p&gt;The &lt;span class=&quot;math inline&quot;&gt;\(q^\lambda\)&lt;/span&gt; return combines all &lt;span class=&quot;math inline&quot;&gt;\(n\)&lt;/span&gt;-step &lt;span class=&quot;math inline&quot;&gt;\(Q\)&lt;/span&gt;-returns &lt;span class=&quot;math inline&quot;&gt;\(q_t^{(n)}\)&lt;/span&gt;, using weight &lt;span class=&quot;math inline&quot;&gt;\((1-\lambda)\lambda^{n-1}\)&lt;/span&gt; &lt;span class=&quot;math display&quot;&gt;\[
+q_t^\lambda=(1-\lambda)\sum_{n=1}^\infty \lambda^{n-1}q_t^{(n)}
+\]&lt;/span&gt; Forward-view Sarsa(&lt;span class=&quot;math inline&quot;&gt;\(\lambda\)&lt;/span&gt;) &lt;span class=&quot;math display&quot;&gt;\[
+Q(S_t,A_t)\leftarrow Q(S_t,A_t)+\alpha\left(q_t^\lambda-Q(S_t,A_t)\right)
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;h3 id=&quot;backward-view-sarsalambda&quot;&gt;Backward View Sarsa(&lt;span class=&quot;math inline&quot;&gt;\(\lambda\)&lt;/span&gt;)&lt;/h3&gt;
+&lt;p&gt;Just like TD(&lt;span class=&quot;math inline&quot;&gt;\(\lambda\)&lt;/span&gt;), we use &lt;code&gt;eligibility traces&lt;/code&gt; in an online algorithm. But Sarsa(&lt;span class=&quot;math inline&quot;&gt;\(\lambda\)&lt;/span&gt;) has one eligibility trace for each state-action pair &lt;span class=&quot;math display&quot;&gt;\[
+\begin{align}
+E_0(s,a) &amp;amp;= 0 \\
+E_t(s,a) &amp;amp;= \gamma\lambda E_{t-1}(s,a)+1(S_t=s,A_t=a)
+\end{align}
+\]&lt;/span&gt; &lt;span class=&quot;math inline&quot;&gt;\(Q(s,a)\)&lt;/span&gt; is updated for every state &lt;span class=&quot;math inline&quot;&gt;\(s\)&lt;/span&gt; and action &lt;span class=&quot;math inline&quot;&gt;\(a\)&lt;/span&gt;. Inproportion to TD-error &lt;span class=&quot;math inline&quot;&gt;\(\delta_t\)&lt;/span&gt; and eligibility trace &lt;span class=&quot;math inline&quot;&gt;\(E_t(s,a)\)&lt;/span&gt; &lt;span class=&quot;math display&quot;&gt;\[
+\delta_t = R_{t+1} + \gamma Q(S_{t+1}, A_{t+1})-Q(S_t,A_t)
+\]&lt;/span&gt; &lt;span class=&quot;math display&quot;&gt;\[
+Q(s,a)\leftarrow Q(s,a)+\alpha\delta_t E_t(s,a)
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;h2 id=&quot;off-policy-learning&quot;&gt;Off-Policy Learning&lt;/h2&gt;
+&lt;p&gt;Evaluate target policy &lt;span class=&quot;math inline&quot;&gt;\(\pi(a|s)\)&lt;/span&gt; to compute &lt;span class=&quot;math inline&quot;&gt;\(v_\pi(s)\)&lt;/span&gt; or &lt;span class=&quot;math inline&quot;&gt;\(q_\pi(s,a)\)&lt;/span&gt;, while following behaviour policy &lt;span class=&quot;math inline&quot;&gt;\(\mu(a|s)\)&lt;/span&gt; &lt;span class=&quot;math display&quot;&gt;\[
+\{\mathcal{S_1,A_1,R_2,...,S_t}\}\sim \mu
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;h3 id=&quot;importance-sampling-for-off-policy-monte-carlo&quot;&gt;Importance Sampling for Off-Policy Monte-Carlo&lt;/h3&gt;
+&lt;p&gt;Use returns generated from &lt;span class=&quot;math inline&quot;&gt;\(\mu\)&lt;/span&gt; to evaluate &lt;span class=&quot;math inline&quot;&gt;\(\pi\)&lt;/span&gt;. Weight return &lt;span class=&quot;math inline&quot;&gt;\(G_t\)&lt;/span&gt; according to similarity between policies. Multiply importance sampling corrections along whole episode &lt;span class=&quot;math display&quot;&gt;\[
+G_t^{\pi / \mu}=\frac{\pi(A_t|S_t)}{\mu(A_t|S_t)}
+\frac{\pi(A_{t+1}|S_{t+1})}{\mu(A_{t+1}|S_{t+1})}
+...
+\frac{\pi(A_T|S_T)}{\mu(A_T|S_T)}
+G_t
+\]&lt;/span&gt; Update value towards &lt;em&gt;corrected&lt;/em&gt; return &lt;span class=&quot;math display&quot;&gt;\[
+V(S_t) \leftarrow V(S_t)+\alpha\left(
+\color{red}{G_t^{\pi / \mu}}
+-V(S_t)\right)
+\]&lt;/span&gt; Cannot use if &lt;span class=&quot;math inline&quot;&gt;\(\mu\)&lt;/span&gt; is zero when &lt;span class=&quot;math inline&quot;&gt;\(\pi\)&lt;/span&gt; is non-zero. Importance sampling can dramatically increase variance.&lt;/p&gt;
+&lt;h3 id=&quot;importance-sampling-for-off-policy-td&quot;&gt;Importance Sampling for Off-Policy TD&lt;/h3&gt;
+&lt;p&gt;&lt;span class=&quot;math display&quot;&gt;\[
+V(S_t)\leftarrow V(S_t)+\alpha\left(
+\color{red}{\frac{\pi(A_t|S_t)}{\mu(A_t|S_t)}}
+(R_{t+1}+\gamma V(S_{t+1}))-V(s_t)
+\right)
+\]&lt;/span&gt; Much lower variance than Monte-Carlo importance sampling. Policies only need to be similar over a single step.&lt;/p&gt;
+&lt;h3 id=&quot;q-learning&quot;&gt;Q-Learning&lt;/h3&gt;
+&lt;p&gt;Next action is chosen using behaviour policy &lt;span class=&quot;math inline&quot;&gt;\(A_{t+1}\sim\mu(\cdot |S_t)\)&lt;/span&gt;, but we consider alternative successor action &lt;span class=&quot;math inline&quot;&gt;\(A&amp;#39;\sim\pi(\cdot |S_t)\)&lt;/span&gt;, and update &lt;span class=&quot;math inline&quot;&gt;\(Q(S_t,A_t)\)&lt;/span&gt; towards value of alternative action &lt;span class=&quot;math display&quot;&gt;\[
+Q(S_t,A_t)\leftarrow Q(S_t,A_t)+\alpha\left(
+\color{red}{R_{t+1}+\gamma Q(S_{t+1},A&amp;#39;)}
+-Q(S_t,A_t)
+\right)
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;h3 id=&quot;off-policy-control-with-q-learning&quot;&gt;Off-Policy Control with Q-Learning&lt;/h3&gt;
+&lt;p&gt;We now allow both behaviour and target policies to improve. The target policy &lt;span class=&quot;math inline&quot;&gt;\(\pi\)&lt;/span&gt; is greedy w.r.t. &lt;span class=&quot;math inline&quot;&gt;\(Q(s,a)\)&lt;/span&gt; &lt;span class=&quot;math display&quot;&gt;\[
+\pi(S_{t+1})=\mathop{\text{argmax}} \limits_{a&amp;#39;}Q(S_{t+1},a&amp;#39;)
+\]&lt;/span&gt; The behaviour policy &lt;span class=&quot;math inline&quot;&gt;\(\mu\)&lt;/span&gt; is e.g. &lt;span class=&quot;math inline&quot;&gt;\(\epsilon\)&lt;/span&gt;-greedy w.r.t. &lt;span class=&quot;math inline&quot;&gt;\(Q(s,a)\)&lt;/span&gt;. The Q-learning target then simplifies: &lt;span class=&quot;math display&quot;&gt;\[
+\begin{align}
+R_{t+1} &amp;amp;+ \gamma Q(S_{t+1},A&amp;#39;) \\
+=R_{t+1} &amp;amp;+ \gamma Q(S_{t+1}, \mathop{\text{argmax}} \limits_{a&amp;#39;} Q(S_{t+1},a&amp;#39;)) \\
+=R_{t+1} &amp;amp;+ \max_{a&amp;#39;} \gamma Q(S_{t+1},a&amp;#39;)
+\end{align}
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;h3 id=&quot;q-learning-control-algorithm&quot;&gt;Q-Learning Control Algorithm&lt;/h3&gt;
+&lt;p&gt;&lt;span class=&quot;math display&quot;&gt;\[
+Q(S,A)\leftarrow Q(S,A)+\alpha\left(R+\gamma\max_{a&amp;#39;}Q(S&amp;#39;,a&amp;#39;)-Q(S,A)\right)
+\]&lt;/span&gt;&lt;/p&gt;
 </description>
 				<pubDate>Sat, 11 Jun 2016 00:00:00 +0800</pubDate>
 				<link>/reinforcement%20learning/2016/06/11/model-free-control.html</link>

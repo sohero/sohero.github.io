@@ -163,6 +163,77 @@ Q(\mathcal{S_t,A_t}) &amp;\leftarrow Q(\mathcal{S_t,A_t}) + {1\over N(\mathcal{S
 \pi &amp;\leftarrow \epsilon\text{-greedy}(Q)
 \end{align}
 \]</span></p>
+<h2 id="saralambda">Sara(<span class="math inline">\(\lambda\)</span>)</h2>
+<p><span class="math display">\[
+Q(\mathcal{S,A})\leftarrow Q(\mathcal{S,A})+\alpha(R+\gamma Q(\mathcal{S&#39;,A&#39;})-Q(\mathcal{S,A}))
+\]</span></p>
+<h3 id="n-step-sarsa"><span class="math inline">\(n\)</span>-Step Sarsa</h3>
+<p>Define the <span class="math inline">\(n\)</span>-step <span class="math inline">\(Q\)</span>-return <span class="math display">\[
+q_t^{(n)}=R_{t+1}+\gamma R_{t+2}+...+\gamma^{n-1}R_{t+n}+\gamma^nQ(S_{t+n})
+\]</span> <span class="math inline">\(n\)</span>-step Sarsa updates <span class="math inline">\(Q(s,a)\)</span> towards the <span class="math inline">\(n\)</span>-step <span class="math inline">\(Q\)</span>-return <span class="math display">\[
+Q(S_t, A_t)\leftarrow Q(S_t, A_t)+\alpha\left(q_t^{(n)}-Q(S_t,A_t)\right)
+\]</span></p>
+<h3 id="forward-view-sarsalambda">Forward View Sarsa(<span class="math inline">\(\lambda\)</span>)</h3>
+<p>The <span class="math inline">\(q^\lambda\)</span> return combines all <span class="math inline">\(n\)</span>-step <span class="math inline">\(Q\)</span>-returns <span class="math inline">\(q_t^{(n)}\)</span>, using weight <span class="math inline">\((1-\lambda)\lambda^{n-1}\)</span> <span class="math display">\[
+q_t^\lambda=(1-\lambda)\sum_{n=1}^\infty \lambda^{n-1}q_t^{(n)}
+\]</span> Forward-view Sarsa(<span class="math inline">\(\lambda\)</span>) <span class="math display">\[
+Q(S_t,A_t)\leftarrow Q(S_t,A_t)+\alpha\left(q_t^\lambda-Q(S_t,A_t)\right)
+\]</span></p>
+<h3 id="backward-view-sarsalambda">Backward View Sarsa(<span class="math inline">\(\lambda\)</span>)</h3>
+<p>Just like TD(<span class="math inline">\(\lambda\)</span>), we use <code>eligibility traces</code> in an online algorithm. But Sarsa(<span class="math inline">\(\lambda\)</span>) has one eligibility trace for each state-action pair <span class="math display">\[
+\begin{align}
+E_0(s,a) &amp;= 0 \\
+E_t(s,a) &amp;= \gamma\lambda E_{t-1}(s,a)+1(S_t=s,A_t=a)
+\end{align}
+\]</span> <span class="math inline">\(Q(s,a)\)</span> is updated for every state <span class="math inline">\(s\)</span> and action <span class="math inline">\(a\)</span>. Inproportion to TD-error <span class="math inline">\(\delta_t\)</span> and eligibility trace <span class="math inline">\(E_t(s,a)\)</span> <span class="math display">\[
+\delta_t = R_{t+1} + \gamma Q(S_{t+1}, A_{t+1})-Q(S_t,A_t)
+\]</span> <span class="math display">\[
+Q(s,a)\leftarrow Q(s,a)+\alpha\delta_t E_t(s,a)
+\]</span></p>
+<h2 id="off-policy-learning">Off-Policy Learning</h2>
+<p>Evaluate target policy <span class="math inline">\(\pi(a|s)\)</span> to compute <span class="math inline">\(v_\pi(s)\)</span> or <span class="math inline">\(q_\pi(s,a)\)</span>, while following behaviour policy <span class="math inline">\(\mu(a|s)\)</span> <span class="math display">\[
+\{\mathcal{S_1,A_1,R_2,...,S_t}\}\sim \mu
+\]</span></p>
+<h3 id="importance-sampling-for-off-policy-monte-carlo">Importance Sampling for Off-Policy Monte-Carlo</h3>
+<p>Use returns generated from <span class="math inline">\(\mu\)</span> to evaluate <span class="math inline">\(\pi\)</span>. Weight return <span class="math inline">\(G_t\)</span> according to similarity between policies. Multiply importance sampling corrections along whole episode <span class="math display">\[
+G_t^{\pi / \mu}=\frac{\pi(A_t|S_t)}{\mu(A_t|S_t)}
+\frac{\pi(A_{t+1}|S_{t+1})}{\mu(A_{t+1}|S_{t+1})}
+...
+\frac{\pi(A_T|S_T)}{\mu(A_T|S_T)}
+G_t
+\]</span> Update value towards <em>corrected</em> return <span class="math display">\[
+V(S_t) \leftarrow V(S_t)+\alpha\left(
+\color{red}{G_t^{\pi / \mu}}
+-V(S_t)\right)
+\]</span> Cannot use if <span class="math inline">\(\mu\)</span> is zero when <span class="math inline">\(\pi\)</span> is non-zero. Importance sampling can dramatically increase variance.</p>
+<h3 id="importance-sampling-for-off-policy-td">Importance Sampling for Off-Policy TD</h3>
+<p><span class="math display">\[
+V(S_t)\leftarrow V(S_t)+\alpha\left(
+\color{red}{\frac{\pi(A_t|S_t)}{\mu(A_t|S_t)}}
+(R_{t+1}+\gamma V(S_{t+1}))-V(s_t)
+\right)
+\]</span> Much lower variance than Monte-Carlo importance sampling. Policies only need to be similar over a single step.</p>
+<h3 id="q-learning">Q-Learning</h3>
+<p>Next action is chosen using behaviour policy <span class="math inline">\(A_{t+1}\sim\mu(\cdot |S_t)\)</span>, but we consider alternative successor action <span class="math inline">\(A&#39;\sim\pi(\cdot |S_t)\)</span>, and update <span class="math inline">\(Q(S_t,A_t)\)</span> towards value of alternative action <span class="math display">\[
+Q(S_t,A_t)\leftarrow Q(S_t,A_t)+\alpha\left(
+\color{red}{R_{t+1}+\gamma Q(S_{t+1},A&#39;)}
+-Q(S_t,A_t)
+\right)
+\]</span></p>
+<h3 id="off-policy-control-with-q-learning">Off-Policy Control with Q-Learning</h3>
+<p>We now allow both behaviour and target policies to improve. The target policy <span class="math inline">\(\pi\)</span> is greedy w.r.t. <span class="math inline">\(Q(s,a)\)</span> <span class="math display">\[
+\pi(S_{t+1})=\mathop{\text{argmax}} \limits_{a&#39;}Q(S_{t+1},a&#39;)
+\]</span> The behaviour policy <span class="math inline">\(\mu\)</span> is e.g. <span class="math inline">\(\epsilon\)</span>-greedy w.r.t. <span class="math inline">\(Q(s,a)\)</span>. The Q-learning target then simplifies: <span class="math display">\[
+\begin{align}
+R_{t+1} &amp;+ \gamma Q(S_{t+1},A&#39;) \\
+=R_{t+1} &amp;+ \gamma Q(S_{t+1}, \mathop{\text{argmax}} \limits_{a&#39;} Q(S_{t+1},a&#39;)) \\
+=R_{t+1} &amp;+ \max_{a&#39;} \gamma Q(S_{t+1},a&#39;)
+\end{align}
+\]</span></p>
+<h3 id="q-learning-control-algorithm">Q-Learning Control Algorithm</h3>
+<p><span class="math display">\[
+Q(S,A)\leftarrow Q(S,A)+\alpha\left(R+\gamma\max_{a&#39;}Q(S&#39;,a&#39;)-Q(S,A)\right)
+\]</span></p>
 
 	  </div>
 
