@@ -65,6 +65,21 @@ q_\pi(S,A)-\hat q(S,A,\mathbf w)
 \right)^2
 \right]
 \]&lt;/span&gt;&lt;/p&gt;
+&lt;h3 id=&quot;convergence-of-prediction-algorithms&quot;&gt;Convergence of Prediction Algorithms&lt;/h3&gt;
+&lt;figure&gt;
+&lt;img src=&quot;/assets/images/49.png&quot; alt=&quot;&quot; /&gt;
+&lt;/figure&gt;
+&lt;h3 id=&quot;gradient-temporal-difference-learning&quot;&gt;Gradient Temporal-Difference Learning&lt;/h3&gt;
+&lt;p&gt;TD does not follow the gradient of &lt;em&gt;any&lt;/em&gt; objective function, this is why TD can diverge when off-policy or using non-linear function approximation.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Gradient TD&lt;/code&gt; follows true gradient of projected Bellman error&lt;/p&gt;
+&lt;figure&gt;
+&lt;img src=&quot;/assets/images/50.png&quot; alt=&quot;&quot; /&gt;
+&lt;/figure&gt;
+&lt;h3 id=&quot;convergence-of-control-algorithms&quot;&gt;Convergence of Control Algorithms&lt;/h3&gt;
+&lt;figure&gt;
+&lt;img src=&quot;/assets/images/51.png&quot; alt=&quot;&quot; /&gt;
+&lt;/figure&gt;
+&lt;h2 id=&quot;batch-reinforcement-learning&quot;&gt;Batch Reinforcement Learning&lt;/h2&gt;
 </description>
 				<pubDate>Sun, 19 Jun 2016 00:00:00 +0800</pubDate>
 				<link>/reinforcement%20learning/2016/06/19/value-function-approximation.html</link>
