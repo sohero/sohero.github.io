@@ -158,6 +158,31 @@ v_\pi(S)- \mathbf x(S)^T \mathbf w
 \right)^2
 \right]
 \]</span></p>
+<h3 id="incremental-prediction-algorithms">Incremental Prediction Algorithms</h3>
+<p>In practice, we substitute a <em>target</em> for <span class="math inline">\(v_\pi(s)\)</span>. For MC, the target is the return <span class="math inline">\(G_t\)</span> <span class="math display">\[
+\Delta\mathbf w=\alpha(\color{red}{G_t}-\hat v(S_t,\mathbf w))
+\nabla_{\mathbf w}\hat v(S_t,\mathbf w)
+\]</span> For TD(0) the target is the TD target <span class="math inline">\(R_{t+1}+\gamma\hat v(S_{t+1},\mathbf w)\)</span> <span class="math display">\[
+\Delta\mathbf w=\alpha
+(\color{red}{R_{t+1}+\gamma\hat v(S_{t+1},\mathbf w)}-\hat v(S_t,\mathbf w))
+\nabla_{\mathbf w}\hat v(S_t,\mathbf w)
+\]</span> For TD(<span class="math inline">\(\lambda\)</span>), the target is the <span class="math inline">\(\lambda\)</span>-return <span class="math inline">\(G_t^\lambda\)</span> <span class="math display">\[
+\Delta\mathbf w=\alpha(\color{red}{G_t^\lambda}-\hat v(S_t,\mathbf w))
+\nabla_{\mathbf w}\hat v(S_t,\mathbf w)
+\]</span></p>
+<blockquote>
+<p>Monte-Carlo evaluation converges to a local optimum, even when using non-linear value function approximation. Linear TD(0) converges (close) to global optimum.</p>
+</blockquote>
+<h3 id="action-value-function-approximation">Action-Value Function Approximation</h3>
+<p>Approximate the action-value function <span class="math display">\[
+\hat q(S,A,\mathbf w) \approx q_\pi(S,A)
+\]</span> Minimise mean-squared error between approximate action-value fn <span class="math inline">\(\hat q(S,A,\mathbf w)\)</span> and true action-value fn <span class="math inline">\(q_\pi(S,A)\)</span> <span class="math display">\[
+J(\mathbf w)=\Bbb E_\pi\left[
+\left(
+q_\pi(S,A)-\hat q(S,A,\mathbf w)
+\right)^2
+\right]
+\]</span></p>
 
 	  </div>
 

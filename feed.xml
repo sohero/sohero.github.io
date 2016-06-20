@@ -40,6 +40,31 @@ v_\pi(S)- \mathbf x(S)^T \mathbf w
 \right)^2
 \right]
 \]&lt;/span&gt;&lt;/p&gt;
+&lt;h3 id=&quot;incremental-prediction-algorithms&quot;&gt;Incremental Prediction Algorithms&lt;/h3&gt;
+&lt;p&gt;In practice, we substitute a &lt;em&gt;target&lt;/em&gt; for &lt;span class=&quot;math inline&quot;&gt;\(v_\pi(s)\)&lt;/span&gt;. For MC, the target is the return &lt;span class=&quot;math inline&quot;&gt;\(G_t\)&lt;/span&gt; &lt;span class=&quot;math display&quot;&gt;\[
+\Delta\mathbf w=\alpha(\color{red}{G_t}-\hat v(S_t,\mathbf w))
+\nabla_{\mathbf w}\hat v(S_t,\mathbf w)
+\]&lt;/span&gt; For TD(0) the target is the TD target &lt;span class=&quot;math inline&quot;&gt;\(R_{t+1}+\gamma\hat v(S_{t+1},\mathbf w)\)&lt;/span&gt; &lt;span class=&quot;math display&quot;&gt;\[
+\Delta\mathbf w=\alpha
+(\color{red}{R_{t+1}+\gamma\hat v(S_{t+1},\mathbf w)}-\hat v(S_t,\mathbf w))
+\nabla_{\mathbf w}\hat v(S_t,\mathbf w)
+\]&lt;/span&gt; For TD(&lt;span class=&quot;math inline&quot;&gt;\(\lambda\)&lt;/span&gt;), the target is the &lt;span class=&quot;math inline&quot;&gt;\(\lambda\)&lt;/span&gt;-return &lt;span class=&quot;math inline&quot;&gt;\(G_t^\lambda\)&lt;/span&gt; &lt;span class=&quot;math display&quot;&gt;\[
+\Delta\mathbf w=\alpha(\color{red}{G_t^\lambda}-\hat v(S_t,\mathbf w))
+\nabla_{\mathbf w}\hat v(S_t,\mathbf w)
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Monte-Carlo evaluation converges to a local optimum, even when using non-linear value function approximation. Linear TD(0) converges (close) to global optimum.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&quot;action-value-function-approximation&quot;&gt;Action-Value Function Approximation&lt;/h3&gt;
+&lt;p&gt;Approximate the action-value function &lt;span class=&quot;math display&quot;&gt;\[
+\hat q(S,A,\mathbf w) \approx q_\pi(S,A)
+\]&lt;/span&gt; Minimise mean-squared error between approximate action-value fn &lt;span class=&quot;math inline&quot;&gt;\(\hat q(S,A,\mathbf w)\)&lt;/span&gt; and true action-value fn &lt;span class=&quot;math inline&quot;&gt;\(q_\pi(S,A)\)&lt;/span&gt; &lt;span class=&quot;math display&quot;&gt;\[
+J(\mathbf w)=\Bbb E_\pi\left[
+\left(
+q_\pi(S,A)-\hat q(S,A,\mathbf w)
+\right)^2
+\right]
+\]&lt;/span&gt;&lt;/p&gt;
 </description>
 				<pubDate>Sun, 19 Jun 2016 00:00:00 +0800</pubDate>
 				<link>/reinforcement%20learning/2016/06/19/value-function-approximation.html</link>
