@@ -8,15 +8,35 @@
 		
 			<item>
 				<title>Value Function Approximation</title>
-				<description>&lt;h2 id=&quot;types-of-value-function-approximation&quot;&gt;Types of Value Function Approximation&lt;/h2&gt;
+				<description>&lt;h2 id=&quot;incremental-methods&quot;&gt;Incremental Methods&lt;/h2&gt;
+&lt;h3 id=&quot;types-of-value-function-approximation&quot;&gt;Types of Value Function Approximation&lt;/h3&gt;
 &lt;figure&gt;
 &lt;img src=&quot;/assets/images/48.png&quot; alt=&quot;&quot; /&gt;
 &lt;/figure&gt;
-&lt;h2 id=&quot;value-function-approx.-by-stochastic-gradient-descent&quot;&gt;Value Function Approx. By Stochastic Gradient Descent&lt;/h2&gt;
+&lt;h3 id=&quot;value-function-approx.-by-stochastic-gradient-descent&quot;&gt;Value Function Approx. By Stochastic Gradient Descent&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;Goal&lt;/strong&gt;: find parameter vector &lt;span class=&quot;math inline&quot;&gt;\(\mathbf w\)&lt;/span&gt; minimising mean-squared error between approximate value fn &lt;span class=&quot;math inline&quot;&gt;\(\hat v(s,\mathbf w)\)&lt;/span&gt; and true value fn &lt;span class=&quot;math inline&quot;&gt;\(v_\pi(s)\)&lt;/span&gt; &lt;span class=&quot;math display&quot;&gt;\[
 J(\mathbf w)=\mathbb E_\pi\left[
 \left(
 v_\pi(S)-\hat v(S,\mathbf w)
+\right)^2
+\right]
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;h3 id=&quot;feature-vectors&quot;&gt;Feature Vectors&lt;/h3&gt;
+&lt;p&gt;Represent state by a &lt;em&gt;feature vector&lt;/em&gt; &lt;span class=&quot;math display&quot;&gt;\[
+\mathbf x(S)=\begin{bmatrix}
+x_1(S) \\
+\vdots \\
+x_n(S)
+\end{bmatrix}
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;h3 id=&quot;linear-value-function-approximation&quot;&gt;Linear Value Function Approximation&lt;/h3&gt;
+&lt;p&gt;Represent value function by a linear combination of features &lt;span class=&quot;math display&quot;&gt;\[
+\hat v(S,\mathbf w)=\mathbf x(S)^T \mathbf w
+=\sum_{j=1}^n \mathbf x_j(S)\mathbf w_j
+\]&lt;/span&gt; Objective function is quadratic in parameters &lt;span class=&quot;math inline&quot;&gt;\(\mathbf w\)&lt;/span&gt; &lt;span class=&quot;math display&quot;&gt;\[
+J(\mathbf w)=\mathbb E_\pi\left[
+\left(
+v_\pi(S)- \mathbf x(S)^T \mathbf w
 \right)^2
 \right]
 \]&lt;/span&gt;&lt;/p&gt;

@@ -126,15 +126,35 @@
 	 </span>
 	 <div class="article-outline"></div>
 	  <div class="article_body">
-	  <h2 id="types-of-value-function-approximation">Types of Value Function Approximation</h2>
+	  <h2 id="incremental-methods">Incremental Methods</h2>
+<h3 id="types-of-value-function-approximation">Types of Value Function Approximation</h3>
 <figure>
 <img src="/assets/images/48.png" alt="" />
 </figure>
-<h2 id="value-function-approx.-by-stochastic-gradient-descent">Value Function Approx. By Stochastic Gradient Descent</h2>
+<h3 id="value-function-approx.-by-stochastic-gradient-descent">Value Function Approx. By Stochastic Gradient Descent</h3>
 <p><strong>Goal</strong>: find parameter vector <span class="math inline">\(\mathbf w\)</span> minimising mean-squared error between approximate value fn <span class="math inline">\(\hat v(s,\mathbf w)\)</span> and true value fn <span class="math inline">\(v_\pi(s)\)</span> <span class="math display">\[
 J(\mathbf w)=\mathbb E_\pi\left[
 \left(
 v_\pi(S)-\hat v(S,\mathbf w)
+\right)^2
+\right]
+\]</span></p>
+<h3 id="feature-vectors">Feature Vectors</h3>
+<p>Represent state by a <em>feature vector</em> <span class="math display">\[
+\mathbf x(S)=\begin{bmatrix}
+x_1(S) \\
+\vdots \\
+x_n(S)
+\end{bmatrix}
+\]</span></p>
+<h3 id="linear-value-function-approximation">Linear Value Function Approximation</h3>
+<p>Represent value function by a linear combination of features <span class="math display">\[
+\hat v(S,\mathbf w)=\mathbf x(S)^T \mathbf w
+=\sum_{j=1}^n \mathbf x_j(S)\mathbf w_j
+\]</span> Objective function is quadratic in parameters <span class="math inline">\(\mathbf w\)</span> <span class="math display">\[
+J(\mathbf w)=\mathbb E_\pi\left[
+\left(
+v_\pi(S)- \mathbf x(S)^T \mathbf w
 \right)^2
 \right]
 \]</span></p>
