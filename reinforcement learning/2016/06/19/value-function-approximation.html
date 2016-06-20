@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Monte-Carlo Reinforcement Learning</title>
+	<title>Value Function Approximation</title>
 	
 	<meta name="author" content="sohero">
 	<!-- Enable responsive viewport -->
@@ -115,46 +115,28 @@
 
 	<div class="col-sm-9 col-sm-offset-3">
 		<div class="page-header">
-  <h1>Monte-Carlo Reinforcement Learning </h1>
+  <h1>Value Function Approximation </h1>
 </div>
 	
 <article>
 
 	<div class="col-sm-12">
 	 <span class="post-date">
-	 	2016-05-19 
+	 	2016-06-19 
 	 </span>
 	 <div class="article-outline"></div>
 	  <div class="article_body">
-	  <ul>
-<li>MC methods learn directly from episodes of experience</li>
-<li>MC is <em>model-free</em>: no knowledge of MDP transitions / rewards</li>
-<li>MC learns from <em>complete</em> episodes: no bootstrapping</li>
-<li>MC uses the simplest possible idea: value = mean return</li>
-<li>Caveat: can only apply MC to <em>episodic</em> MDPs. All episodes must terminate.</li>
-</ul>
-<h2 id="monte-carlo-policy-evaluation">Monte-Carlo Policy Evaluation</h2>
-<p><strong>Goal</strong>: learn <span class="math inline">\(v_\pi\)</span> from episodes of experience under policy <span class="math inline">\(\pi\)</span>.</p>
-<p>Monte-Carlo policy evaluation uses <code>empirical mean return</code> instead of <em>expected return</em>.</p>
-<h2 id="incremental-mean">Incremental Mean</h2>
-<p>The mean <span class="math inline">\(\mu_1,\mu_2,...\)</span> of a sequence <span class="math inline">\(x_1,x_2,...\)</span> can be computed incrementally, <span class="math display">\[
-\begin{align}
-\mu_k &amp;= {1 \over k}\sum_{j=1}^k x_j \\
-&amp;= {1 \over k}\left(x_k+\sum_{j=1}^{k-1} x_j\right) \\
-&amp;= {1 \over k}\left(x_k+(k-1)\mu_{k-1} \right) \\
-&amp;= \mu_{k-1} + {1 \over k}(x_k - \mu_{k-1})
-\end{align}
-\]</span></p>
-<h2 id="incremental-monte-carlo-updates">Incremental Monte-Carlo Updates</h2>
-<p>Update <span class="math inline">\(V(s)\)</span> incrementally after episode <span class="math inline">\(S_1,A_1,R_2,...,S_T\)</span>.</p>
-<p>For each state <span class="math inline">\(S_t\)</span> with return <span class="math inline">\(G_t\)</span> <span class="math display">\[
-\begin{align}
-N(S_t) &amp;\leftarrow N(S_t) + 1 \\
-V(S_t) &amp;\leftarrow V(S_t) + {1 \over N(S_t)}(G_t-V(S_t))
-\end{align}
-\]</span></p>
-<p>In non-stationary problems, it can be useful to track a running mean, i.e. forget old episodes. <span class="math display">\[
-V(S_t) \leftarrow V(S_t) + \alpha(G_t-V(S_t))
+	  <h2 id="types-of-value-function-approximation">Types of Value Function Approximation</h2>
+<figure>
+<img src="/assets/images/48.png" alt="" />
+</figure>
+<h2 id="value-function-approx.-by-stochastic-gradient-descent">Value Function Approx. By Stochastic Gradient Descent</h2>
+<p><strong>Goal</strong>: find parameter vector <span class="math inline">\(\mathbf w\)</span> minimising mean-squared error between approximate value fn <span class="math inline">\(\hat v(s,\mathbf w)\)</span> and true value fn <span class="math inline">\(v_\pi(s)\)</span> <span class="math display">\[
+J(\mathbf w)=\mathbb E_\pi\left[
+\left(
+v_\pi(S)-\hat v(S,\mathbf w)
+\right)^2
+\right]
 \]</span></p>
 
 	  </div>
@@ -197,7 +179,7 @@ V(S_t) \leftarrow V(S_t) + \alpha(G_t-V(S_t))
 		<div>
       <section class="share col-sm-12">
         <h4 class="section-title">Share Post</h4>
-        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=Monte-Carlo Reinforcement Learning"
+        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=Value Function Approximation"
            onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
           <i class="fa fa-twitter fa-lg"></i>
           Twitter
@@ -219,10 +201,10 @@ V(S_t) \leftarrow V(S_t) + \alpha(G_t-V(S_t))
 
 		<ul class="pager">
 		  
-		  <li class="previous"><a href="/reinforcement%20learning/2016/05/17/dynamic-programming.html" title="Dynamic Programming">&larr; Previous</a></li>
+		  <li class="previous"><a href="/reinforcement%20learning/2016/06/11/model-free-control.html" title="Model free Control">&larr; Previous</a></li>
 		  
 		  
-		  <li class="next"><a href="/reinforcement%20learning/2016/05/19/temporal-difference-learning.html" title="Temporal-Difference Learning">Next &rarr;</a></li>
+			<li class="next disabled"><a>Next &rarr;</a>
 		  
 		</ul>
 

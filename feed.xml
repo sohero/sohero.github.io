@@ -7,6 +7,26 @@
 		<atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>Value Function Approximation</title>
+				<description>&lt;h2 id=&quot;types-of-value-function-approximation&quot;&gt;Types of Value Function Approximation&lt;/h2&gt;
+&lt;figure&gt;
+&lt;img src=&quot;/assets/images/48.png&quot; alt=&quot;&quot; /&gt;
+&lt;/figure&gt;
+&lt;h2 id=&quot;value-function-approx.-by-stochastic-gradient-descent&quot;&gt;Value Function Approx. By Stochastic Gradient Descent&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Goal&lt;/strong&gt;: find parameter vector &lt;span class=&quot;math inline&quot;&gt;\(\mathbf w\)&lt;/span&gt; minimising mean-squared error between approximate value fn &lt;span class=&quot;math inline&quot;&gt;\(\hat v(s,\mathbf w)\)&lt;/span&gt; and true value fn &lt;span class=&quot;math inline&quot;&gt;\(v_\pi(s)\)&lt;/span&gt; &lt;span class=&quot;math display&quot;&gt;\[
+J(\mathbf w)=\mathbb E_\pi\left[
+\left(
+v_\pi(S)-\hat v(S,\mathbf w)
+\right)^2
+\right]
+\]&lt;/span&gt;&lt;/p&gt;
+</description>
+				<pubDate>Sun, 19 Jun 2016 00:00:00 +0800</pubDate>
+				<link>/reinforcement%20learning/2016/06/19/value-function-approximation.html</link>
+				<guid isPermaLink="true">/reinforcement%20learning/2016/06/19/value-function-approximation.html</guid>
+			</item>
+		
+			<item>
 				<title>Model free Control</title>
 				<description>&lt;p&gt;&lt;strong&gt;Model-free prediction&lt;/strong&gt;: &lt;em&gt;Estimate&lt;/em&gt; the value function of an &lt;em&gt;unknown&lt;/em&gt; MDP.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Model-free Control&lt;/strong&gt;: &lt;em&gt;Optimise&lt;/em&gt; the value function of an &lt;em&gt;unknown&lt;/em&gt; MDP.&lt;/p&gt;
@@ -752,61 +772,6 @@ q_*(s,a)=\max_\pi q_\pi(s,a)
 				<pubDate>Mon, 11 Apr 2016 00:00:00 +0800</pubDate>
 				<link>/deep%20learning/tricks/2016/04/11/introduction-to-debugging-neural-networks.html</link>
 				<guid isPermaLink="true">/deep%20learning/tricks/2016/04/11/introduction-to-debugging-neural-networks.html</guid>
-			</item>
-		
-			<item>
-				<title>Iterables, Iterators and Generators</title>
-				<description>&lt;h2 id=&quot;iterators&quot;&gt;Iterators&lt;/h2&gt;
-&lt;p&gt;Iterators are iterables with some kind of ‘position’ state and a &lt;code&gt;.__next__()&lt;/code&gt;method. The &lt;code&gt;.__next__()&lt;/code&gt; method may be called to produce the next item and update the internal state.&lt;/p&gt;
-&lt;p&gt;Iterables are objects that produce an iterator when they are passed to the &lt;code&gt;iter()&lt;/code&gt; builtin.&lt;/p&gt;
-&lt;figure&gt;
-&lt;img src=&quot;/assets/images/36.png&quot; alt=&quot;&quot; /&gt;
-&lt;/figure&gt;
-&lt;p&gt;Calling &lt;code&gt;iter()&lt;/code&gt; on our “classic” iterable object produces a plain iterator instance&lt;/p&gt;
-&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;i &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bu&quot;&gt;iter&lt;/span&gt;(lucky)
-&lt;span class=&quot;op&quot;&gt;&amp;lt;&lt;/span&gt;iterator at &lt;span class=&quot;bn&quot;&gt;0x288cc10&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3 id=&quot;a-better-iterable-class&quot;&gt;A better iterable class&lt;/h3&gt;
-&lt;p&gt;You can choose the iterator that will be returned by &lt;code&gt;iter()&lt;/code&gt; by defining your own &lt;code&gt;.__iter__()&lt;/code&gt; method:&lt;/p&gt;
-&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;&lt;span class=&quot;kw&quot;&gt;class&lt;/span&gt; Countdown(&lt;span class=&quot;bu&quot;&gt;object&lt;/span&gt;):
-    &lt;span class=&quot;kw&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;fu&quot;&gt;__iter__&lt;/span&gt;(&lt;span class=&quot;va&quot;&gt;self&lt;/span&gt;): &lt;span class=&quot;co&quot;&gt;# must return an iterator!&lt;/span&gt;
-        &lt;span class=&quot;cf&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;bu&quot;&gt;iter&lt;/span&gt;([&lt;span class=&quot;dv&quot;&gt;5&lt;/span&gt;, &lt;span class=&quot;dv&quot;&gt;4&lt;/span&gt;, &lt;span class=&quot;dv&quot;&gt;3&lt;/span&gt;, &lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt;, &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;, &lt;span class=&quot;st&quot;&gt;&amp;#39;launch&amp;#39;&lt;/span&gt;])&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3 id=&quot;iterators-the-hard-way&quot;&gt;Iterators the hard way&lt;/h3&gt;
-&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;&lt;span class=&quot;kw&quot;&gt;class&lt;/span&gt; CountdownIterator(&lt;span class=&quot;bu&quot;&gt;object&lt;/span&gt;):
-    &lt;span class=&quot;kw&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;fu&quot;&gt;__init__&lt;/span&gt;(&lt;span class=&quot;va&quot;&gt;self&lt;/span&gt;):
-        &lt;span class=&quot;va&quot;&gt;self&lt;/span&gt;._remaining &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; [&lt;span class=&quot;dv&quot;&gt;5&lt;/span&gt;, &lt;span class=&quot;dv&quot;&gt;4&lt;/span&gt;, &lt;span class=&quot;dv&quot;&gt;3&lt;/span&gt;, &lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt;, &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;, &lt;span class=&quot;st&quot;&gt;&amp;#39;launch&amp;#39;&lt;/span&gt;]
-
-    &lt;span class=&quot;kw&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;fu&quot;&gt;__iter__&lt;/span&gt;(&lt;span class=&quot;va&quot;&gt;self&lt;/span&gt;):
-        &lt;span class=&quot;cf&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;va&quot;&gt;self&lt;/span&gt;
-
-    &lt;span class=&quot;kw&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;fu&quot;&gt;__next__&lt;/span&gt;(&lt;span class=&quot;va&quot;&gt;self&lt;/span&gt;):
-        &lt;span class=&quot;cf&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;op&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;va&quot;&gt;self&lt;/span&gt;._remaining:
-            &lt;span class=&quot;cf&quot;&gt;raise&lt;/span&gt; &lt;span class=&quot;pp&quot;&gt;StopIteration&lt;/span&gt;
-        &lt;span class=&quot;cf&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;va&quot;&gt;self&lt;/span&gt;._remaining.pop(&lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt;)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2 id=&quot;generators&quot;&gt;Generators&lt;/h2&gt;
-&lt;p&gt;A generator function is a simpler way to create an iterator.&lt;/p&gt;
-&lt;p&gt;Generator functions let you use local variables and the position of the program counter as state for a generator object. A new generator object is created and returned each time you call a generator function. The generator object is an iterator.&lt;/p&gt;
-&lt;figure&gt;
-&lt;img src=&quot;/assets/images/37.png&quot; alt=&quot;&quot; /&gt;
-&lt;/figure&gt;
-&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;&lt;span class=&quot;kw&quot;&gt;def&lt;/span&gt; countdown_generator():
-    &lt;span class=&quot;cf&quot;&gt;yield&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;5&lt;/span&gt;
-    &lt;span class=&quot;cf&quot;&gt;yield&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;4&lt;/span&gt;
-    &lt;span class=&quot;cf&quot;&gt;yield&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;3&lt;/span&gt;
-    &lt;span class=&quot;cf&quot;&gt;yield&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt;
-    &lt;span class=&quot;cf&quot;&gt;yield&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;
-    &lt;span class=&quot;cf&quot;&gt;yield&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;launch&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;The &lt;code&gt;.__iter__()&lt;/code&gt; method of our class can be written as a generator function:&lt;/p&gt;
-&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;&lt;span class=&quot;kw&quot;&gt;class&lt;/span&gt; Countdown(&lt;span class=&quot;bu&quot;&gt;object&lt;/span&gt;):
-    &lt;span class=&quot;kw&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;fu&quot;&gt;__iter__&lt;/span&gt;(&lt;span class=&quot;va&quot;&gt;self&lt;/span&gt;):
-        &lt;span class=&quot;cf&quot;&gt;for&lt;/span&gt; n &lt;span class=&quot;op&quot;&gt;in&lt;/span&gt; [&lt;span class=&quot;dv&quot;&gt;5&lt;/span&gt;, &lt;span class=&quot;dv&quot;&gt;4&lt;/span&gt;, &lt;span class=&quot;dv&quot;&gt;3&lt;/span&gt;, &lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt;, &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;, &lt;span class=&quot;st&quot;&gt;&amp;#39;launch&amp;#39;&lt;/span&gt;]:
-            &lt;span class=&quot;cf&quot;&gt;yield&lt;/span&gt; n
-
-&lt;span class=&quot;cf&quot;&gt;for&lt;/span&gt; n &lt;span class=&quot;op&quot;&gt;in&lt;/span&gt; Countdown():
-    &lt;span class=&quot;bu&quot;&gt;print&lt;/span&gt;(n)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-</description>
-				<pubDate>Fri, 08 Apr 2016 00:00:00 +0800</pubDate>
-				<link>/python/2016/04/08/iterables-iterators-and-generators.html</link>
-				<guid isPermaLink="true">/python/2016/04/08/iterables-iterators-and-generators.html</guid>
 			</item>
 		
 	</channel>
