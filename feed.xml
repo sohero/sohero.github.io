@@ -80,6 +80,63 @@ q_\pi(S,A)-\hat q(S,A,\mathbf w)
 &lt;img src=&quot;/assets/images/51.png&quot; alt=&quot;&quot; /&gt;
 &lt;/figure&gt;
 &lt;h2 id=&quot;batch-reinforcement-learning&quot;&gt;Batch Reinforcement Learning&lt;/h2&gt;
+&lt;h3 id=&quot;least-squares-prediction&quot;&gt;Least Squares Prediction&lt;/h3&gt;
+&lt;p&gt;Give value function approximation &lt;span class=&quot;math inline&quot;&gt;\(\hat v(s,\mathbf w)\approx v_\pi(s)\)&lt;/span&gt;, and experience &lt;span class=&quot;math inline&quot;&gt;\(\mathcal D\)&lt;/span&gt; consisting of &lt;span class=&quot;math inline&quot;&gt;\(\left&amp;lt;state, value \right&amp;gt;\)&lt;/span&gt; pairs &lt;span class=&quot;math display&quot;&gt;\[
+\mathcal D=\left\{
+\left&amp;lt;s_1,v_1^\pi \right&amp;gt;,
+\left&amp;lt;s_2,v_2^\pi \right&amp;gt;,
+...,
+\left&amp;lt;s_T,v_T^\pi \right&amp;gt;,
+\right\}
+\]&lt;/span&gt; &lt;strong&gt;Least squared&lt;/strong&gt; algorithms find parameter vector &lt;span class=&quot;math inline&quot;&gt;\(\mathbf w\)&lt;/span&gt; minimising sum-squared error between &lt;span class=&quot;math inline&quot;&gt;\(\hat v(s_t,\mathbf w)\)&lt;/span&gt; and target values &lt;span class=&quot;math inline&quot;&gt;\(v_t^\pi\)&lt;/span&gt; &lt;span class=&quot;math display&quot;&gt;\[
+\begin{align}
+LS(\mathbf w) &amp;amp;= \sum_{t=1}^T (v_t^\pi-\hat v(s_t,\mathbf w))^2 \\
+&amp;amp;= \Bbb E_{\mathcal D} \left[(v_t^\pi-\hat v(s_t,\mathbf w))^2\right]
+\end{align}
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;h3 id=&quot;stochastic-gradient-descent-with-experience-replay&quot;&gt;Stochastic Gradient Descent with Experience Replay&lt;/h3&gt;
+&lt;p&gt;Given experience consisting of &lt;span class=&quot;math inline&quot;&gt;\(\left&amp;lt;state, value\right&amp;gt;\)&lt;/span&gt; pairs &lt;span class=&quot;math display&quot;&gt;\[
+\mathcal D=\left\{
+\left&amp;lt;s_1,v_1^\pi \right&amp;gt;,
+\left&amp;lt;s_2,v_2^\pi \right&amp;gt;,
+...,
+\left&amp;lt;s_T,v_T^\pi \right&amp;gt;,
+\right\}
+\]&lt;/span&gt; Repeat:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Sample state, value from experience &lt;span class=&quot;math display&quot;&gt;\[
+ \left&amp;lt;s, v^\pi\right&amp;gt;\sim \mathcal D
+ \]&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;Apply stochastic gradient descent update &lt;span class=&quot;math display&quot;&gt;\[
+ \Delta\mathbf w=\alpha(v^\pi-\hat v(s,\mathbf w)) \nabla_{\mathbf w}
+ \hat v(s, \mathbf w)
+ \]&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Converges to least squares solution &lt;span class=&quot;math display&quot;&gt;\[
+\mathbf w^\pi=\mathop{\text{argmin}}\limits_{\mathbf w} LS(\mathbf w)
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;h3 id=&quot;linear-least-squares-prediction&quot;&gt;Linear Least Squares Prediction&lt;/h3&gt;
+&lt;p&gt;At minimum of &lt;span class=&quot;math inline&quot;&gt;\(LS(\mathbf w)\)&lt;/span&gt;, the expected update must be zero &lt;span class=&quot;math display&quot;&gt;\[
+\begin{align}
+\Bbb E_{\mathcal D}[\Delta\mathbf w] &amp;amp;= 0 \\
+\alpha\sum_{t=1}^T \mathbf x(s_t)(v_t^\pi-\mathbf x(s_t)^T\mathbf w) &amp;amp;= 0 \\
+\sum_{t=1}^T\mathbf x(s_t)v_t^\pi &amp;amp;= \sum_{t=1}^T \mathbf x(s_t)\mathbf x(s_t)^T\mathbf w \\
+\mathbf w &amp;amp;= \left(
+\sum_{t=1}^T\mathbf x(s_t)\mathbf x(s_t)^T
+\right)^{-1} \sum_{t=1}^T \mathbf x(s_t)v_t^\pi
+\end{align}
+\]&lt;/span&gt; For &lt;span class=&quot;math inline&quot;&gt;\(N\)&lt;/span&gt; features, direct solution time is &lt;span class=&quot;math inline&quot;&gt;\(O(N^3)\)&lt;/span&gt;. Incremental solution time is &lt;span class=&quot;math inline&quot;&gt;\(O(N^2)\)&lt;/span&gt; using Shermann-Morrison.&lt;/p&gt;
+&lt;h3 id=&quot;linear-least-squares-prediction-algorithms&quot;&gt;Linear Least Squares Prediction Algorithms&lt;/h3&gt;
+&lt;p&gt;In practice, we do not know true values &lt;span class=&quot;math inline&quot;&gt;\(v_t^\pi\)&lt;/span&gt;, our “training data” muse use noisy or biased samples of &lt;span class=&quot;math inline&quot;&gt;\(v_t^\pi\)&lt;/span&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;LSMC (Least Squares Monte-Carlo) uses return &lt;span class=&quot;math inline&quot;&gt;\(v_t^\pi\approx G_t\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;LSTD (Least Squares Temporal-Difference) uses TD target &lt;span class=&quot;math inline&quot;&gt;\(v_t^\pi\approx R_{t+1}+\gamma\hat v(S_{t+1},\mathbf w)\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;LSTD(&lt;span class=&quot;math inline&quot;&gt;\(\lambda\)&lt;/span&gt;) (Least Squares TD(&lt;span class=&quot;math inline&quot;&gt;\(\lambda\)&lt;/span&gt;)) use &lt;span class=&quot;math inline&quot;&gt;\(\lambda\)&lt;/span&gt;-return &lt;span class=&quot;math inline&quot;&gt;\(v_t^\pi\approx G_t^\lambda\)&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;convergence-of-linear-least-squares-prediction-algorithms&quot;&gt;Convergence of Linear Least Squares Prediction Algorithms&lt;/h3&gt;
+&lt;figure&gt;
+&lt;img src=&quot;/assets/images/52.png&quot; alt=&quot;&quot; /&gt;
+&lt;/figure&gt;
 </description>
 				<pubDate>Sun, 19 Jun 2016 00:00:00 +0800</pubDate>
 				<link>/reinforcement%20learning/2016/06/19/value-function-approximation.html</link>

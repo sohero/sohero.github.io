@@ -198,6 +198,63 @@ q_\pi(S,A)-\hat q(S,A,\mathbf w)
 <img src="/assets/images/51.png" alt="" />
 </figure>
 <h2 id="batch-reinforcement-learning">Batch Reinforcement Learning</h2>
+<h3 id="least-squares-prediction">Least Squares Prediction</h3>
+<p>Give value function approximation <span class="math inline">\(\hat v(s,\mathbf w)\approx v_\pi(s)\)</span>, and experience <span class="math inline">\(\mathcal D\)</span> consisting of <span class="math inline">\(\left&lt;state, value \right&gt;\)</span> pairs <span class="math display">\[
+\mathcal D=\left\{
+\left&lt;s_1,v_1^\pi \right&gt;,
+\left&lt;s_2,v_2^\pi \right&gt;,
+...,
+\left&lt;s_T,v_T^\pi \right&gt;,
+\right\}
+\]</span> <strong>Least squared</strong> algorithms find parameter vector <span class="math inline">\(\mathbf w\)</span> minimising sum-squared error between <span class="math inline">\(\hat v(s_t,\mathbf w)\)</span> and target values <span class="math inline">\(v_t^\pi\)</span> <span class="math display">\[
+\begin{align}
+LS(\mathbf w) &amp;= \sum_{t=1}^T (v_t^\pi-\hat v(s_t,\mathbf w))^2 \\
+&amp;= \Bbb E_{\mathcal D} \left[(v_t^\pi-\hat v(s_t,\mathbf w))^2\right]
+\end{align}
+\]</span></p>
+<h3 id="stochastic-gradient-descent-with-experience-replay">Stochastic Gradient Descent with Experience Replay</h3>
+<p>Given experience consisting of <span class="math inline">\(\left&lt;state, value\right&gt;\)</span> pairs <span class="math display">\[
+\mathcal D=\left\{
+\left&lt;s_1,v_1^\pi \right&gt;,
+\left&lt;s_2,v_2^\pi \right&gt;,
+...,
+\left&lt;s_T,v_T^\pi \right&gt;,
+\right\}
+\]</span> Repeat:</p>
+<ul>
+<li>Sample state, value from experience <span class="math display">\[
+ \left&lt;s, v^\pi\right&gt;\sim \mathcal D
+ \]</span></li>
+<li>Apply stochastic gradient descent update <span class="math display">\[
+ \Delta\mathbf w=\alpha(v^\pi-\hat v(s,\mathbf w)) \nabla_{\mathbf w}
+ \hat v(s, \mathbf w)
+ \]</span></li>
+</ul>
+<p>Converges to least squares solution <span class="math display">\[
+\mathbf w^\pi=\mathop{\text{argmin}}\limits_{\mathbf w} LS(\mathbf w)
+\]</span></p>
+<h3 id="linear-least-squares-prediction">Linear Least Squares Prediction</h3>
+<p>At minimum of <span class="math inline">\(LS(\mathbf w)\)</span>, the expected update must be zero <span class="math display">\[
+\begin{align}
+\Bbb E_{\mathcal D}[\Delta\mathbf w] &amp;= 0 \\
+\alpha\sum_{t=1}^T \mathbf x(s_t)(v_t^\pi-\mathbf x(s_t)^T\mathbf w) &amp;= 0 \\
+\sum_{t=1}^T\mathbf x(s_t)v_t^\pi &amp;= \sum_{t=1}^T \mathbf x(s_t)\mathbf x(s_t)^T\mathbf w \\
+\mathbf w &amp;= \left(
+\sum_{t=1}^T\mathbf x(s_t)\mathbf x(s_t)^T
+\right)^{-1} \sum_{t=1}^T \mathbf x(s_t)v_t^\pi
+\end{align}
+\]</span> For <span class="math inline">\(N\)</span> features, direct solution time is <span class="math inline">\(O(N^3)\)</span>. Incremental solution time is <span class="math inline">\(O(N^2)\)</span> using Shermann-Morrison.</p>
+<h3 id="linear-least-squares-prediction-algorithms">Linear Least Squares Prediction Algorithms</h3>
+<p>In practice, we do not know true values <span class="math inline">\(v_t^\pi\)</span>, our “training data” muse use noisy or biased samples of <span class="math inline">\(v_t^\pi\)</span></p>
+<ul>
+<li>LSMC (Least Squares Monte-Carlo) uses return <span class="math inline">\(v_t^\pi\approx G_t\)</span></li>
+<li>LSTD (Least Squares Temporal-Difference) uses TD target <span class="math inline">\(v_t^\pi\approx R_{t+1}+\gamma\hat v(S_{t+1},\mathbf w)\)</span></li>
+<li>LSTD(<span class="math inline">\(\lambda\)</span>) (Least Squares TD(<span class="math inline">\(\lambda\)</span>)) use <span class="math inline">\(\lambda\)</span>-return <span class="math inline">\(v_t^\pi\approx G_t^\lambda\)</span></li>
+</ul>
+<h3 id="convergence-of-linear-least-squares-prediction-algorithms">Convergence of Linear Least Squares Prediction Algorithms</h3>
+<figure>
+<img src="/assets/images/52.png" alt="" />
+</figure>
 
 	  </div>
 
