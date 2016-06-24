@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Monte-Carlo Reinforcement Learning</title>
+	<title>Policy Gradient</title>
 	
 	<meta name="author" content="sohero">
 	<!-- Enable responsive viewport -->
@@ -115,47 +115,73 @@
 
 	<div class="col-sm-9 col-sm-offset-3">
 		<div class="page-header">
-  <h1>Monte-Carlo Reinforcement Learning </h1>
+  <h1>Policy Gradient </h1>
 </div>
 	
 <article>
 
 	<div class="col-sm-12">
 	 <span class="post-date">
-	 	2016-05-19 
+	 	2016-06-23 
 	 </span>
 	 <div class="article-outline"></div>
 	  <div class="article_body">
-	  <ul>
-<li>MC methods learn directly from episodes of experience</li>
-<li>MC is <em>model-free</em>: no knowledge of MDP transitions / rewards</li>
-<li>MC learns from <em>complete</em> episodes: no bootstrapping</li>
-<li>MC uses the simplest possible idea: value = mean return</li>
-<li>Caveat: can only apply MC to <em>episodic</em> MDPs. All episodes must terminate.</li>
+	  <p>Directly parametrise the <strong>policy</strong>: <span class="math display">\[
+\pi_\theta(s,a)=\Bbb P[a|s,\theta]
+\]</span></p>
+<h2 id="advantages-of-policy-based-rl">Advantages of Policy-Based RL</h2>
+<p><strong>Advantages</strong>:</p>
+<ul>
+<li>Better convergence properties</li>
+<li>Effective in high-dimensional or continuous action spaces</li>
+<li>Can learn stochastic policies</li>
 </ul>
-<h2 id="monte-carlo-policy-evaluation">Monte-Carlo Policy Evaluation</h2>
-<p><strong>Goal</strong>: learn <span class="math inline">\(v_\pi\)</span> from episodes of experience under policy <span class="math inline">\(\pi\)</span>.</p>
-<p>Monte-Carlo policy evaluation uses <code>empirical mean return</code> instead of <em>expected return</em>.</p>
-<h2 id="incremental-mean">Incremental Mean</h2>
-<p>The mean <span class="math inline">\(\mu_1,\mu_2,...\)</span> of a sequence <span class="math inline">\(x_1,x_2,...\)</span> can be computed incrementally, <span class="math display">\[
+<p><strong>Disadvantages</strong>:</p>
+<ul>
+<li>Typically converge to a local rather than global optimum</li>
+<li>Evaluting a policy is typically inefficient and high variance</li>
+</ul>
+<h2 id="policy-objective-functions">Policy Objective Functions</h2>
+<p><strong>Goal</strong>: given policy <span class="math inline">\(\pi_\theta(s,a)\)</span> with parameters <span class="math inline">\(\theta\)</span>, find best <span class="math inline">\(\theta\)</span>.</p>
+<p>Policy based reinforcement learning is an <code>optimisation</code> problem, find <span class="math inline">\(\theta\)</span> that <strong>maximises</strong> <span class="math inline">\(J(\theta)\)</span>.</p>
+<h2 id="policy-gradient">Policy Gradient</h2>
+<p>Let <span class="math inline">\(J(\theta)\)</span> be any policy objective function. Policy gradient algorithms search for a <em>local</em> maximum in <span class="math inline">\(J(\theta)\)</span> by ascending the gradient of the policy, w.r.t. parameters <span class="math inline">\(\theta\)</span> <span class="math display">\[
+\Delta\theta=\alpha\nabla_\theta J(\theta)
+\]</span></p>
+<h2 id="score-function">Score Function</h2>
+<p>Assume policy <span class="math inline">\(\pi_\theta\)</span> is differentiable whenever it is non-zero and we know the gradient <span class="math inline">\(\nabla_\theta \pi_\theta(s,a)\)</span>. <code>Likelihood ratios</code> exploit the following identity <span class="math display">\[
 \begin{align}
-\mu_k &amp;= {1 \over k}\sum_{j=1}^k x_j \\
-&amp;= {1 \over k}\left(x_k+\sum_{j=1}^{k-1} x_j\right) \\
-&amp;= {1 \over k}\left(x_k+(k-1)\mu_{k-1} \right) \\
-&amp;= \mu_{k-1} + {1 \over k}(x_k - \mu_{k-1})
+\nabla_\theta\pi_\theta(s,a) &amp;= \pi_\theta(s,a) \frac{\nabla_\theta\pi_\theta(s,a)}{\pi_\theta(s,a)} \\
+&amp;= \pi_\theta(s,a) \nabla_\theta log \pi_\theta(s,a)
+\end{align}
+\]</span> The <code>score function</code> is <span class="math inline">\(\nabla_\theta log \pi_\theta(s,a)\)</span>.</p>
+<h2 id="policy-gradient-theorem">Policy Gradient Theorem</h2>
+<h3 id="one-step-mdps">One-Step MDPs</h3>
+<p>Consider a simple class of <em>one-step</em> MDPs: Starting in state <span class="math inline">\(s\sim d(s)\)</span>; Terminating after one time-step with reward <span class="math inline">\(r=\mathcal R_{s,a}\)</span>.</p>
+<p>Use likelihood ratios to compute the policy gradient <span class="math display">\[
+\begin{align}
+J(\theta) &amp;= \Bbb E_{\pi_\theta}[r] \\
+&amp;= \sum_{\mathcal{s\in S}} d(s) \sum_{a\in\mathcal A} \pi_\theta(s,a)\mathcal R_{s,a} \\
+\nabla_\theta J(\theta) &amp;= \sum_{s\in\mathcal S}d(s)\sum_{a\in\mathcal A}\pi_\theta(s,a)\nabla_\theta log \pi_\theta(s,a)\mathcal R_{s,a} \\
+&amp;=\Bbb E_{\pi_\theta}\left[\nabla_\theta log \pi_\theta(s,a)r\right]
 \end{align}
 \]</span></p>
-<h2 id="incremental-monte-carlo-updates">Incremental Monte-Carlo Updates</h2>
-<p>Update <span class="math inline">\(V(s)\)</span> incrementally after episode <span class="math inline">\(S_1,A_1,R_2,...,S_T\)</span>.</p>
-<p>For each state <span class="math inline">\(S_t\)</span> with return <span class="math inline">\(G_t\)</span> <span class="math display">\[
-\begin{align}
-N(S_t) &amp;\leftarrow N(S_t) + 1 \\
-V(S_t) &amp;\leftarrow V(S_t) + {1 \over N(S_t)}(G_t-V(S_t))
-\end{align}
+<blockquote>
+<p>For any differentiable policy <span class="math inline">\(\pi_\theta(s,a)\)</span>, for any of the policy objective functions <span class="math inline">\(J\)</span>, the policy gradient is <span class="math display">\[
+\nabla_\theta J(\theta)=\Bbb E_{\pi_\theta}
+\left[
+\nabla_\theta log\pi_\theta(s,a)Q^{\pi_\theta}(s,a)
+\right]
 \]</span></p>
-<p>In non-stationary problems, it can be useful to track a running mean, i.e. forget old episodes. <span class="math display">\[
-V(S_t) \leftarrow V(S_t) + \alpha(G_t-V(S_t))
-\]</span></p>
+</blockquote>
+<h3 id="monte-carlo-policy-gradient">Monte-Carlo Policy Gradient</h3>
+<ul>
+<li>Update parameters by stochastic gradient ascent</li>
+<li>Using policy gradient theorem</li>
+<li>Using return <span class="math inline">\(v_t\)</span> as an unbiased sample of <span class="math inline">\(Q^{\pi_\theta}(s_t,a_t)\)</span> <span class="math display">\[
+\Delta\theta_t=\alpha\nabla_\theta log \pi_\theta(s_t,a_t)v_t
+\]</span></li>
+</ul>
 
 	  </div>
 
@@ -197,7 +223,7 @@ V(S_t) \leftarrow V(S_t) + \alpha(G_t-V(S_t))
 		<div>
       <section class="share col-sm-12">
         <h4 class="section-title">Share Post</h4>
-        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=Monte-Carlo Reinforcement Learning"
+        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=Policy Gradient"
            onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
           <i class="fa fa-twitter fa-lg"></i>
           Twitter
@@ -219,10 +245,10 @@ V(S_t) \leftarrow V(S_t) + \alpha(G_t-V(S_t))
 
 		<ul class="pager">
 		  
-		  <li class="previous"><a href="/reinforcement%20learning/2016/05/17/dynamic-programming.html" title="Dynamic Programming">&larr; Previous</a></li>
+		  <li class="previous"><a href="/reinforcement%20learning/2016/06/19/value-function-approximation.html" title="Value Function Approximation">&larr; Previous</a></li>
 		  
 		  
-		  <li class="next"><a href="/reinforcement%20learning/2016/05/19/temporal-difference-learning.html" title="Temporal-Difference Learning">Next &rarr;</a></li>
+			<li class="next disabled"><a>Next &rarr;</a>
 		  
 		</ul>
 
