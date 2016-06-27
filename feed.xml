@@ -64,6 +64,11 @@ J(\theta) &amp;amp;= \Bbb E_{\pi_\theta}[r] \\
 \Delta\theta_t=\alpha\nabla_\theta log \pi_\theta(s_t,a_t)v_t
 \]&lt;/span&gt;&lt;/li&gt;
 &lt;/ul&gt;
+&lt;h2 id=&quot;actor-critic-policy-gradient&quot;&gt;Actor-Critic Policy Gradient&lt;/h2&gt;
+&lt;h3 id=&quot;reducing-variance-using-a-critic&quot;&gt;Reducing Variance Using a Critic&lt;/h3&gt;
+&lt;p&gt;Monte-Carlo policy gradient still has high variance. We use a &lt;code&gt;critic&lt;/code&gt; to estimate the action-value function &lt;span class=&quot;math display&quot;&gt;\[
+Q_w(s,a)\approx Q^{\pi_\theta}(s,a)
+\]&lt;/span&gt;&lt;/p&gt;
 </description>
 				<pubDate>Thu, 23 Jun 2016 00:00:00 +0800</pubDate>
 				<link>/reinforcement%20learning/2016/06/23/policy-gradient.html</link>

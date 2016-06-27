@@ -182,6 +182,46 @@ J(\theta) &amp;= \Bbb E_{\pi_\theta}[r] \\
 \Delta\theta_t=\alpha\nabla_\theta log \pi_\theta(s_t,a_t)v_t
 \]</span></li>
 </ul>
+<h2 id="actor-critic-policy-gradient">Actor-Critic Policy Gradient</h2>
+<h3 id="reducing-variance-using-a-critic">Reducing Variance Using a Critic</h3>
+<p>Monte-Carlo policy gradient still has high variance. We use a <code>critic</code> to estimate the action-value function <span class="math display">\[
+Q_w(s,a)\approx Q^{\pi_\theta}(s,a)
+\]</span> Actor-Critic algorithms maintain <em>two</em> sets of parameters</p>
+<ul>
+<li><strong>Critic</strong> Updates action-value function parameters <span class="math inline">\(w\)</span></li>
+<li><strong>Actor</strong> Updates policy parameters <span class="math inline">\(\theta\)</span>, in direction suggested by critic</li>
+</ul>
+<p>Actor-critic algorithms follow an <em>approximate</em> policy gradient <span class="math display">\[
+\begin{align}
+\nabla_\theta J(\theta) &amp;\approx \Bbb E_{\pi_\theta}\left[
+\nabla_\theta log \pi_\theta(s,a) Q_w(s,a)
+\right] \\
+\Delta \theta &amp;= \alpha\nabla_\theta log \pi_\theta(s,a) Q_w(s,a)
+\end{align}
+\]</span></p>
+<h3 id="action-value-actor-critic">Action-Value Actor-Critic</h3>
+<p>Simple actor-critic algorithm based on action-critic. Using linear value fn approx. <span class="math inline">\(Q_w(s,a)=\phi (s,a)^Tw\)</span></p>
+<ul>
+<li><strong>Critic</strong> Updates <span class="math inline">\(w\)</span> by linear TD(0)</li>
+<li><strong>Actor</strong> Updates <span class="math inline">\(\theta\)</span> by policy gradient</li>
+</ul>
+<h3 id="compatible-function-approximation">Compatible Function Approximation</h3>
+<p>If the following two conditions are satisfied:</p>
+<ul>
+<li>Value function approximator is compatible to the policy <span class="math display">\[
+ \nabla_w Q_w(s,a)=\nabla_\theta log \pi_\theta(s,a)
+ \]</span></li>
+<li>Value function parameters <span class="math inline">\(w\)</span> minimise the mean-squared error <span class="math display">\[
+ \varepsilon=\Bbb E_{\pi_\theta}\left[
+(Q^{\pi_\theta}(s,a)-Q_w(s,a))^2
+ \right]
+ \]</span> Then the policy gradient is exact <span class="math display">\[
+\nabla_\theta J(\theta)=\Bbb E_{\pi_\theta}
+\left[
+\nabla_\theta log \pi_\theta(s,a) Q_w(s,a)
+\right]
+\]</span></li>
+</ul>
 
 	  </div>
 
