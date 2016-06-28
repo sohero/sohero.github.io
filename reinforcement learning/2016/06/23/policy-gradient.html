@@ -215,13 +215,40 @@ Q_w(s,a)\approx Q^{\pi_\theta}(s,a)
  \varepsilon=\Bbb E_{\pi_\theta}\left[
 (Q^{\pi_\theta}(s,a)-Q_w(s,a))^2
  \right]
- \]</span> Then the policy gradient is exact <span class="math display">\[
+ \]</span> Then the policy gradient is exist <span class="math display">\[
 \nabla_\theta J(\theta)=\Bbb E_{\pi_\theta}
 \left[
 \nabla_\theta log \pi_\theta(s,a) Q_w(s,a)
 \right]
 \]</span></li>
 </ul>
+<h3 id="reducing-variance-using-a-baseline">Reducing Variance Using a Baseline</h3>
+<p>We subtract a baseline function <span class="math inline">\(B(s)\)</span> from the policy gradient. This can reduce variance, without changing expectation <span class="math display">\[
+\begin{align}
+\Bbb E_{\pi_\theta}[\nabla_\theta log \pi_\theta(s,a)B(s)] &amp;= 
+\sum_{s\in\mathcal S} d^{\pi_\theta}(s) \sum_a \nabla_\theta \pi_\theta(s,a)B(s) \\
+&amp;=\sum_{s\in\mathcal S} d^{\pi_\theta}B(s)\nabla_\theta \sum_{a\in\mathcal A} \pi_\theta(s,a) \\
+&amp;=0
+\end{align}
+\]</span> A good baseline is the state value function <span class="math inline">\(B(s)=V^{\pi_\theta}(s)\)</span>. So we can rewrite the policy gradient using the <code>advantage function</code> <span class="math inline">\(A^{\pi_\theta}(s,a)\)</span> <span class="math display">\[
+\begin{align}
+A^{\pi_\theta}(s,a) &amp;= Q^{\pi_\theta}(s,a)-V^{\pi_\theta}(s) \\
+\nabla_\theta J(\theta) &amp;= \color{red}{
+    \Bbb E_{\pi_\theta}[\nabla_\theta log \pi_\theta(s,a)A^{\pi_\theta}(s,a)]
+}
+\end{align}
+\]</span></p>
+<h2 id="summary-of-policy-gradient-algorithms">Summary of Policy Gradient Algorithms</h2>
+<p>The <em>policy gradient</em> has many equivalent forms <span class="math display">\[
+\begin{align}
+\nabla_\theta J(\theta) &amp;= \Bbb E_{\pi\theta}[\nabla_\theta log \pi_\theta(s,a)\color{red}{v_t}] \tag{REINFORCE} \\
+&amp;= \Bbb E_{\pi\theta}[\nabla_\theta log \pi_\theta(s,a)\color{red}{Q^w(s,a)}] \tag{Q Actor-Critic} \\
+&amp;= \Bbb E_{\pi\theta}[\nabla_\theta log \pi_\theta(s,a)\color{red}{A^w(s,a)}] \tag{Advantage Actor-Critic} \\
+&amp;= \Bbb E_{\pi\theta}[\nabla_\theta log \pi_\theta(s,a)\color{red}{\delta}] \tag{TD Actor-Critic} \\
+&amp;= \Bbb E_{\pi\theta}[\nabla_\theta log \pi_\theta(s,a)\color{red}{\delta e}] \tag{TD($\lambda$) Actor-Critic} \\
+G_\theta^{-1}\nabla_\theta J(\theta) &amp;= w \tag{Natural Actor-Critic}
+\end{align}
+\]</span> Each leads a stochastic gradient ascent algorithm. Critic uses <code>policy evaluation</code> (e.g. MC or TD learning) to estimate <span class="math inline">\(Q^\pi(s,a)\)</span>, <span class="math inline">\(A^\pi(s,a)\)</span> or <span class="math inline">\(V^\pi(s)\)</span>.</p>
 
 	  </div>
 
