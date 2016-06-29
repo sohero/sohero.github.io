@@ -68,7 +68,69 @@ J(\theta) &amp;amp;= \Bbb E_{\pi_\theta}[r] \\
 &lt;h3 id=&quot;reducing-variance-using-a-critic&quot;&gt;Reducing Variance Using a Critic&lt;/h3&gt;
 &lt;p&gt;Monte-Carlo policy gradient still has high variance. We use a &lt;code&gt;critic&lt;/code&gt; to estimate the action-value function &lt;span class=&quot;math display&quot;&gt;\[
 Q_w(s,a)\approx Q^{\pi_\theta}(s,a)
+\]&lt;/span&gt; Actor-Critic algorithms maintain &lt;em&gt;two&lt;/em&gt; sets of parameters&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Critic&lt;/strong&gt; Updates action-value function parameters &lt;span class=&quot;math inline&quot;&gt;\(w\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Actor&lt;/strong&gt; Updates policy parameters &lt;span class=&quot;math inline&quot;&gt;\(\theta\)&lt;/span&gt;, in direction suggested by critic&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Actor-critic algorithms follow an &lt;em&gt;approximate&lt;/em&gt; policy gradient &lt;span class=&quot;math display&quot;&gt;\[
+\begin{align}
+\nabla_\theta J(\theta) &amp;amp;\approx \Bbb E_{\pi_\theta}\left[
+\nabla_\theta log \pi_\theta(s,a) Q_w(s,a)
+\right] \\
+\Delta \theta &amp;amp;= \alpha\nabla_\theta log \pi_\theta(s,a) Q_w(s,a)
+\end{align}
 \]&lt;/span&gt;&lt;/p&gt;
+&lt;h3 id=&quot;action-value-actor-critic&quot;&gt;Action-Value Actor-Critic&lt;/h3&gt;
+&lt;p&gt;Simple actor-critic algorithm based on action-critic. Using linear value fn approx. &lt;span class=&quot;math inline&quot;&gt;\(Q_w(s,a)=\phi (s,a)^Tw\)&lt;/span&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Critic&lt;/strong&gt; Updates &lt;span class=&quot;math inline&quot;&gt;\(w\)&lt;/span&gt; by linear TD(0)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Actor&lt;/strong&gt; Updates &lt;span class=&quot;math inline&quot;&gt;\(\theta\)&lt;/span&gt; by policy gradient&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;compatible-function-approximation&quot;&gt;Compatible Function Approximation&lt;/h3&gt;
+&lt;p&gt;If the following two conditions are satisfied:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Value function approximator is compatible to the policy &lt;span class=&quot;math display&quot;&gt;\[
+ \nabla_w Q_w(s,a)=\nabla_\theta log \pi_\theta(s,a)
+ \]&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;Value function parameters &lt;span class=&quot;math inline&quot;&gt;\(w\)&lt;/span&gt; minimise the mean-squared error &lt;span class=&quot;math display&quot;&gt;\[
+ \varepsilon=\Bbb E_{\pi_\theta}\left[
+(Q^{\pi_\theta}(s,a)-Q_w(s,a))^2
+ \right]
+ \]&lt;/span&gt; Then the policy gradient is exist &lt;span class=&quot;math display&quot;&gt;\[
+\nabla_\theta J(\theta)=\Bbb E_{\pi_\theta}
+\left[
+\nabla_\theta log \pi_\theta(s,a) Q_w(s,a)
+\right]
+\]&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;reducing-variance-using-a-baseline&quot;&gt;Reducing Variance Using a Baseline&lt;/h3&gt;
+&lt;p&gt;We subtract a baseline function &lt;span class=&quot;math inline&quot;&gt;\(B(s)\)&lt;/span&gt; from the policy gradient. This can reduce variance, without changing expectation &lt;span class=&quot;math display&quot;&gt;\[
+\begin{align}
+\Bbb E_{\pi_\theta}[\nabla_\theta log \pi_\theta(s,a)B(s)] &amp;amp;= 
+\sum_{s\in\mathcal S} d^{\pi_\theta}(s) \sum_a \nabla_\theta \pi_\theta(s,a)B(s) \\
+&amp;amp;=\sum_{s\in\mathcal S} d^{\pi_\theta}B(s)\nabla_\theta \sum_{a\in\mathcal A} \pi_\theta(s,a) \\
+&amp;amp;=0
+\end{align}
+\]&lt;/span&gt; A good baseline is the state value function &lt;span class=&quot;math inline&quot;&gt;\(B(s)=V^{\pi_\theta}(s)\)&lt;/span&gt;. So we can rewrite the policy gradient using the &lt;code&gt;advantage function&lt;/code&gt; &lt;span class=&quot;math inline&quot;&gt;\(A^{\pi_\theta}(s,a)\)&lt;/span&gt; &lt;span class=&quot;math display&quot;&gt;\[
+\begin{align}
+A^{\pi_\theta}(s,a) &amp;amp;= Q^{\pi_\theta}(s,a)-V^{\pi_\theta}(s) \\
+\nabla_\theta J(\theta) &amp;amp;= \color{red}{
+    \Bbb E_{\pi_\theta}[\nabla_\theta log \pi_\theta(s,a)A^{\pi_\theta}(s,a)]
+}
+\end{align}
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;h2 id=&quot;summary-of-policy-gradient-algorithms&quot;&gt;Summary of Policy Gradient Algorithms&lt;/h2&gt;
+&lt;p&gt;The &lt;em&gt;policy gradient&lt;/em&gt; has many equivalent forms &lt;span class=&quot;math display&quot;&gt;\[
+\begin{align}
+\nabla_\theta J(\theta) &amp;amp;= \Bbb E_{\pi\theta}[\nabla_\theta log \pi_\theta(s,a)\color{red}{v_t}] \tag{REINFORCE} \\
+&amp;amp;= \Bbb E_{\pi\theta}[\nabla_\theta log \pi_\theta(s,a)\color{red}{Q^w(s,a)}] \tag{Q Actor-Critic} \\
+&amp;amp;= \Bbb E_{\pi\theta}[\nabla_\theta log \pi_\theta(s,a)\color{red}{A^w(s,a)}] \tag{Advantage Actor-Critic} \\
+&amp;amp;= \Bbb E_{\pi\theta}[\nabla_\theta log \pi_\theta(s,a)\color{red}{\delta}] \tag{TD Actor-Critic} \\
+&amp;amp;= \Bbb E_{\pi\theta}[\nabla_\theta log \pi_\theta(s,a)\color{red}{\delta e}] \tag{TD($\lambda$) Actor-Critic} \\
+G_\theta^{-1}\nabla_\theta J(\theta) &amp;amp;= w \tag{Natural Actor-Critic}
+\end{align}
+\]&lt;/span&gt; Each leads a stochastic gradient ascent algorithm. Critic uses &lt;code&gt;policy evaluation&lt;/code&gt; (e.g. MC or TD learning) to estimate &lt;span class=&quot;math inline&quot;&gt;\(Q^\pi(s,a)\)&lt;/span&gt;, &lt;span class=&quot;math inline&quot;&gt;\(A^\pi(s,a)\)&lt;/span&gt; or &lt;span class=&quot;math inline&quot;&gt;\(V^\pi(s)\)&lt;/span&gt;.&lt;/p&gt;
 </description>
 				<pubDate>Thu, 23 Jun 2016 00:00:00 +0800</pubDate>
 				<link>/reinforcement%20learning/2016/06/23/policy-gradient.html</link>
