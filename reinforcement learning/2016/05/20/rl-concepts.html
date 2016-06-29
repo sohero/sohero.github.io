@@ -149,6 +149,9 @@ V(\mathcal{s})=\frac{\sum_{t\in{\mathcal{T}(\mathcal{s})}}\rho_t^{T(t)}G_t}{|\ma
 <p><strong>weighted importance sampling</strong>: <span class="math display">\[
 V(\mathcal{s})=\frac{\sum_{t\in\mathcal{T}(\mathcal{s})} \rho_t^{T(t)}G_t}{\sum_{t\in\mathcal{T}(\mathcal{s})}\rho_t^{T(t)}}
 \]</span></p>
+<p><strong>Score Function</strong>: The score function <span class="math inline">\(u(\theta)\)</span> is the partial derivative of the log-likelihood function <span class="math inline">\(F(\theta)=\text{ln}L(\theta)\)</span>, where <span class="math inline">\(L(\theta)\)</span> is the standard likelihood function. <span class="math display">\[
+u(\theta)=\frac{\partial}{\partial\theta}F(\theta)
+\]</span> Using formulatino of <span class="math inline">\(u\)</span>, one can easily compute various statistical measurements associated with <span class="math inline">\(u\)</span>. For example, the mean <span class="math inline">\(E(u(\theta))\)</span> can be shown to equal zero while the variance is precisely the Fisher information matrix.<a href="http://mathworld.wolfram.com/ScoreFunction.html">[Link]</a></p>
 
 	  </div>
 
