@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Integrating Learning and Planning</title>
+	<title>Model-Based Reinforcement Learning</title>
 	
 	<meta name="author" content="sohero">
 	<!-- Enable responsive viewport -->
@@ -117,7 +117,7 @@
 
 	<div class="col-sm-10 col-sm-offset-2">
 		<div class="page-header">
-  <h1>Integrating Learning and Planning </h1>
+  <h1>Model-Based Reinforcement Learning </h1>
 </div>
 	
 <article>
@@ -200,6 +200,17 @@ S_2,A_2 \to R_3,S_3
 <figure>
 <img src="/assets/images/54.png" alt="" />
 </figure>
+<h2 id="monte-carlo-search">Monte-Carlo Search</h2>
+<h3 id="simple-monte-carlo-search">Simple Monte-Carlo Search</h3>
+<p>Given a model <span class="math inline">\(\mathcal M_v\)</span> and a <code>simulation policy</code> <span class="math inline">\(\pi\)</span>. For each action <span class="math inline">\(a\in\mathcal A\)</span>, simulate <span class="math inline">\(K\)</span> episodes from current (real) state <span class="math inline">\(s_t\)</span> <span class="math display">\[
+\{\color{red}{s_t,a,}R_{t+1}^k,S_{t+1}^k,A_{t+1}^k,...,S_T^k\}_{k=1}^K\sim \mathcal M_v,\pi
+\]</span> Evaluate actions by mean return (<code>Monte-Carlo evaluation</code>) <span class="math display">\[
+Q(\color{red}{s_t,a})={1\over K}\sum_{k=1}^K G_t 
+\to
+q_\pi(s_t,a)
+\]</span> Select current (real) action with maximum value <span class="math display">\[
+a_t=\mathop{argmax}\limits_{a\in\mathcal A} Q(s_t,a)
+\]</span></p>
 
 	  </div>
 
@@ -241,7 +252,7 @@ S_2,A_2 \to R_3,S_3
 		<div>
       <section class="share col-sm-12">
         <h4 class="section-title">Share Post</h4>
-        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=Integrating Learning and Planning"
+        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=Model-Based Reinforcement Learning"
            onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
           <i class="fa fa-twitter fa-lg"></i>
           Twitter

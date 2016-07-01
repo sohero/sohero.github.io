@@ -7,7 +7,7 @@
 		<atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
-				<title>Integrating Learning and Planning</title>
+				<title>Model-Based Reinforcement Learning</title>
 				<description>&lt;h2 id=&quot;model-based-and-model-free-rl&quot;&gt;Model-Based and Model-Free RL&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;Model-Free RL
@@ -20,11 +20,70 @@
 &lt;li&gt;Learn a model from experience&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;Plan&lt;/code&gt; value function (and/or policy) from model&lt;/li&gt;
 &lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Dyna
+&lt;ul&gt;
+&lt;li&gt;Learn a model from real experience&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Learn and plan&lt;/code&gt; value function (and/or policy) from real and simulated experience&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
 &lt;/ul&gt;
+&lt;h2 id=&quot;model-based-reinforcement-learning&quot;&gt;Model-Based Reinforcement Learning&lt;/h2&gt;
+&lt;h3 id=&quot;advantages-of-model-based-rl&quot;&gt;Advantages of Model-Based RL&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Advantages:
+&lt;ul&gt;
+&lt;li&gt;Can efficiently learn model by supervised learning methods&lt;/li&gt;
+&lt;li&gt;Can reason about model uncertainty&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Disadvantages:
+&lt;ul&gt;
+&lt;li&gt;First learn a model, then construct a value function (two sources of approximation error)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;what-is-a-model&quot;&gt;What is a Model?&lt;/h3&gt;
+&lt;p&gt;A model &lt;span class=&quot;math inline&quot;&gt;\(\mathcal M\)&lt;/span&gt; is a representation of and MDP &lt;span class=&quot;math inline&quot;&gt;\(\left&amp;lt;\mathcal{S,A,P,R}\right&amp;gt;\)&lt;/span&gt;, parametrized by &lt;span class=&quot;math inline&quot;&gt;\(\eta\)&lt;/span&gt;. We will assume state space &lt;span class=&quot;math inline&quot;&gt;\(\mathcal S\)&lt;/span&gt; and action space &lt;span class=&quot;math inline&quot;&gt;\(\mathcal A\)&lt;/span&gt; are known. So a model &lt;span class=&quot;math inline&quot;&gt;\(\mathcal{M=\left&amp;lt;P_\eta,R_\eta\right&amp;gt;}\)&lt;/span&gt; represents state transitions &lt;span class=&quot;math inline&quot;&gt;\(\mathcal{P_\eta\approx P}\)&lt;/span&gt; and rewards &lt;span class=&quot;math inline&quot;&gt;\(\mathcal{R_\eta\approx R}\)&lt;/span&gt; &lt;span class=&quot;math display&quot;&gt;\[
+\begin{align}
+S_{t+1} &amp;amp;\sim \mathcal P_\eta(S_{t+1}|S_t,A_t) \\
+R_{t+1} &amp;amp;= \mathcal R_\eta(R_{t+1}|S_t,A_t)
+\end{align}
+\]&lt;/span&gt; Typically assume conditional independence between state transitions and rewards. &lt;span class=&quot;math display&quot;&gt;\[
+\Bbb P[S_{t+1},R_{t+1}|S_t,A_t]=\Bbb P[S_{t+1}|S_t,A_t]\Bbb P[R_{t+1}|S_t,A_t]
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;h3 id=&quot;model-learning&quot;&gt;Model Learning&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Goal&lt;/strong&gt;: estimate model &lt;span class=&quot;math inline&quot;&gt;\(\mathcal M_\eta\)&lt;/span&gt; from experience &lt;span class=&quot;math inline&quot;&gt;\(\{S_1,A_1,R_2,...,S_T\}\)&lt;/span&gt;. This is a supervised learning problem &lt;span class=&quot;math display&quot;&gt;\[
+S_1,A_1 \to R_2,S_2 \\
+S_2,A_2 \to R_3,S_3
+\]&lt;/span&gt; Learning &lt;span class=&quot;math inline&quot;&gt;\(s,a\to r\)&lt;/span&gt; is a &lt;em&gt;regression problem&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Learning &lt;span class=&quot;math inline&quot;&gt;\(s,a\to s&amp;#39;\)&lt;/span&gt; is a &lt;em&gt;density estimation problem&lt;/em&gt;.&lt;/p&gt;
+&lt;h3 id=&quot;examples-of-models&quot;&gt;Examples of Models&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Table Lookup Model&lt;/li&gt;
+&lt;li&gt;Linear Expectation Model&lt;/li&gt;
+&lt;li&gt;Linear Gaussian Model&lt;/li&gt;
+&lt;li&gt;Gaussian Process Model&lt;/li&gt;
+&lt;li&gt;Deep Belief Network Model&lt;/li&gt;
+&lt;li&gt;…&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;planning-with-a-model&quot;&gt;Planning with a Model&lt;/h3&gt;
+&lt;p&gt;Given a model &lt;span class=&quot;math inline&quot;&gt;\(\mathcal{M_\eta=\left&amp;lt;P_\eta,R_\eta\right&amp;gt;}\)&lt;/span&gt;. Solve the MDP &lt;span class=&quot;math inline&quot;&gt;\(\left&amp;lt;\mathcal{S,A,P_\eta,R_\eta}\right&amp;gt;\)&lt;/span&gt; using favourite planning algorithm&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Value iteration&lt;/li&gt;
+&lt;li&gt;Policy iteration&lt;/li&gt;
+&lt;li&gt;Tree search&lt;/li&gt;
+&lt;li&gt;…&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;integrated-architectures-dyna&quot;&gt;Integrated Architectures: Dyna&lt;/h2&gt;
+&lt;h3 id=&quot;dyna-architecture&quot;&gt;Dyna Architecture&lt;/h3&gt;
+&lt;figure&gt;
+&lt;img src=&quot;/assets/images/53.png&quot; alt=&quot;&quot; /&gt;
+&lt;/figure&gt;
+&lt;h3 id=&quot;dyna-q-algorithm&quot;&gt;Dyna-Q Algorithm&lt;/h3&gt;
+&lt;figure&gt;
+&lt;img src=&quot;/assets/images/54.png&quot; alt=&quot;&quot; /&gt;
+&lt;/figure&gt;
 </description>
 				<pubDate>Fri, 01 Jul 2016 00:00:00 +0800</pubDate>
-				<link>/reinforcement%20learning/2016/07/01/integrating-learning-and-planning.html</link>
-				<guid isPermaLink="true">/reinforcement%20learning/2016/07/01/integrating-learning-and-planning.html</guid>
+				<link>/reinforcement%20learning/2016/07/01/model-based-reinforcement-learning.html</link>
+				<guid isPermaLink="true">/reinforcement%20learning/2016/07/01/model-based-reinforcement-learning.html</guid>
 			</item>
 		
 			<item>
