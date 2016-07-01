@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Monte-Carlo Reinforcement Learning</title>
+	<title>Integrating Learning and Planning</title>
 	
 	<meta name="author" content="sohero">
 	<!-- Enable responsive viewport -->
@@ -117,47 +117,89 @@
 
 	<div class="col-sm-10 col-sm-offset-2">
 		<div class="page-header">
-  <h1>Monte-Carlo Reinforcement Learning </h1>
+  <h1>Integrating Learning and Planning </h1>
 </div>
 	
 <article>
 
 	<div class="col-sm-12">
 	 <span class="post-date">
-	 	2016-05-19 
+	 	2016-07-01 
 	 </span>
 	 <div class="article-outline"></div>
 	  <div class="article_body">
-	  <ul>
-<li>MC methods learn directly from episodes of experience</li>
-<li>MC is <em>model-free</em>: no knowledge of MDP transitions / rewards</li>
-<li>MC learns from <em>complete</em> episodes: no bootstrapping</li>
-<li>MC uses the simplest possible idea: value = mean return</li>
-<li>Caveat: can only apply MC to <em>episodic</em> MDPs. All episodes must terminate.</li>
+	  <h2 id="model-based-and-model-free-rl">Model-Based and Model-Free RL</h2>
+<ul>
+<li>Model-Free RL
+<ul>
+<li>No model</li>
+<li><code>Learn</code> value function (and/or policy) from experience</li>
+</ul></li>
+<li>Model-Based RL
+<ul>
+<li>Learn a model from experience</li>
+<li><code>Plan</code> value function (and/or policy) from model</li>
+</ul></li>
+<li>Dyna
+<ul>
+<li>Learn a model from real experience</li>
+<li><code>Learn and plan</code> value function (and/or policy) from real and simulated experience</li>
+</ul></li>
 </ul>
-<h2 id="monte-carlo-policy-evaluation">Monte-Carlo Policy Evaluation</h2>
-<p><strong>Goal</strong>: learn <span class="math inline">\(v_\pi\)</span> from episodes of experience under policy <span class="math inline">\(\pi\)</span>.</p>
-<p>Monte-Carlo policy evaluation uses <code>empirical mean return</code> instead of <em>expected return</em>.</p>
-<h2 id="incremental-mean">Incremental Mean</h2>
-<p>The mean <span class="math inline">\(\mu_1,\mu_2,...\)</span> of a sequence <span class="math inline">\(x_1,x_2,...\)</span> can be computed incrementally, <span class="math display">\[
+<h2 id="model-based-reinforcement-learning">Model-Based Reinforcement Learning</h2>
+<h3 id="advantages-of-model-based-rl">Advantages of Model-Based RL</h3>
+<ul>
+<li>Advantages:
+<ul>
+<li>Can efficiently learn model by supervised learning methods</li>
+<li>Can reason about model uncertainty</li>
+</ul></li>
+<li>Disadvantages:
+<ul>
+<li>First learn a model, then construct a value function (two sources of approximation error)</li>
+</ul></li>
+</ul>
+<h3 id="what-is-a-model">What is a Model?</h3>
+<p>A model <span class="math inline">\(\mathcal M\)</span> is a representation of and MDP <span class="math inline">\(\left&lt;\mathcal{S,A,P,R}\right&gt;\)</span>, parametrized by <span class="math inline">\(\eta\)</span>. We will assume state space <span class="math inline">\(\mathcal S\)</span> and action space <span class="math inline">\(\mathcal A\)</span> are known. So a model <span class="math inline">\(\mathcal{M=\left&lt;P_\eta,R_\eta\right&gt;}\)</span> represents state transitions <span class="math inline">\(\mathcal{P_\eta\approx P}\)</span> and rewards <span class="math inline">\(\mathcal{R_\eta\approx R}\)</span> <span class="math display">\[
 \begin{align}
-\mu_k &amp;= {1 \over k}\sum_{j=1}^k x_j \\
-&amp;= {1 \over k}\left(x_k+\sum_{j=1}^{k-1} x_j\right) \\
-&amp;= {1 \over k}\left(x_k+(k-1)\mu_{k-1} \right) \\
-&amp;= \mu_{k-1} + {1 \over k}(x_k - \mu_{k-1})
+S_{t+1} &amp;\sim \mathcal P_\eta(S_{t+1}|S_t,A_t) \\
+R_{t+1} &amp;= \mathcal R_\eta(R_{t+1}|S_t,A_t)
 \end{align}
+\]</span> Typically assume conditional independence between state transitions and rewards. <span class="math display">\[
+\Bbb P[S_{t+1},R_{t+1}|S_t,A_t]=\Bbb P[S_{t+1}|S_t,A_t]\Bbb P[R_{t+1}|S_t,A_t]
 \]</span></p>
-<h2 id="incremental-monte-carlo-updates">Incremental Monte-Carlo Updates</h2>
-<p>Update <span class="math inline">\(V(s)\)</span> incrementally after episode <span class="math inline">\(S_1,A_1,R_2,...,S_T\)</span>.</p>
-<p>For each state <span class="math inline">\(S_t\)</span> with return <span class="math inline">\(G_t\)</span> <span class="math display">\[
-\begin{align}
-N(S_t) &amp;\leftarrow N(S_t) + 1 \\
-V(S_t) &amp;\leftarrow V(S_t) + {1 \over N(S_t)}(G_t-V(S_t))
-\end{align}
-\]</span></p>
-<p>In non-stationary problems, it can be useful to track a running mean, i.e. forget old episodes. <span class="math display">\[
-V(S_t) \leftarrow V(S_t) + \alpha(G_t-V(S_t))
-\]</span></p>
+<h3 id="model-learning">Model Learning</h3>
+<p><strong>Goal</strong>: estimate model <span class="math inline">\(\mathcal M_\eta\)</span> from experience <span class="math inline">\(\{S_1,A_1,R_2,...,S_T\}\)</span>. This is a supervised learning problem <span class="math display">\[
+S_1,A_1 \to R_2,S_2 \\
+S_2,A_2 \to R_3,S_3
+\]</span> Learning <span class="math inline">\(s,a\to r\)</span> is a <em>regression problem</em>.</p>
+<p>Learning <span class="math inline">\(s,a\to s&#39;\)</span> is a <em>density estimation problem</em>.</p>
+<h3 id="examples-of-models">Examples of Models</h3>
+<ul>
+<li>Table Lookup Model</li>
+<li>Linear Expectation Model</li>
+<li>Linear Gaussian Model</li>
+<li>Gaussian Process Model</li>
+<li>Deep Belief Network Model</li>
+<li>…</li>
+</ul>
+<h3 id="planning-with-a-model">Planning with a Model</h3>
+<p>Given a model <span class="math inline">\(\mathcal{M_\eta=\left&lt;P_\eta,R_\eta\right&gt;}\)</span>. Solve the MDP <span class="math inline">\(\left&lt;\mathcal{S,A,P_\eta,R_\eta}\right&gt;\)</span> using favourite planning algorithm</p>
+<ul>
+<li>Value iteration</li>
+<li>Policy iteration</li>
+<li>Tree search</li>
+<li>…</li>
+</ul>
+<h2 id="integrated-architectures-dyna">Integrated Architectures: Dyna</h2>
+<h3 id="dyna-architecture">Dyna Architecture</h3>
+<figure>
+<img src="/assets/images/53.png" alt="" />
+</figure>
+<h3 id="dyna-q-algorithm">Dyna-Q Algorithm</h3>
+<figure>
+<img src="/assets/images/54.png" alt="" />
+</figure>
 
 	  </div>
 
@@ -199,7 +241,7 @@ V(S_t) \leftarrow V(S_t) + \alpha(G_t-V(S_t))
 		<div>
       <section class="share col-sm-12">
         <h4 class="section-title">Share Post</h4>
-        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=Monte-Carlo Reinforcement Learning"
+        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=Integrating Learning and Planning"
            onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
           <i class="fa fa-twitter fa-lg"></i>
           Twitter
@@ -221,10 +263,10 @@ V(S_t) \leftarrow V(S_t) + \alpha(G_t-V(S_t))
 
 		<ul class="pager">
 		  
-		  <li class="previous"><a href="/reinforcement%20learning/2016/05/17/dynamic-programming.html" title="Dynamic Programming">&larr; Previous</a></li>
+		  <li class="previous"><a href="/reinforcement%20learning/2016/06/23/policy-gradient.html" title="Policy Gradient">&larr; Previous</a></li>
 		  
 		  
-		  <li class="next"><a href="/reinforcement%20learning/2016/05/19/temporal-difference-learning.html" title="Temporal-Difference Learning">Next &rarr;</a></li>
+			<li class="next disabled"><a>Next &rarr;</a>
 		  
 		</ul>
 

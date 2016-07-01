@@ -7,6 +7,27 @@
 		<atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>Integrating Learning and Planning</title>
+				<description>&lt;h2 id=&quot;model-based-and-model-free-rl&quot;&gt;Model-Based and Model-Free RL&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Model-Free RL
+&lt;ul&gt;
+&lt;li&gt;No model&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Learn&lt;/code&gt; value function (and/or policy) from experience&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Model-Based RL
+&lt;ul&gt;
+&lt;li&gt;Learn a model from experience&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Plan&lt;/code&gt; value function (and/or policy) from model&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+				<pubDate>Fri, 01 Jul 2016 00:00:00 +0800</pubDate>
+				<link>/reinforcement%20learning/2016/07/01/integrating-learning-and-planning.html</link>
+				<guid isPermaLink="true">/reinforcement%20learning/2016/07/01/integrating-learning-and-planning.html</guid>
+			</item>
+		
+			<item>
 				<title>Policy Gradient</title>
 				<description>&lt;p&gt;Directly parametrise the &lt;strong&gt;policy&lt;/strong&gt;: &lt;span class=&quot;math display&quot;&gt;\[
 \pi_\theta(s,a)=\Bbb P[a|s,\theta]
@@ -21,7 +42,7 @@
 &lt;p&gt;&lt;strong&gt;Disadvantages&lt;/strong&gt;:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Typically converge to a local rather than global optimum&lt;/li&gt;
-&lt;li&gt;Evaluting a policy is typically inefficient and high variance&lt;/li&gt;
+&lt;li&gt;Evaluating a policy is typically inefficient and high variance&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&quot;policy-objective-functions&quot;&gt;Policy Objective Functions&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;Goal&lt;/strong&gt;: given policy &lt;span class=&quot;math inline&quot;&gt;\(\pi_\theta(s,a)\)&lt;/span&gt; with parameters &lt;span class=&quot;math inline&quot;&gt;\(\theta\)&lt;/span&gt;, find best &lt;span class=&quot;math inline&quot;&gt;\(\theta\)&lt;/span&gt;.&lt;/p&gt;
@@ -413,6 +434,9 @@ V(\mathcal{s})=\frac{\sum_{t\in{\mathcal{T}(\mathcal{s})}}\rho_t^{T(t)}G_t}{|\ma
 &lt;p&gt;&lt;strong&gt;weighted importance sampling&lt;/strong&gt;: &lt;span class=&quot;math display&quot;&gt;\[
 V(\mathcal{s})=\frac{\sum_{t\in\mathcal{T}(\mathcal{s})} \rho_t^{T(t)}G_t}{\sum_{t\in\mathcal{T}(\mathcal{s})}\rho_t^{T(t)}}
 \]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Score Function&lt;/strong&gt;: The score function &lt;span class=&quot;math inline&quot;&gt;\(u(\theta)\)&lt;/span&gt; is the partial derivative of the log-likelihood function &lt;span class=&quot;math inline&quot;&gt;\(F(\theta)=\text{ln}L(\theta)\)&lt;/span&gt;, where &lt;span class=&quot;math inline&quot;&gt;\(L(\theta)\)&lt;/span&gt; is the standard likelihood function. &lt;span class=&quot;math display&quot;&gt;\[
+u(\theta)=\frac{\partial}{\partial\theta}F(\theta)
+\]&lt;/span&gt; Using formulatino of &lt;span class=&quot;math inline&quot;&gt;\(u\)&lt;/span&gt;, one can easily compute various statistical measurements associated with &lt;span class=&quot;math inline&quot;&gt;\(u\)&lt;/span&gt;. For example, the mean &lt;span class=&quot;math inline&quot;&gt;\(E(u(\theta))\)&lt;/span&gt; can be shown to equal zero while the variance is precisely the Fisher information matrix.&lt;a href=&quot;http://mathworld.wolfram.com/ScoreFunction.html&quot;&gt;[Link]&lt;/a&gt;&lt;/p&gt;
 </description>
 				<pubDate>Fri, 20 May 2016 00:00:00 +0800</pubDate>
 				<link>/reinforcement%20learning/2016/05/20/rl-concepts.html</link>
@@ -961,23 +985,6 @@ q_*(s,a)=\max_\pi q_\pi(s,a)
 				<pubDate>Tue, 03 May 2016 00:00:00 +0800</pubDate>
 				<link>/reinforcement%20learning/2016/05/03/markov-decision-processes.html</link>
 				<guid isPermaLink="true">/reinforcement%20learning/2016/05/03/markov-decision-processes.html</guid>
-			</item>
-		
-			<item>
-				<title>A Full Hardware Guide to Deep Learning</title>
-				<description>&lt;p&gt;&lt;a class=&quot;btn btn-default&quot; href=&quot;http://timdettmers.com/2015/03/09/deep-learning-hardware-guide/&quot; target=&quot;_blank&quot;&gt;Link&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;GPU&lt;/strong&gt;: GTX 680 or GTX 960 (no money); GTX 980 (best performance); GTX Titan (if you need memory); GTX 970 (no convolutional nets)&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;CPU&lt;/strong&gt;: Two threads per GPU; full 40 PCIe lanes and correct PCIe spec (same as your motherboard); &amp;gt; 2GHz; cache does not matter;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;RAM&lt;/strong&gt;: Use asynchronous mini-batch allocation; clock rate and timings do not matter; buy at least as much CPU RAM as you have GPU RAM;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Hard drive/SSD&lt;/strong&gt;: Use asynchronous batch-file reads and compress your data if you have image or sound data; a hard drive will be fine unless you work with 32 bit floating point data sets with large input dimensions&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Power supply unit(PSU)&lt;/strong&gt;: Add up watts of GPUs + CPU + (100-300) for required power; get high efficiency rating if you use large conv nets; make sure it has enough PCIe connectors (6+8pins) and watts for your (future) GPUs&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Cooling&lt;/strong&gt;: Set coolbits flag in your config if you run a single GPU; otherwise flashing BIOS for increased fan speeds is easiest and cheapest; use water cooling for multiple GPUs and/or when you need to keep down the noise (you work with other people in the same room)&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Motherboard&lt;/strong&gt;: Get PCIe 3.0 and as many slots as you need for your (future) GPUs (one GPU takes two slots; max 4 GPUs per system)&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Monitors&lt;/strong&gt;: If you want to upgrade your system to be more productive, it might make more sense to buy an additional monitor rather than upgrading your GPU&lt;/p&gt;
-</description>
-				<pubDate>Wed, 13 Apr 2016 00:00:00 +0800</pubDate>
-				<link>/deep%20learning/tools/2016/04/13/a-full-hardware-guide-to-deep-learning.html</link>
-				<guid isPermaLink="true">/deep%20learning/tools/2016/04/13/a-full-hardware-guide-to-deep-learning.html</guid>
 			</item>
 		
 	</channel>
