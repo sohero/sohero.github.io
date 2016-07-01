@@ -206,11 +206,32 @@ S_2,A_2 \to R_3,S_3
 \{\color{red}{s_t,a,}R_{t+1}^k,S_{t+1}^k,A_{t+1}^k,...,S_T^k\}_{k=1}^K\sim \mathcal M_v,\pi
 \]</span> Evaluate actions by mean return (<code>Monte-Carlo evaluation</code>) <span class="math display">\[
 Q(\color{red}{s_t,a})={1\over K}\sum_{k=1}^K G_t 
-\to
+\overset{P}\to
 q_\pi(s_t,a)
 \]</span> Select current (real) action with maximum value <span class="math display">\[
-a_t=\mathop{argmax}\limits_{a\in\mathcal A} Q(s_t,a)
+a_t=\mathop{argmax}\limits_{a\in\mathcal A} Q(s_t,a) \tag{*}\label{*}
 \]</span></p>
+<h3 id="monte-carlo-tree-search-evaluation">Monte-Carlo Tree Search (Evaluation)</h3>
+<p>Given a model <span class="math inline">\(\mathcal M_v\)</span>. Simulate <span class="math inline">\(K\)</span> episodes from current state <span class="math inline">\(s_t\)</span> using current simulation policy <span class="math inline">\(\pi\)</span>. Build a search tree containing visited states and actions. <code>Evaluate</code> states <span class="math inline">\(Q(s,a)\)</span> by mean return of episodes from <span class="math inline">\(s,a\)</span> <span class="math display">\[
+Q(\color{red}{s,a})={1\over N(s,a)}\sum_{k=1}^K\sum_{u=t}^T
+1(S_u,A_u=s,a)G_u\overset P\to q_\pi(s,a)
+\]</span> After search is finished, select current (real) action with maximum value in search tree (<span class="math inline">\(\ref{*}\)</span>).</p>
+<h3 id="monte-carlo-tree-search-simulation">Monte-Carlo Tree Search (Simulation)</h3>
+<p>In MCTS, the simulation policy <span class="math inline">\(\pi\)</span> <code>improves</code>. Each simulation consists of two phases (in-tree, out-of-tree)</p>
+<ul>
+<li><code>Tree policy</code> (improves): pick actions to maximise <span class="math inline">\(Q(S,A)\)</span></li>
+<li><code>Default policy</code> (fixed): pick actions randomly</li>
+</ul>
+<p>Repeat (each simulation)</p>
+<ul>
+<li><code>Evaluate</code> states <span class="math inline">\(Q(S,A)\)</span> by Monte-Carlo evaluation</li>
+<li><code>Improve</code> tree policy, e.g. by <span class="math inline">\(\epsilon\)</span>-greedy(Q)</li>
+</ul>
+<p><code>Monte-Carlo control</code> applied to <code>simulated experience</code>. Converges on the optimal search tree, <span class="math inline">\(Q(S,A)\to q_*(S,A)\)</span>.</p>
+<h2 id="td-search">TD Search</h2>
+<p>Simulate episodes from the current (real) state <span class="math inline">\(s_t\)</span>. Estimate action-value function <span class="math inline">\(Q(s,a)\)</span>. For each step of simulation, update action-values by Sarsa <span class="math display">\[
+\Delta Q(S,A)=\alpha(R+\gamma Q(S&#39;,A&#39;)-Q(S,A))
+\]</span> Select actions based on action-values <span class="math inline">\(Q(s,a)\)</span>, e.g. <span class="math inline">\(\epsilon\)</span>-greedy. May also use function approximate for <span class="math inline">\(Q\)</span>.</p>
 
 	  </div>
 
