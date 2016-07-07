@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Monte-Carlo Reinforcement Learning</title>
+	<title>BURLAP Tutorial</title>
 	
 	<meta name="author" content="sohero">
 	<!-- Enable responsive viewport -->
@@ -117,47 +117,33 @@
 
 	<div class="col-sm-10 col-sm-offset-2">
 		<div class="page-header">
-  <h1>Monte-Carlo Reinforcement Learning </h1>
+  <h1>BURLAP Tutorial </h1>
 </div>
 	
 <article>
 
 	<div class="col-sm-12">
 	 <span class="post-date">
-	 	2016-05-19 
+	 	2016-07-07 
 	 </span>
 	 <div class="article-outline"></div>
 	  <div class="article_body">
-	  <ul>
-<li>MC methods learn directly from episodes of experience</li>
-<li>MC is <em>model-free</em>: no knowledge of MDP transitions / rewards</li>
-<li>MC learns from <em>complete</em> episodes: no bootstrapping</li>
-<li>MC uses the simplest possible idea: value = mean return</li>
-<li>Caveat: can only apply MC to <em>episodic</em> MDPs. All episodes must terminate.</li>
+	  <h2 id="introduction">Introduction</h2>
+<p>An MDP definition does not include a specific element for specifying terminal states because they can be implicitly defined in the transition dynamics and reward function. That is, a terminal state can be encoded in an MDP by being a state in which every action causes a deterministic transition back to itself with zero reward. However, for convenience and other practical reasons, terminal states in BURLAP are specified directly with a function.</p>
+<h2 id="java-interfaces-for-mdp-definitions">Java Interfaces for MDP Definitions</h2>
+<figure>
+<img src="/assets/images/55.png" alt="Figure: UML Digram of the Java interfaces/classes for an MDP definition." /><figcaption>Figure: UML Digram of the Java interfaces/classes for an MDP definition.</figcaption>
+</figure>
+<ul>
+<li><strong>SADomain</strong> - A data structure that stands for “sigle agent domain”. This data structure stores information about an MDP that you will define and is typically passed to different planning or learning algorithms.</li>
+<li><strong>State</strong> - Implement this interface to define the state variables of your MDP state space. An instance of this object will specify a single state from the state space.</li>
+<li><strong>Action</strong> - Implement this interface to define a possible action that the agent can select. If your MDP action set is discrete and unparameterized, you may consider using the provided concrete implementation <em>SimpleAction</em>, which defines an aciton entirely by a single String name.</li>
+<li><strong>ActionType</strong> - Implement this interface to define a kind of Java factory for generating your Actions. In particular, this interface allows you define <em>preconditions</em> for actions. Actions with preconditions are actions that the agent can only select/execute in some states, and not others. It also allows you to specify which kinds of parameterizations of your actions are allowable in a state, if your actions are parameterized. Often, MDPs have unparameterized actions that can be executed in any state (no precondtions). In such cases, you should consider the provided concrete implementation <em>UniversalActionType</em>.</li>
+<li><strong>SampleModel</strong> - Implement this interface to define the model of your MDP. This inferface only requires you to implement methods that can sample a transition: spit back out a possible next state and reward given a prior state and action taken. Some planning algorithms, however, require more information; they may require being able to enumerate the set of possible transitions and their probability of occurring. If you wish to support these kinds of algorithms, then you will instead want to implement the FullModel interface that extends the SampleModel interface with a method for enumerating the transition probability distribution. Note that if you are defining a learning problem in which an agent interacts with an external environment from BURLAP, it may not be possible to define even a SampleModel. For example, if you’re going to use BURLAP to control robots via reinforcement learning, it might not be possible for you to specify a model of reality in a meanginful way (or it might simply be unncessary). In these cases, the model can be omitted from the MDP description and instead you’ll want to implement a custom Environment instance, described next.</li>
+<li><strong>Environment</strong> - An MDP defines the nature of an environment, but ultimately, an agent will want to interact with an actual environment, either through learning or to execute a policy it computed from planning for the MDP. An environment has a specific state of the world that the agent can only modify by using the MDP actions. Implement this interface to provide an environment with which BURLAP agents can interact. If you defined the MDP yourself, then you’ll probably don’t want to implement Environment yourself and instead use the provided concreate SimulatedEnvironment class, which takes an SADomain with a SampleModel, and simulates an environment for it.</li>
+<li><strong>EnvironmentOutcmoe</strong> - A tuple that contains a prior state/observation, an action taken in that state, a reward recieved, and a next state/observation to which the environment transitioned. This object is typically returned by an Environment instance when an action is taken, or from a SampleModel when you sample a transition.</li>
+<li><strong>TransitionProb</strong> - A tuple containing a double and an EnvironmentOutcome object, which specifies the probability of the transition specified by EnvironmentOutcome occurring. Typically, a list of these objects is returned by a FullModel instance when querying it for the transition probability distribution.</li>
 </ul>
-<h2 id="monte-carlo-policy-evaluation">Monte-Carlo Policy Evaluation</h2>
-<p><strong>Goal</strong>: learn <span class="math inline">\(v_\pi\)</span> from episodes of experience under policy <span class="math inline">\(\pi\)</span>.</p>
-<p>Monte-Carlo policy evaluation uses <code>empirical mean return</code> instead of <em>expected return</em>.</p>
-<h2 id="incremental-mean">Incremental Mean</h2>
-<p>The mean <span class="math inline">\(\mu_1,\mu_2,...\)</span> of a sequence <span class="math inline">\(x_1,x_2,...\)</span> can be computed incrementally, <span class="math display">\[
-\begin{align}
-\mu_k &amp;= {1 \over k}\sum_{j=1}^k x_j \\
-&amp;= {1 \over k}\left(x_k+\sum_{j=1}^{k-1} x_j\right) \\
-&amp;= {1 \over k}\left(x_k+(k-1)\mu_{k-1} \right) \\
-&amp;= \mu_{k-1} + {1 \over k}(x_k - \mu_{k-1})
-\end{align}
-\]</span></p>
-<h2 id="incremental-monte-carlo-updates">Incremental Monte-Carlo Updates</h2>
-<p>Update <span class="math inline">\(V(s)\)</span> incrementally after episode <span class="math inline">\(S_1,A_1,R_2,...,S_T\)</span>.</p>
-<p>For each state <span class="math inline">\(S_t\)</span> with return <span class="math inline">\(G_t\)</span> <span class="math display">\[
-\begin{align}
-N(S_t) &amp;\leftarrow N(S_t) + 1 \\
-V(S_t) &amp;\leftarrow V(S_t) + {1 \over N(S_t)}(G_t-V(S_t))
-\end{align}
-\]</span></p>
-<p>In non-stationary problems, it can be useful to track a running mean, i.e. forget old episodes. <span class="math display">\[
-V(S_t) \leftarrow V(S_t) + \alpha(G_t-V(S_t))
-\]</span></p>
 
 	  </div>
 
@@ -199,7 +185,7 @@ V(S_t) \leftarrow V(S_t) + \alpha(G_t-V(S_t))
 		<div>
       <section class="share col-sm-12">
         <h4 class="section-title">Share Post</h4>
-        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=Monte-Carlo Reinforcement Learning"
+        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=BURLAP Tutorial"
            onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
           <i class="fa fa-twitter fa-lg"></i>
           Twitter
@@ -221,10 +207,10 @@ V(S_t) \leftarrow V(S_t) + \alpha(G_t-V(S_t))
 
 		<ul class="pager">
 		  
-		  <li class="previous"><a href="/reinforcement%20learning/2016/05/17/dynamic-programming.html" title="Dynamic Programming">&larr; Previous</a></li>
+		  <li class="previous"><a href="/reinforcement%20learning/2016/07/04/exploration-and-exploitation.html" title="Exploration and Exploitation">&larr; Previous</a></li>
 		  
 		  
-		  <li class="next"><a href="/reinforcement%20learning/2016/05/19/temporal-difference-learning.html" title="Temporal-Difference Learning">Next &rarr;</a></li>
+			<li class="next disabled"><a>Next &rarr;</a>
 		  
 		</ul>
 

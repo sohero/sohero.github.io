@@ -7,8 +7,26 @@
 		<atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>BURLAP Tutorial</title>
+				<description>&lt;p&gt;An MDP definition does not include a specific element for specifying terminal states because they can be implicitly defined in the transition dynamics and reward function. That is, a terminal state can be encoded in an MDP by being a state in which every action causes a deterministic transition back to itself with zero reward. However, for convenience and other practical reasons, terminal states in BURLAP are specified directly with a function.&lt;/p&gt;
+</description>
+				<pubDate>Thu, 07 Jul 2016 00:00:00 +0800</pubDate>
+				<link>/reinforcement%20learning/2016/07/07/burlap-tutorial.html</link>
+				<guid isPermaLink="true">/reinforcement%20learning/2016/07/07/burlap-tutorial.html</guid>
+			</item>
+		
+			<item>
 				<title>Exploration and Exploitation</title>
-				<description>
+				<description>&lt;h2 id=&quot;regret&quot;&gt;Regret&lt;/h2&gt;
+&lt;p&gt;The &lt;em&gt;action-value&lt;/em&gt; is the mean reward for action &lt;span class=&quot;math inline&quot;&gt;\(a\)&lt;/span&gt; &lt;span class=&quot;math display&quot;&gt;\[
+Q(a)=\Bbb E[r|a]
+\]&lt;/span&gt; The &lt;em&gt;optimal value&lt;/em&gt; &lt;span class=&quot;math inline&quot;&gt;\(V^*\)&lt;/span&gt; is &lt;span class=&quot;math display&quot;&gt;\[
+V^*=Q(a^*)=\mathop{max}\limits_{a\in\mathcal A} Q(a)
+\]&lt;/span&gt; The &lt;em&gt;regret&lt;/em&gt; is the opportunity loss for one step &lt;span class=&quot;math display&quot;&gt;\[
+I_t=\Bbb E[V^*-Q(a_t)]
+\]&lt;/span&gt; The &lt;em&gt;total regret&lt;/em&gt; is the total opportunity loss &lt;span class=&quot;math display&quot;&gt;\[
+L_t=\Bbb E\left[\sum_{\tau=1}^t V^*-Q(a_\tau)\right]
+\]&lt;/span&gt; Maximise cumulative reward &lt;span class=&quot;math inline&quot;&gt;\(\equiv\)&lt;/span&gt; minimise total regret.&lt;/p&gt;
 </description>
 				<pubDate>Mon, 04 Jul 2016 00:00:00 +0800</pubDate>
 				<link>/reinforcement%20learning/2016/07/04/exploration-and-exploitation.html</link>
@@ -851,45 +869,6 @@ v(S_t) \leftarrow \max_{a\in\mathcal{A}} \left(
 				<pubDate>Tue, 17 May 2016 00:00:00 +0800</pubDate>
 				<link>/reinforcement%20learning/2016/05/17/dynamic-programming.html</link>
 				<guid isPermaLink="true">/reinforcement%20learning/2016/05/17/dynamic-programming.html</guid>
-			</item>
-		
-			<item>
-				<title>Recurrent Neural Networks with External Memory</title>
-				<description>&lt;p&gt;&lt;a class=&quot;btn btn-default&quot; href=&quot;https://github.com/npow/RNN-EM&quot; target=&quot;_blank&quot;&gt;GitHub&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&quot;external-memory-read&quot;&gt;External memory read&lt;/h2&gt;
-&lt;p&gt;RNN-EM has an external memory &lt;span class=&quot;math inline&quot;&gt;\(M_t \in R^{m\times n}\)&lt;/span&gt;. It can be considered as a memory with &lt;span class=&quot;math inline&quot;&gt;\(n\)&lt;/span&gt; slots and each slot is a vector with &lt;span class=&quot;math inline&quot;&gt;\(m\)&lt;/span&gt; elements. Similar to the external memory in computers, the memory capacity of RNN-EM may be increased if using a large &lt;span class=&quot;math inline&quot;&gt;\(n\)&lt;/span&gt;.&lt;/p&gt;
-&lt;p&gt;The model generates a key vector &lt;span class=&quot;math inline&quot;&gt;\(k_t\)&lt;/span&gt; to search for content in the external memory. Though there are many possible ways to generate the key vector, we choose a simple linear function that relates hidden layer activity &lt;span class=&quot;math inline&quot;&gt;\(h_t\)&lt;/span&gt; as follows &lt;span class=&quot;math display&quot;&gt;\[
-k_t=W_kh_t
-\]&lt;/span&gt; where &lt;span class=&quot;math inline&quot;&gt;\(W_k\in R^{m\times p}\)&lt;/span&gt; is a linear transformation matrix. Our intuition is that the memory should be in the same space of or affine to the hidden layer activity.&lt;/p&gt;
-&lt;p&gt;We use cosine distance &lt;span class=&quot;math inline&quot;&gt;\(K(u,v)={u\cdot v \over ||u||||v||}\)&lt;/span&gt; to compare this key vector with contents in the external memory. The weight for the &lt;span class=&quot;math inline&quot;&gt;\(c\)&lt;/span&gt;-th slot &lt;span class=&quot;math inline&quot;&gt;\(M_t(:,c)\)&lt;/span&gt; in memory &lt;span class=&quot;math inline&quot;&gt;\(M_t\)&lt;/span&gt; is computed as follows &lt;span class=&quot;math display&quot;&gt;\[
-\hat w_t(c)=\frac{exp\beta_tK(k_t,M_t(:,c))}{\sum_qexp\beta_tK(k_t,M_t(:,q))}
-\]&lt;/span&gt; where the above weight is normalized and sums to 1.0. &lt;span class=&quot;math inline&quot;&gt;\(\beta_t\)&lt;/span&gt; is a scalar larger than 0.0. It sharpens the weight vector when &lt;span class=&quot;math inline&quot;&gt;\(\beta_t\)&lt;/span&gt; is larger than 1.0. Conversely, it smooths or dampens the weight vector when &lt;span class=&quot;math inline&quot;&gt;\(\beta_t\)&lt;/span&gt; is between 0.0 and 1.0. We use the following function to obtain &lt;span class=&quot;math inline&quot;&gt;\(\beta_t\)&lt;/span&gt;; &lt;span class=&quot;math display&quot;&gt;\[
-\beta_t=log(1+exp(W_\beta h_t))
-\]&lt;/span&gt; where &lt;span class=&quot;math inline&quot;&gt;\(W_\beta\in R^{1\times p}\)&lt;/span&gt; maps the hidden layer activity &lt;span class=&quot;math inline&quot;&gt;\(h_t\)&lt;/span&gt; to a scalar.&lt;/p&gt;
-&lt;p&gt;Importantly, we also use a scalar coefficient &lt;span class=&quot;math inline&quot;&gt;\(g_t\)&lt;/span&gt; to interpolate the above weight estimate with the past weight as follows &lt;span class=&quot;math display&quot;&gt;\[
-w_t=(1-g_t)w_{t-1}+g_t\hat w_t
-\]&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;The memory content is retrieved from the external memory at time &lt;span class=&quot;math inline&quot;&gt;\(t-1\)&lt;/span&gt; using &lt;span class=&quot;math display&quot;&gt;\[
-c_t=M_{t-1}w_{t-1}
-\]&lt;/span&gt;&lt;/p&gt;
-&lt;h2 id=&quot;external-memory-update&quot;&gt;External memory update&lt;/h2&gt;
-&lt;p&gt;RNN-EM generates a new content vector &lt;span class=&quot;math inline&quot;&gt;\(v_t\)&lt;/span&gt; to be added to its memory &lt;span class=&quot;math display&quot;&gt;\[
-v_t=W_vh_t
-\]&lt;/span&gt; where &lt;span class=&quot;math inline&quot;&gt;\(W_v\in R^{m\times p}\)&lt;/span&gt;.&lt;/p&gt;
-&lt;p&gt;RNN-EM has a forget gate as follows &lt;span class=&quot;math display&quot;&gt;\[
-f_t=1-w_t\odot e_t
-\]&lt;/span&gt; where &lt;span class=&quot;math inline&quot;&gt;\(e_t\in R^{n\times 1}\)&lt;/span&gt; is an erase vector, generated as &lt;span class=&quot;math inline&quot;&gt;\(e_t=\sigma(W_{he}h_t)\)&lt;/span&gt;. Notice that the &lt;span class=&quot;math inline&quot;&gt;\(c\)&lt;/span&gt;-th element in the forget gate is zero only if both read weight &lt;span class=&quot;math inline&quot;&gt;\(w_t\)&lt;/span&gt; and erase vector &lt;span class=&quot;math inline&quot;&gt;\(e_t\)&lt;/span&gt; have their &lt;span class=&quot;math inline&quot;&gt;\(c\)&lt;/span&gt;-th element set to one. Therefore, memory cannot be forgotten if it is not to be read.&lt;/p&gt;
-&lt;p&gt;RNN-EM has an update gate &lt;span class=&quot;math inline&quot;&gt;\(u_t\)&lt;/span&gt;. It simply uses the weight &lt;span class=&quot;math inline&quot;&gt;\(w_t\)&lt;/span&gt; as follows &lt;span class=&quot;math display&quot;&gt;\[
-u_t=w_t
-\]&lt;/span&gt; Therefore, memory is only updated if it is to be read.&lt;/p&gt;
-&lt;p&gt;With the above described two gates, the memory is updated as follows &lt;span class=&quot;math display&quot;&gt;\[
-M_t=diag(f_t)M_{t-1}+diag(u_t)v_t
-\]&lt;/span&gt; where &lt;span class=&quot;math inline&quot;&gt;\(diag(\cdot)\)&lt;/span&gt; transforms a vector to a diagonal matrix with diagonal elements from the vector.&lt;/p&gt;
-&lt;p&gt;Notice that when the number of memory slots is small, it may have similar performances as a geted RNN.&lt;/p&gt;
-</description>
-				<pubDate>Tue, 03 May 2016 00:00:00 +0800</pubDate>
-				<link>/deep%20learning/rnn/2016/05/03/rnn-em.html</link>
-				<guid isPermaLink="true">/deep%20learning/rnn/2016/05/03/rnn-em.html</guid>
 			</item>
 		
 	</channel>
