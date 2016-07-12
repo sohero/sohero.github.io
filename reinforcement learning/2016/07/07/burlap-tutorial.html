@@ -147,6 +147,11 @@
 <li><strong>EnvironmentOutcome</strong> - A tuple that contains a prior state/observation, an action taken in that state, a reward recieved, and a next state/observation to which the environment transitioned. This object is typically returned by an Environment instance when an action is taken, or from a SampleModel when you sample a transition.</li>
 <li><strong>TransitionProb</strong> - A tuple containing a double and an EnvironmentOutcome object, which specifies the probability of the transition specified by EnvironmentOutcome occurring. Typically, a list of these objects is returned by a FullModel instance when querying it for the transition probability distribution.</li>
 </ul>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java">ExampleGridWorld gen = <span class="kw">new</span> <span class="fu">ExampleGridWorld</span>();
+gen.<span class="fu">setGoalLocation</span>(<span class="dv">10</span>, <span class="dv">10</span>);
+SADomain domain = gen.<span class="fu">generateDomain</span>();
+State initialState = <span class="kw">new</span> <span class="fu">EXGridState</span>(<span class="dv">0</span>, <span class="dv">0</span>);
+SimulatedEnvironment env = <span class="kw">new</span> <span class="fu">SimulatedEnvironment</span>(domain, initialState);</code></pre></div>
 
 	  </div>
 
