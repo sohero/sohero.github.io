@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Monte-Carlo Reinforcement Learning</title>
+	<title>Introduction to Reinforcement Learning with Function Approximation by Rich Sutton</title>
 	
 	<meta name="author" content="sohero">
 	<!-- Enable responsive viewport -->
@@ -117,47 +117,68 @@
 
 	<div class="col-sm-10 col-sm-offset-2">
 		<div class="page-header">
-  <h1>Monte-Carlo Reinforcement Learning </h1>
+  <h1>Introduction to Reinforcement Learning with Function Approximation by Rich Sutton </h1>
 </div>
 	
 <article>
 
 	<div class="col-sm-12">
 	 <span class="post-date">
-	 	2016-05-19 
+	 	2016-07-13 
 	 </span>
 	 <div class="article-outline"></div>
 	  <div class="article_body">
-	  <ul>
-<li>MC methods learn directly from episodes of experience</li>
-<li>MC is <em>model-free</em>: no knowledge of MDP transitions / rewards</li>
-<li>MC learns from <em>complete</em> episodes: no bootstrapping</li>
-<li>MC uses the simplest possible idea: value = mean return</li>
-<li>Caveat: can only apply MC to <em>episodic</em> MDPs. All episodes must terminate.</li>
+	  <h2 id="the-problem-of-instability">The problem of instability</h2>
+<p>The risk of divergence arises whenever we combine three things:</p>
+<ul>
+<li><code>1. Function approximation</code>
+<ul>
+<li>significantly generalizing from large numbers of examples</li>
+</ul></li>
+<li><code>2. Bootstrapping</code>
+<ul>
+<li>learning value estimates from other value estimates, as in dynamic programming and temporal-difference learning</li>
+</ul></li>
+<li><code>3. Off-policy learning</code>
+<ul>
+<li>learning about a policy from data not due to that policy, as in Q-learning, where we learn about the greedy policy from data with a necessarily more exploratory policy</li>
+</ul></li>
 </ul>
-<h2 id="monte-carlo-policy-evaluation">Monte-Carlo Policy Evaluation</h2>
-<p><strong>Goal</strong>: learn <span class="math inline">\(v_\pi\)</span> from episodes of experience under policy <span class="math inline">\(\pi\)</span>.</p>
-<p>Monte-Carlo policy evaluation uses <code>empirical mean return</code> instead of <em>expected return</em>.</p>
-<h2 id="incremental-mean">Incremental Mean</h2>
-<p>The mean <span class="math inline">\(\mu_1,\mu_2,...\)</span> of a sequence <span class="math inline">\(x_1,x_2,...\)</span> can be computed incrementally, <span class="math display">\[
-\begin{align}
-\mu_k &amp;= {1 \over k}\sum_{j=1}^k x_j \\
-&amp;= {1 \over k}\left(x_k+\sum_{j=1}^{k-1} x_j\right) \\
-&amp;= {1 \over k}\left(x_k+(k-1)\mu_{k-1} \right) \\
-&amp;= \mu_{k-1} + {1 \over k}(x_k - \mu_{k-1})
-\end{align}
-\]</span></p>
-<h2 id="incremental-monte-carlo-updates">Incremental Monte-Carlo Updates</h2>
-<p>Update <span class="math inline">\(V(s)\)</span> incrementally after episode <span class="math inline">\(S_1,A_1,R_2,...,S_T\)</span>.</p>
-<p>For each state <span class="math inline">\(S_t\)</span> with return <span class="math inline">\(G_t\)</span> <span class="math display">\[
-\begin{align}
-N(S_t) &amp;\leftarrow N(S_t) + 1 \\
-V(S_t) &amp;\leftarrow V(S_t) + {1 \over N(S_t)}(G_t-V(S_t))
-\end{align}
-\]</span></p>
-<p>In non-stationary problems, it can be useful to track a running mean, i.e. forget old episodes. <span class="math display">\[
-V(S_t) \leftarrow V(S_t) + \alpha(G_t-V(S_t))
-\]</span></p>
+<p><strong>Any two without the third is ok.</strong></p>
+<h3 id="can-we-do-without-bootstrapping">Can we do without bootstrapping?</h3>
+<ul>
+<li>Bootstrapping is critical to the <code>computational efficienty of DP</code></li>
+<li>Bootstrapping is critical to the <code>data efficiency of TD</code> methods</li>
+<li>On the other hand, bootstrapping <code>introduces bias</code>, which harms the asymptotic performance of approximate methods</li>
+<li>The <code>degree of bootstrapping</code> can be finely controlled via the <span class="math inline">\(\lambda\)</span> parameter, from <span class="math inline">\(\lambda=0\)</span> (full bootstrapping) to <span class="math inline">\(\lambda=1\)</span> (no bootstrapping)</li>
+</ul>
+<blockquote>
+<p>4 examples of the effect of bootstrapping suggest that <span class="math inline">\(\lambda=1\)</span> (no bootstrapping) is a very poor choice.</p>
+</blockquote>
+<h3 id="other-ways-to-survive-the-deadly-triad">Other ways to survive the deadly triad</h3>
+<ul>
+<li>Use high <span class="math inline">\(\lambda\)</span>. Use good features</li>
+<li>Recent results suggest that <code>replay</code> and <code>more stable targets</code> (e.g., <code>Double  Q-learning</code>, van Hasselt 2010) may help, but it is too soon to be sure</li>
+<li>Use <code>least-squares methods</code> like <code>off-policy LSTD(λ)</code> (Yu 2010, Mahmood et al. 2015). Such methods (Bradtke &amp; Barto 1996, Boyan 2000) easily survive the triad, but their computational costs scale with the square of the number of parameters</li>
+<li>Try the <code>new true-gradient RL methods</code> (<code>Gradient-TD</code> and <code>proximal-gradientTD</code>) developed by Maei (2011) and Mahadevan (2015) et al. These seem to me to be the best attempts to make TD methods with the robust convergence properties of stochastic gradient descent. <code>Residual gradient methods</code> (Baird 1999) are also true gradient methods, but optimize a poor objective, or can’t learn purely from data (double sampling). These and other methods based on the Bellman error/residual are not recommended</li>
+<li>Try the even newer <code>Emphatic-TD methods</code> (Sutton, White &amp; Mahmood 2015, Yu 2015). These semi-gradient methods attain stability through an extension of the early on-policy theorems</li>
+</ul>
+<h2 id="why-approximate-policies-rather-than-values">Why approximate policies rather than values?</h2>
+<ul>
+<li>In many problems, the policy is simpler than the value function</li>
+<li>In many problems, the optimal policy is stochastic</li>
+<li>To enable smoother change in policies</li>
+<li>To avoid a search on every step (the max)</li>
+<li>To better relate to biology</li>
+</ul>
+<h2 id="we-should-never-discount-when-optimizing-approximate-policies">We should never discount when optimizing approximate policies!</h2>
+<ul>
+<li>It breaks the definition of an optimal policy</li>
+<li>With approximation, <em>the optimal policy</em> is no longer representable</li>
+<li>There is no way to rank the remaining policies</li>
+<li>Different policies will be best in different states</li>
+<li>Instead, you must say what states you care about or else use average reward (which you should probably do anyway)</li>
+</ul>
 
 	  </div>
 
@@ -199,7 +220,7 @@ V(S_t) \leftarrow V(S_t) + \alpha(G_t-V(S_t))
 		<div>
       <section class="share col-sm-12">
         <h4 class="section-title">Share Post</h4>
-        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=Monte-Carlo Reinforcement Learning"
+        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=Introduction to Reinforcement Learning with Function Approximation by Rich Sutton"
            onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
           <i class="fa fa-twitter fa-lg"></i>
           Twitter
@@ -221,10 +242,10 @@ V(S_t) \leftarrow V(S_t) + \alpha(G_t-V(S_t))
 
 		<ul class="pager">
 		  
-		  <li class="previous"><a href="/reinforcement%20learning/2016/05/17/dynamic-programming.html" title="Dynamic Programming">&larr; Previous</a></li>
+		  <li class="previous"><a href="/reinforcement%20learning/2016/07/07/burlap-tutorial.html" title="BURLAP Tutorial">&larr; Previous</a></li>
 		  
 		  
-		  <li class="next"><a href="/reinforcement%20learning/2016/05/19/temporal-difference-learning.html" title="Temporal-Difference Learning">Next &rarr;</a></li>
+			<li class="next disabled"><a>Next &rarr;</a>
 		  
 		</ul>
 
