@@ -1,0 +1,44 @@
+<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>Neural Reasoner | An old brother's memo.</title><link rel="stylesheet" type="text/css" href="/css/normalize.css"><link rel="stylesheet" type="text/css" href="/css/highlight.css"><link rel="stylesheet" type="text/css" href="/css/very-simple.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script></head><body><!-- include the sidebar--><!-- include ./includes/sidebar.jade--><!-- Blog title and subtitle--><header><div class="container header"><a id="logo" href="/." class="title">An old brother's memo.</a><span class="subtitle"></span><label id="toggle-menu" for="menu" onclick><i class="fa fa-bars"></i></label></div></header><!-- use checkbox hack for toggle nav-bar on small screens--><input id="menu" type="checkbox"><!-- Navigation Links--><nav id="nav"><div class="container"><a href="/" class="sidebar-nav-item active">Home</a><a href="/archives" class="sidebar-nav-item">Archives</a></div></nav><div id="header-margin-bar"></div><!-- gallery that comes before the header--><div class="wrapper"><div class="container post-header"><h1>Neural Reasoner</h1></div></div><div class="wrapper"><div class="container meta"><div class="post-time">2016-07-14</div><div class="post-categories"><a class="post-category-link" href="/categories/machine-learning/">machine learning</a></div><div class="post-tags"><a class="post-tag-link" href="/tags/deep-learning/">deep learning</a>/<a class="post-tag-link" href="/tags/nlp/">nlp</a></div></div></div><article><div class="container post"><h2 id="overview-of-neural-reasoner">Overview of Neural Reasoner</h2>
+<p><strong>Neural Reasoner</strong> has a layered architecture to deal with the complicated logical relations in reasoning as illustrated in Figure 1:</p>
+<figure>
+<img src="/images/24.png">
+</figure>
+<p>It consists of <code>one encoding layer</code> and <code>multiple reasoning layers</code>. The encoder layers first converts the question and facts from natural language sentences to vectorial representations. More specifically, <span class="math display">\[
+Q \quad \underrightarrow{encode} \quad q^{(0)} , F_k \quad \underrightarrow{encode} \quad f_k^{(0)},k=1,2,...,K.
+\]</span> where <span class="math inline">\(q^{(0)} \in \Bbb R^{d_Q}\)</span> and <span class="math inline">\(f_k^{(0)} \in \Bbb R^{d_F}\)</span>. With the representations obtained from the encoding layer, the reasoning layer recursively updates the representations of questions and facts, <span class="math display">\[
+\{q^{(l)}f_1^{(l)}\dotsb f_K^{(l)}\}\quad \underrightarrow{reason} \quad\{q^{(l+1)}f_1^{(l+1)}\dotsb f_K^{(l+1)}\}
+\]</span> through the interaction between question representation and fact representations. Intuitively, this interaction models the reasoning, including examination of the facts and comparison of the facts and the questions. Finally at layer-<span class="math inline">\(L\)</span>, the resulted question representation <span class="math inline">\(q^{(L)}\)</span> is fed to an answerer, which layer can be a classifier for choosing between a number of pre-determined classes (e.g., {Yes, No}) or a text generator for create a sentence.</p>
+<p>Neural Reasoner has the following desired properties:</p>
+<ul>
+<li>it can handle varying number of facts, including irrelevant ones, and reach the final conclusion through repeated processing of filtering and combining;</li>
+<li>it makes no assumption about the form of language, as long as enough training examples are given.</li>
+</ul>
+<h2 id="model">Model</h2>
+<figure>
+<img src="/images/25.png">
+</figure>
+<h2 id="auxiliary-training-for-questionfact-representation">Auxiliary Training for Question/Fact Representation</h2>
+<p>Use auxiliary training to facilitate the learning of representations of question and facts. Basically, in addition to using the learned representations of question and facts in the reasoning process, also use those representations to reconstruct the original questions or their more abstract forms with variables.</p>
+<p>In the auxiliary training, intend to achieve the following two goals:</p>
+<ul>
+<li>to compensate the lack of supervision in the learning task. In experiments, the supervision can be fairly weak since for each instance it is merely a classification with no more than 12 classes, while the number of instances are 1K to 10K.</li>
+<li>to introduce beneficial bias for the representation learning task. Since the network is a complicated nonlinear function, the back-propagation from the answering layer to the encoding layer can easily fail to learn well.</li>
+</ul>
+<p>Auxiliary training for question representation. The training for fact representation is identical and therefore omitted</p>
+<figure>
+<img src="/images/26.png">
+</figure>
+</div><!-- comment system--><div class="container"><hr><div data-thread-key="2016/07/14/Neural Reasoner/" data-title="Neural Reasoner" data-url="http://www.sgq.mobi/2016/07/14/Neural Reasoner/" class="ds-thread"></div><script>var duoshuoQuery = {short_name:'sgqmobi'};
+(function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script></div></article><footer id="footer"><div class="container"><div class="bar"><div class="social"><a href="mailto:dad@sdz.red" target="_blank"><i class="fa fa-envelope-o"></i></a><a href="https://github.com/sohero" target="_blank"><i class="fa fa-github"></i></a></div><div class="footer">© 2017 <a href="/" rel="nofollow">Hero Memo</a>. Powered by <a rel="nofollow" target="_blank" href="https://hexo.io">Hexo</a>. Theme <a target="_blank" href="https://github.com/lotabout/very-simple">very-simple</a>.</div></div></div></footer><script>MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.css"><script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script><script src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js"></script><script>$(document).ready(function() {
+    $(".fancybox").fancybox();
+});
+</script></body></html>

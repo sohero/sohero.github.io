@@ -1,0 +1,69 @@
+<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>Language Modeling | An old brother's memo.</title><link rel="stylesheet" type="text/css" href="/css/normalize.css"><link rel="stylesheet" type="text/css" href="/css/highlight.css"><link rel="stylesheet" type="text/css" href="/css/very-simple.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script></head><body><!-- include the sidebar--><!-- include ./includes/sidebar.jade--><!-- Blog title and subtitle--><header><div class="container header"><a id="logo" href="/." class="title">An old brother's memo.</a><span class="subtitle"></span><label id="toggle-menu" for="menu" onclick><i class="fa fa-bars"></i></label></div></header><!-- use checkbox hack for toggle nav-bar on small screens--><input id="menu" type="checkbox"><!-- Navigation Links--><nav id="nav"><div class="container"><a href="/" class="sidebar-nav-item active">Home</a><a href="/archives" class="sidebar-nav-item">Archives</a></div></nav><div id="header-margin-bar"></div><!-- gallery that comes before the header--><div class="wrapper"><div class="container post-header"><h1>Language Modeling</h1></div></div><div class="wrapper"><div class="container meta"><div class="post-time">2016-07-14</div><div class="post-categories"><a class="post-category-link" href="/categories/machine-learning/">machine learning</a></div><div class="post-tags"><a class="post-tag-link" href="/tags/nlp/">nlp</a></div></div></div><article><div class="container post"><ul>
+<li>Goal: compute the probability of a sentence or a sequence of words: <span class="math display">\[
+P(W)=P(w_1,w_2,w_3,...,w_n)
+\]</span></li>
+<li>Related task: probability of an upcoming word: <span class="math display">\[
+p(w_5|w_1,w_2,w_3,w_4)
+\]</span></li>
+<li>A model that computes either of these <span class="math inline">\(P(W)\)</span> or <span class="math inline">\(P(w_n|w_1,w_2,...,w_{n-1})\)</span> is called a <code>language model</code>.</li>
+</ul>
+<h2 id="the-chain-rule-of-probability">The Chain Rule of Probability</h2>
+<p><span class="math display">\[
+P(A,B,C,D)=P(A)P(B|A)P(C|A,B)P(D|A,B,C)
+\]</span> The chain rule in general: <span class="math display">\[
+P(x_1,x_2,x_3,…,x_n) = P(x_1)P(x_2|x_1)P(x_3|x_1,x_2)…P(x_n|x_1,…,x_{n-1})
+\]</span></p>
+<p>i.e.</p>
+<p><span class="math display">\[
+P(w_1w_2···w_n)=\prod_i P(w_i|w_1w_2···w_{i-1})
+\]</span></p>
+<h2 id="markov-assumption">Markov Assumption</h2>
+<p><span class="math display">\[
+P(w_1w_2···w_n)\approx \prod_i P(w_i|w_{i-k}···w_{i-1})
+\]</span></p>
+<ul>
+<li>Unigram model <span class="math display">\[
+P(w_1w_2···w_n)\approx \prod_i P(w_i)
+\]</span></li>
+<li>Bigram model <span class="math display">\[
+P(w_1w_2···w_n)\approx \prod_i P(w_i|w_{i-1})
+\]</span></li>
+<li>N-gram model</li>
+</ul>
+<h2 id="estimating-bigram-probabilities">Estimating bigram probabilities</h2>
+<p>The Maximum Likelihood Estimate <span class="math display">\[
+P(w_i|w_{i-1})=\frac{count(w_{i-1},w_i)}{count(w_{i-1})}
+\]</span></p>
+<h3 id="practical-issues">Practical Issues</h3>
+<p>do everything in log space</p>
+<ul>
+<li>Avoid underflow</li>
+<li>also adding is faster than multiplying <span class="math display">\[
+p_1\times p_2\times p_3\times p_4=logp_1+logp_2+logp_3+logp_4
+\]</span></li>
+</ul>
+<h2 id="perplexity">Perplexity</h2>
+<p>The best language model is the one that best predicts an unseen test set. Perplexity is the probability of the test set, normalized by the number of words: <span class="math display">\[
+PP(W)=P(w_1w_2...w_N)^{-{1 \over N}}
+\]</span></p>
+<p><strong>Chain rule:</strong> <span class="math display">\[
+PP(W)=\sqrt[N]{\prod_{i=1}^N \frac{1}{P(w_i|w_1...w_{i-1})}}
+\]</span></p>
+<p><strong>For bigrams:</strong> <span class="math display">\[
+PP(W)=\sqrt[N]{\prod_{i=1}^N \frac{1}{P(w_i|w_{i-1})}}
+\]</span></p>
+<p>Minimizing perplexity is the same as maximizing probability.</p>
+</div><!-- comment system--><div class="container"><hr><div data-thread-key="2016/07/14/Language Modeling/" data-title="Language Modeling" data-url="http://www.sgq.mobi/2016/07/14/Language Modeling/" class="ds-thread"></div><script>var duoshuoQuery = {short_name:'sgqmobi'};
+(function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script></div></article><footer id="footer"><div class="container"><div class="bar"><div class="social"><a href="mailto:dad@sdz.red" target="_blank"><i class="fa fa-envelope-o"></i></a><a href="https://github.com/sohero" target="_blank"><i class="fa fa-github"></i></a></div><div class="footer">© 2017 <a href="/" rel="nofollow">Hero Memo</a>. Powered by <a rel="nofollow" target="_blank" href="https://hexo.io">Hexo</a>. Theme <a target="_blank" href="https://github.com/lotabout/very-simple">very-simple</a>.</div></div></div></footer><script>MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.css"><script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script><script src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js"></script><script>$(document).ready(function() {
+    $(".fancybox").fancybox();
+});
+</script></body></html>

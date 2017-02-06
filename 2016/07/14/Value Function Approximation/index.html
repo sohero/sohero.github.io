@@ -1,0 +1,143 @@
+<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>Value Function Approximation | An old brother's memo.</title><link rel="stylesheet" type="text/css" href="/css/normalize.css"><link rel="stylesheet" type="text/css" href="/css/highlight.css"><link rel="stylesheet" type="text/css" href="/css/very-simple.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script></head><body><!-- include the sidebar--><!-- include ./includes/sidebar.jade--><!-- Blog title and subtitle--><header><div class="container header"><a id="logo" href="/." class="title">An old brother's memo.</a><span class="subtitle"></span><label id="toggle-menu" for="menu" onclick><i class="fa fa-bars"></i></label></div></header><!-- use checkbox hack for toggle nav-bar on small screens--><input id="menu" type="checkbox"><!-- Navigation Links--><nav id="nav"><div class="container"><a href="/" class="sidebar-nav-item active">Home</a><a href="/archives" class="sidebar-nav-item">Archives</a></div></nav><div id="header-margin-bar"></div><!-- gallery that comes before the header--><div class="wrapper"><div class="container post-header"><h1>Value Function Approximation</h1></div></div><div class="wrapper"><div class="container meta"><div class="post-time">2016-07-14</div><div class="post-categories"><a class="post-category-link" href="/categories/machine-learning/">machine learning</a></div><div class="post-tags"><a class="post-tag-link" href="/tags/reinforcement-learning/">reinforcement learning</a></div></div></div><article><div class="container post"><h2 id="incremental-methods">Incremental Methods</h2>
+<h3 id="types-of-value-function-approximation">Types of Value Function Approximation</h3>
+<figure>
+<img src="/images/48.png">
+</figure>
+<h3 id="value-function-approx.-by-stochastic-gradient-descent">Value Function Approx. By Stochastic Gradient Descent</h3>
+<p><strong>Goal</strong>: find parameter vector <span class="math inline">\(\mathbf w\)</span> minimising mean-squared error between approximate value fn <span class="math inline">\(\hat v(s,\mathbf w)\)</span> and true value fn <span class="math inline">\(v_\pi(s)\)</span> <span class="math display">\[
+J(\mathbf w)=\mathbb E_\pi\left[
+\left(
+v_\pi(S)-\hat v(S,\mathbf w)
+\right)^2
+\right]
+\]</span></p>
+<h3 id="feature-vectors">Feature Vectors</h3>
+<p>Represent state by a <em>feature vector</em> <span class="math display">\[
+\mathbf x(S)=\begin{bmatrix}
+x_1(S) \\
+\vdots \\
+x_n(S)
+\end{bmatrix}
+\]</span></p>
+<h3 id="linear-value-function-approximation">Linear Value Function Approximation</h3>
+<p>Represent value function by a linear combination of features <span class="math display">\[
+\hat v(S,\mathbf w)=\mathbf x(S)^T \mathbf w
+=\sum_{j=1}^n \mathbf x_j(S)\mathbf w_j
+\]</span> Objective function is quadratic in parameters <span class="math inline">\(\mathbf w\)</span> <span class="math display">\[
+J(\mathbf w)=\mathbb E_\pi\left[
+\left(
+v_\pi(S)- \mathbf x(S)^T \mathbf w
+\right)^2
+\right]
+\]</span></p>
+<h3 id="incremental-prediction-algorithms">Incremental Prediction Algorithms</h3>
+<p>In practice, we substitute a <em>target</em> for <span class="math inline">\(v_\pi(s)\)</span>. For MC, the target is the return <span class="math inline">\(G_t\)</span> <span class="math display">\[
+\Delta\mathbf w=\alpha(\color{red}{G_t}-\hat v(S_t,\mathbf w))
+\nabla_{\mathbf w}\hat v(S_t,\mathbf w)
+\]</span> For TD(0) the target is the TD target <span class="math inline">\(R_{t+1}+\gamma\hat v(S_{t+1},\mathbf w)\)</span> <span class="math display">\[
+\Delta\mathbf w=\alpha
+(\color{red}{R_{t+1}+\gamma\hat v(S_{t+1},\mathbf w)}-\hat v(S_t,\mathbf w))
+\nabla_{\mathbf w}\hat v(S_t,\mathbf w)
+\]</span> For TD(<span class="math inline">\(\lambda\)</span>), the target is the <span class="math inline">\(\lambda\)</span>-return <span class="math inline">\(G_t^\lambda\)</span> <span class="math display">\[
+\Delta\mathbf w=\alpha(\color{red}{G_t^\lambda}-\hat v(S_t,\mathbf w))
+\nabla_{\mathbf w}\hat v(S_t,\mathbf w)
+\]</span></p>
+<blockquote>
+<p>Monte-Carlo evaluation converges to a local optimum, even when using non-linear value function approximation. Linear TD(0) converges (close) to global optimum.</p>
+</blockquote>
+<h3 id="action-value-function-approximation">Action-Value Function Approximation</h3>
+<p>Approximate the action-value function <span class="math display">\[
+\hat q(S,A,\mathbf w) \approx q_\pi(S,A)
+\]</span> Minimise mean-squared error between approximate action-value fn <span class="math inline">\(\hat q(S,A,\mathbf w)\)</span> and true action-value fn <span class="math inline">\(q_\pi(S,A)\)</span> <span class="math display">\[
+J(\mathbf w)=\Bbb E_\pi\left[
+\left(
+q_\pi(S,A)-\hat q(S,A,\mathbf w)
+\right)^2
+\right]
+\]</span></p>
+<h3 id="convergence-of-prediction-algorithms">Convergence of Prediction Algorithms</h3>
+<figure>
+<img src="/images/49.png">
+</figure>
+<h3 id="gradient-temporal-difference-learning">Gradient Temporal-Difference Learning</h3>
+<p>TD does not follow the gradient of <em>any</em> objective function, this is why TD can diverge when off-policy or using non-linear function approximation.</p>
+<p><code>Gradient TD</code> follows true gradient of projected Bellman error</p>
+<figure>
+<img src="/images/50.png">
+</figure>
+<h3 id="convergence-of-control-algorithms">Convergence of Control Algorithms</h3>
+<figure>
+<img src="/images/51.png">
+</figure>
+<h2 id="batch-reinforcement-learning">Batch Reinforcement Learning</h2>
+<h3 id="least-squares-prediction">Least Squares Prediction</h3>
+<p>Give value function approximation <span class="math inline">\(\hat v(s,\mathbf w)\approx v_\pi(s)\)</span>, and experience <span class="math inline">\(\mathcal D\)</span> consisting of <span class="math inline">\(\left&lt;state, value \right&gt;\)</span> pairs <span class="math display">\[
+\mathcal D=\left\{
+\left&lt;s_1,v_1^\pi \right&gt;,
+\left&lt;s_2,v_2^\pi \right&gt;,
+...,
+\left&lt;s_T,v_T^\pi \right&gt;,
+\right\}
+\]</span> <strong>Least squared</strong> algorithms find parameter vector <span class="math inline">\(\mathbf w\)</span> minimising sum-squared error between <span class="math inline">\(\hat v(s_t,\mathbf w)\)</span> and target values <span class="math inline">\(v_t^\pi\)</span> <span class="math display">\[
+\begin{align}
+LS(\mathbf w) &amp;= \sum_{t=1}^T (v_t^\pi-\hat v(s_t,\mathbf w))^2 \\
+&amp;= \Bbb E_{\mathcal D} \left[(v_t^\pi-\hat v(s_t,\mathbf w))^2\right]
+\end{align}
+\]</span></p>
+<h3 id="stochastic-gradient-descent-with-experience-replay">Stochastic Gradient Descent with Experience Replay</h3>
+<p>Given experience consisting of <span class="math inline">\(\left&lt;state, value\right&gt;\)</span> pairs <span class="math display">\[
+\mathcal D=\left\{
+\left&lt;s_1,v_1^\pi \right&gt;,
+\left&lt;s_2,v_2^\pi \right&gt;,
+...,
+\left&lt;s_T,v_T^\pi \right&gt;,
+\right\}
+\]</span> Repeat:</p>
+<ul>
+<li>Sample state, value from experience <span class="math display">\[
+\left&lt;s, v^\pi\right&gt;\sim \mathcal D
+\]</span></li>
+<li>Apply stochastic gradient descent update <span class="math display">\[
+\Delta\mathbf w=\alpha(v^\pi-\hat v(s,\mathbf w)) \nabla_{\mathbf w}
+\hat v(s, \mathbf w)
+\]</span></li>
+</ul>
+<p>Converges to least squares solution <span class="math display">\[
+\mathbf w^\pi=\mathop{\text{argmin}}\limits_{\mathbf w} LS(\mathbf w)
+\]</span></p>
+<h3 id="linear-least-squares-prediction">Linear Least Squares Prediction</h3>
+<p>At minimum of <span class="math inline">\(LS(\mathbf w)\)</span>, the expected update must be zero <span class="math display">\[
+\begin{align}
+\Bbb E_{\mathcal D}[\Delta\mathbf w] &amp;= 0 \\
+\alpha\sum_{t=1}^T \mathbf x(s_t)(v_t^\pi-\mathbf x(s_t)^T\mathbf w) &amp;= 0 \\
+\sum_{t=1}^T\mathbf x(s_t)v_t^\pi &amp;= \sum_{t=1}^T \mathbf x(s_t)\mathbf x(s_t)^T\mathbf w \\
+\mathbf w &amp;= \left(
+\sum_{t=1}^T\mathbf x(s_t)\mathbf x(s_t)^T
+\right)^{-1} \sum_{t=1}^T \mathbf x(s_t)v_t^\pi
+\end{align}
+\]</span> For <span class="math inline">\(N\)</span> features, direct solution time is <span class="math inline">\(O(N^3)\)</span>. Incremental solution time is <span class="math inline">\(O(N^2)\)</span> using Shermann-Morrison.</p>
+<h3 id="linear-least-squares-prediction-algorithms">Linear Least Squares Prediction Algorithms</h3>
+<p>In practice, we do not know true values <span class="math inline">\(v_t^\pi\)</span>, our “training data” muse use noisy or biased samples of <span class="math inline">\(v_t^\pi\)</span></p>
+<ul>
+<li>LSMC (Least Squares Monte-Carlo) uses return <span class="math inline">\(v_t^\pi\approx G_t\)</span></li>
+<li>LSTD (Least Squares Temporal-Difference) uses TD target <span class="math inline">\(v_t^\pi\approx R_{t+1}+\gamma\hat v(S_{t+1},\mathbf w)\)</span></li>
+<li>LSTD(<span class="math inline">\(\lambda\)</span>) (Least Squares TD(<span class="math inline">\(\lambda\)</span>)) use <span class="math inline">\(\lambda\)</span>-return <span class="math inline">\(v_t^\pi\approx G_t^\lambda\)</span></li>
+</ul>
+<h3 id="convergence-of-linear-least-squares-prediction-algorithms">Convergence of Linear Least Squares Prediction Algorithms</h3>
+<figure>
+<img src="/images/52.png">
+</figure>
+</div><!-- comment system--><div class="container"><hr><div data-thread-key="2016/07/14/Value Function Approximation/" data-title="Value Function Approximation" data-url="http://www.sgq.mobi/2016/07/14/Value Function Approximation/" class="ds-thread"></div><script>var duoshuoQuery = {short_name:'sgqmobi'};
+(function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script></div></article><footer id="footer"><div class="container"><div class="bar"><div class="social"><a href="mailto:dad@sdz.red" target="_blank"><i class="fa fa-envelope-o"></i></a><a href="https://github.com/sohero" target="_blank"><i class="fa fa-github"></i></a></div><div class="footer">© 2017 <a href="/" rel="nofollow">Hero Memo</a>. Powered by <a rel="nofollow" target="_blank" href="https://hexo.io">Hexo</a>. Theme <a target="_blank" href="https://github.com/lotabout/very-simple">very-simple</a>.</div></div></div></footer><script>MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.css"><script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script><script src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js"></script><script>$(document).ready(function() {
+    $(".fancybox").fancybox();
+});
+</script></body></html>
