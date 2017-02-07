@@ -75,7 +75,7 @@ R(h_\text{mem}) \leq 0 + \infty \leq \infty
 <h2 id="examining-the-independence-assumption">Examining the Independence Assumption</h2>
 <p>The formulation of the generalization inequality reveals a main reason why we need to consider all the hypothesis in <span class="math inline">\(\mathcal H\)</span>. It has to do with the existence of <span class="math inline">\(\sup_{h \in \mathcal{H}}\)</span>. The supremum in the inequality guarantees that there’s a very little chance that the biggest generalization gap possible is greater than <span class="math inline">\(\epsilon\)</span>; this is a strong claim and if we omit a single hypothesis out of <span class="math inline">\(\mathcal H\)</span>, we might miss that “biggest generalization gap possible” and lose that strength, and that’s something we cannot afford to lose. We need to be able to make that claim to ensure that the learning algorithm would never land on a hypothesis with a bigger generalization gap than <span class="math inline">\(\epsilon\)</span>.</p>
 <figure>
-<img src="index_files/hyp_rainbow.png">
+<img src="/images/hyp_rainbow.png">
 </figure>
 <p>Looking at the above plot of binary classification problem, it’s clear that this rainbow of hypothesis produces the same classification on the data points, so all of them have the same empirical risk. So one might think, as they all have the same <span class="math inline">\(R_{emp}\)</span>, why not choose one and omit the others?!</p>
 <p>This would be a very good solution if we’re only inerested in the empirical risk, but our inequality takes into its consideration the out-of-sample risk as well, which is expressed as : <span class="math display">\[
@@ -85,7 +85,7 @@ R(h) = \mathop{\mathbb{E}}_{(x,y) \sim P}[L(y, h(x))] = \int_{\mathcal{Y}}\int_{
 <p>Now that we’ve established that we do need to consider every single hypothesis in <span class="math inline">\(\mathcal H\)</span>, we can ask ourselves: <strong>are the events of each hypothesis having a big generaliation gap are likely to be independent?</strong></p>
 <p>Well, Not even close! Take for example the rainbow of hypotheses in the above plot, it’s very clear that if the red hypothesis has a generalization gap greater than <span class="math inline">\(\epsilon\)</span>, then, with 100% certainty, every hypothesis with the same slope in the region above it will also have that. The same argument can be made for many different regions in the <span class="math inline">\(\mathcal{X \times Y}\)</span> space with different degrees of certainty as in the following figure.</p>
 <figure>
-<img src="index_files/regions.png">
+<img src="/images/regions.png">
 </figure>
 <p>But this is not helpful for our mathematical analysis, as the regions seems to be dependent on the distribution of the sample points and there is no way we can precisely capture these dependencies mathematically, and we cannot make assumptions about them without risking to compromise the supremum claim.</p>
 <p>So the union bound and the independence assumption seem like the best approximation we can make,but it highly overestimates the probability and makes the bound very loose, and very pessimistic!</p>
@@ -115,11 +115,11 @@ R(h) = \mathop{\mathbb{E}}_{(x,y) \sim P}[L(y, h(x))] = \int_{\mathcal{Y}}\int_{
 <p>The <span class="math inline">\(2^m\)</span> bound is based on the fact that the hypothesis space <span class="math inline">\(\mathcal H\)</span> can produce all the possible labellings on the <span class="math inline">\(m\)</span> data points. If a hypothesis space can indeed produce all the possible labels on a set of data points, we say that the hypothesis space <strong>shatters</strong> that set.</p>
 <p>But can any hypothesis space shatter any dataset of any size? Let’s investigate that with the binary classification case and the <span class="math inline">\(\mathcal H\)</span> of linear classifiers <span class="math inline">\(\mathrm{sign}(wx + b)\)</span>. The following animation shows how many ways a linear classifier in 2D can label 3 points (on the left) and 4 points (on the right).</p>
 <figure>
-<img src="index_files/shatter.gif">
+<img src="/images/shatter.gif">
 </figure>
 <p>In the animation, the whole space of possible effective hypotheses is swept. For the the three points, the hypothesis shattered the set of points and produced all the possible <span class="math inline">\(2^3=8\)</span> labellings. However for the four points,the hypothesis couldn’t get more than 14 and never reached <span class="math inline">\(2^4=16\)</span>, so it failed to shatter this set of points. Actually, no linear classifier in 2D can shatter any set of 4 points, not just that set; because there will always be two labellings that cannot be produced by a linear classifier which is depicted in the following figure.</p>
 <figure>
-<img src="index_files/impossible-dichotomy.png">
+<img src="/images/impossible-dichotomy.png">
 </figure>
 <p>From the decision boundary plot (on the right), it’s clear why no linear classifier can produce such labellings; as no linear classifier can divide the space in this way. So it’s possible for a hypothesis space <span class="math inline">\(\mathcal H\)</span> to be unable to shatter all sizes. This fact can be used to get a better bound on the growth function, and this is done using <strong>Sauer’s lemma</strong>:</p>
 <blockquote>
