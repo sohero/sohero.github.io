@@ -5,7 +5,7 @@
 <h2 id="模型持久化">模型持久化</h2>
 <p>辛辛苦苦训练好一个模型后，总希望后面可以直接使用，此时就必须要对模型进行持久化操作了。模型本身就是一个Python的对象，可以使用pickle的方式将模型转储到文件，但sklearn推荐使用其joblib接口，保存与加载模型都非常简单：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> joblib</div><div class="line"></div><div class="line"><span class="comment"># 保存模型</span></div><div class="line">joblib.dump(model, <span class="string">'/tmp/model.pkl'</span>)</div><div class="line"></div><div class="line"><span class="comment"># 加载模型</span></div><div class="line">model = joblib.load(<span class="string">'/tmp/model.pkl'</span>)</div></pre></td></tr></table></figure>
-<p><a href="https://yq.aliyun.com/articles/73677?utm_content=m_17197" target="_blank" rel="external">Link</a></p>
+<p><a href="https://yq.aliyun.com/articles/73677?utm_content=m_17197" target="_blank" rel="external">Link</a> <a href="/images/Scikit_Learn_Cheat_Sheet_Python.pdf">Cheat Sheet</a></p>
 </div><!-- comment system--><div class="container"><hr><div data-thread-key="2017/04/17/scikit-learn outline/" data-title="scikit-learn outline" data-url="https://www.sgq.mobi/2017/04/17/scikit-learn outline/" class="ds-thread"></div><script>var duoshuoQuery = {short_name:'sgqmobi'};
 (function() {
     var ds = document.createElement('script');
