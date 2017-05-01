@@ -20,7 +20,7 @@ J(\theta)=\Bbb E\left[\int_a\pi_\theta(s,a) R(s,a) da\right]
 \]</span> For a stochastic policy <span class="math inline">\(\pi_\theta(s,a)​\)</span>, the policy gradient is <span class="math display">\[
 \begin{align}
 \nabla_\theta J(\theta) &amp;=\Bbb E_s\left[\int_a\nabla_\theta\pi_\theta(s,a)Q^\pi(s,a) da\right] \\
-&amp;= \Bbb E_{s,a}\left[\int_a\pi_\theta(s,a)\frac{\nabla_\theta\pi_\theta(s,a)}{\pi_\theta(s,a)}Q^\pi(s,a)\right] \\
+&amp;= \Bbb E_s\left[\int_a\pi_\theta(s,a)\frac{\nabla_\theta\pi_\theta(s,a)}{\pi_\theta(s,a)}Q^\pi(s,a)\right] \\
 &amp;=\Bbb E_{s,a}\left[\nabla_\theta log\pi_\theta(s,a)Q^\pi(s,a)\right]
 \end{align}
 \]</span></p>
@@ -31,12 +31,15 @@ J(\theta)=\Bbb E\left[\int_a\pi_\theta(s,a) R(s,a) da\right]
 <li><span class="math inline">\(\pi_\theta(s,a)\)</span> is the actor</li>
 <li><span class="math inline">\(Q^w(s,a)\approx Q^\pi(s,a)\)</span> is the critic</li>
 </ul>
-<figure>
-<img src="/images/2017-05-01_225823.png">
-</figure>
+<h3 id="illustration-of-stochastic-policy">Illustration of Stochastic Policy</h3>
 <figure>
 <img src="/images/2017-05-01_230117.png">
 </figure>
+<h3 id="illustration-of-stochastic-policy-gradient">Illustration of Stochastic Policy Gradient</h3>
+<figure>
+<img src="/images/2017-05-01_225823.png">
+</figure>
+<h3 id="illustration-of-deterministic-policy-gradient">Illustration of Deterministic Policy Gradient</h3>
 <figure>
 <img src="/images/2017-05-01_232422.png">
 </figure>
