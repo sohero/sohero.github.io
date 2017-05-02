@@ -64,6 +64,30 @@ J(\theta)=\Bbb E\left[\int_a\pi_\theta(s,a) R(s,a) da\right]
 <figure>
 <img src="/images/2017-05-02_003000.png">
 </figure>
+<h2 id="using-keras-and-deep-deterministic-policy-gradient-to-play-torcs-abstract"><a href="https://yanpanlau.github.io/2016/10/11/Torcs-Keras.html" target="_blank" rel="external">Using Keras and Deep Deterministic Policy Gradient to play TORCS (abstract)</a></h2>
+<h3 id="target-network">Target Network</h3>
+<p>It is a well-known fact that directly implementing Q-learning with neural networks proved to be <strong>unstable</strong> in many environments including TORCS. Deepmind team came up the solution to the problem is to use a target network, where we created a copy of the actor and critic networks respectively, that are used for calculating the target values. The weights of these target networks are then updated by having them slowly track the learned networks:</p>
+<p><span class="math display">\[
+\theta&#39; \leftarrow \tau\theta + (1-\tau)\theta&#39;
+\]</span></p>
+<p>where <span class="math inline">\(\tau \ll 1\)</span>. This means that the target values are constrained to change slowly, greatly improving the stability of learning.</p>
+<h3 id="design-of-the-exploration-algorithm">Design of the exploration algorithm</h3>
+<p>Another issue is how to design a right exploration algorithm in the continuous domain. In the previous blog post, we used <span class="math inline">\(\epsilon\)</span>-greedy policy where the agent to try a random action some percentage of the time. However, this approach does not work very well in TORCS because we have 3 actions <em>[steering,acceleration,brake]</em>. If I just randomly choose the action from uniform random distribution we will generate some boring combinations [eg: the value of the brake is greater than the value of acceleration and the car simply not moving). Therefore, we add the noise using Ornstein-Uhlenbeck process to do the exploration.</p>
+<h4 id="ornstein-uhlenbeck-process">Ornstein-Uhlenbeck process</h4>
+<p>What is Ornstein-Uhlenbeck process? In simple English it is simply a stochastic process which has <a href="https://en.wikipedia.org/wiki/Mean_reversion_(finance)" target="_blank" rel="external">mean-reverting</a> properties.</p>
+<blockquote>
+<p>In finance, mean reversion is the assumption that a stock’s price will tend to move to the average price over time.</p>
+</blockquote>
+<p><span class="math display">\[
+dx_t=\theta(\mu-x_t)dt+\sigma dW_t
+\]</span></p>
+<p>here, <span class="math inline">\(\theta\)</span> means the how “fast” the variable reverts towards to the mean. <span class="math inline">\(\mu\)</span> represents the equilibrium or mean value. <span class="math inline">\(\sigma\)</span> is the degree of volatility of the process. Interestingly, Ornstein-Uhlenbeck process is a very common approach to model interest rate, FX and commodity prices stochastically. (And a very common interview questions in finance quant interview).</p>
+<h3 id="experience-replay">Experience Replay</h3>
+<p>When training the network, random mini-batches from the replay memory are used instead of most the recent transition, which will greatly improve the stability.</p>
+<p>The used of the slow-varying target-Network will reduce the oscillations of the Q-value estimation, which greatly improve the stability of the learning.</p>
+<h3 id="learn-how-to-brake">Learn how to brake</h3>
+<p>It turns out that asking AI to learn how to brake is much harder than steering or acceleration. The reason is that the velocity of the car slow down when the brake is applied, therefore, the reward function is reduced and the AI agent is not keen to hit the brake at all. Also, if I allow the AI to hit the brake and the acceleration at the same time during the exploration phase, the AI will often hit the brake hard therefore we are stuck in very poor local minimum (as the car is not moving and no reward is received).</p>
+<p>So how to solve this problem? I recalled myself when I first learnt driving in Princeton many years ago, my teacher told me do not hit the brake too hard and also try to <strong>feel</strong> the brake. I apply this idea into TORCS with a <strong>stochastic brake</strong> : During the exploration phase, I hit the brake 10% of the time (feel the brake) while 90% of time I don’t hit the brake. Since I only hit the brake 10% of the time the car can get some velocity therefore it won’t stuck in a poor local minimum (car not moving) while at the same time it can learn how to brake.</p>
 </div><!-- comment system--><div class="container"><hr><div data-thread-key="2017/05/02/Deterministic Policy Gradient Algorithms/" data-title="Deterministic Policy Gradient Algorithms" data-url="https://www.sgq.mobi/2017/05/02/Deterministic Policy Gradient Algorithms/" class="ds-thread"></div><script>var duoshuoQuery = {short_name:'sgqmobi'};
 (function() {
     var ds = document.createElement('script');

@@ -1,0 +1,127 @@
+<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>Summary of An overview of gradient descent optimization algorithms | An old brother's memo.</title><link rel="stylesheet" type="text/css" href="/css/normalize.css"><link rel="stylesheet" type="text/css" href="/css/highlight.css"><link rel="stylesheet" type="text/css" href="/css/very-simple.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script></head><body><!-- include the sidebar--><!-- include ./includes/sidebar.jade--><!-- Blog title and subtitle--><header><div class="container header"><a id="logo" href="/." class="title">An old brother's memo.</a><span class="subtitle"></span><label id="toggle-menu" for="menu" onclick><i class="fa fa-bars"></i></label></div></header><!-- use checkbox hack for toggle nav-bar on small screens--><input id="menu" type="checkbox"><!-- Navigation Links--><nav id="nav"><div class="container"><a href="/" class="sidebar-nav-item active">Home</a><a href="/archives" class="sidebar-nav-item">Archives</a></div></nav><div id="header-margin-bar"></div><!-- gallery that comes before the header--><div class="wrapper"><div class="container post-header"><h1>Summary of An overview of gradient descent optimization algorithms</h1></div></div><div class="wrapper"><div class="container meta"><div class="post-time">2017-05-02</div><div class="post-categories"><a class="post-category-link" href="/categories/machine-learning/">machine learning</a></div><div class="post-tags"><a class="post-tag-link" href="/tags/deep-learning/">deep learning</a>/<a class="post-tag-link" href="/tags/machine-learning/">machine learning</a>/<a class="post-tag-link" href="/tags/paper/">paper</a></div></div></div><article><div class="container post"><p><a href="http://sebastianruder.com/optimizing-gradient-descent/" target="_blank" rel="external">Link</a></p>
+<h2 id="optimization-is-hard">Optimization is Hard</h2>
+<figure>
+<img src="/images/g1.jpg">
+</figure>
+<figure>
+<img src="/images/g2.jpg">
+</figure>
+<figure>
+<img src="/images/g3.jpg">
+</figure>
+<h2 id="gradient-descent-variants">Gradient descent variants</h2>
+<h3 id="batch-gradient-descent">Batch gradient descent</h3>
+<p>Batch gradient descent is guaranteed to converge to the global minimum for convex error surfaces and to a local minimum for non-convex surfaces.</p>
+<h3 id="stochastic-gradient-descent">Stochastic gradient descent</h3>
+<p>SGD performs frequent updates with a high variance that cause the objective function to fluctuate heavily as in Image 1.</p>
+<figure>
+<img src="/images/sgd_fluctuation.png">
+</figure>
+<p>SGD’s fluctuation, enables it to jump to new and potentially better local minima. On the other hand, this ultimately complicates convergence to the exact minimum, as SGD will keep <strong>overshooting</strong>. However, it has been shown that when we <strong>slowly decrease the learning rate</strong>, SGD shows the same convergence behaviour as batch gradient descent, almost certainly converging to a local or the global minimum for non-convex and convex optimization respectively.</p>
+<p>Note that we shuffle the training data at every epoch.</p>
+<h3 id="mini-batch-gradient-descent">Mini-batch gradient descent</h3>
+<p>Reduces the variance of the parameter updates, which can lead to more stable convergence. Common mini-batch sizes range between 50 and 256, but can vary for different applications.</p>
+<h2 id="challenges">Challenges</h2>
+<p>Vanilla mini-batch gradient descent, however, does not guarantee good convergence, but offers a few challenges that need to be addressed:</p>
+<ul>
+<li>Choosing a proper learning rate can be difficult. A learning rate that is too small leads to painfully slow convergence, while a learning rate that is too large can hinder convergence and cause the loss function to fluctuate around the minimum or even to diverge.</li>
+<li>Learning rate schedules try to adjust the learning rate during training by e.g. annealing, i.e. reducing the learning rate according to a pre-defined schedule or when the change in objective between epochs falls below a threshold. These schedules and thresholds, however, have to be defined in advance and are thus unable to adapt to a dataset’s characteristics.</li>
+<li>Additionally, the same learning rate applies to all parameter updates. <strong>If our data is sparse and our features have very different frequencies, we might not want to update all of them to the same extent, but perform a larger update for rarely occurring features.</strong></li>
+<li>Another key challenge of minimizing highly non-convex error functions common for neural networks is avoiding getting trapped in their numerous suboptimal local minima. Dauphin et al. argue that the difficulty arises in fact not from local minima but from saddle points, i.e. points where one dimension slopes up and another slopes down. These saddle points are usually surrounded by a plateau of the same error, which makes it notoriously hard for SGD to escape, as the gradient is close to zero in all dimensions.</li>
+</ul>
+<h2 id="gradient-descent-optimization-algorithms">Gradient descent optimization algorithms</h2>
+<h3 id="momentum">Momentum</h3>
+<p>SGD has trouble navigating ravines, i.e. areas where the surface curves much more steeply in one dimension than in another, which are common around local optima. In these scenarios, SGD oscillates across the slopes of the ravine while only making hesitant progress along the bottom towards the local optimum .</p>
+<p>Momentum is a method that helps accelerate SGD in the relevant direction and dampens oscillations. It does this by adding a fraction <span class="math inline">\(\gamma\)</span> of the update vector of the past time step to the current update vector: <span class="math display">\[
+v_t=\gamma v_{t-1}+\eta\nabla_\theta J(\theta) \\
+\theta = \theta - v_t
+\]</span></p>
+<p>The momentum term <span class="math inline">\(\gamma\)</span> is usually set to <span class="math inline">\(0.9\)</span> or a similar value.</p>
+<p><strong>The momentum term increases for dimensions whose gradients point in the same directions and reduces updates for dimensions whose gradients change directions.</strong> As a result, we gain faster convergence and reduced oscillation.</p>
+<h3 id="nesterov-accelerated-gradient">Nesterov accelerated gradient</h3>
+<p>However, a ball that rolls down a hill, blindly following the slope, is highly unsatisfactory. We’d like to have a smarter ball, a ball that has a notion of where it is going so that it knows to slow down before the hill slopes up again.</p>
+<p>Nesterov accelerated gradient (NAG) is a way to give our momentum term this kind of prescience. <span class="math display">\[
+v_t = \gamma v_{t-1}+\eta\nabla_\theta J(\theta-\gamma v_{t-1}) \\
+\theta = \theta-v_t
+\]</span> Again, we set the momentum term <span class="math inline">\(\gamma\)</span> to a value of around 0.9. While Momentum first computes the current gradient and then takes a big jump in the direction of the updated accumulated gradient, NAG first makes a big jump in the direction of the previous accumulated gradient, measures the gradient and then makes a correction, which results in the complete NAG update.</p>
+<p>Now that we are able to adapt our updates to the slope of our error function and speed up SGD in turn, we would also like to adapt our updates to each individual parameter to perform larger or smaller updates depending on their importance.</p>
+<h3 id="adagrad">Adagrad</h3>
+<p><strong>It adapts the learning rate to the parameters, performing larger updates for infrequent and smaller updates for frequent parameters. For this reason, it is well-suited for dealing with sparse data.</strong> <span class="math display">\[
+\theta_{t+1}=\theta-\frac{\eta}{\sqrt{G_t+\epsilon}}\odot g_t
+\]</span></p>
+<p><span class="math inline">\(G_t\in\Bbb R^{d\times d}\)</span> is a diagonal matrix where each diagonal element <span class="math inline">\(i,i\)</span> is the sum of the squares of the gradients w.r.t. <span class="math inline">\(\theta_i\)</span> up to time step <span class="math inline">\(t\)</span>, where <span class="math inline">\(\epsilon\)</span> is a smoothing term that avoids division by zero (usually on the order of <span class="math inline">\(1e-8\)</span>). Interestingly, without the square root operation, the algorithm performs much worse. <span class="math inline">\(g_t\)</span> to be the gradient of the objective function at time step <span class="math inline">\(t\)</span>.</p>
+<p>One of Adagrad’s main benefits is that it eliminates the need to manually tune the learning rate. Most implementations use a default value of <span class="math inline">\(0.01\)</span> and leave it at that.</p>
+<p>Adagrad’s main weakness is its accumulation of the squared gradients in the denominator: Since every added term is positive, the accumulated sum keeps growing during training. This in turn causes the learning rate to shrink and <strong>eventually become infinitesimally small</strong>, at which point the algorithm is <strong>no longer able to acquire additional knowledge</strong>. The following algorithms aim to resolve this flaw.</p>
+<h3 id="adadelta">Adadelta</h3>
+<p>Adadelta is an extension of Adagrad that seeks to reduce its aggressive, monotonically decreasing learning rate. Instead of accumulating all past squared gradients, Adadelta restricts the window of accumulated past gradients to some fixed size <span class="math inline">\(w\)</span>. <span class="math display">\[
+E[g^2]_t = \gamma E[g^2]_{t-1} + (1-\gamma)g^2_t
+\]</span> We set <span class="math inline">\(\gamma\)</span> to a similar value as the momentum term, around <span class="math inline">\(0.9\)</span>.</p>
+<p>We now simply replace the diagonal matrix <span class="math inline">\(G_t\)</span> with the decaying average over past squared gradients <span class="math inline">\(E[g^2]_t\)</span>: <span class="math display">\[
+\Delta \theta_t = - \frac{\eta}{\sqrt{E[g^2]_t + \epsilon}} g_t
+\]</span> As the denominator is just the root mean squared (RMS) error criterion of the gradient, we can replace it with the criterion short-hand: <span class="math display">\[
+\Delta \theta_t = - \frac{\eta}{RMS[g]_t} g_t
+\]</span> The authors note that the units in this update (as well as in SGD, Momentum, or Adagrad) do not match, i.e. the update should have the same hypothetical units as the parameter. To realize this, they first define another exponentially decaying average, this time not of squared gradients but of squared parameter updates: <span class="math display">\[
+E[\Delta\theta^2]_t = \gamma E[\Delta\theta^2]_{t-1} + (1-\gamma)\Delta\theta^2_t
+\]</span> The root mean squared error of parameter updates is thus: <span class="math display">\[
+RMS[\Delta\theta]_t = \sqrt{E[\Delta\theta^2]_t + \epsilon}
+\]</span> Since <span class="math inline">\(RMS[\Delta\theta]_t\)</span> is unknown, we approximate it with the RMS of parameter updates until the previous time step. Replacing the learning rate <span class="math inline">\(\eta\)</span> in the previous update rule with <span class="math inline">\(RMS[\Delta\theta]_{t-1}\)</span> finally yields the Adadelta update rule: <span class="math display">\[
+\Delta\theta_t=-\frac{RMS[\Delta\theta]_{t-1}}{RMS[g]_t}g_t \\
+\theta_{t+1} = \theta_t+\Delta\theta_t
+\]</span> With Adadelta, we do not even need to set a default learning rate, as it has been eliminated from the update rule.</p>
+<h3 id="rmsprop">RMSprop</h3>
+<p>RMSprop and Adadelta have both been developed independently around the same time stemming from the need to resolve Adagrad’s radically diminishing learning rates. RMSprop in fact is identical to the first update vector of Adadelta that we derived above: <span class="math display">\[
+E[g^2]_t = 0.9E[g^2]_{t-1}+0.1g^2_t \\
+\theta_{t+1}=\theta_t-\frac{\eta}{\sqrt{E[g^2]_t+\epsilon}}g_t
+\]</span> RMSprop as well divides the learning rate by an exponentially decaying average of squared gradients. Hinton suggests <span class="math inline">\(\gamma\)</span> to be set to <span class="math inline">\(0.9\)</span>, while a good default value for the learning rate <span class="math inline">\(\eta\)</span> is <span class="math inline">\(0.001\)</span>.</p>
+<h3 id="adam">Adam</h3>
+<p>Adaptive Moment Estimation (Adam) is another method that computes adaptive learning rates for each parameter. In addition to storing an exponentially decaying average of past squared gradients <span class="math inline">\(v_t\)</span> like Adadelta and RMSprop, Adam also keeps an exponentially decaying average of past gradients <span class="math inline">\(m_t\)</span>, similar to momentum: <span class="math display">\[
+m_t=\beta_1 m_{t-1}+(1-\beta_1)g_t \\
+v_t = \beta_2 v_{t-1}+(1-\beta_2)g^2_t
+\]</span> <span class="math inline">\(m_t\)</span> and <span class="math inline">\(v_t\)</span> are estimates of the first moment (the mean) and the second moment (the uncentered variance) of the gradients respectively, hence the name of the method. As <span class="math inline">\(m_t\)</span> and <span class="math inline">\(v_t\)</span> are initialized as vectors of 0’s, the authors of Adam observe that they are biased towards zero, especially during the initial time steps, and especially when the decay rates are small (i.e. <span class="math inline">\(\beta_1\)</span> and <span class="math inline">\(\beta_2\)</span> are close to 1).</p>
+<p>They counteract these biases by computing bias-corrected first and second moment estimates: <span class="math display">\[
+\hat m_t={m_t \over {1-\beta^t_1}} \\
+\hat v_t = {v_t \over {1-\beta^t_2}}
+\]</span> They then use these to update the parameters just as we have seen in Adadelta and RMSprop, which yields the Adam update rule: <span class="math display">\[
+\theta_{t+1}=\theta_t-\frac{\eta}{\sqrt{\hat v_t}+\epsilon}\hat m_t
+\]</span> The authors propose default values of 0.9 for <span class="math inline">\(\beta_1\)</span>, 0.999 for <span class="math inline">\(\beta_2\)</span>, and <span class="math inline">\(10^{−8}\)</span> for <span class="math inline">\(\epsilon\)</span>. They show empirically that Adam works well in practice and compares favorably to other adaptive learning-method algorithms.</p>
+<h3 id="visualization-of-algorithms">Visualization of algorithms</h3>
+<video src="/images/g4.mp4" autoplay="autoplay" loop="loop" controls="controls">
+your browser does not support the video tag
+</video>
+<p><br> <video src="/images/g5.mp4" autoplay="autoplay" loop="loop" controls="controls"> your browser does not support the video tag </video></p>
+<h3 id="which-optimizer-to-use">Which optimizer to use?</h3>
+<p>So, which optimizer should you now use? If your input data is sparse, then you likely achieve the best results using one of the adaptive learning-rate methods. An additional benefit is that you won’t need to tune the learning rate but likely achieve the best results with the default value.</p>
+<p>In summary, RMSprop is an extension of Adagrad that deals with its radically diminishing learning rates. It is identical to Adadelta, except that Adadelta uses the RMS of parameter updates in the numinator update rule. Adam, finally, adds bias-correction and momentum to RMSprop. Insofar, RMSprop, Adadelta, and Adam are very similar algorithms that do well in similar circumstances. Kingma et al. [<a href="http://sebastianruder.com/optimizing-gradient-descent/index.html#fn:15" target="_blank" rel="external">15</a>] show that its bias-correction helps Adam slightly outperform RMSprop towards the end of optimization as gradients become sparser. Insofar, Adam might be the best overall choice.</p>
+<p>Interestingly, many recent papers use vanilla SGD without momentum and a simple learning rate annealing schedule. As has been shown, SGD usually achieves to find a minimum, but it might take significantly longer than with some of the optimizers, is much more reliant on a robust initialization and annealing schedule, and may get stuck in saddle points rather than local minima. Consequently, if you care about fast convergence and train a deep or complex neural network, you should choose one of the adaptive learning rate methods.</p>
+<h2 id="additional-strategies-for-optimizing-sgd">Additional strategies for optimizing SGD</h2>
+<h3 id="shuffling-and-curriculum-learning">Shuffling and Curriculum Learning</h3>
+<p>Generally, we want to avoid providing the training examples in a meaningful order to our model as this may bias the optimization algorithm. Consequently, it is often a good idea to shuffle the training data after every epoch.</p>
+<p>On the other hand, for some cases where we aim to solve progressively harder problems, supplying the training examples in a meaningful order may actually lead to improved performance and better convergence. The method for establishing this meaningful order is called Curriculum Learning [<a href="http://sebastianruder.com/optimizing-gradient-descent/index.html#fn:16" target="_blank" rel="external">16</a>].</p>
+<p>Zaremba and Sutskever [<a href="http://sebastianruder.com/optimizing-gradient-descent/index.html#fn:17" target="_blank" rel="external">17</a>] were only able to train LSTMs to evaluate simple programs using Curriculum Learning and show that a combined or mixed strategy is better than the naive one, which sorts examples by increasing difficulty.</p>
+<h3 id="batch-normalization">Batch normalization</h3>
+<p>To facilitate learning, we typically normalize the initial values of our parameters by initializing them with zero mean and unit variance. As training progresses and we update parameters to different extents, we lose this normalization, which slows down training and amplifies changes as the network becomes deeper.</p>
+<p>Batch normalization [<a href="http://sebastianruder.com/optimizing-gradient-descent/index.html#fn:18" target="_blank" rel="external">18</a>] reestablishes these normalizations for every mini-batch and changes are back-propagated through the operation as well. By making normalization part of the model architecture, we are able to use higher learning rates and pay less attention to the initialization parameters. Batch normalization additionally acts as a regularizer, reducing (and sometimes even eliminating) the need for Dropout.</p>
+<h3 id="early-stopping">Early stopping</h3>
+<p>You should thus always monitor error on a validation set during training and stop (with some patience) if your validation error does not improve enough.</p>
+<h3 id="gradient-noise">Gradient noise</h3>
+<p>Neelakantan et al. [<a href="http://sebastianruder.com/optimizing-gradient-descent/index.html#fn:21" target="_blank" rel="external">21</a>] add noise that follows a Gaussian distribution <span class="math inline">\(N(0,\sigma^2_t)\)</span> to each gradient update: <span class="math display">\[
+g_{t,i}=g_{t,i}+N(0,\sigma^2_t)
+\]</span> They anneal the variance according to the following schedule: <span class="math display">\[
+\sigma^2_t={\eta \over {(1+t)^\gamma}}
+\]</span> They show that adding this noise makes networks more robust to poor initialization and helps training particularly deep and complex networks. They suspect that the added noise gives the model more chances to escape and find new local minima, which are more frequent for deeper models.</p>
+</div><!-- comment system--><div class="container"><hr><div data-thread-key="2017/05/02/Summary of An overview of gradient descent optimization algorithms/" data-title="Summary of An overview of gradient descent optimization algorithms" data-url="https://www.sgq.mobi/2017/05/02/Summary of An overview of gradient descent optimization algorithms/" class="ds-thread"></div><script>var duoshuoQuery = {short_name:'sgqmobi'};
+(function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script></div></article><footer id="footer"><div class="container"><div class="bar"><div class="social"><a href="mailto:dad@sdz.red" target="_blank"><i class="fa fa-envelope-o"></i></a><a href="https://github.com/sohero" target="_blank"><i class="fa fa-github"></i></a><script>var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cspan id='cnzz_stat_icon_1261298720'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1261298720%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+</script></div><div class="footer">© 2017 <a href="/" rel="nofollow">Hero Memo</a>. Powered by <a rel="nofollow" target="_blank" href="https://hexo.io">Hexo</a>. Theme <a target="_blank" href="https://github.com/lotabout/very-simple">very-simple</a>.</div></div></div></footer><script>MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.css"><script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script><script src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js"></script><script>$(document).ready(function() {
+    $(".fancybox").fancybox();
+});
+</script></body></html>
