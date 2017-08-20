@@ -1,43 +1,37 @@
-<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>theano cuda 安装 | An old brother's memo.</title><link rel="stylesheet" type="text/css" href="/css/normalize.css"><link rel="stylesheet" type="text/css" href="/css/highlight.css"><link rel="stylesheet" type="text/css" href="/css/very-simple.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script></head><body><!-- include the sidebar--><!-- include ./includes/sidebar.jade--><!-- Blog title and subtitle--><header><div class="container header"><a id="logo" href="/." class="title">An old brother's memo.</a><span class="subtitle"></span><label id="toggle-menu" for="menu" onclick><i class="fa fa-bars"></i></label></div></header><!-- use checkbox hack for toggle nav-bar on small screens--><input id="menu" type="checkbox"><!-- Navigation Links--><nav id="nav"><div class="container"><a href="/" class="sidebar-nav-item active">Home</a><a href="/archives" class="sidebar-nav-item">Archives</a></div></nav><div id="header-margin-bar"></div><!-- gallery that comes before the header--><div class="wrapper"><div class="container post-header"><h1>theano cuda 安装</h1></div></div><div class="wrapper"><div class="container meta"><div class="post-time">2016-01-01</div><div class="post-categories"><a class="post-category-link" href="/categories/tools/">tools</a></div><div class="post-tags"><a class="post-tag-link" href="/tags/deep-learning/">deep learning</a>/<a class="post-tag-link" href="/tags/theano/">theano</a></div></div></div><article><div class="container post"><h2 id="cuda-7.5">cuda 7.5</h2>
-<p>cuda 7.5安装前需先安装visual studio，支持的版本有vs2010、vs2012、vs2013，可安装vs2010 C++ express版本。（express版只有x86编译器）</p>
-<h2 id="cuda-8.0">cuda 8.0</h2>
-<p>需安装的软件包（安装没有先后顺序）：</p>
+<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>theano cuda 安装 | An old brother's memo.</title><link rel="stylesheet" type="text/css" href="/css/normalize.css"><link rel="stylesheet" type="text/css" href="/css/highlight.css"><link rel="stylesheet" type="text/css" href="/css/very-simple.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script></head><body><!-- include the sidebar--><!-- include ./includes/sidebar.jade--><!-- Blog title and subtitle--><header><div class="container header"><a id="logo" href="/." class="title">An old brother's memo.</a><span class="subtitle"></span><label id="toggle-menu" for="menu" onclick><i class="fa fa-bars"></i></label></div></header><!-- use checkbox hack for toggle nav-bar on small screens--><input id="menu" type="checkbox"><!-- Navigation Links--><nav id="nav"><div class="container"><a href="/" class="sidebar-nav-item active">Home</a><a href="/archives" class="sidebar-nav-item">Archives</a></div></nav><div id="header-margin-bar"></div><!-- gallery that comes before the header--><div class="wrapper"><div class="container post-header"><h1>theano cuda 安装</h1></div></div><div class="wrapper"><div class="container meta"><div class="post-time">2016-01-01</div><div class="post-categories"><a class="post-category-link" href="/categories/tools/">tools</a></div><div class="post-tags"><a class="post-tag-link" href="/tags/deep-learning/">deep learning</a>/<a class="post-tag-link" href="/tags/theano/">theano</a></div></div></div><article><div class="container post"><h2 id="cuda-7-5"><a href="#cuda-7-5" class="headerlink" title="cuda 7.5"></a>cuda 7.5</h2><p>cuda 7.5安装前需先安装visual studio，支持的版本有vs2010、vs2012、vs2013，可安装vs2010 C++ express版本。（express版只有x86编译器）</p>
+<h2 id="cuda-8-0"><a href="#cuda-8-0" class="headerlink" title="cuda 8.0"></a>cuda 8.0</h2><p>需安装的软件包（安装没有先后顺序）：</p>
 <ul>
 <li>cuda 8.0</li>
 <li>Microsoft Visual C++ compiler</li>
 <li>GCC</li>
 </ul>
-<h3 id="安装cuda-8.0">安装cuda 8.0</h3>
-<p>从官网下载cuda 8.0安装包，直接安装，安装是可自定义只安装cuda toolkit和显卡驱动，会省些安装空间。</p>
-<h3 id="安装gcc">安装GCC</h3>
-<p>下载对应64位的<a href="http://tdm-gcc.tdragon.net/" target="_blank" rel="external">TDM GCC</a>安装，安装时选中<code>openmp support option</code>和<code>add to path</code>。</p>
-<h3 id="安装microsoft-visual-c-compiler">安装Microsoft Visual C++ compiler</h3>
-<p>根据python<a href="https://wiki.python.org/moin/WindowsCompilers#Which_Microsoft_Visual_C.2B-.2B-_compiler_to_use_with_a_specific_Python_version_.3F" target="_blank" rel="external">说明文档</a>，不同的python版本对应不同的vc++版本，如下：</p>
+<h3 id="安装cuda-8-0"><a href="#安装cuda-8-0" class="headerlink" title="安装cuda 8.0"></a>安装cuda 8.0</h3><p>从官网下载cuda 8.0安装包，直接安装，安装是可自定义只安装cuda toolkit和显卡驱动，会省些安装空间。</p>
+<h3 id="安装GCC"><a href="#安装GCC" class="headerlink" title="安装GCC"></a>安装GCC</h3><p>下载对应64位的<a href="http://tdm-gcc.tdragon.net/" target="_blank" rel="external">TDM GCC</a>安装，安装时选中<code>openmp support option</code>和<code>add to path</code>。</p>
+<h3 id="安装Microsoft-Visual-C-compiler"><a href="#安装Microsoft-Visual-C-compiler" class="headerlink" title="安装Microsoft Visual C++ compiler"></a>安装Microsoft Visual C++ compiler</h3><p>根据python<a href="https://wiki.python.org/moin/WindowsCompilers#Which_Microsoft_Visual_C.2B-.2B-_compiler_to_use_with_a_specific_Python_version_.3F" target="_blank" rel="external">说明文档</a>，不同的python版本对应不同的vc++版本，如下：</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>Visual C++</th>
 <th>CPython</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>14.0</td>
 <td>3.5</td>
 </tr>
-<tr class="even">
+<tr>
 <td>10.0</td>
 <td>3.3, 3.4</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>9.0</td>
 <td>2.6, 2.7, 3.0, 3.1, 3.2</td>
 </tr>
 </tbody>
 </table>
 <p>根据说明，下载安装<a href="http://landinghub.visualstudio.com/visual-cpp-build-tools" target="_blank" rel="external">Microsoft Visual C++ Build Tools 2015</a>，Check <em>Windows 8.1 SDK</em> and <em>Windows 10 SDK</em> options.</p>
-<h3 id="最后配置">最后配置</h3>
-<ul>
+<h3 id="最后配置"><a href="#最后配置" class="headerlink" title="最后配置"></a>最后配置</h3><ul>
 <li>将对应版本的cl.exe所在的目录添加到path，这里是<code>C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\amd64</code></li>
 <li>在ipython中运行<code>import theano</code>，会提示找不到一些.h文件，根据错误提示，用everything搜索该文件，将次文件所在的目录，整个复制到C盘不带空格的文件夹中，如<code>C:\sdk</code>，复制完后目录<code>C:\sdk\ucrt</code></li>
 <li>关闭ipython,重新运行<code>import theano</code>，会提示找不到一些.lib文件，在按上面步骤，将lib的目录复制到<code>C:\sdk</code>，复制完后目录<code>C:\sdk\x64</code></li>

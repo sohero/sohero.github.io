@@ -1,47 +1,36 @@
-<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>DQN 从入门到放弃 | An old brother's memo.</title><link rel="stylesheet" type="text/css" href="/css/normalize.css"><link rel="stylesheet" type="text/css" href="/css/highlight.css"><link rel="stylesheet" type="text/css" href="/css/very-simple.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script></head><body><!-- include the sidebar--><!-- include ./includes/sidebar.jade--><!-- Blog title and subtitle--><header><div class="container header"><a id="logo" href="/." class="title">An old brother's memo.</a><span class="subtitle"></span><label id="toggle-menu" for="menu" onclick><i class="fa fa-bars"></i></label></div></header><!-- use checkbox hack for toggle nav-bar on small screens--><input id="menu" type="checkbox"><!-- Navigation Links--><nav id="nav"><div class="container"><a href="/" class="sidebar-nav-item active">Home</a><a href="/archives" class="sidebar-nav-item">Archives</a></div></nav><div id="header-margin-bar"></div><!-- gallery that comes before the header--><div class="wrapper"><div class="container post-header"><h1>DQN 从入门到放弃</h1></div></div><div class="wrapper"><div class="container meta"><div class="post-time">2016-07-16</div><div class="post-categories"><a class="post-category-link" href="/categories/machine-learning/">machine learning</a></div><div class="post-tags"><a class="post-tag-link" href="/tags/reinforcement-learning/">reinforcement learning</a></div></div></div><article><div class="container post"><h1 id="增强学习与mdp">2. 增强学习与MDP</h1>
-<h3 id="增强学习的世界观">2. 增强学习的世界观</h3>
-<p>在增强学习的世界，我们相信如果输入是确定的，那么输出也一定是确定的。试想一下，有一个机械臂在练习掷骰子，以掷出六点作为目标。但是无论机械臂如何调整其关节的角度及扭矩，掷出的点数永远是随机的，那么无论如何也不可能通过算法使机械臂达成目标。因此，增强学习算法要有用，就是相信在增强学习中每一次参数的调整都会对世界造成确定性的影响。</p>
+<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>DQN 从入门到放弃 | An old brother's memo.</title><link rel="stylesheet" type="text/css" href="/css/normalize.css"><link rel="stylesheet" type="text/css" href="/css/highlight.css"><link rel="stylesheet" type="text/css" href="/css/very-simple.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script></head><body><!-- include the sidebar--><!-- include ./includes/sidebar.jade--><!-- Blog title and subtitle--><header><div class="container header"><a id="logo" href="/." class="title">An old brother's memo.</a><span class="subtitle"></span><label id="toggle-menu" for="menu" onclick><i class="fa fa-bars"></i></label></div></header><!-- use checkbox hack for toggle nav-bar on small screens--><input id="menu" type="checkbox"><!-- Navigation Links--><nav id="nav"><div class="container"><a href="/" class="sidebar-nav-item active">Home</a><a href="/archives" class="sidebar-nav-item">Archives</a></div></nav><div id="header-margin-bar"></div><!-- gallery that comes before the header--><div class="wrapper"><div class="container post-header"><h1>DQN 从入门到放弃</h1></div></div><div class="wrapper"><div class="container meta"><div class="post-time">2016-07-16</div><div class="post-categories"><a class="post-category-link" href="/categories/machine-learning/">machine learning</a></div><div class="post-tags"><a class="post-tag-link" href="/tags/reinforcement-learning/">reinforcement learning</a></div></div></div><article><div class="container post"><h1 id="2-增强学习与MDP"><a href="#2-增强学习与MDP" class="headerlink" title="2. 增强学习与MDP"></a>2. 增强学习与MDP</h1><h3 id="2-增强学习的世界观"><a href="#2-增强学习的世界观" class="headerlink" title="2. 增强学习的世界观"></a>2. 增强学习的世界观</h3><p>在增强学习的世界，我们相信如果输入是确定的，那么输出也一定是确定的。试想一下，有一个机械臂在练习掷骰子，以掷出六点作为目标。但是无论机械臂如何调整其关节的角度及扭矩，掷出的点数永远是随机的，那么无论如何也不可能通过算法使机械臂达成目标。因此，增强学习算法要有用，就是相信在增强学习中每一次参数的调整都会对世界造成确定性的影响。</p>
 <p>MDP只需要一句话就可以说明白，就是“未来只取决于当前”，专业点说就是下一步的状态只取决于当前的状态，与过去的状态没有关系。这里所说的状态是<strong>完全可观察的</strong>，也就是上帝眼中的世界。在上帝眼中，每一个物体的位置和速度信息都是确定的，也就是下一个时刻的状态也就是完全确定的。</p>
-<h2 id="动态规划与q-learning">4. 动态规划与Q-Learning</h2>
-<h3 id="策略迭代policy-iteration">4. 策略迭代Policy Iteration</h3>
-<p>需要特别说明的是不管是策略迭代还是值迭代都是在理想化的情况下（上帝视角）推到出来的算法，本质上并不能直接应用，因为依赖Model。</p>
-<h2 id="深度解读dqn算法">5.深度解读DQN算法</h2>
-<h3 id="dqn训练">7.DQN训练</h3>
-<p>第一个版本的DQN，也就是NIPS 2013提出的DQN。</p>
+<h2 id="4-动态规划与Q-Learning"><a href="#4-动态规划与Q-Learning" class="headerlink" title="4. 动态规划与Q-Learning"></a>4. 动态规划与Q-Learning</h2><h3 id="4-策略迭代Policy-Iteration"><a href="#4-策略迭代Policy-Iteration" class="headerlink" title="4. 策略迭代Policy Iteration"></a>4. 策略迭代Policy Iteration</h3><p>需要特别说明的是不管是策略迭代还是值迭代都是在理想化的情况下（上帝视角）推到出来的算法，本质上并不能直接应用，因为依赖Model。</p>
+<h2 id="5-深度解读DQN算法"><a href="#5-深度解读DQN算法" class="headerlink" title="5.深度解读DQN算法"></a>5.深度解读DQN算法</h2><h3 id="7-DQN训练"><a href="#7-DQN训练" class="headerlink" title="7.DQN训练"></a>7.DQN训练</h3><p>第一个版本的DQN，也就是NIPS 2013提出的DQN。</p>
 <p><strong>Algorithm 1</strong> Deep Q-learning with Experience Replay</p>
-<p>Initialize replay memory <span class="math inline">\(\mathcal D\)</span> to capacity <span class="math inline">\(N\)</span></p>
-<p>Initialize action-value function <span class="math inline">\(Q\)</span> with random weights</p>
+<p>Initialize replay memory $\mathcal D$ to capacity $N$</p>
+<p>Initialize action-value function $Q$ with random weights</p>
 <ul>
-<li><strong>for</strong> episode<span class="math inline">\(=1,M\)</span> <strong>do</strong>
-<ul>
-<li>Initialize sequence <span class="math inline">\(s_1=\{x_1\}\)</span> and preprocessed sequenced <span class="math inline">\(\phi_1=\phi(s_1)\)</span></li>
-<li><strong>for</strong> <span class="math inline">\(t=1,T\)</span> <strong>do</strong>
-<ul>
-<li>With probability <span class="math inline">\(\epsilon\)</span> select a random action <span class="math inline">\(a_t\)</span></li>
-<li>otherwise select <span class="math inline">\(a_t=max_a Q^*(\phi(s_t), a;\theta)\)</span></li>
-<li>Execute action <span class="math inline">\(a_t\)</span> in emulator and observe reward <span class="math inline">\(r_t\)</span> and image <span class="math inline">\(x_{t+1}\)</span></li>
-<li>Set <span class="math inline">\(s_{t+1}=s_t,a_t,x_{t+1}\)</span> and preprocess <span class="math inline">\(\phi_{t+1}=\phi(s_{t+1})\)</span></li>
-<li>Store transition <span class="math inline">\((\phi_t,a_t,r_t,\phi_{t+1})\)</span> in <span class="math inline">\(\mathcal D\)</span></li>
-<li>Sample random <code>minibatch</code> of transitions <span class="math inline">\((\phi_j,a_j,r_j,\phi_{j+1})\)</span> from <span class="math inline">\(\mathcal D\)</span></li>
-<li>Set <span class="math inline">\(y_j=\begin{cases} r_j &amp; \text{for teminal }\phi_{j+1} \\ r_j+\gamma max_{a&#39;} Q(\phi_{j+1},a&#39;;\theta) &amp; \text{for non-terminal }\phi_{j+1} \end{cases}\)</span></li>
-<li>Perform a gradient descent step on <span class="math inline">\((y_j-Q(\phi_j,a_j;\theta))^2\)</span> according to equation 3</li>
-</ul></li>
+<li><strong>for</strong> episode$=1,M$ <strong>do</strong><ul>
+<li>Initialize sequence $s_1={x_1}$ and preprocessed sequenced $\phi_1=\phi(s_1)$</li>
+<li><strong>for</strong> $t=1,T$ <strong>do</strong><ul>
+<li>With probability $\epsilon$ select a random action $a_t$</li>
+<li>otherwise select $a_t=max_a Q^*(\phi(s_t), a;\theta)$</li>
+<li>Execute action $a_t$ in emulator and observe reward $r<em>t$ and image $x</em>{t+1}$</li>
+<li>Set $s_{t+1}=s_t,a<em>t,x</em>{t+1}$ and preprocess $\phi<em>{t+1}=\phi(s</em>{t+1})$</li>
+<li>Store transition $(\phi_t,a_t,r<em>t,\phi</em>{t+1})$ in $\mathcal D$</li>
+<li>Sample random <code>minibatch</code> of transitions $(\phi_j,a_j,r<em>j,\phi</em>{j+1})$ from $\mathcal D$</li>
+<li>Set $y_j=\begin{cases} r<em>j &amp; \text{for teminal }\phi</em>{j+1} \ r<em>j+\gamma max</em>{a’} Q(\phi<em>{j+1},a’;\theta) &amp; \text{for non-terminal }\phi</em>{j+1} \end{cases}$</li>
+<li>Perform a gradient descent step on $(y_j-Q(\phi_j,a_j;\theta))^2$ according to equation 3</li>
+</ul>
+</li>
 <li><strong>end for</strong></li>
-</ul></li>
+</ul>
+</li>
 <li><strong>end for</strong></li>
 </ul>
 <p>由于玩Atari采集的样本是一个时间序列，样本之间具有连续性，如果每次得到样本就更新Q值，受样本分布影响，效果会不好。因此，一个很直接的想法就是把样本先存起来，然后随机采样，这就是Experience Replay的意思。按照脑科学的观点，人的大脑也具有这样的机制，就是在回忆中学习。</p>
-<h2 id="dqn的各种改进">6.DQN的各种改进</h2>
-<h3 id="nature-dqn">2.Nature DQN</h3>
-<p>Nature DQN 做了一个改进，就是增加Target Q网络。就是计算目标Q值时使用专门的一个目标Q网络来计算，而不是直接使用预更新的Q网络。这样做的目的是为了<strong>减少目标计算与当前值的相关性。</strong> <span class="math display">\[
-I=\left(\color{red}{r+\gamma \mathop{max}\limits_{a&#39;}Q(s&#39;,a&#39;,w^-)}-Q(s,a,w)\right)^2
-\]</span> 如上面loss function公式所示，目标网络的Q函数使用的参数是<span class="math inline">\(w^-\)</span>,而不是<span class="math inline">\(w\)</span>。就是说，改进前的目标网络的Q函数是动态变化的，随着Q网络的更新而变化，这样不利于计算目标Q值，导致目标Q值和当前的Q值相关性很大。因此提出单独使用目标Q网络。那么目标Q网络的参数如何来呢？还是从Q网络中来，只不过是<strong>延迟更新</strong>。也就是每次等训练了一段时间再将当前Q网络的参数复制给目标Q网络。</p>
-<h3 id="dqn有什么问题还可以如何改进">3.DQN有什么问题？还可以如何改进？</h3>
-<p>在Nature DQN出来之后，肯定很多人在思考如何改进它。那么DQN有什么问题呢？</p>
+<h2 id="6-DQN的各种改进"><a href="#6-DQN的各种改进" class="headerlink" title="6.DQN的各种改进"></a>6.DQN的各种改进</h2><h3 id="2-Nature-DQN"><a href="#2-Nature-DQN" class="headerlink" title="2.Nature DQN"></a>2.Nature DQN</h3><p>Nature DQN 做了一个改进，就是增加Target Q网络。就是计算目标Q值时使用专门的一个目标Q网络来计算，而不是直接使用预更新的Q网络。这样做的目的是为了<strong>减少目标计算与当前值的相关性。</strong><br>$$<br>I=\left(\color{red}{r+\gamma \mathop{max}\limits_{a’}Q(s’,a’,w^-)}-Q(s,a,w)\right)^2<br>$$<br>如上面loss function公式所示，目标网络的Q函数使用的参数是$w^-$,而不是$w$。就是说，改进前的目标网络的Q函数是动态变化的，随着Q网络的更新而变化，这样不利于计算目标Q值，导致目标Q值和当前的Q值相关性很大。因此提出单独使用目标Q网络。那么目标Q网络的参数如何来呢？还是从Q网络中来，只不过是<strong>延迟更新</strong>。也就是每次等训练了一段时间再将当前Q网络的参数复制给目标Q网络。</p>
+<h3 id="3-DQN有什么问题？还可以如何改进？"><a href="#3-DQN有什么问题？还可以如何改进？" class="headerlink" title="3.DQN有什么问题？还可以如何改进？"></a>3.DQN有什么问题？还可以如何改进？</h3><p>在Nature DQN出来之后，肯定很多人在思考如何改进它。那么DQN有什么问题呢？</p>
 <ul>
 <li>目标Q值的计算准确吗？全部通过max Q来计算有没有问题？</li>
 <li>Q值代表状态、动作的价值，那么单独动作价值的评估会不会更准确？</li>
-<li>DQN中使用<span class="math inline">\(\epsilon\)</span>-greedy的方法来探索状态空间，有没有更好的做法？</li>
+<li>DQN中使用$\epsilon$-greedy的方法来探索状态空间，有没有更好的做法？</li>
 <li>使用卷积神经网络的结构是否有局限？加入RNN呢？</li>
 <li>DQN无法解决一些高难度的Atari游戏，比如Montezuma’s Revenge，如何处理这些游戏？</li>
 <li>DQN训练时间太慢了，跑一个游戏要好几天，有没有办法更快？</li>
@@ -52,25 +41,31 @@ I=\left(\color{red}{r+\gamma \mathop{max}\limits_{a&#39;}Q(s&#39;,a&#39;,w^-)}-Q
 <ul>
 <li>改进目标Q值计算：<code>Deep Reinforcement Learning with Double Q-learning</code></li>
 <li>改进随机采样：<code>Prioritized Experience Replay</code></li>
-<li><p>改进网络结构，评估单独动作价值：<code>Dueling Network Architectures for Deep Reinforcement Learning</code> （本文为ICML最佳论文之一）</p></li>
-<li><p>改进探索状态空间方式：(1)<code>Deep Exploration via Bootstrapped DQN</code> (2)<code>Incentivizing Exploration In Reinforcement Learning With Deep Predictive Models</code></p></li>
-<li><p>改变网络结构，增加RNN：<code>Deep Recurrent Q-Learning for Partially Observable MDPs</code> （非DeepMind出品，效果很一般，谈不上改进）</p></li>
-<li><p>实现DQN训练的迁移学习：(1)<code>Policy Distillation</code> (2)<code>Actor-Mimic:Deep Multitask and Transfer Reinforcement Learning</code></p></li>
-<li><p>解决高难度游戏Montezuma’s Revenge: <code>Unifying Count-Based Exploration and Intrinsic Motivation</code></p></li>
-<li><p>加快DQN训练速度：<code>Asynchronous Methods for Deep Reinforcement Learning</code> （这篇文章还引出了可以替代DQN的A3C算法，效果4倍Nature DQN）</p></li>
-<li><p>改变DQN使之能够应用在连续控制上面：<code>Continuous Deep Q-Learning with Model-based Acceleration</code></p></li>
+<li>改进网络结构，评估单独动作价值：<code>Dueling Network Architectures for Deep Reinforcement Learning</code> （本文为ICML最佳论文之一）</li>
+</ul>
+<ul>
+<li>改进探索状态空间方式：(1)<code>Deep Exploration via Bootstrapped DQN</code> (2)<code>Incentivizing Exploration In Reinforcement Learning With Deep Predictive Models</code></li>
+</ul>
+<ul>
+<li><p>改变网络结构，增加RNN：<code>Deep Recurrent Q-Learning for Partially Observable MDPs</code> （非DeepMind出品，效果很一般，谈不上改进）</p>
+</li>
+<li><p>实现DQN训练的迁移学习：(1)<code>Policy Distillation</code> (2)<code>Actor-Mimic:Deep Multitask and Transfer Reinforcement Learning</code></p>
+</li>
+<li><p>解决高难度游戏Montezuma’s Revenge: <code>Unifying Count-Based Exploration and Intrinsic Motivation</code></p>
+</li>
+<li><p>加快DQN训练速度：<code>Asynchronous Methods for Deep Reinforcement Learning</code> （这篇文章还引出了可以替代DQN的A3C算法，效果4倍Nature DQN）</p>
+</li>
+<li><p>改变DQN使之能够应用在连续控制上面：<code>Continuous Deep Q-Learning with Model-based Acceleration</code></p>
+</li>
 </ul>
 <p>除了上面的问题，其他的就是将DQN应用到其他领域比如文字理解，目标定位等等，也就是DQN的拓展研究，这里就不罗列相关文章了。上面的这些成果基本出自DeepMind之手，只有一两篇出自其他大牛，比如Pieter Abbeel, Ruslan Salakhutdinov。</p>
-<h3 id="double-dqn-prioritised-replay-dueling-network三大改进">4.Double DQN, Prioritised Replay, Dueling Network三大改进</h3>
-<p>大幅度提升DQN玩Atari性能的主要就是标题中三种。David Silver在ICML 2016中的Tutorial上做了介绍： <a href="http://icml.cc/2016/tutorials/deep_rl_tutorial.pdf" target="_blank" rel="external">深度增强学习Tutorial</a>，下图引用其PPT:</p>
-<figure>
-<img src="/images/01.png">
-</figure>
+<h3 id="4-Double-DQN-Prioritised-Replay-Dueling-Network三大改进"><a href="#4-Double-DQN-Prioritised-Replay-Dueling-Network三大改进" class="headerlink" title="4.Double DQN, Prioritised Replay, Dueling Network三大改进"></a>4.Double DQN, Prioritised Replay, Dueling Network三大改进</h3><p>大幅度提升DQN玩Atari性能的主要就是标题中三种。David Silver在ICML 2016中的Tutorial上做了介绍： <a href="http://icml.cc/2016/tutorials/deep_rl_tutorial.pdf" target="_blank" rel="external">深度增强学习Tutorial</a>，下图引用其PPT:</p>
+<p><img src="/images/01.png" alt=""></p>
 <p>简单说明一下：</p>
 <ul>
 <li><strong>Double DQN</strong>：目的是减少因为max Q值计算带来的计算偏差，或者成为过度估计（over estimation）问题，用当前的Q网络在选择动作，用目标Q网络来计算目标Q。</li>
 <li><strong>Prioritised replay</strong>: 也就是优先经验的意思。优先级采用目标Q值与当前Q值的差值来表示。优先级高，那么采样的概率就高。</li>
-<li><strong>Dueling Network</strong>: 将Q网络分成两个通道，一个输出V，一个输出A，最后再合起来得到Q。如下图所示。这个方法主要idea很简单但是很难想到，然后效果一级棒，因此也成为了ICML的best paper。 <img src="/images/02.png"></li>
+<li><strong>Dueling Network</strong>: 将Q网络分成两个通道，一个输出V，一个输出A，最后再合起来得到Q。如下图所示。这个方法主要idea很简单但是很难想到，然后效果一级棒，因此也成为了ICML的best paper。<br><img src="/images/02.png" alt=""></li>
 </ul>
 </div><!-- comment system--><div class="container"><hr></div></article><footer id="footer"><div class="container"><div class="bar"><div class="social"><a href="mailto:dad@sdz.red" target="_blank"><i class="fa fa-envelope-o"></i></a><a href="https://github.com/sohero" target="_blank"><i class="fa fa-github"></i></a><script>var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
 document.write(unescape("%3Cspan id='cnzz_stat_icon_1261298720'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1261298720%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));

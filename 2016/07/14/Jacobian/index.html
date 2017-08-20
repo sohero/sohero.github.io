@@ -1,39 +1,7 @@
 <!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>Jacobian | An old brother's memo.</title><link rel="stylesheet" type="text/css" href="/css/normalize.css"><link rel="stylesheet" type="text/css" href="/css/highlight.css"><link rel="stylesheet" type="text/css" href="/css/very-simple.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script></head><body><!-- include the sidebar--><!-- include ./includes/sidebar.jade--><!-- Blog title and subtitle--><header><div class="container header"><a id="logo" href="/." class="title">An old brother's memo.</a><span class="subtitle"></span><label id="toggle-menu" for="menu" onclick><i class="fa fa-bars"></i></label></div></header><!-- use checkbox hack for toggle nav-bar on small screens--><input id="menu" type="checkbox"><!-- Navigation Links--><nav id="nav"><div class="container"><a href="/" class="sidebar-nav-item active">Home</a><a href="/archives" class="sidebar-nav-item">Archives</a></div></nav><div id="header-margin-bar"></div><!-- gallery that comes before the header--><div class="wrapper"><div class="container post-header"><h1>Jacobian</h1></div></div><div class="wrapper"><div class="container meta"><div class="post-time">2016-07-14</div><div class="post-categories"><a class="post-category-link" href="/categories/math/">math</a></div><div class="post-tags"><a class="post-tag-link" href="/tags/foundation/">foundation</a>/<a class="post-tag-link" href="/tags/math/">math</a></div></div></div><article><div class="container post"><p><a href="http://mathworld.wolfram.com/Jacobian.html" title="来源" target="_blank" rel="external">来源</a></p>
-<p>Given a set <span class="math inline">\(\mathbf{y=f(x)}\)</span> of <span class="math inline">\(n\)</span> variables <span class="math inline">\(x_1,...,x_n\)</span>, written explicitly as <span class="math display">\[
-\mathbf y = \left[
-\begin{array}{c}
-f_1(\mathbf x)\\
-f_2(\mathbf x)\\
-\vdots\\
-f_n(\mathbf x)
-\end{array}
-\right]
-\]</span> or more explicitly as <span class="math display">\[
-\begin{cases}
-y_1=f_1(x_1,...,x_n)\\
-\vdots\\
-y_n=f_n(x_1,...,x_n)\\
-\end{cases}
-\]</span> the Jacobian matrix, sometimes simply called “the Jacobian”(Simon and Blume 1994) is defined by <span class="math display">\[
-J(x_1,...,x_n)=
-\begin{bmatrix}
-\frac{\partial y_1}{\partial x_1}&amp;\cdots&amp;\frac{\partial y_1}{\partial x_n}\\
-\vdots&amp;\ddots&amp;\vdots\\
-\frac{\partial y_n}{\partial x_1}&amp;\cdots&amp;\frac{\partial y_n}{\partial x_n}
-\end{bmatrix}
-\]</span> The determinant of J is the Jacobian determinant (confusingly, often called “the Jacobian” as well) and is denoted <span class="math display">\[
-J=\begin{vmatrix} \frac{\partial (y_1,...,y_n)}{\partial (x_1,...,x_n)} \end{vmatrix}
-\]</span></p>
+<p>Given a set $\mathbf{y=f(x)}$ of $n$ variables $x_1,…,x_n$, written explicitly as<br>$$<br>\mathbf y = \left[<br>\begin{array}{c}<br>f_1(\mathbf x)\<br>f_2(\mathbf x)\<br>\vdots\<br>f_n(\mathbf x)<br>\end{array}<br>\right]<br>$$<br>or more explicitly as<br>$$<br>\begin{cases}<br>y_1=f_1(x_1,…,x_n)\<br>\vdots\<br>y_n=f_n(x_1,…,x_n)\<br>\end{cases}<br>$$<br>the Jacobian matrix, sometimes simply called “the Jacobian”(Simon and Blume 1994) is defined by<br>$$<br>J(x_1,…,x_n)=<br>\begin{bmatrix}<br>\frac{\partial y_1}{\partial x_1}&amp;\cdots&amp;\frac{\partial y_1}{\partial x_n}\<br>\vdots&amp;\ddots&amp;\vdots\<br>\frac{\partial y_n}{\partial x_1}&amp;\cdots&amp;\frac{\partial y_n}{\partial x_n}<br>\end{bmatrix}<br>$$<br>The determinant of J is the Jacobian determinant (confusingly, often called “the Jacobian” as well) and is denoted<br>$$<br>J=\begin{vmatrix} \frac{\partial (y_1,…,y_n)}{\partial (x_1,…,x_n)} \end{vmatrix}<br>$$</p>
 <hr>
-<h4 id="practical-4">Practical 4</h4>
-<p>The Jacobian is a <span class="math inline">\(m×n\)</span> matrix of derivatives for a multivariate function <span class="math inline">\(f:R^n \to R^m\)</span>: <span class="math display">\[
-\frac{d\mathbf f}{d\mathbf x}=
-\begin{bmatrix}
-\frac{\partial f_1}{\partial x_1}&amp;\cdots&amp;\frac{\partial f_1}{\partial x_n}\\
-\vdots&amp;\ddots&amp;\vdots\\
-\frac{\partial f_m}{\partial x_1}&amp;\cdots&amp;\frac{\partial f_m}{\partial x_n}
-\end{bmatrix}
-\]</span> each <span class="math inline">\(i\)</span>th row being a gradient of an element, <span class="math inline">\(f_i\)</span>, of the output vector, <span class="math inline">\(\mathbf f\)</span>.</p>
+<h4 id="Practical-4"><a href="#Practical-4" class="headerlink" title="Practical 4"></a>Practical 4</h4><p>The Jacobian is a $m×n$ matrix of derivatives for a multivariate function $f:R^n \to R^m$:<br>$$<br>\frac{d\mathbf f}{d\mathbf x}=<br>\begin{bmatrix}<br>\frac{\partial f_1}{\partial x_1}&amp;\cdots&amp;\frac{\partial f_1}{\partial x_n}\<br>\vdots&amp;\ddots&amp;\vdots\<br>\frac{\partial f_m}{\partial x_1}&amp;\cdots&amp;\frac{\partial f_m}{\partial x_n}<br>\end{bmatrix}<br>$$<br>each $i$th row being a gradient of an element, $f_i$, of the output vector, $\mathbf f$.</p>
 </div><!-- comment system--><div class="container"><hr></div></article><footer id="footer"><div class="container"><div class="bar"><div class="social"><a href="mailto:dad@sdz.red" target="_blank"><i class="fa fa-envelope-o"></i></a><a href="https://github.com/sohero" target="_blank"><i class="fa fa-github"></i></a><script>var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
 document.write(unescape("%3Cspan id='cnzz_stat_icon_1261298720'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1261298720%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
 </script></div><div class="footer">© 2017 <a href="/" rel="nofollow">Hero Memo</a>. Powered by <a rel="nofollow" target="_blank" href="https://hexo.io">Hexo</a>. Theme <a target="_blank" href="https://github.com/lotabout/very-simple">very-simple</a>.</div></div></div></footer><script>MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});

@@ -1,95 +1,34 @@
 <!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>Model free Control | An old brother's memo.</title><link rel="stylesheet" type="text/css" href="/css/normalize.css"><link rel="stylesheet" type="text/css" href="/css/highlight.css"><link rel="stylesheet" type="text/css" href="/css/very-simple.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script></head><body><!-- include the sidebar--><!-- include ./includes/sidebar.jade--><!-- Blog title and subtitle--><header><div class="container header"><a id="logo" href="/." class="title">An old brother's memo.</a><span class="subtitle"></span><label id="toggle-menu" for="menu" onclick><i class="fa fa-bars"></i></label></div></header><!-- use checkbox hack for toggle nav-bar on small screens--><input id="menu" type="checkbox"><!-- Navigation Links--><nav id="nav"><div class="container"><a href="/" class="sidebar-nav-item active">Home</a><a href="/archives" class="sidebar-nav-item">Archives</a></div></nav><div id="header-margin-bar"></div><!-- gallery that comes before the header--><div class="wrapper"><div class="container post-header"><h1>Model free Control</h1></div></div><div class="wrapper"><div class="container meta"><div class="post-time">2016-07-14</div><div class="post-categories"><a class="post-category-link" href="/categories/machine-learning/">machine learning</a></div><div class="post-tags"><a class="post-tag-link" href="/tags/reinforcement-learning/">reinforcement learning</a></div></div></div><article><div class="container post"><p><strong>Model-free prediction</strong>: <em>Estimate</em> the value function of an <em>unknown</em> MDP.</p>
 <p><strong>Model-free Control</strong>: <em>Optimise</em> the value function of an <em>unknown</em> MDP.</p>
-<h2 id="on-and-off-policy-learning">On and Off-Policy Learning</h2>
+<p>##On and Off-Policy Learning</p>
 <ul>
-<li>On-policy learning
-<ul>
+<li>On-policy learning<ul>
 <li>“Learn on the job”</li>
-<li>Learn about policy <span class="math inline">\(\pi\)</span> from experience sampled from <span class="math inline">\(\pi\)</span></li>
-</ul></li>
-<li>Off-policy learning
-<ul>
+<li>Learn about policy $\pi$ from experience sampled from $\pi$</li>
+</ul>
+</li>
+<li>Off-policy learning<ul>
 <li>“Look over someone’s shoulder”</li>
-<li>Learn about policy <span class="math inline">\(\pi\)</span> from experience sampled from <span class="math inline">\(\mu\)</span>.</li>
-</ul></li>
+<li>Learn about policy $\pi$ from experience sampled from $\mu$.</li>
 </ul>
-<h2 id="glie">GLIE</h2>
-<p><em>Greedy in the Limit with Infinite Exploration</em> (GLIE).</p>
+</li>
+</ul>
+<p>##GLIE<br><em>Greedy in the Limit with Infinite Exploration</em> (GLIE).</p>
 <ul>
-<li>All state-action pairs are explored infinitely many times, <span class="math inline">\(\lim\limits_{k\to\infty}N_k(s,a)=\infty\)</span></li>
-<li>The policy converges on a greedy policy, <span class="math display">\[
-\lim\limits_{k\to\infty}\pi_k(a|s)=1(a=\mathop{\text{argmax}}\limits_{a&#39;\in\mathcal{A}}Q_k(s,a&#39;))
-\]</span></li>
+<li>All state-action pairs are explored infinitely many times, $\lim\limits_{k\to\infty}N_k(s,a)=\infty$</li>
+<li>The policy converges on a greedy policy,<br>$$<br>\lim\limits_{k\to\infty}\pi<em>k(a|s)=1(a=\mathop{\text{argmax}}\limits</em>{a’\in\mathcal{A}}Q_k(s,a’))<br>$$</li>
 </ul>
-<p>For example, <span class="math inline">\(\epsilon\)</span>-greedy is GLIE if <span class="math inline">\(\epsilon\)</span> reduces to zero at <span class="math inline">\(\epsilon_k={1\over k}\)</span>.</p>
-<h2 id="glie-monte-carlo-control">GLIE Monte-Carlo Control</h2>
-<p>Sample <span class="math inline">\(k\)</span>th episode using <span class="math inline">\(\pi\)</span>:<span class="math inline">\(\{\mathcal{S_1,A_1,R_2,...,S_T}\}\sim\pi\)</span>, for each state <span class="math inline">\(\mathcal S_t\)</span> and action <span class="math inline">\(\mathcal A_t\)</span> in the episode <span class="math display">\[
-\begin{align}
-N(\mathcal{S_t,A_t}) &amp;\leftarrow N(\mathcal{S_t,A_t})+1 \\
-Q(\mathcal{S_t,A_t}) &amp;\leftarrow Q(\mathcal{S_t,A_t}) + {1\over N(\mathcal{S_t,A_t})}\left(G_t-Q(\mathcal{S_t,A_t})\right)
-\end{align}
-\]</span></p>
-<p>Improve policy based on new action-value function <span class="math display">\[
-\begin{align}
-\epsilon &amp;\leftarrow {1\over k} \\
-\pi &amp;\leftarrow \epsilon\text{-greedy}(Q)
-\end{align}
-\]</span></p>
-<h2 id="sarsalambda">Sarsa(<span class="math inline">\(\lambda\)</span>)</h2>
-<p><span class="math display">\[
-Q(\mathcal{S,A})\leftarrow Q(\mathcal{S,A})+\alpha(R+\gamma Q(\mathcal{S&#39;,A&#39;})-Q(\mathcal{S,A}))
-\]</span></p>
-<h3 id="n-step-sarsa"><span class="math inline">\(n\)</span>-Step Sarsa</h3>
-<p>Define the <span class="math inline">\(n\)</span>-step <span class="math inline">\(Q\)</span>-return <span class="math display">\[
-q_t^{(n)}=R_{t+1}+\gamma R_{t+2}+...+\gamma^{n-1}R_{t+n}+\gamma^nQ(S_{t+n})
-\]</span> <span class="math inline">\(n\)</span>-step Sarsa updates <span class="math inline">\(Q(s,a)\)</span> towards the <span class="math inline">\(n\)</span>-step <span class="math inline">\(Q\)</span>-return <span class="math display">\[
-Q(S_t, A_t)\leftarrow Q(S_t, A_t)+\alpha\left(q_t^{(n)}-Q(S_t,A_t)\right)
-\]</span></p>
-<h3 id="forward-view-sarsalambda">Forward View Sarsa(<span class="math inline">\(\lambda\)</span>)</h3>
-<p>The <span class="math inline">\(q^\lambda\)</span> return combines all <span class="math inline">\(n\)</span>-step <span class="math inline">\(Q\)</span>-returns <span class="math inline">\(q_t^{(n)}\)</span>, using weight <span class="math inline">\((1-\lambda)\lambda^{n-1}\)</span> <span class="math display">\[
-q_t^\lambda=(1-\lambda)\sum_{n=1}^\infty \lambda^{n-1}q_t^{(n)}
-\]</span> Forward-view Sarsa(<span class="math inline">\(\lambda\)</span>) <span class="math display">\[
-Q(S_t,A_t)\leftarrow Q(S_t,A_t)+\alpha\left(q_t^\lambda-Q(S_t,A_t)\right)
-\]</span></p>
-<h3 id="backward-view-sarsalambda">Backward View Sarsa(<span class="math inline">\(\lambda\)</span>)</h3>
-<p>Just like TD(<span class="math inline">\(\lambda\)</span>), we use <code>eligibility traces</code> in an online algorithm. But Sarsa(<span class="math inline">\(\lambda\)</span>) has one eligibility trace for each state-action pair <span class="math display">\[
-\begin{align}
-E_0(s,a) &amp;= 0 \\
-E_t(s,a) &amp;= \gamma\lambda E_{t-1}(s,a)+1(S_t=s,A_t=a)
-\end{align}
-\]</span> <span class="math inline">\(Q(s,a)\)</span> is updated for every state <span class="math inline">\(s\)</span> and action <span class="math inline">\(a\)</span>. Inproportion to TD-error <span class="math inline">\(\delta_t\)</span> and eligibility trace <span class="math inline">\(E_t(s,a)\)</span> <span class="math display">\[
-\delta_t = R_{t+1} + \gamma Q(S_{t+1}, A_{t+1})-Q(S_t,A_t)
-\]</span> <span class="math display">\[
-Q(s,a)\leftarrow Q(s,a)+\alpha\delta_t E_t(s,a)
-\]</span></p>
-<h2 id="importance-sampling-for-off-policy-td">Importance Sampling for Off-Policy TD</h2>
-<p><span class="math display">\[
-V(S_t)\leftarrow V(S_t)+\alpha\left(
-\color{red}{\frac{\pi(A_t|S_t)}{\mu(A_t|S_t)}}
-(R_{t+1}+\gamma V(S_{t+1}))-V(s_t)
-\right)
-\]</span> Much lower variance than Monte-Carlo importance sampling. Policies only need to be similar over a single step.</p>
-<h2 id="q-learning">Q-Learning</h2>
-<p>Next action is chosen using behaviour policy <span class="math inline">\(A_{t+1}\sim\mu(\cdot |S_t)\)</span>, but we consider alternative successor action <span class="math inline">\(A&#39;\sim\pi(\cdot |S_t)\)</span>, and update <span class="math inline">\(Q(S_t,A_t)\)</span> towards value of alternative action <span class="math display">\[
-Q(S_t,A_t)\leftarrow Q(S_t,A_t)+\alpha\left(
-\color{red}{R_{t+1}+\gamma Q(S_{t+1},A&#39;)}
--Q(S_t,A_t)
-\right)
-\]</span></p>
-<h2 id="off-policy-control-with-q-learning">Off-Policy Control with Q-Learning</h2>
-<p>We now allow both behaviour and target policies to improve. The target policy <span class="math inline">\(\pi\)</span> is greedy w.r.t. <span class="math inline">\(Q(s,a)\)</span> <span class="math display">\[
-\pi(S_{t+1})=\mathop{\text{argmax}} \limits_{a&#39;}Q(S_{t+1},a&#39;)
-\]</span> The behaviour policy <span class="math inline">\(\mu\)</span> is e.g. <span class="math inline">\(\epsilon\)</span>-greedy w.r.t. <span class="math inline">\(Q(s,a)\)</span>. The Q-learning target then simplifies: <span class="math display">\[
-\begin{align}
-R_{t+1} &amp;+ \gamma Q(S_{t+1},A&#39;) \\
-=R_{t+1} &amp;+ \gamma Q(S_{t+1}, \mathop{\text{argmax}} \limits_{a&#39;} Q(S_{t+1},a&#39;)) \\
-=R_{t+1} &amp;+ \max_{a&#39;} \gamma Q(S_{t+1},a&#39;)
-\end{align}
-\]</span></p>
-<h2 id="q-learning-control-algorithm">Q-Learning Control Algorithm</h2>
-<p><span class="math display">\[
-Q(S,A)\leftarrow Q(S,A)+\alpha\left(R+\gamma\max_{a&#39;}Q(S&#39;,a&#39;)-Q(S,A)\right)
-\]</span></p>
+<p>For example, $\epsilon$-greedy is GLIE if $\epsilon$ reduces to zero at $\epsilon_k={1\over k}$.</p>
+<p>##GLIE Monte-Carlo Control<br>Sample $k$th episode using $\pi$:${\mathcal{S_1,A_1,R_2,…,S_T}}\sim\pi$, for each state $\mathcal S_t$ and action $\mathcal A_t$ in the episode<br>$$<br>\begin{align}<br>N(\mathcal{S_t,A_t}) &amp;\leftarrow N(\mathcal{S_t,A_t})+1 \<br>Q(\mathcal{S_t,A_t}) &amp;\leftarrow Q(\mathcal{S_t,A_t}) + {1\over N(\mathcal{S_t,A_t})}\left(G_t-Q(\mathcal{S_t,A_t})\right)<br>\end{align}<br>$$</p>
+<p>Improve policy based on new action-value function<br>$$<br>\begin{align}<br>\epsilon &amp;\leftarrow {1\over k} \<br>\pi &amp;\leftarrow \epsilon\text{-greedy}(Q)<br>\end{align}<br>$$</p>
+<p>##Sarsa($\lambda$)<br>$$<br>Q(\mathcal{S,A})\leftarrow Q(\mathcal{S,A})+\alpha(R+\gamma Q(\mathcal{S’,A’})-Q(\mathcal{S,A}))<br>$$</p>
+<p>###$n$-Step Sarsa<br>Define the $n$-step $Q$-return<br>$$<br>q<em>t^{(n)}=R</em>{t+1}+\gamma R<em>{t+2}+…+\gamma^{n-1}R</em>{t+n}+\gamma^nQ(S_{t+n})<br>$$<br>$n$-step Sarsa updates $Q(s,a)$ towards the $n$-step $Q$-return<br>$$<br>Q(S_t, A_t)\leftarrow Q(S_t, A_t)+\alpha\left(q_t^{(n)}-Q(S_t,A_t)\right)<br>$$</p>
+<p>###Forward View Sarsa($\lambda$)<br>The $q^\lambda$ return combines all $n$-step $Q$-returns $q_t^{(n)}$, using weight $(1-\lambda)\lambda^{n-1}$<br>$$<br>q<em>t^\lambda=(1-\lambda)\sum</em>{n=1}^\infty \lambda^{n-1}q_t^{(n)}<br>$$<br>Forward-view Sarsa($\lambda$)<br>$$<br>Q(S_t,A_t)\leftarrow Q(S_t,A_t)+\alpha\left(q_t^\lambda-Q(S_t,A_t)\right)<br>$$</p>
+<p>###Backward View Sarsa($\lambda$)<br>Just like TD($\lambda$), we use <code>eligibility traces</code> in an online algorithm. But Sarsa($\lambda$) has one eligibility trace for each state-action pair<br>$$<br>\begin{align}<br>E_0(s,a) &amp;= 0 \<br>E<em>t(s,a) &amp;= \gamma\lambda E</em>{t-1}(s,a)+1(S_t=s,A_t=a)<br>\end{align}<br>$$<br>$Q(s,a)$ is updated for every state $s$ and action $a$. Inproportion to TD-error $\delta_t$ and eligibility trace $E_t(s,a)$<br>$$<br>\delta<em>t = R</em>{t+1} + \gamma Q(S<em>{t+1}, A</em>{t+1})-Q(S_t,A_t)<br>$$<br>$$<br>Q(s,a)\leftarrow Q(s,a)+\alpha\delta_t E_t(s,a)<br>$$</p>
+<h2 id="Importance-Sampling-for-Off-Policy-TD"><a href="#Importance-Sampling-for-Off-Policy-TD" class="headerlink" title="Importance Sampling for Off-Policy TD"></a>Importance Sampling for Off-Policy TD</h2><p>$$<br>V(S_t)\leftarrow V(S_t)+\alpha\left(<br>\color{red}{\frac{\pi(A_t|S_t)}{\mu(A_t|S<em>t)}}<br>(R</em>{t+1}+\gamma V(S_{t+1}))-V(s_t)<br>\right)<br>$$<br>Much lower variance than Monte-Carlo importance sampling. Policies only need to be similar over a single step.</p>
+<h2 id="Q-Learning"><a href="#Q-Learning" class="headerlink" title="Q-Learning"></a>Q-Learning</h2><p>Next action is chosen using behaviour policy $A_{t+1}\sim\mu(\cdot |S_t)$, but we consider alternative successor action $A’\sim\pi(\cdot |S_t)$, and update $Q(S_t,A_t)$ towards value of alternative action<br>$$<br>Q(S_t,A_t)\leftarrow Q(S_t,A<em>t)+\alpha\left(<br>\color{red}{R</em>{t+1}+\gamma Q(S_{t+1},A’)}<br>-Q(S_t,A_t)<br>\right)<br>$$</p>
+<h2 id="Off-Policy-Control-with-Q-Learning"><a href="#Off-Policy-Control-with-Q-Learning" class="headerlink" title="Off-Policy Control with Q-Learning"></a>Off-Policy Control with Q-Learning</h2><p>We now allow both behaviour and target policies to improve. The target policy $\pi$ is greedy w.r.t. $Q(s,a)$<br>$$<br>\pi(S<em>{t+1})=\mathop{\text{argmax}} \limits</em>{a’}Q(S<em>{t+1},a’)<br>$$<br>The behaviour policy $\mu$ is e.g. $\epsilon$-greedy w.r.t. $Q(s,a)$. The Q-learning target then simplifies:<br>$$<br>\begin{align}<br>R</em>{t+1} &amp;+ \gamma Q(S<em>{t+1},A’) \<br>=R</em>{t+1} &amp;+ \gamma Q(S<em>{t+1}, \mathop{\text{argmax}} \limits</em>{a’} Q(S<em>{t+1},a’)) \<br>=R</em>{t+1} &amp;+ \max<em>{a’} \gamma Q(S</em>{t+1},a’)<br>\end{align}<br>$$</p>
+<h2 id="Q-Learning-Control-Algorithm"><a href="#Q-Learning-Control-Algorithm" class="headerlink" title="Q-Learning Control Algorithm"></a>Q-Learning Control Algorithm</h2><p>$$<br>Q(S,A)\leftarrow Q(S,A)+\alpha\left(R+\gamma\max_{a’}Q(S’,a’)-Q(S,A)\right)<br>$$</p>
 </div><!-- comment system--><div class="container"><hr></div></article><footer id="footer"><div class="container"><div class="bar"><div class="social"><a href="mailto:dad@sdz.red" target="_blank"><i class="fa fa-envelope-o"></i></a><a href="https://github.com/sohero" target="_blank"><i class="fa fa-github"></i></a><script>var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
 document.write(unescape("%3Cspan id='cnzz_stat_icon_1261298720'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1261298720%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
 </script></div><div class="footer">© 2017 <a href="/" rel="nofollow">Hero Memo</a>. Powered by <a rel="nofollow" target="_blank" href="https://hexo.io">Hexo</a>. Theme <a target="_blank" href="https://github.com/lotabout/very-simple">very-simple</a>.</div></div></div></footer><script>MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});

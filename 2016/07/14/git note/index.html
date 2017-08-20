@@ -4,17 +4,19 @@
 <ul>
 <li>第一步，使用命令<code>git add &lt;file&gt;</code>。注意可反复多次使用，添加多个文件；每次<code>commit</code>前，必须要将文件<code>add</code>进去。</li>
 <li>第二步，使用命令<code>git commit</code>，完成。</li>
-</ul></li>
-<li>查看仓库状态：<code>git status</code></li>
+</ul>
+</li>
+<li><p>查看仓库状态：<code>git status</code></p>
+</li>
 <li>查看修改内容：<code>git diff</code></li>
 <li><code>HEAD</code>指向当前版本，上一版本是<code>HEAD^</code>,上上个版本是<code>HEAD^^</code>，以此类推; 回退版本命令：<code>git reset --hard commit_id</code>,或者<code>git reset --hard HEAD^</code></li>
 <li>查看提交历史：<code>git log</code>,单行显示:<code>git log --pretty=oneline</code></li>
 <li>查看命令历史：<code>git reflog</code></li>
 <li>工作区和暂存区：<code>add</code>命令将工作区的修改提交到暂存区，<code>commit</code>将暂存区的修改提交到库。</li>
-<li><figure>
-<img src="/images/0.jpg" alt="working directory"><figcaption>working directory</figcaption>
-</figure></li>
-<li>丢弃工作区的修改：<code>git checkout -- &lt;file&gt;</code>，丢弃暂存区的修改：<code>git reset HEAD &lt;file&gt;</code></li>
+<li><p><img src="/images/0.jpg" alt="working directory"></p>
+</li>
+<li><p>丢弃工作区的修改：<code>git checkout -- &lt;file&gt;</code>，丢弃暂存区的修改：<code>git reset HEAD &lt;file&gt;</code></p>
+</li>
 <li>删除文件：<code>git rm &lt;file&gt;</code>,然后<code>git commit</code></li>
 <li>生成SSH Key的命令：<code>ssh-keygen -t rsa -C &quot;email@email.com&quot;</code>，git bash中。在用户主目录里生成两个文件：<code>id_rsa</code>是私钥，<code>id_rsa.pub</code>是公钥</li>
 <li>要关联一个远程库，使用命令<code>git remote add origin git@server-name:path/repo-name.git</code>;关联后，使用命令<code>git push -u origin master</code>第一次推送master分支的所有内容；此后，每次本地提交后，只要有必要，就可以使用命令<code>git push origin master</code>推送最新修改；</li>
@@ -37,14 +39,14 @@
 <li>命令git push origin –tags可以推送全部未推送过的本地标签；</li>
 <li>命令git tag -d <tagname>可以删除一个本地标签；</tagname></li>
 <li>命令git push origin :refs/tags/<tagname>可以删除一个远程标签。</tagname></li>
-<li>忽略某些文件时，需要编写<code>.gitignore</code>；Github准备好的配置文件：https://github.com/github/gitignore</li>
+<li>忽略某些文件时，需要编写<code>.gitignore</code>；Github准备好的配置文件：<a href="https://github.com/github/gitignore" target="_blank" rel="external">https://github.com/github/gitignore</a></li>
 <li><code>.gitignore</code>文件本身要放到版本库里，并且可以对<code>.gitignore</code>做版本管理！</li>
-<li>配置文件：配置Git的时候，加上<code>--global</code>是针对当前用户起作用的，如果不加，那只针对当前的仓库起作用。
-<ul>
+<li>配置文件：配置Git的时候，加上<code>--global</code>是针对当前用户起作用的，如果不加，那只针对当前的仓库起作用。<ul>
 <li>每个仓库的Git配置文件都放在<code>.git/config</code>文件中</li>
 <li>当前用户的Git配置文件放在用户主目录下的一个隐藏文件<code>.gitconfig</code>中</li>
-</ul></li>
-<li><p>使用ssh key推送远程库时，远程库协议应使用git协议，https的不行，使用https需输入用户名和密码。</p></li>
+</ul>
+</li>
+<li>使用ssh key推送远程库时，远程库协议应使用git协议，https的不行，使用https需输入用户名和密码。</li>
 </ul>
 </div><!-- comment system--><div class="container"><hr></div></article><footer id="footer"><div class="container"><div class="bar"><div class="social"><a href="mailto:dad@sdz.red" target="_blank"><i class="fa fa-envelope-o"></i></a><a href="https://github.com/sohero" target="_blank"><i class="fa fa-github"></i></a><script>var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
 document.write(unescape("%3Cspan id='cnzz_stat_icon_1261298720'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1261298720%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));

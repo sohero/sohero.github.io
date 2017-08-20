@@ -1,92 +1,44 @@
-<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>Deterministic Policy Gradient Algorithms | An old brother's memo.</title><link rel="stylesheet" type="text/css" href="/css/normalize.css"><link rel="stylesheet" type="text/css" href="/css/highlight.css"><link rel="stylesheet" type="text/css" href="/css/very-simple.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script></head><body><!-- include the sidebar--><!-- include ./includes/sidebar.jade--><!-- Blog title and subtitle--><header><div class="container header"><a id="logo" href="/." class="title">An old brother's memo.</a><span class="subtitle"></span><label id="toggle-menu" for="menu" onclick><i class="fa fa-bars"></i></label></div></header><!-- use checkbox hack for toggle nav-bar on small screens--><input id="menu" type="checkbox"><!-- Navigation Links--><nav id="nav"><div class="container"><a href="/" class="sidebar-nav-item active">Home</a><a href="/archives" class="sidebar-nav-item">Archives</a></div></nav><div id="header-margin-bar"></div><!-- gallery that comes before the header--><div class="wrapper"><div class="container post-header"><h1>Deterministic Policy Gradient Algorithms</h1></div></div><div class="wrapper"><div class="container meta"><div class="post-time">2017-05-02</div><div class="post-categories"><a class="post-category-link" href="/categories/machine-learning/">machine learning</a></div><div class="post-tags"><a class="post-tag-link" href="/tags/paper/">paper</a>/<a class="post-tag-link" href="/tags/reinforcement-learning/">reinforcement learning</a></div></div></div><article><div class="container post"><h2 id="why-deterministic-policy-gradients">Why Deterministic Policy Gradients?</h2>
-<p><strong>Goal</strong>: continuous action RL in high dimensions</p>
+<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>Deterministic Policy Gradient Algorithms | An old brother's memo.</title><link rel="stylesheet" type="text/css" href="/css/normalize.css"><link rel="stylesheet" type="text/css" href="/css/highlight.css"><link rel="stylesheet" type="text/css" href="/css/very-simple.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script></head><body><!-- include the sidebar--><!-- include ./includes/sidebar.jade--><!-- Blog title and subtitle--><header><div class="container header"><a id="logo" href="/." class="title">An old brother's memo.</a><span class="subtitle"></span><label id="toggle-menu" for="menu" onclick><i class="fa fa-bars"></i></label></div></header><!-- use checkbox hack for toggle nav-bar on small screens--><input id="menu" type="checkbox"><!-- Navigation Links--><nav id="nav"><div class="container"><a href="/" class="sidebar-nav-item active">Home</a><a href="/archives" class="sidebar-nav-item">Archives</a></div></nav><div id="header-margin-bar"></div><!-- gallery that comes before the header--><div class="wrapper"><div class="container post-header"><h1>Deterministic Policy Gradient Algorithms</h1></div></div><div class="wrapper"><div class="container meta"><div class="post-time">2017-05-02</div><div class="post-categories"><a class="post-category-link" href="/categories/machine-learning/">machine learning</a></div><div class="post-tags"><a class="post-tag-link" href="/tags/paper/">paper</a>/<a class="post-tag-link" href="/tags/reinforcement-learning/">reinforcement learning</a></div></div></div><article><div class="container post"><h2 id="Why-Deterministic-Policy-Gradients"><a href="#Why-Deterministic-Policy-Gradients" class="headerlink" title="Why Deterministic Policy Gradients?"></a>Why Deterministic Policy Gradients?</h2><p><strong>Goal</strong>: continuous action RL in high dimensions</p>
 <ul>
-<li>Deterministic policy gradient can be estimated more efficiently
-<ul>
+<li>Deterministic policy gradient can be estimated more efficiently<ul>
 <li>Especially in high-dimensional continuous action spaces</li>
-</ul></li>
-<li>Deterministic policy gradient is simple and natural
-<ul>
+</ul>
+</li>
+<li>Deterministic policy gradient is simple and natural<ul>
 <li>Update policy in direction of action-value gradient</li>
-</ul></li>
-<li>Hardware may only have deterministic controller
-<ul>
-<li>e.g. wind turbine sets blade pitch as function of wind speed</li>
-</ul></li>
 </ul>
-<h2 id="stochastic-policy-gradient-theorem">Stochastic Policy Gradient Theorem</h2>
-<p>Consider objective function <span class="math inline">\(J(\theta)\)</span> for state density <span class="math inline">\(\rho^\pi(s)\)</span> <span class="math display">\[
-J(\theta)=\Bbb E\left[\int_a\pi_\theta(s,a) R(s,a) da\right]
-\]</span> For a stochastic policy <span class="math inline">\(\pi_\theta(s,a)​\)</span>, the policy gradient is <span class="math display">\[
-\begin{align}
-\nabla_\theta J(\theta) &amp;=\Bbb E_s\left[\int_a\nabla_\theta\pi_\theta(s,a)Q^\pi(s,a) da\right] \\
-&amp;= \Bbb E_s\left[\int_a\pi_\theta(s,a)\frac{\nabla_\theta\pi_\theta(s,a)}{\pi_\theta(s,a)}Q^\pi(s,a)\right] \\
-&amp;=\Bbb E_{s,a}\left[\nabla_\theta log\pi_\theta(s,a)Q^\pi(s,a)\right]
-\end{align}
-\]</span></p>
-<p>Leading to the following stochastic actor-critic algorithm <span class="math display">\[
-\Delta\theta=\alpha\nabla_\theta log\pi_\theta(s,a)Q^w(s,a)
-\]</span></p>
-<ul>
-<li><span class="math inline">\(\pi_\theta(s,a)\)</span> is the actor</li>
-<li><span class="math inline">\(Q^w(s,a)\approx Q^\pi(s,a)\)</span> is the critic</li>
+</li>
+<li>Hardware may only have deterministic controller<ul>
+<li>e.g. wind turbine sets blade pitch as function of wind speed</li>
 </ul>
-<h3 id="illustration-of-stochastic-policy">Illustration of Stochastic Policy</h3>
-<figure>
-<img src="/images/2017-05-01_230117.png">
-</figure>
-<h3 id="illustration-of-stochastic-policy-gradient">Illustration of Stochastic Policy Gradient</h3>
-<figure>
-<img src="/images/2017-05-01_225823.png">
-</figure>
-<h3 id="illustration-of-deterministic-policy-gradient">Illustration of Deterministic Policy Gradient</h3>
-<figure>
-<img src="/images/2017-05-01_232422.png">
-</figure>
-<h2 id="deterministic-policy-gradient-theorem">Deterministic Policy Gradient Theorem</h2>
-<p>For a deterministic policy <span class="math inline">\(a=\mu_\theta(s)\)</span>, the policy gradient is <span class="math display">\[
-\begin{align}
-\nabla_\theta J(\theta) &amp;= \Bbb E_s\left[ \nabla_\theta Q^\mu(s,a)\mid_{a=\mu_\theta(s)} \right] \\
-&amp; = \Bbb E_s\left[\nabla_\theta \mu_\theta(s)\nabla_a Q^\mu(s,a)\mid_{a=\mu_\theta(s)}\right] \\
-\end{align}
-\]</span> Leading to the following deterministic policy gradient update <span class="math display">\[
-\Delta\theta=\nabla_\theta\mu_\theta(s)\nabla_a Q^\mu(s,a)\mid_{a=\mu_\theta(s)}
-\]</span> <strong>Update policy in the direction that most improves <span class="math inline">\(Q\)</span></strong></p>
-<h2 id="off-policy-deterministic-actor-critic-opdac">Off-Policy Deterministic Actor-Critic (OPDAC)</h2>
-<figure>
-<img src="/images/2017-05-02_002930.png">
-</figure>
-<h2 id="compatible-function-approximation">Compatible Function Approximation</h2>
-<figure>
-<img src="/images/2017-05-02_002943.png">
-</figure>
-<h2 id="compatible-off-policy-deterministic-actor-critic-copdac">Compatible Off-Policy Deterministic Actor-Critic (COPDAC)</h2>
-<figure>
-<img src="/images/2017-05-02_003000.png">
-</figure>
-<h2 id="using-keras-and-deep-deterministic-policy-gradient-to-play-torcs-abstract"><a href="https://yanpanlau.github.io/2016/10/11/Torcs-Keras.html" target="_blank" rel="external">Using Keras and Deep Deterministic Policy Gradient to play TORCS (abstract)</a></h2>
-<h3 id="target-network">Target Network</h3>
-<p>It is a well-known fact that directly implementing Q-learning with neural networks proved to be <strong>unstable</strong> in many environments including TORCS. Deepmind team came up the solution to the problem is to use a target network, where we created a copy of the actor and critic networks respectively, that are used for calculating the target values. The weights of these target networks are then updated by having them slowly track the learned networks:</p>
-<p><span class="math display">\[
-\theta&#39; \leftarrow \tau\theta + (1-\tau)\theta&#39;
-\]</span></p>
-<p>where <span class="math inline">\(\tau \ll 1\)</span>. This means that the target values are constrained to change slowly, greatly improving the stability of learning.</p>
-<h3 id="design-of-the-exploration-algorithm">Design of the exploration algorithm</h3>
-<p>Another issue is how to design a right exploration algorithm in the continuous domain. In the previous blog post, we used <span class="math inline">\(\epsilon\)</span>-greedy policy where the agent to try a random action some percentage of the time. However, this approach does not work very well in TORCS because we have 3 actions <em>[steering,acceleration,brake]</em>. If I just randomly choose the action from uniform random distribution we will generate some boring combinations [eg: the value of the brake is greater than the value of acceleration and the car simply not moving). Therefore, we add the noise using Ornstein-Uhlenbeck process to do the exploration.</p>
-<h4 id="ornstein-uhlenbeck-process">Ornstein-Uhlenbeck process</h4>
-<p>What is Ornstein-Uhlenbeck process? In simple English it is simply a stochastic process which has <a href="https://en.wikipedia.org/wiki/Mean_reversion_(finance)" target="_blank" rel="external">mean-reverting</a> properties.</p>
+</li>
+</ul>
+<h2 id="Stochastic-Policy-Gradient-Theorem"><a href="#Stochastic-Policy-Gradient-Theorem" class="headerlink" title="Stochastic Policy Gradient Theorem"></a>Stochastic Policy Gradient Theorem</h2><p>Consider objective function $J(\theta)$ for state density $\rho^\pi(s)$<br>$$<br>J(\theta)=\Bbb E\left[\int<em>a\pi</em>\theta(s,a) R(s,a) da\right]<br>$$<br>For a stochastic policy $\pi<em>\theta(s,a)​$, the policy gradient is<br>$$<br>\begin{align}<br>\nabla</em>\theta J(\theta) &amp;=\Bbb E_s\left[\int<em>a\nabla</em>\theta\pi_\theta(s,a)Q^\pi(s,a) da\right] \<br>&amp;= \Bbb E_s\left[\int<em>a\pi</em>\theta(s,a)\frac{\nabla<em>\theta\pi</em>\theta(s,a)}{\pi<em>\theta(s,a)}Q^\pi(s,a)\right] \<br>&amp;=\Bbb E</em>{s,a}\left[\nabla<em>\theta log\pi</em>\theta(s,a)Q^\pi(s,a)\right]<br>\end{align}<br>$$</p>
+<p>Leading to the following stochastic actor-critic algorithm<br>$$<br>\Delta\theta=\alpha\nabla<em>\theta log\pi</em>\theta(s,a)Q^w(s,a)<br>$$</p>
+<ul>
+<li>$\pi_\theta(s,a)$ is the actor</li>
+<li>$Q^w(s,a)\approx Q^\pi(s,a)$ is the critic</li>
+</ul>
+<h3 id="Illustration-of-Stochastic-Policy"><a href="#Illustration-of-Stochastic-Policy" class="headerlink" title="Illustration of Stochastic Policy"></a>Illustration of Stochastic Policy</h3><p><img src="/images/2017-05-01_230117.png" alt=""></p>
+<h3 id="Illustration-of-Stochastic-Policy-Gradient"><a href="#Illustration-of-Stochastic-Policy-Gradient" class="headerlink" title="Illustration of Stochastic Policy Gradient"></a>Illustration of Stochastic Policy Gradient</h3><p><img src="/images/2017-05-01_225823.png" alt=""></p>
+<h3 id="Illustration-of-Deterministic-Policy-Gradient"><a href="#Illustration-of-Deterministic-Policy-Gradient" class="headerlink" title="Illustration of Deterministic Policy Gradient"></a>Illustration of Deterministic Policy Gradient</h3><p><img src="/images/2017-05-01_232422.png" alt=""></p>
+<h2 id="Deterministic-Policy-Gradient-Theorem"><a href="#Deterministic-Policy-Gradient-Theorem" class="headerlink" title="Deterministic Policy Gradient Theorem"></a>Deterministic Policy Gradient Theorem</h2><p>For a deterministic policy $a=\mu<em>\theta(s)$, the policy gradient is<br>$$<br>\begin{align}<br>\nabla</em>\theta J(\theta) &amp;= \Bbb E<em>s\left[ \nabla</em>\theta Q^\mu(s,a)\mid<em>{a=\mu</em>\theta(s)} \right] \<br>&amp; = \Bbb E<em>s\left[\nabla</em>\theta \mu_\theta(s)\nabla<em>a Q^\mu(s,a)\mid</em>{a=\mu<em>\theta(s)}\right] \<br>\end{align}<br>$$<br>Leading to the following deterministic policy gradient update<br>$$<br>\Delta\theta=\nabla</em>\theta\mu_\theta(s)\nabla<em>a Q^\mu(s,a)\mid</em>{a=\mu_\theta(s)}<br>$$<br><strong>Update policy in the direction that most improves $Q$</strong></p>
+<h2 id="Off-Policy-Deterministic-Actor-Critic-OPDAC"><a href="#Off-Policy-Deterministic-Actor-Critic-OPDAC" class="headerlink" title="Off-Policy Deterministic Actor-Critic (OPDAC)"></a>Off-Policy Deterministic Actor-Critic (OPDAC)</h2><p><img src="/images/2017-05-02_002930.png" alt=""></p>
+<h2 id="Compatible-Function-Approximation"><a href="#Compatible-Function-Approximation" class="headerlink" title="Compatible Function Approximation"></a>Compatible Function Approximation</h2><p><img src="/images/2017-05-02_002943.png" alt=""></p>
+<h2 id="Compatible-Off-Policy-Deterministic-Actor-Critic-COPDAC"><a href="#Compatible-Off-Policy-Deterministic-Actor-Critic-COPDAC" class="headerlink" title="Compatible Off-Policy Deterministic Actor-Critic (COPDAC)"></a>Compatible Off-Policy Deterministic Actor-Critic (COPDAC)</h2><p><img src="/images/2017-05-02_003000.png" alt=""></p>
+<h2 id="Using-Keras-and-Deep-Deterministic-Policy-Gradient-to-play-TORCS-abstract"><a href="#Using-Keras-and-Deep-Deterministic-Policy-Gradient-to-play-TORCS-abstract" class="headerlink" title="Using Keras and Deep Deterministic Policy Gradient to play TORCS (abstract)"></a><a href="https://yanpanlau.github.io/2016/10/11/Torcs-Keras.html" target="_blank" rel="external">Using Keras and Deep Deterministic Policy Gradient to play TORCS (abstract)</a></h2><h3 id="Target-Network"><a href="#Target-Network" class="headerlink" title="Target Network"></a>Target Network</h3><p>It is a well-known fact that directly implementing Q-learning with neural networks proved to be <strong>unstable</strong> in many environments including TORCS. Deepmind team came up the solution to the problem is to use a target network, where we created a copy of the actor and critic networks respectively, that are used for calculating the target values. The weights of these target networks are then updated by having them slowly track the learned networks:</p>
+<p>$$<br>\theta’ \leftarrow \tau\theta + (1-\tau)\theta’<br>$$</p>
+<p>where $\tau \ll 1$. This means that the target values are constrained to change slowly, greatly improving the stability of learning.</p>
+<h3 id="Design-of-the-exploration-algorithm"><a href="#Design-of-the-exploration-algorithm" class="headerlink" title="Design of the exploration algorithm"></a>Design of the exploration algorithm</h3><p>Another issue is how to design a right exploration algorithm in the continuous domain. In the previous blog post, we used $\epsilon$-greedy policy where the agent to try a random action some percentage of the time. However, this approach does not work very well in TORCS because we have 3 actions <em>[steering,acceleration,brake]</em>. If I just randomly choose the action from uniform random distribution we will generate some boring combinations [eg: the value of the brake is greater than the value of acceleration and the car simply not moving). Therefore, we add the noise using Ornstein-Uhlenbeck process to do the exploration.</p>
+<h4 id="Ornstein-Uhlenbeck-process"><a href="#Ornstein-Uhlenbeck-process" class="headerlink" title="Ornstein-Uhlenbeck process"></a>Ornstein-Uhlenbeck process</h4><p>What is Ornstein-Uhlenbeck process? In simple English it is simply a stochastic process which has <a href="https://en.wikipedia.org/wiki/Mean_reversion_(finance" target="_blank" rel="external">mean-reverting</a>) properties.</p>
 <blockquote>
 <p>In finance, mean reversion is the assumption that a stock’s price will tend to move to the average price over time.</p>
 </blockquote>
-<p><span class="math display">\[
-dx_t=\theta(\mu-x_t)dt+\sigma dW_t
-\]</span></p>
-<p>here, <span class="math inline">\(\theta\)</span> means the how “fast” the variable reverts towards to the mean. <span class="math inline">\(\mu\)</span> represents the equilibrium or mean value. <span class="math inline">\(\sigma\)</span> is the degree of volatility of the process. Interestingly, Ornstein-Uhlenbeck process is a very common approach to model interest rate, FX and commodity prices stochastically. (And a very common interview questions in finance quant interview).</p>
-<h3 id="experience-replay">Experience Replay</h3>
-<p>When training the network, random mini-batches from the replay memory are used instead of most the recent transition, which will greatly improve the stability.</p>
+<p>$$<br>dx_t=\theta(\mu-x_t)dt+\sigma dW_t<br>$$</p>
+<p>here, $\theta$ means the how “fast” the variable reverts towards to the mean. $\mu$ represents the equilibrium or mean value. $\sigma$ is the degree of volatility of the process. Interestingly, Ornstein-Uhlenbeck process is a very common approach to model interest rate, FX and commodity prices stochastically. (And a very common interview questions in finance quant interview).</p>
+<h3 id="Experience-Replay"><a href="#Experience-Replay" class="headerlink" title="Experience Replay"></a>Experience Replay</h3><p>When training the network, random mini-batches from the replay memory are used instead of most the recent transition, which will greatly improve the stability. </p>
 <p>The used of the slow-varying target-Network will reduce the oscillations of the Q-value estimation, which greatly improve the stability of the learning.</p>
-<h3 id="learn-how-to-brake">Learn how to brake</h3>
-<p>It turns out that asking AI to learn how to brake is much harder than steering or acceleration. The reason is that the velocity of the car slow down when the brake is applied, therefore, the reward function is reduced and the AI agent is not keen to hit the brake at all. Also, if I allow the AI to hit the brake and the acceleration at the same time during the exploration phase, the AI will often hit the brake hard therefore we are stuck in very poor local minimum (as the car is not moving and no reward is received).</p>
+<h3 id="Learn-how-to-brake"><a href="#Learn-how-to-brake" class="headerlink" title="Learn how to brake"></a>Learn how to brake</h3><p>It turns out that asking AI to learn how to brake is much harder than steering or acceleration. The reason is that the velocity of the car slow down when the brake is applied, therefore, the reward function is reduced and the AI agent is not keen to hit the brake at all. Also, if I allow the AI to hit the brake and the acceleration at the same time during the exploration phase, the AI will often hit the brake hard therefore we are stuck in very poor local minimum (as the car is not moving and no reward is received).</p>
 <p>So how to solve this problem? I recalled myself when I first learnt driving in Princeton many years ago, my teacher told me do not hit the brake too hard and also try to <strong>feel</strong> the brake. I apply this idea into TORCS with a <strong>stochastic brake</strong> : During the exploration phase, I hit the brake 10% of the time (feel the brake) while 90% of time I don’t hit the brake. Since I only hit the brake 10% of the time the car can get some velocity therefore it won’t stuck in a poor local minimum (car not moving) while at the same time it can learn how to brake.</p>
 </div><!-- comment system--><div class="container"><hr></div></article><footer id="footer"><div class="container"><div class="bar"><div class="social"><a href="mailto:dad@sdz.red" target="_blank"><i class="fa fa-envelope-o"></i></a><a href="https://github.com/sohero" target="_blank"><i class="fa fa-github"></i></a><script>var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
 document.write(unescape("%3Cspan id='cnzz_stat_icon_1261298720'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1261298720%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));

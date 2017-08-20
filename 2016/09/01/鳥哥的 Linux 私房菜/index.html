@@ -1,29 +1,27 @@
-<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>鳥哥的 Linux 私房菜 | An old brother's memo.</title><link rel="stylesheet" type="text/css" href="/css/normalize.css"><link rel="stylesheet" type="text/css" href="/css/highlight.css"><link rel="stylesheet" type="text/css" href="/css/very-simple.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script></head><body><!-- include the sidebar--><!-- include ./includes/sidebar.jade--><!-- Blog title and subtitle--><header><div class="container header"><a id="logo" href="/." class="title">An old brother's memo.</a><span class="subtitle"></span><label id="toggle-menu" for="menu" onclick><i class="fa fa-bars"></i></label></div></header><!-- use checkbox hack for toggle nav-bar on small screens--><input id="menu" type="checkbox"><!-- Navigation Links--><nav id="nav"><div class="container"><a href="/" class="sidebar-nav-item active">Home</a><a href="/archives" class="sidebar-nav-item">Archives</a></div></nav><div id="header-margin-bar"></div><!-- gallery that comes before the header--><div class="wrapper"><div class="container post-header"><h1>鳥哥的 Linux 私房菜</h1></div></div><div class="wrapper"><div class="container meta"><div class="post-time">2016-09-01</div><div class="post-categories"><a class="post-category-link" href="/categories/os/">os</a></div><div class="post-tags"><a class="post-tag-link" href="/tags/linux/">linux</a></div></div></div><article><div class="container post"><h2 id="目录说明">目录说明</h2>
-<ul>
-<li><strong>/bin</strong> : commands in this dir are all system installed user commands 系统的一些指令</li>
-<li><strong>/sbin</strong>: commands in this dir are all system installed super user commands 超级用户指令 系统管理命令，这里存放的是系统管理员使用的管理程序</li>
-<li><strong>/usr/bin</strong>: user commands for applications 后期安装的一些软件的运行脚本</li>
-<li><strong>/usr/sbin</strong>: super user commands for applications 超级用户的一些管理程序</li>
+<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>鳥哥的 Linux 私房菜 | An old brother's memo.</title><link rel="stylesheet" type="text/css" href="/css/normalize.css"><link rel="stylesheet" type="text/css" href="/css/highlight.css"><link rel="stylesheet" type="text/css" href="/css/very-simple.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script></head><body><!-- include the sidebar--><!-- include ./includes/sidebar.jade--><!-- Blog title and subtitle--><header><div class="container header"><a id="logo" href="/." class="title">An old brother's memo.</a><span class="subtitle"></span><label id="toggle-menu" for="menu" onclick><i class="fa fa-bars"></i></label></div></header><!-- use checkbox hack for toggle nav-bar on small screens--><input id="menu" type="checkbox"><!-- Navigation Links--><nav id="nav"><div class="container"><a href="/" class="sidebar-nav-item active">Home</a><a href="/archives" class="sidebar-nav-item">Archives</a></div></nav><div id="header-margin-bar"></div><!-- gallery that comes before the header--><div class="wrapper"><div class="container post-header"><h1>鳥哥的 Linux 私房菜</h1></div></div><div class="wrapper"><div class="container meta"><div class="post-time">2016-09-01</div><div class="post-categories"><a class="post-category-link" href="/categories/os/">os</a></div><div class="post-tags"><a class="post-tag-link" href="/tags/linux/">linux</a></div></div></div><article><div class="container post"><h2 id="目录说明"><a href="#目录说明" class="headerlink" title="目录说明"></a>目录说明</h2><ul>
+<li><strong>/bin</strong> : commands in this dir are all system installed user commands    系统的一些指令</li>
+<li><strong>/sbin</strong>:  commands in this dir are all system installed super user commands  超级用户指令 系统管理命令，这里存放的是系统管理员使用的管理程序 </li>
+<li><strong>/usr/bin</strong>: user commands for applications  后期安装的一些软件的运行脚本</li>
+<li><strong>/usr/sbin</strong>: super user commands for applications  超级用户的一些管理程序</li>
 </ul>
-<h2 id="bash">BASH</h2>
-<ul>
+<h2 id="BASH"><a href="#BASH" class="headerlink" title="BASH"></a>BASH</h2><ul>
 <li>系统可用bash存放在<code>/etc/shells</code>文件中</li>
 <li>历史输入命令存在<code>~/.bash_history</code>文件中</li>
-<li>命令别名设置<code>alias lm='ls -al'</code>，此命令只在当前命令窗口有效，如需重启窗口后仍有效将此命令加入到<code>~/.bashrc</code>文件中即可</li>
-<li>删除别名：<code>unalias [-a][别名]</code> 参数 -a 表示删除全部的别名</li>
+<li>命令别名设置<code>alias lm=&#39;ls -al&#39;</code>，此命令只在当前命令窗口有效，如需重启窗口后仍有效将此命令加入到<code>~/.bashrc</code>文件中即可</li>
+<li>删除别名：<code>unalias [-a][别名]</code>  参数 -a 表示删除全部的别名</li>
 <li>查询命令是否为Bash shell的内建命令：<code>type</code>，如<code>type ls</code>。<code>type -a ls</code>显示所有ls命令的信息（包括路径），并按执行顺序显示。所以<code>type</code>命令可以用来查看命令所在的路径。</li>
-<li>命令太长在一行放不开，可用<code>\+回车</code>续行。
-<ul>
+<li>命令太长在一行放不开，可用<code>\+回车</code>续行。<ul>
 <li><code>Ctrl+u / Ctrl+k</code>分别是从光标出向前或向后删除指令串</li>
 <li><code>Ctrl+a / Ctrl+e</code>分别是将光标移动到整个指令串的最前或最后面</li>
-</ul></li>
-<li>mount重启有效，在<code>/etc/fstab</code>中添加 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/dev/sdb3        /mnt/d        ntfs        defaults        0 0</div></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>mount重启有效，在<code>/etc/fstab</code>中添加<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/dev/sdb3        /mnt/d        ntfs        defaults        0 0</div></pre></td></tr></table></figure>
+</li>
 </ul>
 <p>然后执行：<code>sudo mount -a</code></p>
-<h3 id="变量">变量</h3>
-<ul>
+<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><ul>
 <li>定义变量：<code>myname=VBird</code>，等号两边不能有空格。变量值可以引用其他变量：<code>var=&quot;lang is $LANG&quot;</code>，可使用转义符、双引号、单引号，使用单引号变量不能引用原值，会原样输出字面值。</li>
-<li>需额外命令提供值时，使用`命令`或<span class="math inline">\((命令)，如`version=\)</span>(uname -r)<code>，再</code>echo $version`</li>
+<li>需额外命令提供值时，使用`命令`或$(命令)，如<code>version=$(uname -r)</code>，再<code>echo $version</code></li>
 <li>引用变量使用：<code>$变量</code>或<code>${变量}</code></li>
 <li>定义的变量需在子程序中使用，用export使变量变成环境变量：<code>export PATH</code></li>
 <li>删除变量：<code>unset myname</code></li>

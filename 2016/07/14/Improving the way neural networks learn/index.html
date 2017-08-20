@@ -1,76 +1,22 @@
 <!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>Improving the way neural networks learn | An old brother's memo.</title><link rel="stylesheet" type="text/css" href="/css/normalize.css"><link rel="stylesheet" type="text/css" href="/css/highlight.css"><link rel="stylesheet" type="text/css" href="/css/very-simple.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script></head><body><!-- include the sidebar--><!-- include ./includes/sidebar.jade--><!-- Blog title and subtitle--><header><div class="container header"><a id="logo" href="/." class="title">An old brother's memo.</a><span class="subtitle"></span><label id="toggle-menu" for="menu" onclick><i class="fa fa-bars"></i></label></div></header><!-- use checkbox hack for toggle nav-bar on small screens--><input id="menu" type="checkbox"><!-- Navigation Links--><nav id="nav"><div class="container"><a href="/" class="sidebar-nav-item active">Home</a><a href="/archives" class="sidebar-nav-item">Archives</a></div></nav><div id="header-margin-bar"></div><!-- gallery that comes before the header--><div class="wrapper"><div class="container post-header"><h1>Improving the way neural networks learn</h1></div></div><div class="wrapper"><div class="container meta"><div class="post-time">2016-07-14</div><div class="post-categories"><a class="post-category-link" href="/categories/machine-learning/">machine learning</a></div><div class="post-tags"><a class="post-tag-link" href="/tags/deep-learning/">deep learning</a>/<a class="post-tag-link" href="/tags/tricks/">tricks</a></div></div></div><article><div class="container post"><p><a href="http://neuralnetworksanddeeplearning.com/chap3.html" target="_blank" rel="external">LINK</a></p>
-<h2 id="why-sigmoid-quadratic-cost-function-learning-slow">Why sigmoid + quadratic cost function learning slow?</h2>
-<p>The quadratic cost function is given by <span class="math display">\[
-C=\frac {(y-a)^2}{2} \tag 1
-\]</span> where <span class="math inline">\(a\)</span> is the neuron’s output. <span class="math inline">\(a=\sigma (z)\)</span>, where <span class="math inline">\(z=wx+b\)</span>. Using the chain rule to differentiate with respect to the weight and bias we get <span class="math display">\[
-  \frac{\partial C}{\partial w}  =  (a-y)\sigma&#39;(z) x = a \sigma&#39;(z) \tag{2}\]</span> <span class="math display">\[
-  \frac{\partial C}{\partial b}  =  (a-y)\sigma&#39;(z) = a \sigma&#39;(z)
-\tag{3}\]</span> where I have substituted <span class="math inline">\(x=1\)</span> and <span class="math inline">\(y=0\)</span>. Recall the shape of the <span class="math inline">\(\sigma\)</span> function:</p>
-<figure>
-<img src="/images/8.png">
-</figure>
-<p>We can see from this graph that when the neuron’s output is close to 1, the curve gets very flat, and so <span class="math inline">\(\sigma &#39;(z)\)</span> gets very small. Equations (2) and (3) then tell us that <span class="math inline">\(\partial C/\partial w\)</span> and <span class="math inline">\(\partial C/\partial b\)</span> get very small.</p>
+<h2 id="Why-sigmoid-quadratic-cost-function-learning-slow"><a href="#Why-sigmoid-quadratic-cost-function-learning-slow" class="headerlink" title="Why sigmoid + quadratic cost function learning slow?"></a>Why sigmoid + quadratic cost function learning slow?</h2><p>The quadratic cost function is given by<br>$$<br>C=\frac {(y-a)^2}{2} \tag 1<br>$$<br>where $a$ is the neuron’s output.  $a=\sigma (z)$, where $z=wx+b$. Using the chain rule to differentiate with respect to the weight and bias we get<br>$$<br>  \frac{\partial C}{\partial w}  =  (a-y)\sigma’(z) x = a \sigma’(z) \tag{2}$$<br>  $$<br>  \frac{\partial C}{\partial b}  =  (a-y)\sigma’(z) = a \sigma’(z)<br>\tag{3}$$<br>where I have substituted $x=1$ and $y=0$.<br>Recall the shape of the $\sigma$ function:</p>
+<p><img src="/images/8.png" alt=""></p>
+<p>We can see from this graph that when the neuron’s output is close to 1, the curve gets very flat, and so $\sigma ‘(z)$ gets very small. Equations (2) and (3) then tell us that $\partial C/\partial w$ and $\partial C/\partial b$ get very small.</p>
 <blockquote>
-<strong>Using the quadratic cost when we have linear neurons in the output layer</strong>. Suppose that we have a many-layer multi-neuron network. Suppose all the neurons in the final layer are linear neurons, meaning that the sigmoid activation function is not applied, and the outputs are simply <span class="math inline">\(a^L_j=z^L_j\)</span>. Show that if we use the quadratic cost function then the output error <span class="math inline">\(δ^L\)</span> for a single training example <span class="math inline">\(x\)</span> is given by <span class="math display">\[δ^L=a^L−y\]</span> Similarly to the previous problem, use this expression to show that the partial derivatives with respect to the weights and biases in the output layer are given by
-<span class="math display">\[\begin{eqnarray}
-\frac{\partial C}{\partial w^L_{jk}} &amp; = &amp; \frac{1}{n} \sum_x 
-a^{L-1}_k  (a^L_j-y_j) \\
-\frac{\partial C}{\partial b^L_{j}} &amp; = &amp; \frac{1}{n} \sum_x 
-(a^L_j-y_j).
-\end{eqnarray}\]</span>
+<p><strong>Using the quadratic cost when we have linear neurons in the output layer</strong>. Suppose that we have a many-layer multi-neuron network. Suppose all the neurons in the final layer are linear neurons, meaning that the sigmoid activation function is not applied, and the outputs are simply $a^L_j=z^L<em>j$. Show that if we use the quadratic cost function then the output error $δ^L$ for a single training example $x$ is given by<br>$$δ^L=a^L−y$$<br>Similarly to the previous problem, use this expression to show that the partial derivatives with respect to the weights and biases in the output layer are given by<br>\begin{eqnarray}<br>      \frac{\partial C}{\partial w^L</em>{jk}} &amp; = &amp; \frac{1}{n} \sum_x<br>      a^{L-1}_k  (a^L_j-y<em>j) \<br>      \frac{\partial C}{\partial b^L</em>{j}} &amp; = &amp; \frac{1}{n} \sum_x<br>      (a^L_j-y_j).<br>  \end{eqnarray}</p>
 </blockquote>
 <p>This shows that if the output neurons are linear neurons then the quadratic cost will not give rise to any problems with a learning slowdown. In this case the quadratic cost is, in fact, an appropriate cost function to use.</p>
-<h2 id="sigmoid-cross-entropy-cost-function">sigmoid + cross-entropy cost function</h2>
-<p>The cross-entropy cost function <span class="math display">\[
-C = -\frac{1}{n} \sum_x \left[y \ln a + (1-y ) \ln (1-a) \right] \tag 4
-\]</span> where <span class="math inline">\(n\)</span> is the total number of items of training data, the sum is over all training inputs, <span class="math inline">\(x\)</span>, and <span class="math inline">\(y\)</span> is the corresponding desired output.</p>
-The partial derivative of the cross-entropy cost with respect to the weights. We substitute <span class="math inline">\(a=\partial (z)\)</span> into (4), and apply the chain rule twice, obtaining:
-<span class="math display">\[\begin{eqnarray}
-  \frac{\partial C}{\partial w_j} &amp; = &amp; -\frac{1}{n} \sum_x \left(
-    \frac{y }{\sigma(z)} -\frac{(1-y)}{1-\sigma(z)} \right)
-  \frac{\partial \sigma}{\partial w_j} \tag{5}\\
- &amp; = &amp; -\frac{1}{n} \sum_x \left( 
-    \frac{y}{\sigma(z)} 
-    -\frac{(1-y)}{1-\sigma(z)} \right)\sigma&#39;(z) x_j.
-\tag{6}\end{eqnarray}\]</span>
-Putting everything over a common denominator and simplifying this becomes:
-<span class="math display">\[\begin{eqnarray}
-  \frac{\partial C}{\partial w_j} &amp; = &amp; \frac{1}{n}
-  \sum_x \frac{\sigma&#39;(z) x_j}{\sigma(z) (1-\sigma(z))}
-  (\sigma(z)-y).
-\tag{7}\end{eqnarray}\]</span>
-Using the definition of the sigmoid function, <span class="math inline">\(\sigma(z) =1/(1+e^{-z})\)</span>, and a little algebra we can show that <span class="math inline">\(\sigma&#39;(z) =\sigma(z)(1-\sigma(z))\)</span>. We see that the <span class="math inline">\(\sigma &#39; (z)\)</span> and <span class="math inline">\(\sigma (z)(1-\sigma (z))\)</span> terms cancel in the equation just above, and it simplifies to become:
-<span class="math display">\[\begin{eqnarray} 
-  \frac{\partial C}{\partial w_j} =  \frac{1}{n} \sum_x x_j(\sigma(z)-y).
-\tag{8}\end{eqnarray}\]</span>
-<p>This is a beautiful expression. It tells us that the rate at which the weight learns is controlled by <span class="math inline">\(σ(z)−y\)</span>, i.e., by the error in the output. The larger the error, the faster the neuron will learn. In particular, it avoids the learning slowdown caused by the <span class="math inline">\(σ′(z)\)</span> term in the analogous equation for the quadratic cost, Equation (2).</p>
-In a similar way, we can compute the partial derivative for the bias.
-<span class="math display">\[\begin{eqnarray} 
-  \frac{\partial C}{\partial b} = \frac{1}{n} \sum_x (\sigma(z)-y).
-\tag{9}\end{eqnarray}\]</span>
-It’s easy to generalize the cross-entropy to many-neuron multi-layer networks. In particular, suppose <span class="math inline">\(y=y_1,y_2,...\)</span> are the desired values at the output neurons, i.e., the neurons in the final layer, while <span class="math inline">\(a^L_1,a^L_2,...\)</span> are the actual output values. Then we define the cross-entropy by
-<span class="math display">\[\begin{eqnarray} C = -\frac{1}{n} \sum_x \sum_j \left[y_j \ln a^L_j + (1-y_j) \ln (1-a^L_j) \right]. \end{eqnarray}\]</span>
-<h2 id="softmax-log-likelihood-cost">Softmax + log-likelihood cost</h2>
-In a softmax layer we apply the so-called <span class="math inline">\(softmax function\)</span> to the <span class="math inline">\(z^L_j\)</span>. According to this function, the activation <span class="math inline">\(a^L_j\)</span> of the <span class="math inline">\(j\)</span>th output neuron is
-<span class="math display">\[\begin{eqnarray} 
-  a^L_j = \frac{e^{z^L_j}}{\sum_k e^{z^L_k}},
-\tag{10}\end{eqnarray}\]</span>
-<p>where in the denominator we sum over all the output neurons.</p>
-The log-likelihood cost:
-<span class="math display">\[\begin{eqnarray}
-  C \equiv -\ln a^L_y.
-\tag{11}\end{eqnarray}\]</span>
-The partial derivative:
-<span class="math display">\[\begin{eqnarray}
-  \frac{\partial C}{\partial b^L_j} &amp; = &amp; a^L_j-y_j  \tag{12}\\
-  \frac{\partial C}{\partial w^L_{jk}} &amp; = &amp; a^{L-1}_k (a^L_j-y_j) 
-\tag{13}\end{eqnarray}\]</span>
-<p>These expressions ensure that we will not encounter a learning slowdown. In fact, it’s useful to think of a softmax output layer with log-likelihood cost as being quite similar to a sigmoid output layer with cross-entropy cost.</p>
+<h2 id="sigmoid-cross-entropy-cost-function"><a href="#sigmoid-cross-entropy-cost-function" class="headerlink" title="sigmoid + cross-entropy cost function"></a>sigmoid + cross-entropy cost function</h2><p>The cross-entropy cost function<br>$$<br>C = -\frac{1}{n} \sum_x \left[y \ln a + (1-y ) \ln (1-a) \right] \tag 4<br>$$<br>where $n$ is the total number of items of training data, the sum is over all training inputs, $x$, and $y$ is the corresponding desired output.</p>
+<p>The partial derivative of the cross-entropy cost with respect to the weights. We substitute $a=\partial (z)$ into (4), and apply the chain rule twice, obtaining:<br>\begin{eqnarray}<br>  \frac{\partial C}{\partial w_j} &amp; = &amp; -\frac{1}{n} \sum_x \left(<br>    \frac{y }{\sigma(z)} -\frac{(1-y)}{1-\sigma(z)} \right)<br>  \frac{\partial \sigma}{\partial w_j} \tag{5}\<br> &amp; = &amp; -\frac{1}{n} \sum_x \left(<br>    \frac{y}{\sigma(z)}<br>    -\frac{(1-y)}{1-\sigma(z)} \right)\sigma’(z) x_j.<br>\tag{6}\end{eqnarray}<br>Putting everything over a common denominator and simplifying this becomes:<br>\begin{eqnarray}<br>  \frac{\partial C}{\partial w_j} &amp; = &amp; \frac{1}{n}<br>  \sum_x \frac{\sigma’(z) x_j}{\sigma(z) (1-\sigma(z))}<br>  (\sigma(z)-y).<br>\tag{7}\end{eqnarray}<br>Using the definition of the sigmoid function, $\sigma(z) =1/(1+e^{-z})$, and a little algebra we can show that $\sigma’(z) =\sigma(z)(1-\sigma(z))$.<br>We see that the $\sigma ‘ (z)$ and $\sigma (z)(1-\sigma (z))$ terms cancel in the equation just above, and it simplifies to become:<br>\begin{eqnarray}<br>  \frac{\partial C}{\partial w_j} =  \frac{1}{n} \sum_x x_j(\sigma(z)-y).<br>\tag{8}\end{eqnarray}<br>This is a beautiful expression. It tells us that the rate at which the weight learns is controlled by $σ(z)−y$, i.e., by the error in the output. The larger the error, the faster the neuron will learn. In particular, it avoids the learning slowdown caused by the $σ′(z)$ term in the analogous equation for the quadratic cost, Equation (2).</p>
+<p>In a similar way, we can compute the partial derivative for the bias.<br>\begin{eqnarray}<br>  \frac{\partial C}{\partial b} = \frac{1}{n} \sum_x (\sigma(z)-y).<br>\tag{9}\end{eqnarray}</p>
+<p>It’s easy to generalize the cross-entropy to many-neuron multi-layer networks. In particular, suppose $y=y_1,y_2,…$ are the desired values at the output neurons, i.e., the neurons in the final layer, while $a^L_1,a^L_2,…$ are the actual output values. Then we define the cross-entropy by<br>\begin{eqnarray} C = -\frac{1}{n} \sum_x \sum_j \left[y_j \ln a^L_j + (1-y_j) \ln (1-a^L_j) \right]. \end{eqnarray}</p>
+<h2 id="Softmax-log-likelihood-cost"><a href="#Softmax-log-likelihood-cost" class="headerlink" title="Softmax + log-likelihood cost"></a>Softmax + log-likelihood cost</h2><p>In a softmax layer we apply the so-called $softmax function$ to the $z^L_j$. According to this function, the activation $a^L_j$ of the $j$th output neuron is<br>\begin{eqnarray}<br>  a^L_j = \frac{e^{z^L_j}}{\sum_k e^{z^L_k}},<br>\tag{10}\end{eqnarray}<br>where in the denominator we sum over all the output neurons.</p>
+<p>The log-likelihood cost:<br>\begin{eqnarray}<br>  C \equiv -\ln a^L_y.<br>\tag{11}\end{eqnarray}</p>
+<p>The partial derivative:<br>\begin{eqnarray}<br>  \frac{\partial C}{\partial b^L_j} &amp; = &amp; a^L_j-y<em>j  \tag{12}\<br>  \frac{\partial C}{\partial w^L</em>{jk}} &amp; = &amp; a^{L-1}_k (a^L_j-y_j)<br>\tag{13}\end{eqnarray}<br>These expressions ensure that we will not encounter a learning slowdown. In fact, it’s useful to think of a softmax output layer with log-likelihood cost as being quite similar to a sigmoid output layer with cross-entropy cost.</p>
 <blockquote>
 <p>Given this similarity, should you use a sigmoid output layer and cross-entropy, or a softmax output layer and log-likelihood? In fact, in many situations both approaches work well. As a more general point of principle, softmax plus log-likelihood is worth using whenever you want to interpret the output activations as probabilities. That’s not always a concern, but can be useful with classification problems (like MNIST) involving disjoint classes.</p>
 </blockquote>
-<h2 id="overfitting">overfitting</h2>
-<p>In general, one of the best ways of reducing overfitting is to increase the size of the training data. With enough training data it is difficult for even a very large network to overfit.</p>
+<h2 id="overfitting"><a href="#overfitting" class="headerlink" title="overfitting"></a>overfitting</h2><p>In general, one of the best ways of reducing overfitting is to increase the size of the training data. With enough training data it is difficult for even a very large network to overfit.</p>
 </div><!-- comment system--><div class="container"><hr></div></article><footer id="footer"><div class="container"><div class="bar"><div class="social"><a href="mailto:dad@sdz.red" target="_blank"><i class="fa fa-envelope-o"></i></a><a href="https://github.com/sohero" target="_blank"><i class="fa fa-github"></i></a><script>var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
 document.write(unescape("%3Cspan id='cnzz_stat_icon_1261298720'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1261298720%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
 </script></div><div class="footer">© 2017 <a href="/" rel="nofollow">Hero Memo</a>. Powered by <a rel="nofollow" target="_blank" href="https://hexo.io">Hexo</a>. Theme <a target="_blank" href="https://github.com/lotabout/very-simple">very-simple</a>.</div></div></div></footer><script>MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
