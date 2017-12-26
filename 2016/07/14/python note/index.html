@@ -2,20 +2,24 @@
 <li>locals实际上没有返回局部名字空间，它返回的是一个拷贝。所以对它进行改变对局部名字空间中的变量值并无影响。</li>
 <li>globals 返回实际的全局名字空间，而不是一个拷贝：与 locals的行为完全相反。所以对globals所返回的dictionary的任何的改动都会直接影响到全局变量。</li>
 </ul>
-<h2 id="python-pip"><a href="#python-pip" class="headerlink" title="python pip"></a>python pip</h2><p><code>python pip</code>的安装,<a href="https://pip.pypa.io/en/latest/installing.html" target="_blank" rel="external">https://pip.pypa.io/en/latest/installing.html</a></p>
+<h2 id="python-pip">python pip</h2>
+<p><code>python pip</code>的安装,<a href="https://pip.pypa.io/en/latest/installing.html" class="uri" target="_blank" rel="external">https://pip.pypa.io/en/latest/installing.html</a></p>
 <ul>
 <li>升级pip：命令行下运行 python -m pip install -U pip</li>
 <li>用pip安装package：python -m pip install <em>package_name</em></li>
-<li>package_name 在<a href="https://pypi.python.org/pypi" target="_blank" rel="external">https://pypi.python.org/pypi</a>搜索</li>
+<li>package_name 在<a href="https://pypi.python.org/pypi" class="uri" target="_blank" rel="external">https://pypi.python.org/pypi</a>搜索</li>
 </ul>
-<h2 id="Module-Search-Path"><a href="#Module-Search-Path" class="headerlink" title="Module Search Path"></a>Module Search Path</h2><p>When a module named spam is imported, the interpreter first searches for a built-in module with that name. If<br>not found, it then searches for a file named spam.py in a list of directories given by the variable <code>sys.path</code>.<br>sys.path is initialized from these locations:</p>
+<h2 id="module-search-path">Module Search Path</h2>
+<p>When a module named spam is imported, the interpreter first searches for a built-in module with that name. If not found, it then searches for a file named spam.py in a list of directories given by the variable <code>sys.path</code>. sys.path is initialized from these locations:</p>
 <ul>
 <li>the directory containing the input script (or the current directory).</li>
 <li>PYTHONPATH (a list of directory names, with the same syntax as the shell variable PATH).</li>
 <li>the installation-dependent default.</li>
 </ul>
-<h2 id="dir"><a href="#dir" class="headerlink" title="dir()"></a>dir()</h2><p>he built-in function dir() is used to find out which names a module defines. It returns a sorted list of strings<br>dir() does not list the names of built-in functions and variables. If you want a list of those, they are defined in<br>the standard module <code>__builtin__</code>:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> __builtin__</div><div class="line">dir(__builtin__)</div></pre></td></tr></table></figure></div><!-- comment system--><div class="container"><hr></div></article><footer id="footer"><div class="container"><div class="bar"><div class="social"><a href="mailto:dad@sdz.red" target="_blank"><i class="fa fa-envelope-o"></i></a><a href="https://github.com/sohero" target="_blank"><i class="fa fa-github"></i></a><script>var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+<h2 id="dir">dir()</h2>
+<p>he built-in function dir() is used to find out which names a module defines. It returns a sorted list of strings dir() does not list the names of built-in functions and variables. If you want a list of those, they are defined in the standard module <code>__builtin__</code>:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> __builtin__</div><div class="line">dir(__builtin__)</div></pre></td></tr></table></figure>
+</div><!-- comment system--><div class="container"><hr></div></article><footer id="footer"><div class="container"><div class="bar"><div class="social"><a href="mailto:herosgq@gmail.com" target="_blank"><i class="fa fa-envelope-o"></i></a><a href="https://github.com/sohero" target="_blank"><i class="fa fa-github"></i></a><script>var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
 document.write(unescape("%3Cspan id='cnzz_stat_icon_1261298720'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1261298720%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
 </script></div><div class="footer">© 2017 <a href="/" rel="nofollow">Hero Memo</a>. Powered by <a rel="nofollow" target="_blank" href="https://hexo.io">Hexo</a>. Theme <a target="_blank" href="https://github.com/lotabout/very-simple">very-simple</a>.</div></div></div></footer><script>MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
 </script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.css"><script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script><script src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js"></script><script>$(document).ready(function() {

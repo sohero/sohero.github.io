@@ -6,47 +6,59 @@
 <li>TD learns from <em>incomplete</em> episodes, by <em>bootstrapping</em></li>
 <li>TD updates a guess towards a guess</li>
 </ul>
-<p>##MC and TD<br><strong>Goal</strong>: learn $v_\pi$ online from experience under policy $\pi$.</p>
-<p>###Incremental every-visit Monte-Carlo<br>Update value $V(S_t)$ toward <em>actual</em> return $G_t$:<br>$$<br>V(S_t) \leftarrow V(S_t) + \alpha(G_t-V(S_t))<br>$$</p>
-<p>###Simplest temporal-difference learning algorithm: TD(0)<br>Update value $V(S<em>t)$ toward <em>estimated</em> return $R</em>{t+1}+\gamma V(S_{t+1})$:<br>$$<br>V(S_t) \leftarrow V(S<em>t) + \alpha\left(R</em>{t+1}+\gamma V(S_{t+1})-V(S<em>t)\right)<br>$$<br>$R</em>{t+1}+\gamma V(S_{t+1})$ is called the <em>TD</em> target.</p>
-<p>$\delta<em>t=R</em>{t+1}+\gamma V(S_{t+1})-V(S_t)$ is called the <em>TD</em> error.</p>
-<p>##Bias/Variance Trade-Off</p>
+<h2 id="mc-and-td">MC and TD</h2>
+<p><strong>Goal</strong>: learn <span class="math inline">\(v_\pi\)</span> online from experience under policy <span class="math inline">\(\pi\)</span>.</p>
+<h3 id="incremental-every-visit-monte-carlo">Incremental every-visit Monte-Carlo</h3>
+<p>Update value <span class="math inline">\(V(S_t)\)</span> toward <em>actual</em> return <span class="math inline">\(G_t\)</span>: <span class="math display">\[
+V(S_t) \leftarrow V(S_t) + \alpha(G_t-V(S_t))
+\]</span></p>
+<h3 id="simplest-temporal-difference-learning-algorithm-td0">Simplest temporal-difference learning algorithm: TD(0)</h3>
+<p>Update value <span class="math inline">\(V(S_t)\)</span> toward <em>estimated</em> return <span class="math inline">\(R_{t+1}+\gamma V(S_{t+1})\)</span>: <span class="math display">\[
+V(S_t) \leftarrow V(S_t) + \alpha\left(R_{t+1}+\gamma V(S_{t+1})-V(S_t)\right)
+\]</span> <span class="math inline">\(R_{t+1}+\gamma V(S_{t+1})\)</span> is called the <em>TD</em> target.</p>
+<p><span class="math inline">\(\delta_t=R_{t+1}+\gamma V(S_{t+1})-V(S_t)\)</span> is called the <em>TD</em> error.</p>
+<h2 id="biasvariance-trade-off">Bias/Variance Trade-Off</h2>
 <ul>
-<li>Return $G<em>t=R</em>{t+1}+\gamma R_{t+2}+…+\gamma^{T-1}R<em>T$ is <em>unbiased</em> estimate of $v</em>\pi(S_t)$</li>
-<li>True TD target $R<em>{t+1}+\gamma v</em>\pi(S<em>{t+1})$ is <em>unbiased</em> estimate of $v</em>\pi(S_t)$</li>
-<li>TD target $R<em>{t+1}+\gamma V(S</em>{t+1})$ is <em>biased</em> estimate of $v_\pi(S_t)$</li>
-<li>TD target is much lower variance than the return:<ul>
+<li>Return <span class="math inline">\(G_t=R_{t+1}+\gamma R_{t+2}+...+\gamma^{T-1}R_T\)</span> is <em>unbiased</em> estimate of <span class="math inline">\(v_\pi(S_t)\)</span></li>
+<li>True TD target <span class="math inline">\(R_{t+1}+\gamma v_\pi(S_{t+1})\)</span> is <em>unbiased</em> estimate of <span class="math inline">\(v_\pi(S_t)\)</span></li>
+<li>TD target <span class="math inline">\(R_{t+1}+\gamma V(S_{t+1})\)</span> is <em>biased</em> estimate of <span class="math inline">\(v_\pi(S_t)\)</span></li>
+<li>TD target is much lower variance than the return:
+<ul>
 <li>Return depends on <em>many</em> random actions, transitions, rewards</li>
 <li>TD target depends on <em>one</em> random action, transition, reward</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<p>##Advantages and Disadvantages of MC vs. TD</p>
+<h2 id="advantages-and-disadvantages-of-mc-vs.td">Advantages and Disadvantages of MC vs. TD</h2>
 <ul>
-<li><p>MC has high variance, zero bias</p>
+<li>MC has high variance, zero bias
 <ul>
 <li>Good convergence properties</li>
 <li>(even with function approximation)</li>
 <li>Not very sensitive to initial value</li>
 <li>Very simple to understand and use</li>
-</ul>
-</li>
-<li><p>TD has low variance, some bias</p>
+</ul></li>
+<li>TD has low variance, some bias
 <ul>
 <li>Usually more efficient than MC</li>
-<li>TD(0) converges to $v_\pi(s)$</li>
+<li>TD(0) converges to <span class="math inline">\(v_\pi(s)\)</span></li>
 <li>(but not always with function approximation)</li>
 <li>More sensitive to initial value</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<p>##Monte-Carlo Backup</p>
-<p> <img src="/images/42.png" alt=""></p>
-<p>##Temporal-Difference Backup</p>
-<p><img src="/images/43.png" alt=""></p>
-<p>##Dynamic Programming Backup</p>
-<p><img src="/images/44.png" alt=""></p>
-<p>##Bootstrapping and Sampling<br><strong>Bootstrapping</strong>: update involves an estimate</p>
+<h2 id="monte-carlo-backup">Monte-Carlo Backup</h2>
+<figure>
+<img src="/images/42.png">
+</figure>
+<h2 id="temporal-difference-backup">Temporal-Difference Backup</h2>
+<figure>
+<img src="/images/43.png">
+</figure>
+<h2 id="dynamic-programming-backup">Dynamic Programming Backup</h2>
+<figure>
+<img src="/images/44.png">
+</figure>
+<h2 id="bootstrapping-and-sampling">Bootstrapping and Sampling</h2>
+<p><strong>Bootstrapping</strong>: update involves an estimate</p>
 <ul>
 <li>MC does not bootstrap</li>
 <li>DP bootstraps</li>
@@ -58,21 +70,51 @@
 <li>DP does not sample</li>
 <li>TD samples</li>
 </ul>
-<p>##Unified View of Reinforcement Learning</p>
-<p><img src="/images/45.png" alt=""></p>
-<p>##TD($\lambda$)</p>
-<p>###$n$-step return<br>Define the $n$-step return:<br>$$<br>G<em>t^{(n)}=R</em>{t+1}+\gamma R<em>{t+2}+…+\gamma^{n-1}R</em>{t+n}+\gamma^nV(S_{t+n})<br>$$<br>$n$-step temporal-difference learning<br>$$<br>V(S_t) \leftarrow V(S_t)+\alpha\left(G_t^{(n)}-V(S_t)\right)<br>$$</p>
-<p>###averaging $n$-step returns<br>e.g. average the 2-step and 4-step returns<br>$$<br>{1 \over 2}G^{(2)} + {1 \over 2}G^{(4)}<br>$$</p>
-<p>###$\lambda$-return<br>The $\lambda$-return $G_t^{\lambda}$ combines all $n$-step returns $G_t^{(n)}$. Using weight $(1-\lambda)\lambda^{n-1}$:<br>$$<br>G<em>t^\lambda=(1-\lambda)\sum</em>{n=1}^\infty \lambda^{n-1}G_t^{(n)}<br>$$<br>Forward-view TD($\lambda$)<br>$$<br>V(S_t) \leftarrow V(S_t) + \alpha\left(G_t^\lambda-V(S_t)\right)<br>$$</p>
-<p>###Eligibility Traces</p>
-<p><img src="/images/46.png" alt=""></p>
+<h2 id="unified-view-of-reinforcement-learning">Unified View of Reinforcement Learning</h2>
+<figure>
+<img src="/images/45.png">
+</figure>
+<h2 id="tdlambda">TD(<span class="math inline">\(\lambda\)</span>)</h2>
+<h3 id="n-step-return"><span class="math inline">\(n\)</span>-step return</h3>
+<p>Define the <span class="math inline">\(n\)</span>-step return: <span class="math display">\[
+G_t^{(n)}=R_{t+1}+\gamma R_{t+2}+...+\gamma^{n-1}R_{t+n}+\gamma^nV(S_{t+n})
+\]</span> <span class="math inline">\(n\)</span>-step temporal-difference learning <span class="math display">\[
+V(S_t) \leftarrow V(S_t)+\alpha\left(G_t^{(n)}-V(S_t)\right)
+\]</span></p>
+<h3 id="averaging-n-step-returns">averaging <span class="math inline">\(n\)</span>-step returns</h3>
+<p>e.g. average the 2-step and 4-step returns <span class="math display">\[
+{1 \over 2}G^{(2)} + {1 \over 2}G^{(4)}
+\]</span></p>
+<h3 id="lambda-return"><span class="math inline">\(\lambda\)</span>-return</h3>
+<p>The <span class="math inline">\(\lambda\)</span>-return <span class="math inline">\(G_t^{\lambda}\)</span> combines all <span class="math inline">\(n\)</span>-step returns <span class="math inline">\(G_t^{(n)}\)</span>. Using weight <span class="math inline">\((1-\lambda)\lambda^{n-1}\)</span>: <span class="math display">\[
+G_t^\lambda=(1-\lambda)\sum_{n=1}^\infty \lambda^{n-1}G_t^{(n)}
+\]</span> Forward-view TD(<span class="math inline">\(\lambda\)</span>) <span class="math display">\[
+V(S_t) \leftarrow V(S_t) + \alpha\left(G_t^\lambda-V(S_t)\right)
+\]</span></p>
+<h3 id="eligibility-traces">Eligibility Traces</h3>
+<figure>
+<img src="/images/46.png">
+</figure>
 <p>Credit assignment problem: did bell or light cause shock?</p>
 <p><strong>Frequency heuristic</strong>: assign credit to most frequent states.</p>
 <p><strong>Recency heuristic</strong>: assign credit to most recent states.</p>
-<p><strong>Elegibility traces</strong> combine both heuristics:<br>$$<br>\begin{align}<br>E_0(s) &amp;= 0 \<br>E<em>t(s) &amp;= \gamma\lambda E</em>{t-1}(s) + 1(S_t=s)<br>\end{align}<br>$$</p>
-<p><img src="/images/47.png" alt=""></p>
-<p>###Backward view TD($\lambda$)<br>Keep an eligibility trace for every state $s$. Update value $V(s)$ for every state $s$. In proportion to TD-error $\delta_t$ and eligibility trace $E_t(s)$:<br>$$<br>\begin{align}<br>\delta<em>t &amp;= R</em>{t+1}+\gamma V(S_{t+1})-V(S_t) \<br>V(s) &amp;\leftarrow V(s)+\alpha\delta_t E_t(s)<br>\end{align}<br>$$</p>
-</div><!-- comment system--><div class="container"><hr></div></article><footer id="footer"><div class="container"><div class="bar"><div class="social"><a href="mailto:dad@sdz.red" target="_blank"><i class="fa fa-envelope-o"></i></a><a href="https://github.com/sohero" target="_blank"><i class="fa fa-github"></i></a><script>var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+<p><strong>Elegibility traces</strong> combine both heuristics: <span class="math display">\[
+\begin{align}
+E_0(s) &amp;= 0 \\
+E_t(s) &amp;= \gamma\lambda E_{t-1}(s) + 1(S_t=s)
+\end{align}
+\]</span></p>
+<figure>
+<img src="/images/47.png">
+</figure>
+<h3 id="backward-view-tdlambda">Backward view TD(<span class="math inline">\(\lambda\)</span>)</h3>
+<p>Keep an eligibility trace for every state <span class="math inline">\(s\)</span>. Update value <span class="math inline">\(V(s)\)</span> for every state <span class="math inline">\(s\)</span>. In proportion to TD-error <span class="math inline">\(\delta_t\)</span> and eligibility trace <span class="math inline">\(E_t(s)\)</span>: <span class="math display">\[
+\begin{align}
+\delta_t &amp;= R_{t+1}+\gamma V(S_{t+1})-V(S_t) \\
+V(s) &amp;\leftarrow V(s)+\alpha\delta_t E_t(s)
+\end{align}
+\]</span></p>
+</div><!-- comment system--><div class="container"><hr></div></article><footer id="footer"><div class="container"><div class="bar"><div class="social"><a href="mailto:herosgq@gmail.com" target="_blank"><i class="fa fa-envelope-o"></i></a><a href="https://github.com/sohero" target="_blank"><i class="fa fa-github"></i></a><script>var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
 document.write(unescape("%3Cspan id='cnzz_stat_icon_1261298720'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1261298720%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
 </script></div><div class="footer">© 2017 <a href="/" rel="nofollow">Hero Memo</a>. Powered by <a rel="nofollow" target="_blank" href="https://hexo.io">Hexo</a>. Theme <a target="_blank" href="https://github.com/lotabout/very-simple">very-simple</a>.</div></div></div></footer><script>MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
 </script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.css"><script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script><script src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js"></script><script>$(document).ready(function() {

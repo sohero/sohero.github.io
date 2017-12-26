@@ -1,6 +1,12 @@
-<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>Policy Gradient | An old brother's memo.</title><link rel="stylesheet" type="text/css" href="/css/normalize.css"><link rel="stylesheet" type="text/css" href="/css/highlight.css"><link rel="stylesheet" type="text/css" href="/css/very-simple.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script></head><body><!-- include the sidebar--><!-- include ./includes/sidebar.jade--><!-- Blog title and subtitle--><header><div class="container header"><a id="logo" href="/." class="title">An old brother's memo.</a><span class="subtitle"></span><label id="toggle-menu" for="menu" onclick><i class="fa fa-bars"></i></label></div></header><!-- use checkbox hack for toggle nav-bar on small screens--><input id="menu" type="checkbox"><!-- Navigation Links--><nav id="nav"><div class="container"><a href="/" class="sidebar-nav-item active">Home</a><a href="/archives" class="sidebar-nav-item">Archives</a></div></nav><div id="header-margin-bar"></div><!-- gallery that comes before the header--><div class="wrapper"><div class="container post-header"><h1>Policy Gradient</h1></div></div><div class="wrapper"><div class="container meta"><div class="post-time">2016-07-14</div><div class="post-categories"><a class="post-category-link" href="/categories/machine-learning/">machine learning</a></div><div class="post-tags"><a class="post-tag-link" href="/tags/reinforcement-learning/">reinforcement learning</a></div></div></div><article><div class="container post"><p>Directly parametrise the <strong>policy</strong>:<br>$$<br>\pi_\theta(s,a)=\Bbb P[a|s,\theta]<br>$$</p>
-<h2 id="Value-Based-and-Policy-Based-RL"><a href="#Value-Based-and-Policy-Based-RL" class="headerlink" title="Value-Based and Policy-Based RL"></a>Value-Based and Policy-Based RL</h2><p><img src="/images/2016-08-23_151036.png" alt=""></p>
-<h2 id="Advantages-of-Policy-Based-RL"><a href="#Advantages-of-Policy-Based-RL" class="headerlink" title="Advantages of Policy-Based RL"></a>Advantages of Policy-Based RL</h2><p><strong>Advantages</strong>:</p>
+<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>Policy Gradient | An old brother's memo.</title><link rel="stylesheet" type="text/css" href="/css/normalize.css"><link rel="stylesheet" type="text/css" href="/css/highlight.css"><link rel="stylesheet" type="text/css" href="/css/very-simple.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script></head><body><!-- include the sidebar--><!-- include ./includes/sidebar.jade--><!-- Blog title and subtitle--><header><div class="container header"><a id="logo" href="/." class="title">An old brother's memo.</a><span class="subtitle"></span><label id="toggle-menu" for="menu" onclick><i class="fa fa-bars"></i></label></div></header><!-- use checkbox hack for toggle nav-bar on small screens--><input id="menu" type="checkbox"><!-- Navigation Links--><nav id="nav"><div class="container"><a href="/" class="sidebar-nav-item active">Home</a><a href="/archives" class="sidebar-nav-item">Archives</a></div></nav><div id="header-margin-bar"></div><!-- gallery that comes before the header--><div class="wrapper"><div class="container post-header"><h1>Policy Gradient</h1></div></div><div class="wrapper"><div class="container meta"><div class="post-time">2016-07-14</div><div class="post-categories"><a class="post-category-link" href="/categories/machine-learning/">machine learning</a></div><div class="post-tags"><a class="post-tag-link" href="/tags/reinforcement-learning/">reinforcement learning</a></div></div></div><article><div class="container post"><p>Directly parametrise the <strong>policy</strong>: <span class="math display">\[
+\pi_\theta(s,a)=\Bbb P[a|s,\theta]
+\]</span></p>
+<h2 id="value-based-and-policy-based-rl">Value-Based and Policy-Based RL</h2>
+<figure>
+<img src="/images/2016-08-23_151036.png">
+</figure>
+<h2 id="advantages-of-policy-based-rl">Advantages of Policy-Based RL</h2>
+<p><strong>Advantages</strong>:</p>
 <ul>
 <li>Better convergence properties</li>
 <li>Effective in high-dimensional or continuous action spaces</li>
@@ -11,47 +17,125 @@
 <li>Typically converge to a local rather than global optimum</li>
 <li>Evaluating a policy is typically inefficient and high variance</li>
 </ul>
-<h2 id="Policy-Objective-Functions"><a href="#Policy-Objective-Functions" class="headerlink" title="Policy Objective Functions"></a>Policy Objective Functions</h2><p><strong>Goal</strong>: given policy $\pi_\theta(s,a)$ with parameters $\theta$, find best $\theta$.</p>
-<p>Policy based reinforcement learning is an <code>optimisation</code> problem, find $\theta$ that <strong>maximises</strong> $J(\theta)$. But how do we measure the quality of a policy $\pi_\theta$?</p>
+<h2 id="policy-objective-functions">Policy Objective Functions</h2>
+<p><strong>Goal</strong>: given policy <span class="math inline">\(\pi_\theta(s,a)\)</span> with parameters <span class="math inline">\(\theta\)</span>, find best <span class="math inline">\(\theta\)</span>.</p>
+<p>Policy based reinforcement learning is an <code>optimisation</code> problem, find <span class="math inline">\(\theta\)</span> that <strong>maximises</strong> <span class="math inline">\(J(\theta)\)</span>. But how do we measure the quality of a policy <span class="math inline">\(\pi_\theta\)</span>?</p>
 <ul>
-<li><p>In episodic environments we can use the <code>start value</code><br>$$<br>J<em>1(\theta)=V^{\pi</em>\theta}(s<em>1)=\Bbb E</em>{\pi_\theta}[v_1]<br>$$</p>
-</li>
-<li><p>In continuing environments we can use the <code>average value</code><br>$$<br>J_{avV}(\theta)=\sum<em>s d^{\pi</em>\theta}(s)V^{\pi<em>\theta}(s)<br>$$<br>or the <code>average reward per time-step</code><br>$$<br>J</em>{avR}(\theta)=\sum<em>s d^{\pi</em>\theta}(s)\sum<em>a \pi</em>\theta(s,a)\mathcal R<em>s^a<br>$$<br>where $d^{\pi</em>\theta}(s)$ is <code>stationary distribution</code> of Markov chain for $\pi_\theta$.</p>
-</li>
+<li><p>In episodic environments we can use the <code>start value</code> <span class="math display">\[
+J_1(\theta)=V^{\pi_\theta}(s_1)=\Bbb E_{\pi_\theta}[v_1]
+\]</span></p></li>
+<li><p>In continuing environments we can use the <code>average value</code> <span class="math display">\[
+J_{avV}(\theta)=\sum_s d^{\pi_\theta}(s)V^{\pi_\theta}(s)
+\]</span> or the <code>average reward per time-step</code> <span class="math display">\[
+J_{avR}(\theta)=\sum_s d^{\pi_\theta}(s)\sum_a \pi_\theta(s,a)\mathcal R_s^a
+\]</span> where <span class="math inline">\(d^{\pi_\theta}(s)\)</span> is <code>stationary distribution</code> of Markov chain for <span class="math inline">\(\pi_\theta\)</span>.</p></li>
 </ul>
-<h2 id="Policy-Gradient"><a href="#Policy-Gradient" class="headerlink" title="Policy Gradient"></a>Policy Gradient</h2><p>Let $J(\theta)$ be any policy objective function. Policy gradient algorithms search for a <em>local</em> maximum in $J(\theta)$ by ascending the gradient of the policy, w.r.t. parameters $\theta$<br>$$<br>\Delta\theta=\alpha\nabla_\theta J(\theta)<br>$$<br>$\alpha$ is a step-size parameter.</p>
-<p>##Score Function<br>Assume policy $\pi<em>\theta$ is differentiable whenever it is non-zero and we know the gradient $\nabla</em>\theta \pi<em>\theta(s,a)$. <code>Likelihood ratios</code> exploit the following identity<br>$$<br>\begin{align}<br>\nabla</em>\theta\pi<em>\theta(s,a) &amp;= \pi</em>\theta(s,a) \frac{\nabla<em>\theta\pi</em>\theta(s,a)}{\pi<em>\theta(s,a)} \<br>&amp;= \pi</em>\theta(s,a) \nabla<em>\theta log \pi</em>\theta(s,a)<br>\end{align}<br>$$<br>The <code>score function</code> is $\nabla<em>\theta log \pi</em>\theta(s,a)$.</p>
-<p>##Policy Gradient Theorem</p>
-<p>###One-Step MDPs<br>Consider a simple class of <em>one-step</em> MDPs: Starting in state $s\sim d(s)$; Terminating after one time-step with reward $r=\mathcal R_{s,a}$.</p>
-<p>Use likelihood ratios to compute the policy gradient<br>$$<br>\begin{align}<br>J(\theta) &amp;= \Bbb E<em>{\pi</em>\theta}[r] \<br>&amp;= \sum<em>{\mathcal{s\in S}} d(s) \sum</em>{a\in\mathcal A} \pi<em>\theta(s,a)\mathcal R</em>{s,a} \<br>\nabla<em>\theta J(\theta) &amp;= \sum</em>{s\in\mathcal S}d(s)\sum<em>{a\in\mathcal A}\pi</em>\theta(s,a)\nabla<em>\theta log \pi</em>\theta(s,a)\mathcal R<em>{s,a} \<br>&amp;=\Bbb E</em>{\pi<em>\theta}\left[\nabla</em>\theta log \pi_\theta(s,a)r\right]<br>\end{align}<br>$$</p>
+<h2 id="policy-gradient">Policy Gradient</h2>
+<p>Let <span class="math inline">\(J(\theta)\)</span> be any policy objective function. Policy gradient algorithms search for a <em>local</em> maximum in <span class="math inline">\(J(\theta)\)</span> by ascending the gradient of the policy, w.r.t. parameters <span class="math inline">\(\theta\)</span> <span class="math display">\[
+\Delta\theta=\alpha\nabla_\theta J(\theta)
+\]</span> <span class="math inline">\(\alpha\)</span> is a step-size parameter.</p>
+<h2 id="score-function">Score Function</h2>
+<p>Assume policy <span class="math inline">\(\pi_\theta\)</span> is differentiable whenever it is non-zero and we know the gradient <span class="math inline">\(\nabla_\theta \pi_\theta(s,a)\)</span>. <code>Likelihood ratios</code> exploit the following identity <span class="math display">\[
+\begin{align}
+\nabla_\theta\pi_\theta(s,a) &amp;= \pi_\theta(s,a) \frac{\nabla_\theta\pi_\theta(s,a)}{\pi_\theta(s,a)} \\
+&amp;= \pi_\theta(s,a) \nabla_\theta log \pi_\theta(s,a)
+\end{align}
+\]</span> The <code>score function</code> is <span class="math inline">\(\nabla_\theta log \pi_\theta(s,a)\)</span>.</p>
+<h2 id="policy-gradient-theorem">Policy Gradient Theorem</h2>
+<h3 id="one-step-mdps">One-Step MDPs</h3>
+<p>Consider a simple class of <em>one-step</em> MDPs: Starting in state <span class="math inline">\(s\sim d(s)\)</span>; Terminating after one time-step with reward <span class="math inline">\(r=\mathcal R_{s,a}\)</span>.</p>
+<p>Use likelihood ratios to compute the policy gradient <span class="math display">\[
+\begin{align}
+J(\theta) &amp;= \Bbb E_{\pi_\theta}[r] \\
+&amp;= \sum_{\mathcal{s\in S}} d(s) \sum_{a\in\mathcal A} \pi_\theta(s,a)\mathcal R_{s,a} \\
+\nabla_\theta J(\theta) &amp;= \sum_{s\in\mathcal S}d(s)\sum_{a\in\mathcal A}\pi_\theta(s,a)\nabla_\theta log \pi_\theta(s,a)\mathcal R_{s,a} \\
+&amp;=\Bbb E_{\pi_\theta}\left[\nabla_\theta log \pi_\theta(s,a)r\right]
+\end{align}
+\]</span></p>
 <blockquote>
-<p>For any differentiable policy $\pi<em>\theta(s,a)$, for any of the policy objective functions $J$, the policy gradient is<br>$$<br>\nabla</em>\theta J(\theta)=\Bbb E<em>{\pi</em>\theta}<br>\left[<br>\nabla<em>\theta log\pi</em>\theta(s,a)Q^{\pi_\theta}(s,a)<br>\right]<br>$$</p>
+<p>For any differentiable policy <span class="math inline">\(\pi_\theta(s,a)\)</span>, for any of the policy objective functions <span class="math inline">\(J\)</span>, the policy gradient is <span class="math display">\[
+\nabla_\theta J(\theta)=\Bbb E_{\pi_\theta}
+\left[
+\nabla_\theta log\pi_\theta(s,a)Q^{\pi_\theta}(s,a)
+\right]
+\]</span></p>
 </blockquote>
-<p>###Monte-Carlo Policy Gradient</p>
+<h3 id="monte-carlo-policy-gradient">Monte-Carlo Policy Gradient</h3>
 <ul>
 <li>Update parameters by stochastic gradient ascent</li>
 <li>Using policy gradient theorem</li>
-<li>Using return $v<em>t$ as an unbiased sample of $Q^{\pi</em>\theta}(s_t,a_t)$<br>$$<br>\Delta\theta<em>t=\alpha\nabla</em>\theta log \pi_\theta(s_t,a_t)v_t<br>$$<br><img src="/images/2016-08-23_154425.png" alt=""></li>
+<li>Using return <span class="math inline">\(v_t\)</span> as an unbiased sample of <span class="math inline">\(Q^{\pi_\theta}(s_t,a_t)\)</span> <span class="math display">\[
+\Delta\theta_t=\alpha\nabla_\theta log \pi_\theta(s_t,a_t)v_t
+\]</span> <img src="/images/2016-08-23_154425.png"></li>
 </ul>
-<h2 id="Actor-Critic-Policy-Gradient"><a href="#Actor-Critic-Policy-Gradient" class="headerlink" title="Actor-Critic Policy Gradient"></a>Actor-Critic Policy Gradient</h2><p>###Reducing Variance Using a Critic<br>Monte-Carlo policy gradient still has high variance. We use a <code>critic</code> to estimate the action-value function<br>$$<br>Q<em>w(s,a)\approx Q^{\pi</em>\theta}(s,a)<br>$$<br>Actor-Critic algorithms maintain <em>two</em> sets of parameters</p>
+<h2 id="actor-critic-policy-gradient">Actor-Critic Policy Gradient</h2>
+<h3 id="reducing-variance-using-a-critic">Reducing Variance Using a Critic</h3>
+<p>Monte-Carlo policy gradient still has high variance. We use a <code>critic</code> to estimate the action-value function <span class="math display">\[
+Q_w(s,a)\approx Q^{\pi_\theta}(s,a)
+\]</span> Actor-Critic algorithms maintain <em>two</em> sets of parameters</p>
 <ul>
-<li><strong>Critic</strong> Updates action-value function parameters $w$</li>
-<li><strong>Actor</strong> Updates policy parameters $\theta$, in direction suggested by critic</li>
+<li><strong>Critic</strong> Updates action-value function parameters <span class="math inline">\(w\)</span></li>
+<li><strong>Actor</strong> Updates policy parameters <span class="math inline">\(\theta\)</span>, in direction suggested by critic</li>
 </ul>
-<p>Actor-critic algorithms follow an <em>approximate</em> policy gradient<br>$$<br>\begin{align}<br>\nabla<em>\theta J(\theta) &amp;\approx \Bbb E</em>{\pi<em>\theta}\left[<br>\nabla</em>\theta log \pi_\theta(s,a) Q<em>w(s,a)<br>\right] \<br>\Delta \theta &amp;= \alpha\nabla</em>\theta log \pi_\theta(s,a) Q_w(s,a)<br>\end{align}<br>$$</p>
-<h3 id="Action-Value-Actor-Critic"><a href="#Action-Value-Actor-Critic" class="headerlink" title="Action-Value Actor-Critic"></a>Action-Value Actor-Critic</h3><p>Simple actor-critic algorithm based on action-critic. Using linear value fn approx. $Q_w(s,a)=\phi (s,a)^Tw$</p>
+<p>Actor-critic algorithms follow an <em>approximate</em> policy gradient <span class="math display">\[
+\begin{align}
+\nabla_\theta J(\theta) &amp;\approx \Bbb E_{\pi_\theta}\left[
+\nabla_\theta log \pi_\theta(s,a) Q_w(s,a)
+\right] \\
+\Delta \theta &amp;= \alpha\nabla_\theta log \pi_\theta(s,a) Q_w(s,a)
+\end{align}
+\]</span></p>
+<h3 id="action-value-actor-critic">Action-Value Actor-Critic</h3>
+<p>Simple actor-critic algorithm based on action-critic. Using linear value fn approx. <span class="math inline">\(Q_w(s,a)=\phi (s,a)^Tw\)</span></p>
 <ul>
-<li><strong>Critic</strong> Updates $w$ by linear TD(0)</li>
-<li><strong>Actor</strong> Updates $\theta$ by policy gradient<br><img src="/images/2016-08-23_155331.png" alt=""></li>
+<li><strong>Critic</strong> Updates <span class="math inline">\(w\)</span> by linear TD(0)</li>
+<li><strong>Actor</strong> Updates <span class="math inline">\(\theta\)</span> by policy gradient <img src="/images/2016-08-23_155331.png"></li>
 </ul>
-<p>###Compatible Function Approximation<br>If the following two conditions are satisfied:</p>
+<h3 id="compatible-function-approximation">Compatible Function Approximation</h3>
+<p>If the following two conditions are satisfied:</p>
 <ul>
-<li>Value function approximator is compatible to the policy<br>$$<br>\nabla_w Q<em>w(s,a)=\nabla</em>\theta log \pi_\theta(s,a)<br>$$</li>
-<li>Value function parameters $w$ minimise the mean-squared error<br>$$<br>\varepsilon=\Bbb E<em>{\pi</em>\theta}\left[<br>(Q^{\pi_\theta}(s,a)-Q<em>w(s,a))^2<br>\right]<br>$$<br>Then the policy gradient is exist<br>$$<br>\nabla</em>\theta J(\theta)=\Bbb E<em>{\pi</em>\theta}<br>\left[<br>\nabla<em>\theta log \pi</em>\theta(s,a) Q_w(s,a)<br>\right]<br>$$</li>
+<li>Value function approximator is compatible to the policy <span class="math display">\[
+\nabla_w Q_w(s,a)=\nabla_\theta log \pi_\theta(s,a)
+\]</span></li>
+<li>Value function parameters <span class="math inline">\(w\)</span> minimise the mean-squared error <span class="math display">\[
+\varepsilon=\Bbb E_{\pi_\theta}\left[
+(Q^{\pi_\theta}(s,a)-Q_w(s,a))^2
+\right]
+\]</span> Then the policy gradient is exist <span class="math display">\[
+\nabla_\theta J(\theta)=\Bbb E_{\pi_\theta}
+\left[
+\nabla_\theta log \pi_\theta(s,a) Q_w(s,a)
+\right]
+\]</span></li>
 </ul>
-<p>###Reducing Variance Using a Baseline<br>We subtract a baseline function $B(s)$ from the policy gradient. This can reduce variance, without changing expectation<br>$$<br>\begin{align}<br>\Bbb E<em>{\pi</em>\theta}[\nabla<em>\theta log \pi</em>\theta(s,a)B(s)] &amp;=<br>\sum<em>{s\in\mathcal S} d^{\pi</em>\theta}(s) \sum<em>a \nabla</em>\theta \pi<em>\theta(s,a)B(s) \<br>&amp;=\sum</em>{s\in\mathcal S} d^{\pi<em>\theta}B(s)\nabla</em>\theta \sum<em>{a\in\mathcal A} \pi</em>\theta(s,a) \<br>&amp;=0<br>\end{align}<br>$$<br>A good baseline is the state value function $B(s)=V^{\pi<em>\theta}(s)$. So we can rewrite the policy gradient using the <code>advantage function</code> $A^{\pi</em>\theta}(s,a)$<br>$$<br>\begin{align}<br>A^{\pi<em>\theta}(s,a) &amp;= Q^{\pi</em>\theta}(s,a)-V^{\pi<em>\theta}(s) \<br>\nabla</em>\theta J(\theta) &amp;= \color{red}{<br>    \Bbb E<em>{\pi</em>\theta}[\nabla<em>\theta log \pi</em>\theta(s,a)A^{\pi_\theta}(s,a)]<br>}<br>\end{align}<br>$$</p>
-<p>##Summary of Policy Gradient Algorithms<br>The <em>policy gradient</em> has many equivalent forms<br>$$<br>\begin{align}<br>\nabla<em>\theta J(\theta) &amp;= \Bbb E</em>{\pi\theta}[\nabla<em>\theta log \pi</em>\theta(s,a)\color{red}{v<em>t}] \tag{REINFORCE} \<br>&amp;= \Bbb E</em>{\pi\theta}[\nabla<em>\theta log \pi</em>\theta(s,a)\color{red}{Q^w(s,a)}] \tag{Q Actor-Critic} \<br>&amp;= \Bbb E<em>{\pi\theta}[\nabla</em>\theta log \pi<em>\theta(s,a)\color{red}{A^w(s,a)}] \tag{Advantage Actor-Critic} \<br>&amp;= \Bbb E</em>{\pi\theta}[\nabla<em>\theta log \pi</em>\theta(s,a)\color{red}{\delta}] \tag{TD Actor-Critic} \<br>&amp;= \Bbb E<em>{\pi\theta}[\nabla</em>\theta log \pi<em>\theta(s,a)\color{red}{\delta e}] \tag{TD($\lambda$) Actor-Critic} \<br>G</em>\theta^{-1}\nabla_\theta J(\theta) &amp;= w \tag{Natural Actor-Critic}<br>\end{align}<br>$$<br>Each leads a stochastic gradient ascent algorithm. Critic uses <code>policy evaluation</code> (e.g. MC or TD learning) to estimate $Q^\pi(s,a)$, $A^\pi(s,a)$ or $V^\pi(s)$.</p>
-</div><!-- comment system--><div class="container"><hr></div></article><footer id="footer"><div class="container"><div class="bar"><div class="social"><a href="mailto:dad@sdz.red" target="_blank"><i class="fa fa-envelope-o"></i></a><a href="https://github.com/sohero" target="_blank"><i class="fa fa-github"></i></a><script>var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+<h3 id="reducing-variance-using-a-baseline">Reducing Variance Using a Baseline</h3>
+<p>We subtract a baseline function <span class="math inline">\(B(s)\)</span> from the policy gradient. This can reduce variance, without changing expectation <span class="math display">\[
+\begin{align}
+\Bbb E_{\pi_\theta}[\nabla_\theta log \pi_\theta(s,a)B(s)] &amp;=
+\sum_{s\in\mathcal S} d^{\pi_\theta}(s) \sum_a \nabla_\theta \pi_\theta(s,a)B(s) \\
+&amp;=\sum_{s\in\mathcal S} d^{\pi_\theta}B(s)\nabla_\theta \sum_{a\in\mathcal A} \pi_\theta(s,a) \\
+&amp;=0
+\end{align}
+\]</span> A good baseline is the state value function <span class="math inline">\(B(s)=V^{\pi_\theta}(s)\)</span>. So we can rewrite the policy gradient using the <code>advantage function</code> <span class="math inline">\(A^{\pi_\theta}(s,a)\)</span> <span class="math display">\[
+\begin{align}
+A^{\pi_\theta}(s,a) &amp;= Q^{\pi_\theta}(s,a)-V^{\pi_\theta}(s) \\
+\nabla_\theta J(\theta) &amp;= \color{red}{
+    \Bbb E_{\pi_\theta}[\nabla_\theta log \pi_\theta(s,a)A^{\pi_\theta}(s,a)]
+}
+\end{align}
+\]</span></p>
+<h2 id="summary-of-policy-gradient-algorithms">Summary of Policy Gradient Algorithms</h2>
+<p>The <em>policy gradient</em> has many equivalent forms <span class="math display">\[
+\begin{align}
+\nabla_\theta J(\theta) &amp;= \Bbb E_{\pi\theta}[\nabla_\theta log \pi_\theta(s,a)\color{red}{v_t}] \tag{REINFORCE} \\
+&amp;= \Bbb E_{\pi\theta}[\nabla_\theta log \pi_\theta(s,a)\color{red}{Q^w(s,a)}] \tag{Q Actor-Critic} \\
+&amp;= \Bbb E_{\pi\theta}[\nabla_\theta log \pi_\theta(s,a)\color{red}{A^w(s,a)}] \tag{Advantage Actor-Critic} \\
+&amp;= \Bbb E_{\pi\theta}[\nabla_\theta log \pi_\theta(s,a)\color{red}{\delta}] \tag{TD Actor-Critic} \\
+&amp;= \Bbb E_{\pi\theta}[\nabla_\theta log \pi_\theta(s,a)\color{red}{\delta e}] \tag{TD($\lambda$) Actor-Critic} \\
+G_\theta^{-1}\nabla_\theta J(\theta) &amp;= w \tag{Natural Actor-Critic}
+\end{align}
+\]</span> Each leads a stochastic gradient ascent algorithm. Critic uses <code>policy evaluation</code> (e.g. MC or TD learning) to estimate <span class="math inline">\(Q^\pi(s,a)\)</span>, <span class="math inline">\(A^\pi(s,a)\)</span> or <span class="math inline">\(V^\pi(s)\)</span>.</p>
+</div><!-- comment system--><div class="container"><hr></div></article><footer id="footer"><div class="container"><div class="bar"><div class="social"><a href="mailto:herosgq@gmail.com" target="_blank"><i class="fa fa-envelope-o"></i></a><a href="https://github.com/sohero" target="_blank"><i class="fa fa-github"></i></a><script>var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
 document.write(unescape("%3Cspan id='cnzz_stat_icon_1261298720'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1261298720%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
 </script></div><div class="footer">© 2017 <a href="/" rel="nofollow">Hero Memo</a>. Powered by <a rel="nofollow" target="_blank" href="https://hexo.io">Hexo</a>. Theme <a target="_blank" href="https://github.com/lotabout/very-simple">very-simple</a>.</div></div></div></footer><script>MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
 </script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.css"><script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script><script src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js"></script><script>$(document).ready(function() {

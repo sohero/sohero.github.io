@@ -1,38 +1,50 @@
-<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>Model-Based Reinforcement Learning | An old brother's memo.</title><link rel="stylesheet" type="text/css" href="/css/normalize.css"><link rel="stylesheet" type="text/css" href="/css/highlight.css"><link rel="stylesheet" type="text/css" href="/css/very-simple.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script></head><body><!-- include the sidebar--><!-- include ./includes/sidebar.jade--><!-- Blog title and subtitle--><header><div class="container header"><a id="logo" href="/." class="title">An old brother's memo.</a><span class="subtitle"></span><label id="toggle-menu" for="menu" onclick><i class="fa fa-bars"></i></label></div></header><!-- use checkbox hack for toggle nav-bar on small screens--><input id="menu" type="checkbox"><!-- Navigation Links--><nav id="nav"><div class="container"><a href="/" class="sidebar-nav-item active">Home</a><a href="/archives" class="sidebar-nav-item">Archives</a></div></nav><div id="header-margin-bar"></div><!-- gallery that comes before the header--><div class="wrapper"><div class="container post-header"><h1>Model-Based Reinforcement Learning</h1></div></div><div class="wrapper"><div class="container meta"><div class="post-time">2016-07-14</div><div class="post-categories"><a class="post-category-link" href="/categories/machine-learning/">machine learning</a></div><div class="post-tags"><a class="post-tag-link" href="/tags/reinforcement-learning/">reinforcement learning</a></div></div></div><article><div class="container post"><p>##Model-Based and Model-Free RL</p>
+<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>Model-Based Reinforcement Learning | An old brother's memo.</title><link rel="stylesheet" type="text/css" href="/css/normalize.css"><link rel="stylesheet" type="text/css" href="/css/highlight.css"><link rel="stylesheet" type="text/css" href="/css/very-simple.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script></head><body><!-- include the sidebar--><!-- include ./includes/sidebar.jade--><!-- Blog title and subtitle--><header><div class="container header"><a id="logo" href="/." class="title">An old brother's memo.</a><span class="subtitle"></span><label id="toggle-menu" for="menu" onclick><i class="fa fa-bars"></i></label></div></header><!-- use checkbox hack for toggle nav-bar on small screens--><input id="menu" type="checkbox"><!-- Navigation Links--><nav id="nav"><div class="container"><a href="/" class="sidebar-nav-item active">Home</a><a href="/archives" class="sidebar-nav-item">Archives</a></div></nav><div id="header-margin-bar"></div><!-- gallery that comes before the header--><div class="wrapper"><div class="container post-header"><h1>Model-Based Reinforcement Learning</h1></div></div><div class="wrapper"><div class="container meta"><div class="post-time">2016-07-14</div><div class="post-categories"><a class="post-category-link" href="/categories/machine-learning/">machine learning</a></div><div class="post-tags"><a class="post-tag-link" href="/tags/reinforcement-learning/">reinforcement learning</a></div></div></div><article><div class="container post"><h2 id="model-based-and-model-free-rl">Model-Based and Model-Free RL</h2>
 <ul>
-<li>Model-Free RL<ul>
+<li>Model-Free RL
+<ul>
 <li>No model</li>
 <li><code>Learn</code> value function (and/or policy) from experience</li>
-</ul>
-</li>
-<li>Model-Based RL<ul>
+</ul></li>
+<li>Model-Based RL
+<ul>
 <li>Learn a model from experience</li>
 <li><code>Plan</code> value function (and/or policy) from model</li>
-</ul>
-</li>
-<li>Dyna<ul>
+</ul></li>
+<li>Dyna
+<ul>
 <li>Learn a model from real experience</li>
 <li><code>Learn and plan</code> value function (and/or policy) from real and simulated experience</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<p>##Model-Based Reinforcement Learning</p>
-<p>###Advantages of Model-Based RL</p>
+<h2 id="model-based-reinforcement-learning">Model-Based Reinforcement Learning</h2>
+<h3 id="advantages-of-model-based-rl">Advantages of Model-Based RL</h3>
 <ul>
-<li>Advantages:<ul>
+<li>Advantages:
+<ul>
 <li>Can efficiently learn model by supervised learning methods</li>
 <li>Can reason about model uncertainty</li>
-</ul>
-</li>
-<li>Disadvantages:<ul>
+</ul></li>
+<li>Disadvantages:
+<ul>
 <li>First learn a model, then construct a value function (two sources of approximation error)</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<p>###What is a Model?<br>A model $\mathcal M$ is a representation of and MDP $\left&lt;\mathcal{S,A,P,R}\right&gt;$, parametrized by $\eta$. We will assume state space $\mathcal S$ and action space $\mathcal A$ are known. So a model $\mathcal{M=\left&lt; P<em>\eta,R</em>\eta \right&gt;}$ represents state transitions $\mathcal{P<em>\eta\approx P}$ and rewards $\mathcal{R</em>\eta\approx R}$<br>$$<br>\begin{align}<br>S<em>{t+1} &amp;\sim \mathcal P</em>\eta(S_{t+1}|S_t,A<em>t) \<br>R</em>{t+1} &amp;= \mathcal R<em>\eta(R</em>{t+1}|S_t,A<em>t)<br>\end{align}<br>$$<br>Typically assume conditional independence between state transitions and rewards.<br>$$<br>\Bbb P[S</em>{t+1},R_{t+1}|S_t,A<em>t]=\Bbb P[S</em>{t+1}|S_t,A<em>t]\Bbb P[R</em>{t+1}|S_t,A_t]<br>$$</p>
-<p>###Model Learning<br><strong>Goal</strong>: estimate model $\mathcal M_\eta$ from experience ${S_1,A_1,R_2,…,S_T}$. This is a supervised learning problem<br>$$<br>S_1,A_1 \to R_2,S_2 \<br>S_2,A_2 \to R_3,S_3<br>$$<br>Learning $s,a\to r$ is a <em>regression problem</em>.</p>
-<p>Learning $s,a\to s’$ is a <em>density estimation problem</em>.</p>
-<p>###Examples of Models</p>
+<h3 id="what-is-a-model">What is a Model?</h3>
+<p>A model <span class="math inline">\(\mathcal M\)</span> is a representation of and MDP <span class="math inline">\(\left&lt;\mathcal{S,A,P,R}\right&gt;\)</span>, parametrized by <span class="math inline">\(\eta\)</span>. We will assume state space <span class="math inline">\(\mathcal S\)</span> and action space <span class="math inline">\(\mathcal A\)</span> are known. So a model <span class="math inline">\(\mathcal{M=\left&lt; P_\eta,R_\eta \right&gt;}\)</span> represents state transitions <span class="math inline">\(\mathcal{P_\eta\approx P}\)</span> and rewards <span class="math inline">\(\mathcal{R_\eta\approx R}\)</span> <span class="math display">\[
+\begin{align}
+S_{t+1} &amp;\sim \mathcal P_\eta(S_{t+1}|S_t,A_t) \\
+R_{t+1} &amp;= \mathcal R_\eta(R_{t+1}|S_t,A_t)
+\end{align}
+\]</span> Typically assume conditional independence between state transitions and rewards. <span class="math display">\[
+\Bbb P[S_{t+1},R_{t+1}|S_t,A_t]=\Bbb P[S_{t+1}|S_t,A_t]\Bbb P[R_{t+1}|S_t,A_t]
+\]</span></p>
+<h3 id="model-learning">Model Learning</h3>
+<p><strong>Goal</strong>: estimate model <span class="math inline">\(\mathcal M_\eta\)</span> from experience <span class="math inline">\(\{S_1,A_1,R_2,...,S_T\}\)</span>. This is a supervised learning problem <span class="math display">\[
+S_1,A_1 \to R_2,S_2 \\
+S_2,A_2 \to R_3,S_3
+\]</span> Learning <span class="math inline">\(s,a\to r\)</span> is a <em>regression problem</em>.</p>
+<p>Learning <span class="math inline">\(s,a\to s&#39;\)</span> is a <em>density estimation problem</em>.</p>
+<h3 id="examples-of-models">Examples of Models</h3>
 <ul>
 <li>Table Lookup Model</li>
 <li>Linear Expectation Model</li>
@@ -41,34 +53,56 @@
 <li>Deep Belief Network Model</li>
 <li>…</li>
 </ul>
-<p>###Planning with a Model<br>Given a model $\mathcal{M<em>\eta=\left&lt; P</em>\eta,R<em>\eta\right&gt;}$. Solve the MDP $\left&lt;\mathcal{S,A,P</em>\eta,R_\eta}\right&gt;$ using favourite planning algorithm</p>
+<h3 id="planning-with-a-model">Planning with a Model</h3>
+<p>Given a model <span class="math inline">\(\mathcal{M_\eta=\left&lt; P_\eta,R_\eta\right&gt;}\)</span>. Solve the MDP <span class="math inline">\(\left&lt;\mathcal{S,A,P_\eta,R_\eta}\right&gt;\)</span> using favourite planning algorithm</p>
 <ul>
 <li>Value iteration</li>
 <li>Policy iteration</li>
 <li>Tree search</li>
 <li>…</li>
 </ul>
-<p>##Integrated Architectures: Dyna</p>
-<p>###Dyna Architecture</p>
-<p><img src="/images/147144250932653.png" alt=""></p>
-<p>###Dyna-Q Algorithm</p>
-<p><img src="/images/147144251697754.png" alt=""></p>
-<p>##Monte-Carlo Search</p>
-<p>###Simple Monte-Carlo Search<br>Given a model $\mathcal M_v$ and a <code>simulation policy</code> $\pi$. For each action $a\in\mathcal A$, simulate $K$ episodes from current (real) state $s_t$<br>$$<br>{\color{red}{s<em>t,a,}R</em>{t+1}^k,S<em>{t+1}^k,A</em>{t+1}^k,…,S<em>T^k}</em>{k=1}^K\sim \mathcal M_v,\pi<br>$$<br>Evaluate actions by mean return (<code>Monte-Carlo evaluation</code>)<br>$$<br>Q(\color{red}{s<em>t,a})={1\over K}\sum</em>{k=1}^K G<em>t<br>\overset{P}\to<br>q</em>\pi(s_t,a)<br>$$<br>Select current (real) action with maximum value<br>$$<br>a<em>t=\mathop{argmax}\limits</em>{a\in\mathcal A} Q(s_t,a) \tag{<em>}\label{</em>}<br>$$</p>
-<p>###Monte-Carlo Tree Search (Evaluation)<br>Given a model $\mathcal M_v$. Simulate $K$ episodes from current state $s<em>t$ using current simulation policy $\pi$. Build a search tree containing visited states and actions. <code>Evaluate</code> states $Q(s,a)$ by mean return of episodes from $s,a$<br>$$<br>Q(\color{red}{s,a})={1\over N(s,a)}\sum</em>{k=1}^K\sum_{u=t}^T<br>1(S_u,A_u=s,a)G<em>u\overset P\to q</em>\pi(s,a)<br>$$<br>After search is finished, select current (real) action with maximum value in search tree ($\ref{*}$).</p>
-<p>###Monte-Carlo Tree Search (Simulation)<br>In MCTS, the simulation policy $\pi$ <code>improves</code>. Each simulation consists of two phases (in-tree, out-of-tree)</p>
+<h2 id="integrated-architectures-dyna">Integrated Architectures: Dyna</h2>
+<h3 id="dyna-architecture">Dyna Architecture</h3>
+<figure>
+<img src="/images/147144250932653.png">
+</figure>
+<h3 id="dyna-q-algorithm">Dyna-Q Algorithm</h3>
+<figure>
+<img src="/images/147144251697754.png">
+</figure>
+<h2 id="monte-carlo-search">Monte-Carlo Search</h2>
+<h3 id="simple-monte-carlo-search">Simple Monte-Carlo Search</h3>
+<p>Given a model <span class="math inline">\(\mathcal M_v\)</span> and a <code>simulation policy</code> <span class="math inline">\(\pi\)</span>. For each action <span class="math inline">\(a\in\mathcal A\)</span>, simulate <span class="math inline">\(K\)</span> episodes from current (real) state <span class="math inline">\(s_t\)</span> <span class="math display">\[
+\{\color{red}{s_t,a,}R_{t+1}^k,S_{t+1}^k,A_{t+1}^k,...,S_T^k\}_{k=1}^K\sim \mathcal M_v,\pi
+\]</span> Evaluate actions by mean return (<code>Monte-Carlo evaluation</code>) <span class="math display">\[
+Q(\color{red}{s_t,a})={1\over K}\sum_{k=1}^K G_t
+\overset{P}\to
+q_\pi(s_t,a)
+\]</span> Select current (real) action with maximum value <span class="math display">\[
+a_t=\mathop{argmax}\limits_{a\in\mathcal A} Q(s_t,a) \tag{*}\label{*}
+\]</span></p>
+<h3 id="monte-carlo-tree-search-evaluation">Monte-Carlo Tree Search (Evaluation)</h3>
+<p>Given a model <span class="math inline">\(\mathcal M_v\)</span>. Simulate <span class="math inline">\(K\)</span> episodes from current state <span class="math inline">\(s_t\)</span> using current simulation policy <span class="math inline">\(\pi\)</span>. Build a search tree containing visited states and actions. <code>Evaluate</code> states <span class="math inline">\(Q(s,a)\)</span> by mean return of episodes from <span class="math inline">\(s,a\)</span> <span class="math display">\[
+Q(\color{red}{s,a})={1\over N(s,a)}\sum_{k=1}^K\sum_{u=t}^T
+1(S_u,A_u=s,a)G_u\overset P\to q_\pi(s,a)
+\]</span> After search is finished, select current (real) action with maximum value in search tree (<span class="math inline">\(\ref{*}\)</span>).</p>
+<h3 id="monte-carlo-tree-search-simulation">Monte-Carlo Tree Search (Simulation)</h3>
+<p>In MCTS, the simulation policy <span class="math inline">\(\pi\)</span> <code>improves</code>. Each simulation consists of two phases (in-tree, out-of-tree)</p>
 <ul>
-<li><code>Tree policy</code> (improves): pick actions to maximise $Q(S,A)$</li>
+<li><code>Tree policy</code> (improves): pick actions to maximise <span class="math inline">\(Q(S,A)\)</span></li>
 <li><code>Default policy</code> (fixed): pick actions randomly</li>
 </ul>
 <p>Repeat (each simulation)</p>
 <ul>
-<li><code>Evaluate</code> states $Q(S,A)$ by Monte-Carlo evaluation</li>
-<li><code>Improve</code> tree policy, e.g. by $\epsilon$-greedy(Q)</li>
+<li><code>Evaluate</code> states <span class="math inline">\(Q(S,A)\)</span> by Monte-Carlo evaluation</li>
+<li><code>Improve</code> tree policy, e.g. by <span class="math inline">\(\epsilon\)</span>-greedy(Q)</li>
 </ul>
-<p><code>Monte-Carlo control</code> applied to <code>simulated experience</code>. Converges on the optimal search tree, $Q(S,A)\to q_*(S,A)$.</p>
-<p>##TD Search<br>Simulate episodes from the current (real) state $s_t$. Estimate action-value function $Q(s,a)$. For each step of simulation, update action-values by Sarsa<br>$$<br>\Delta Q(S,A)=\alpha(R+\gamma Q(S’,A’)-Q(S,A))<br>$$<br>Select actions based on action-values $Q(s,a)$, e.g. $\epsilon$-greedy. May also use function approximate for $Q$.</p>
-</div><!-- comment system--><div class="container"><hr></div></article><footer id="footer"><div class="container"><div class="bar"><div class="social"><a href="mailto:dad@sdz.red" target="_blank"><i class="fa fa-envelope-o"></i></a><a href="https://github.com/sohero" target="_blank"><i class="fa fa-github"></i></a><script>var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+<p><code>Monte-Carlo control</code> applied to <code>simulated experience</code>. Converges on the optimal search tree, <span class="math inline">\(Q(S,A)\to q_*(S,A)\)</span>.</p>
+<h2 id="td-search">TD Search</h2>
+<p>Simulate episodes from the current (real) state <span class="math inline">\(s_t\)</span>. Estimate action-value function <span class="math inline">\(Q(s,a)\)</span>. For each step of simulation, update action-values by Sarsa <span class="math display">\[
+\Delta Q(S,A)=\alpha(R+\gamma Q(S&#39;,A&#39;)-Q(S,A))
+\]</span> Select actions based on action-values <span class="math inline">\(Q(s,a)\)</span>, e.g. <span class="math inline">\(\epsilon\)</span>-greedy. May also use function approximate for <span class="math inline">\(Q\)</span>.</p>
+</div><!-- comment system--><div class="container"><hr></div></article><footer id="footer"><div class="container"><div class="bar"><div class="social"><a href="mailto:herosgq@gmail.com" target="_blank"><i class="fa fa-envelope-o"></i></a><a href="https://github.com/sohero" target="_blank"><i class="fa fa-github"></i></a><script>var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
 document.write(unescape("%3Cspan id='cnzz_stat_icon_1261298720'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1261298720%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
 </script></div><div class="footer">© 2017 <a href="/" rel="nofollow">Hero Memo</a>. Powered by <a rel="nofollow" target="_blank" href="https://hexo.io">Hexo</a>. Theme <a target="_blank" href="https://github.com/lotabout/very-simple">very-simple</a>.</div></div></div></footer><script>MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
 </script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.css"><script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script><script src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js"></script><script>$(document).ready(function() {

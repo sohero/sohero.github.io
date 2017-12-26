@@ -1,82 +1,191 @@
-<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>Markov Decision Processes | An old brother's memo.</title><link rel="stylesheet" type="text/css" href="/css/normalize.css"><link rel="stylesheet" type="text/css" href="/css/highlight.css"><link rel="stylesheet" type="text/css" href="/css/very-simple.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script></head><body><!-- include the sidebar--><!-- include ./includes/sidebar.jade--><!-- Blog title and subtitle--><header><div class="container header"><a id="logo" href="/." class="title">An old brother's memo.</a><span class="subtitle"></span><label id="toggle-menu" for="menu" onclick><i class="fa fa-bars"></i></label></div></header><!-- use checkbox hack for toggle nav-bar on small screens--><input id="menu" type="checkbox"><!-- Navigation Links--><nav id="nav"><div class="container"><a href="/" class="sidebar-nav-item active">Home</a><a href="/archives" class="sidebar-nav-item">Archives</a></div></nav><div id="header-margin-bar"></div><!-- gallery that comes before the header--><div class="wrapper"><div class="container post-header"><h1>Markov Decision Processes</h1></div></div><div class="wrapper"><div class="container meta"><div class="post-time">2016-07-14</div><div class="post-categories"><a class="post-category-link" href="/categories/machine-learning/">machine learning</a></div><div class="post-tags"><a class="post-tag-link" href="/tags/reinforcement-learning/">reinforcement learning</a></div></div></div><article><div class="container post"><h2 id="Rewards"><a href="#Rewards" class="headerlink" title="Rewards"></a>Rewards</h2><ul>
-<li>A <code>reward</code> $R_t$ is a scalar feedback signal</li>
-<li>Indecates how well agent is doing at step $t$</li>
+<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>Markov Decision Processes | An old brother's memo.</title><link rel="stylesheet" type="text/css" href="/css/normalize.css"><link rel="stylesheet" type="text/css" href="/css/highlight.css"><link rel="stylesheet" type="text/css" href="/css/very-simple.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script></head><body><!-- include the sidebar--><!-- include ./includes/sidebar.jade--><!-- Blog title and subtitle--><header><div class="container header"><a id="logo" href="/." class="title">An old brother's memo.</a><span class="subtitle"></span><label id="toggle-menu" for="menu" onclick><i class="fa fa-bars"></i></label></div></header><!-- use checkbox hack for toggle nav-bar on small screens--><input id="menu" type="checkbox"><!-- Navigation Links--><nav id="nav"><div class="container"><a href="/" class="sidebar-nav-item active">Home</a><a href="/archives" class="sidebar-nav-item">Archives</a></div></nav><div id="header-margin-bar"></div><!-- gallery that comes before the header--><div class="wrapper"><div class="container post-header"><h1>Markov Decision Processes</h1></div></div><div class="wrapper"><div class="container meta"><div class="post-time">2016-07-14</div><div class="post-categories"><a class="post-category-link" href="/categories/machine-learning/">machine learning</a></div><div class="post-tags"><a class="post-tag-link" href="/tags/reinforcement-learning/">reinforcement learning</a></div></div></div><article><div class="container post"><h2 id="rewards">Rewards</h2>
+<ul>
+<li>A <code>reward</code> <span class="math inline">\(R_t\)</span> is a scalar feedback signal</li>
+<li>Indecates how well agent is doing at step <span class="math inline">\(t\)</span></li>
 <li>The agent’s job is to maximise cumulative reward</li>
 </ul>
 <p>Reinforcement learning is based on the <code>reward hypothesis</code>:</p>
 <blockquote>
 <p>All goals can be described by the maximisation of expected cumulative reward</p>
 </blockquote>
-<h2 id="Information-State-a-k-a-Markov-state"><a href="#Information-State-a-k-a-Markov-state" class="headerlink" title="Information State(a.k.a Markov state)"></a>Information State(a.k.a Markov state)</h2><p>A state $S<em>t$ is <code>Markov</code> if and only if<br>$$<br>\Bbb P[S</em>{t+1}|S<em>t]=\Bbb P[S</em>{t+1}|S_1,…,S_t]<br>$$</p>
+<h2 id="information-statea.k.a-markov-state">Information State(a.k.a Markov state)</h2>
+<p>A state <span class="math inline">\(S_t\)</span> is <code>Markov</code> if and only if <span class="math display">\[
+\Bbb P[S_{t+1}|S_t]=\Bbb P[S_{t+1}|S_1,...,S_t]
+\]</span></p>
 <ul>
 <li>The future is independent of the past given the present</li>
 <li>Once the state is known, the history may be thrown away</li>
 </ul>
-<h2 id="Markov-Decision-Processes"><a href="#Markov-Decision-Processes" class="headerlink" title="Markov Decision Processes"></a>Markov Decision Processes</h2><h3 id="Markov-Processes"><a href="#Markov-Processes" class="headerlink" title="Markov Processes"></a>Markov Processes</h3><h4 id="State-Transition-Matrix"><a href="#State-Transition-Matrix" class="headerlink" title="State Transition Matrix"></a>State Transition Matrix</h4><p>For a Markov state $\mathcal s$ and successor state $\mathcal s’$, the <em>state transition probability</em> is defined by<br>$$<br>\mathcal P<em>{\mathcal s\mathcal s’}=\Bbb P[\mathcal S</em>{t+1}=\mathcal s’|\mathcal S<em>t=\mathcal s]<br>$$<br>State transition matrix $\mathcal P$ defines transition probabilities from all states $s$ to all successor states $\mathcal s’$,<br>$$<br>\mathcal P=\text{from}<br>\begin{array}{c}<br>\text{to} \<br>\begin{bmatrix}<br>\mathcal P</em>{11} &amp; \cdots &amp; \mathcal P<em>{1n} \<br>\vdots &amp; \ddots &amp; \vdots \<br>\mathcal P</em>{n1} &amp; \cdots &amp; \mathcal P_{nn}<br>\end{bmatrix}<br>\end{array}<br>$$<br>where each row of the matrix sums to 1.</p>
-<h4 id="Markov-Process"><a href="#Markov-Process" class="headerlink" title="Markov Process"></a>Markov Process</h4><p>A Markov process is a memoryless random process, i.e. a sequence of random states $\mathcal S_1,\mathcal S_2,…$ with the Markov property.</p>
-<p>A <em>Markov Process(or Markov Chain)</em> is a tuple $\left&lt;\mathcal S,\mathcal P\right&gt;$</p>
+<h2 id="markov-decision-processes">Markov Decision Processes</h2>
+<h3 id="markov-processes">Markov Processes</h3>
+<h4 id="state-transition-matrix">State Transition Matrix</h4>
+<p>For a Markov state <span class="math inline">\(\mathcal s\)</span> and successor state <span class="math inline">\(\mathcal s&#39;\)</span>, the <em>state transition probability</em> is defined by <span class="math display">\[
+\mathcal P_{\mathcal s\mathcal s&#39;}=\Bbb P[\mathcal S_{t+1}=\mathcal s&#39;|\mathcal S_t=\mathcal s]
+\]</span> State transition matrix <span class="math inline">\(\mathcal P\)</span> defines transition probabilities from all states <span class="math inline">\(s\)</span> to all successor states <span class="math inline">\(\mathcal s&#39;\)</span>, <span class="math display">\[
+\mathcal P=\text{from}
+\begin{array}{c}
+\text{to} \\
+\begin{bmatrix}
+\mathcal P_{11} &amp; \cdots &amp; \mathcal P_{1n} \\
+\vdots &amp; \ddots &amp; \vdots \\
+\mathcal P_{n1} &amp; \cdots &amp; \mathcal P_{nn}
+\end{bmatrix}
+\end{array}
+\]</span> where each row of the matrix sums to 1.</p>
+<h4 id="markov-process">Markov Process</h4>
+<p>A Markov process is a memoryless random process, i.e. a sequence of random states <span class="math inline">\(\mathcal S_1,\mathcal S_2,...\)</span> with the Markov property.</p>
+<p>A <em>Markov Process(or Markov Chain)</em> is a tuple <span class="math inline">\(\left&lt;\mathcal S,\mathcal P\right&gt;\)</span></p>
 <ul>
-<li>$\mathcal S$ is a (finite) set of states</li>
-<li>$\mathcal P$ is state transition probability matrix</li>
+<li><span class="math inline">\(\mathcal S\)</span> is a (finite) set of states</li>
+<li><span class="math inline">\(\mathcal P\)</span> is state transition probability matrix</li>
 </ul>
-<h3 id="Markov-Reward-Process"><a href="#Markov-Reward-Process" class="headerlink" title="Markov Reward Process"></a>Markov Reward Process</h3><p>A Markov reward process is a Markov chain with values.</p>
-<p>A <em>Markov Reward Process</em> is a tuple $\left&lt;\mathcal S,\mathcal P,\mathcal R,\gamma\right&gt;$</p>
+<h3 id="markov-reward-process">Markov Reward Process</h3>
+<p>A Markov reward process is a Markov chain with values.</p>
+<p>A <em>Markov Reward Process</em> is a tuple <span class="math inline">\(\left&lt;\mathcal S,\mathcal P,\mathcal R,\gamma\right&gt;\)</span></p>
 <ul>
-<li>$\mathcal S$ is a finite set of states</li>
-<li>$\mathcal P$ is a state transition probability matrix</li>
-<li>$\mathcal R$ is a reward function, $\mathcal R<em>s=\Bbb E[R</em>{t+1}|\mathcal S_t=\mathcal s]$</li>
-<li>$\gamma$ is a discount factor, $\gamma \in [0,1]$</li>
+<li><span class="math inline">\(\mathcal S\)</span> is a finite set of states</li>
+<li><span class="math inline">\(\mathcal P\)</span> is a state transition probability matrix</li>
+<li><span class="math inline">\(\mathcal R\)</span> is a reward function, <span class="math inline">\(\mathcal R_s=\Bbb E[R_{t+1}|\mathcal S_t=\mathcal s]\)</span></li>
+<li><span class="math inline">\(\gamma\)</span> is a discount factor, <span class="math inline">\(\gamma \in [0,1]\)</span></li>
 </ul>
-<h4 id="Return"><a href="#Return" class="headerlink" title="Return"></a>Return</h4><p>The return $G_t$(Goal) is the total discounted reward from time-step $t$.<br>$$<br>G<em>t=R</em>{t+1}+\gamma R<em>{t+2}+…=\sum</em>{k=0}^\infty \gamma^kR_{t+k+1}<br>$$<br>The discount $\gamma\in[0,1]$ is the present value of future rewords.</p>
-<h4 id="Value-Function"><a href="#Value-Function" class="headerlink" title="Value Function"></a>Value Function</h4><p>The value function $v(s)$ gives the long-term value of state $\mathcal s$.</p>
-<p>The <em>state value function</em> $v(s)$ of an MRP is the expected <code>Return</code> starting from state $\mathcal s$<br>$$<br>v(s)=\Bbb E[G_t|\mathcal S_t=\mathcal s]<br>$$</p>
-<p><img src="/images/39.png" alt=""></p>
-<p><img src="/images/38.png" alt=""></p>
+<h4 id="return">Return</h4>
+<p>The return <span class="math inline">\(G_t\)</span>(Goal) is the total discounted reward from time-step <span class="math inline">\(t\)</span>. <span class="math display">\[
+G_t=R_{t+1}+\gamma R_{t+2}+...=\sum_{k=0}^\infty \gamma^kR_{t+k+1}
+\]</span> The discount <span class="math inline">\(\gamma\in[0,1]\)</span> is the present value of future rewords.</p>
+<h4 id="value-function">Value Function</h4>
+<p>The value function <span class="math inline">\(v(s)\)</span> gives the long-term value of state <span class="math inline">\(\mathcal s\)</span>.</p>
+<p>The <em>state value function</em> <span class="math inline">\(v(s)\)</span> of an MRP is the expected <code>Return</code> starting from state <span class="math inline">\(\mathcal s\)</span> <span class="math display">\[
+v(s)=\Bbb E[G_t|\mathcal S_t=\mathcal s]
+\]</span></p>
+<figure>
+<img src="/images/39.png">
+</figure>
+<figure>
+<img src="/images/38.png">
+</figure>
 <blockquote>
 <p>The reward signal indicates what is good in an immediate sense, a value function specifies what is good in the long run. Roughly speaking, the value of a state is the total amount of reward an agent can expect to accumulate over the future, starting from that state.</p>
 </blockquote>
-<h4 id="Bellman-Equation-for-MRPs"><a href="#Bellman-Equation-for-MRPs" class="headerlink" title="Bellman Equation for MRPs"></a>Bellman Equation for MRPs</h4><p>The value function can be decomposed into two parts:</p>
+<h4 id="bellman-equation-for-mrps">Bellman Equation for MRPs</h4>
+<p>The value function can be decomposed into two parts:</p>
 <ul>
-<li>immediate reward $R_{t+1}$</li>
-<li>discounted value of successor state $\gamma v(S_{t+1})$</li>
+<li>immediate reward <span class="math inline">\(R_{t+1}\)</span></li>
+<li>discounted value of successor state <span class="math inline">\(\gamma v(S_{t+1})\)</span></li>
 </ul>
-<p>$$<br>\begin{align}<br>v(s) &amp;= \Bbb E[G_t|S<em>t=s] \<br>&amp;= \Bbb E[R</em>{t+1}+\gamma R<em>{t+2}+\gamma^2 R</em>{t+3}+…|S<em>t=s] \<br>&amp;= \Bbb E[R</em>{t+1}+\gamma(R<em>{t+2}+\gamma R</em>{t+3}+…)|S<em>t=s] \<br>&amp;= \Bbb E[R</em>{t+1}+\gamma G_{t+1}|S<em>t=s] \<br>&amp;= \Bbb E[R</em>{t+1}+\gamma v(S_{t+1})|S_t=s]<br>\end{align}<br>$$<br>$$<br>v(s)=\mathcal R<em>s+\gamma \sum</em>{s’\in\mathcal S} \mathcal P_{ss’}v(s’)<br>$$</p>
-<h4 id="Bellman-Equation-in-Matrix-Form"><a href="#Bellman-Equation-in-Matrix-Form" class="headerlink" title="Bellman Equation in Matrix Form"></a>Bellman Equation in Matrix Form</h4><p>The Bellman equation can be expressed concisely using matrices,<br>$$<br>v=\mathcal R+\gamma \mathcal Pv<br>$$<br>where $v$ is a column vector with one entry per state<br>$$<br>\begin{bmatrix}<br>v(1) \<br>\vdots \<br>v(n)<br>\end{bmatrix}<br>=<br>\begin{bmatrix}<br>\mathcal R_1 \<br>\vdots \<br>\mathcal R<em>n<br>\end{bmatrix}<br>+\gamma \begin{bmatrix}<br>\mathcal P</em>{11} &amp; \cdots &amp; \mathcal P<em>{1n} \<br>\vdots &amp; \ddots &amp; \vdots \<br>\mathcal P</em>{n1} &amp; \cdots &amp; \mathcal P_{nn}<br>\end{bmatrix}<br>\begin{bmatrix}<br>v(1) \<br>\vdots \<br>v(n)<br>\end{bmatrix}<br>$$</p>
-<h4 id="Sloving-the-Bellman-Equation"><a href="#Sloving-the-Bellman-Equation" class="headerlink" title="Sloving the Bellman Equation"></a>Sloving the Bellman Equation</h4><ul>
+<p><span class="math display">\[
+\begin{align}
+v(s) &amp;= \Bbb E[G_t|S_t=s] \\
+&amp;= \Bbb E[R_{t+1}+\gamma R_{t+2}+\gamma^2 R_{t+3}+...|S_t=s] \\
+&amp;= \Bbb E[R_{t+1}+\gamma(R_{t+2}+\gamma R_{t+3}+...)|S_t=s] \\
+&amp;= \Bbb E[R_{t+1}+\gamma G_{t+1}|S_t=s] \\
+&amp;= \Bbb E[R_{t+1}+\gamma v(S_{t+1})|S_t=s]
+\end{align}
+\]</span> <span class="math display">\[
+v(s)=\mathcal R_s+\gamma \sum_{s&#39;\in\mathcal S} \mathcal P_{ss&#39;}v(s&#39;)
+\]</span></p>
+<h4 id="bellman-equation-in-matrix-form">Bellman Equation in Matrix Form</h4>
+<p>The Bellman equation can be expressed concisely using matrices, <span class="math display">\[
+v=\mathcal R+\gamma \mathcal Pv
+\]</span> where <span class="math inline">\(v\)</span> is a column vector with one entry per state <span class="math display">\[
+\begin{bmatrix}
+v(1) \\
+\vdots \\
+v(n)
+\end{bmatrix}
+=
+\begin{bmatrix}
+\mathcal R_1 \\
+\vdots \\
+\mathcal R_n
+\end{bmatrix}
++\gamma \begin{bmatrix}
+\mathcal P_{11} &amp; \cdots &amp; \mathcal P_{1n} \\
+\vdots &amp; \ddots &amp; \vdots \\
+\mathcal P_{n1} &amp; \cdots &amp; \mathcal P_{nn}
+\end{bmatrix}
+\begin{bmatrix}
+v(1) \\
+\vdots \\
+v(n)
+\end{bmatrix}
+\]</span></p>
+<h4 id="sloving-the-bellman-equation">Sloving the Bellman Equation</h4>
+<ul>
 <li>The Bellman equation is a linear equation</li>
-<li>It can be solved directly:<br>$$<br>\begin{align}<br>v &amp;= \mathcal R+\gamma\mathcal Pv \<br>(I-\gamma\mathcal P)v &amp;=\mathcal R \<br>v &amp;= (I-\gamma\mathcal P)^{-1}\mathcal R<br>\end{align}<br>$$</li>
-<li>Computational complexity is $O(n^3)$ for $n$ states</li>
+<li>It can be solved directly: <span class="math display">\[
+\begin{align}
+v &amp;= \mathcal R+\gamma\mathcal Pv \\
+(I-\gamma\mathcal P)v &amp;=\mathcal R \\
+v &amp;= (I-\gamma\mathcal P)^{-1}\mathcal R
+\end{align}
+\]</span></li>
+<li>Computational complexity is <span class="math inline">\(O(n^3)\)</span> for <span class="math inline">\(n\)</span> states</li>
 <li>Direct solution only possible for small MRPs</li>
 </ul>
-<h3 id="Markov-Decision-Process"><a href="#Markov-Decision-Process" class="headerlink" title="Markov Decision Process"></a>Markov Decision Process</h3><p>A Markov decision process(MDP) is a Markov reward process with decisions. It is an environment in which all states are Markov.</p>
-<p>A Markov Decision Process is a tuple $\left&lt;\mathcal S,\mathcal A,\mathcal P,\mathcal R,\gamma\right&gt;$</p>
+<h3 id="markov-decision-process">Markov Decision Process</h3>
+<p>A Markov decision process(MDP) is a Markov reward process with decisions. It is an environment in which all states are Markov.</p>
+<p>A Markov Decision Process is a tuple <span class="math inline">\(\left&lt;\mathcal S,\mathcal A,\mathcal P,\mathcal R,\gamma\right&gt;\)</span></p>
 <ul>
-<li>$\mathcal A$ is a finite set of actions</li>
+<li><span class="math inline">\(\mathcal A\)</span> is a finite set of actions</li>
 </ul>
-<p><img src="/images/40.png" alt=""></p>
-<h4 id="Policies"><a href="#Policies" class="headerlink" title="Policies"></a>Policies</h4><p>A policy $\pi$ is a distribution over actions given states<br>$$<br>\pi(a|s)=\Bbb P[A_t=a|S_t=s]<br>$$</p>
+<figure>
+<img src="/images/40.png">
+</figure>
+<h4 id="policies">Policies</h4>
+<p>A policy <span class="math inline">\(\pi\)</span> is a distribution over actions given states <span class="math display">\[
+\pi(a|s)=\Bbb P[A_t=a|S_t=s]
+\]</span></p>
 <ul>
 <li>A policy fully defines the behaviour of an agent</li>
 <li>MDP policies depend on the current state (not the history)</li>
 </ul>
-<h4 id="Value-Function-1"><a href="#Value-Function-1" class="headerlink" title="Value Function"></a>Value Function</h4><p>The <em>state-value function</em> $v<em>\pi(s)$ of an MDP is the expected return starting from state $s$, and then following policy $\pi$<br>$$<br>v</em>\pi(s)=\Bbb E_\pi[G_t|S_t=s]<br>$$</p>
-<p>The <em>action-value function</em> $q<em>\pi(s,a)$ is the expected return starting from state $s$, taking action $a$, and then following policy $\pi$<br>$$<br>q</em>\pi(s,a)=\Bbb E_\pi[G_t|S_t=s,A_t=a]<br>$$</p>
-<h4 id="Bellman-Expectation-Equation"><a href="#Bellman-Expectation-Equation" class="headerlink" title="Bellman Expectation Equation"></a>Bellman Expectation Equation</h4><p>The state-value function can again be decomposed into immediate reward plus discounted value of successor state<br>$$<br>\begin{align}<br>v<em>\pi(s) &amp;= \Bbb E</em>\pi[R<em>{t+1}+\gamma v</em>\pi(S_{t+1})|S<em>t=s] \<br>&amp;=\sum</em>{a\in\mathcal A} \pi(a|s)q_\pi(s,a)<br>\end{align}<br>$$</p>
-<p>The action-value function can similarly be decomposed,<br>$$<br>\begin{align}<br>q<em>\pi(s,a) &amp;= \Bbb E</em>\pi[R<em>{t+1}+\gamma q</em>\pi(S<em>{t+1},A</em>{t+1})|S_t=s,A_t=a] \<br>&amp;= \mathcal R<em>s^a + \gamma\sum</em>{s’\in\mathcal S} \mathcal P<em>{ss’}^a v</em>\pi(s’)<br>\end{align}<br>$$</p>
-<h4 id="Bellman-Expectation-Equation-Matrix-Form"><a href="#Bellman-Expectation-Equation-Matrix-Form" class="headerlink" title="Bellman Expectation Equation (Matrix Form)"></a>Bellman Expectation Equation (Matrix Form)</h4><p>The Bellman expectation equation can be expressed concisely using the induced MRP,<br>$$<br>v<em>\pi=\mathcal R^\pi + \gamma \mathcal P^\pi v</em>\pi<br>$$<br>with direct solution<br>$$<br>v_\pi=(I-\gamma\mathcal P^\pi)^{-1}\mathcal R^\pi<br>$$</p>
-<h4 id="Optimal-Value-Function"><a href="#Optimal-Value-Function" class="headerlink" title="Optimal Value Function"></a>Optimal Value Function</h4><p>The <em>optimal state-value function</em> $v<em>*(s)$ is the maximum value function over all policies<br>$$<br>v</em>*(s)=\max<em>\pi v</em>\pi(s)<br>$$</p>
-<p>The <em>optimal action-value function</em> $q<em>*(s,a)$ is the maximum action-value function over all policies<br>$$<br>q</em>*(s,a)=\max<em>\pi q</em>\pi(s,a)<br>$$</p>
+<h4 id="value-function-1">Value Function</h4>
+<p>The <em>state-value function</em> <span class="math inline">\(v_\pi(s)\)</span> of an MDP is the expected return starting from state <span class="math inline">\(s\)</span>, and then following policy <span class="math inline">\(\pi\)</span> <span class="math display">\[
+v_\pi(s)=\Bbb E_\pi[G_t|S_t=s]
+\]</span></p>
+<p>The <em>action-value function</em> <span class="math inline">\(q_\pi(s,a)\)</span> is the expected return starting from state <span class="math inline">\(s\)</span>, taking action <span class="math inline">\(a\)</span>, and then following policy <span class="math inline">\(\pi\)</span> <span class="math display">\[
+q_\pi(s,a)=\Bbb E_\pi[G_t|S_t=s,A_t=a]
+\]</span></p>
+<h4 id="bellman-expectation-equation">Bellman Expectation Equation</h4>
+<p>The state-value function can again be decomposed into immediate reward plus discounted value of successor state <span class="math display">\[
+\begin{align}
+v_\pi(s) &amp;= \Bbb E_\pi[R_{t+1}+\gamma v_\pi(S_{t+1})|S_t=s] \\
+&amp;=\sum_{a\in\mathcal A} \pi(a|s)q_\pi(s,a)
+\end{align}
+\]</span></p>
+<p>The action-value function can similarly be decomposed, <span class="math display">\[
+\begin{align}
+q_\pi(s,a) &amp;= \Bbb E_\pi[R_{t+1}+\gamma q_\pi(S_{t+1},A_{t+1})|S_t=s,A_t=a] \\
+&amp;= \mathcal R_s^a + \gamma\sum_{s&#39;\in\mathcal S} \mathcal P_{ss&#39;}^a v_\pi(s&#39;)
+\end{align}
+\]</span></p>
+<h4 id="bellman-expectation-equation-matrix-form">Bellman Expectation Equation (Matrix Form)</h4>
+<p>The Bellman expectation equation can be expressed concisely using the induced MRP, <span class="math display">\[
+v_\pi=\mathcal R^\pi + \gamma \mathcal P^\pi v_\pi
+\]</span> with direct solution <span class="math display">\[
+v_\pi=(I-\gamma\mathcal P^\pi)^{-1}\mathcal R^\pi
+\]</span></p>
+<h4 id="optimal-value-function">Optimal Value Function</h4>
+<p>The <em>optimal state-value function</em> <span class="math inline">\(v_*(s)\)</span> is the maximum value function over all policies <span class="math display">\[
+v_*(s)=\max_\pi v_\pi(s)
+\]</span></p>
+<p>The <em>optimal action-value function</em> <span class="math inline">\(q_*(s,a)\)</span> is the maximum action-value function over all policies <span class="math display">\[
+q_*(s,a)=\max_\pi q_\pi(s,a)
+\]</span></p>
 <ul>
 <li>The optimal value function specifies the best possible performance in the MDP.</li>
 <li>An MDP is “solved” when we know the optimal value fn.</li>
 </ul>
-<h3 id="Partially-Observable-MDPs-POMDPs"><a href="#Partially-Observable-MDPs-POMDPs" class="headerlink" title="Partially Observable MDPs (POMDPs)"></a>Partially Observable MDPs (POMDPs)</h3><p>A Partially Observable Markov Decision Process is an MDP with hidden states. It is a hidden Markov model with actions.</p>
-<p>A POMDP is a tuple $\left&lt;\mathcal S,\mathcal A,\mathcal O,\mathcal P,\mathcal R,\mathcal Z,\gamma\right&gt;$</p>
+<h3 id="partially-observable-mdps-pomdps">Partially Observable MDPs (POMDPs)</h3>
+<p>A Partially Observable Markov Decision Process is an MDP with hidden states. It is a hidden Markov model with actions.</p>
+<p>A POMDP is a tuple <span class="math inline">\(\left&lt;\mathcal S,\mathcal A,\mathcal O,\mathcal P,\mathcal R,\mathcal Z,\gamma\right&gt;\)</span></p>
 <ul>
-<li>$\mathcal O$ is a finite set of observations</li>
-<li>$\mathcal Z$ is an observation function,<br>$$<br>\mathcal Z<em>{s’o}^a=\Bbb P[O</em>{t+1}=o|S_{t+1}=s’,A_t=a]<br>$$</li>
+<li><span class="math inline">\(\mathcal O\)</span> is a finite set of observations</li>
+<li><span class="math inline">\(\mathcal Z\)</span> is an observation function, <span class="math display">\[
+\mathcal Z_{s&#39;o}^a=\Bbb P[O_{t+1}=o|S_{t+1}=s&#39;,A_t=a]
+\]</span></li>
 </ul>
-</div><!-- comment system--><div class="container"><hr></div></article><footer id="footer"><div class="container"><div class="bar"><div class="social"><a href="mailto:dad@sdz.red" target="_blank"><i class="fa fa-envelope-o"></i></a><a href="https://github.com/sohero" target="_blank"><i class="fa fa-github"></i></a><script>var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+</div><!-- comment system--><div class="container"><hr></div></article><footer id="footer"><div class="container"><div class="bar"><div class="social"><a href="mailto:herosgq@gmail.com" target="_blank"><i class="fa fa-envelope-o"></i></a><a href="https://github.com/sohero" target="_blank"><i class="fa fa-github"></i></a><script>var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
 document.write(unescape("%3Cspan id='cnzz_stat_icon_1261298720'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1261298720%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
 </script></div><div class="footer">© 2017 <a href="/" rel="nofollow">Hero Memo</a>. Powered by <a rel="nofollow" target="_blank" href="https://hexo.io">Hexo</a>. Theme <a target="_blank" href="https://github.com/lotabout/very-simple">very-simple</a>.</div></div></div></footer><script>MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
 </script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.css"><script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script><script src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js"></script><script>$(document).ready(function() {

@@ -4,49 +4,79 @@
 <li>Combine solutions to subproblems</li>
 </ul>
 <p>Dynamic programming assumes full knowledge of the MDP. It is used for <em>planning</em> in an MDP.</p>
-<h2 id="For-prediction"><a href="#For-prediction" class="headerlink" title="For prediction"></a>For prediction</h2><p><strong>Input</strong>: MDP $\left&lt;\mathcal S,\mathcal A,\mathcal P,\mathcal R,\gamma \right&gt;$ and policy $\pi$ or MRP $\left&lt;\mathcal S,\mathcal P^\pi,\mathcal R^\pi,\gamma \right&gt;$</p>
-<p><strong>Output</strong>: value function $v_\pi$</p>
-<h2 id="For-control"><a href="#For-control" class="headerlink" title="For control"></a>For control</h2><p><strong>Input</strong>: MDP $\left&lt;\mathcal S,\mathcal A,\mathcal P,\mathcal R,\gamma \right&gt;$</p>
-<p><strong>Output</strong>: optimal value function $ v<em>* $ and optimal policy $ \pi</em>* $</p>
-<p>##Iterative Policy Evaluation <a href="https://github.com/sohero/reinforcement-learning/blob/master/DP/Policy%20Evaluation%20Solution.ipynb" title="[code]" target="_blank" rel="external">[code]</a><br><strong>Problem</strong>: evaluate a given policy $\pi$</p>
-<p><strong>Solution</strong>: iterative application of Bellman expectation backup<br>$$<br>v_1\to v<em>2 \to … \to v</em>\pi<br>$$<br>Using <em>synchronous</em> backups,</p>
+<h2 id="for-prediction">For prediction</h2>
+<p><strong>Input</strong>: MDP <span class="math inline">\(\left&lt;\mathcal S,\mathcal A,\mathcal P,\mathcal R,\gamma \right&gt;\)</span> and policy <span class="math inline">\(\pi\)</span> or MRP <span class="math inline">\(\left&lt;\mathcal S,\mathcal P^\pi,\mathcal R^\pi,\gamma \right&gt;\)</span></p>
+<p><strong>Output</strong>: value function <span class="math inline">\(v_\pi\)</span></p>
+<h2 id="for-control">For control</h2>
+<p><strong>Input</strong>: MDP <span class="math inline">\(\left&lt;\mathcal S,\mathcal A,\mathcal P,\mathcal R,\gamma \right&gt;\)</span></p>
+<p><strong>Output</strong>: optimal value function $ v_* $ and optimal policy $ _* $</p>
+<h2 id="iterative-policy-evaluation-code">Iterative Policy Evaluation <a href="https://github.com/sohero/reinforcement-learning/blob/master/DP/Policy%20Evaluation%20Solution.ipynb" title="[code]" target="_blank" rel="external">[code]</a></h2>
+<p><strong>Problem</strong>: evaluate a given policy <span class="math inline">\(\pi\)</span></p>
+<p><strong>Solution</strong>: iterative application of Bellman expectation backup <span class="math display">\[
+v_1\to v_2 \to ... \to v_\pi
+\]</span> Using <em>synchronous</em> backups,</p>
 <ul>
-<li>At each <strong>iteration</strong> $k+1$</li>
-<li>For all state $\mathcal s \in \mathcal S$</li>
-<li>Update $v_{k+1}(\mathcal s)$ from $v_k(\mathcal s’)$ where $\mathcal s’$ is a successor state of $\mathcal s$</li>
+<li>At each <strong>iteration</strong> <span class="math inline">\(k+1\)</span></li>
+<li>For all state <span class="math inline">\(\mathcal s \in \mathcal S\)</span></li>
+<li>Update <span class="math inline">\(v_{k+1}(\mathcal s)\)</span> from <span class="math inline">\(v_k(\mathcal s&#39;)\)</span> where <span class="math inline">\(\mathcal s&#39;\)</span> is a successor state of <span class="math inline">\(\mathcal s\)</span></li>
 </ul>
-<p>$$<br>v<em>{k+1}(\mathcal s)=\sum</em>{a\in\mathcal A} \pi(a|\mathcal s)\left(\mathcal R<em>{\mathcal s}^a+\gamma\sum</em>{\mathcal s’\in\mathcal S}\mathcal P^a_{\mathcal s\mathcal s’}v_k(\mathcal s’)\right)<br>$$<br>$$<br>\mathbf{v^{k+1}}=\mathbf{\mathcal R^\pi} + \gamma\mathbf{\mathcal P^\pi v^k}<br>$$</p>
-<p>##How to Improve a Policy <a href="https://github.com/sohero/reinforcement-learning/blob/master/DP/Policy%20Iteration%20Solution.ipynb" title="[code]" target="_blank" rel="external">[code]</a><br>Given a policy $\pi$, <strong>evaluate</strong> the policy $\pi$:<br>$$<br>v<em>\pi(s)=\Bbb E[R</em>{t+1}+\gamma R_{t+2}+…|S<em>t=s]<br>$$<br><strong>Improve</strong> the policy by acting greedily with respect to $v</em>\pi$:<br>$$<br>\pi ‘=greedy(v_\pi)<br>$$</p>
-<p>##Policy Iteration<br><img src="/images/437f004bfc3d7e31ade589f421f09267.png" alt=""></p>
-<p>##Principle of Optimality<br>Any optimal policy can be subdivided into two components:</p>
+<p><span class="math display">\[
+v_{k+1}(\mathcal s)=\sum_{a\in\mathcal A} \pi(a|\mathcal s)\left(\mathcal R_{\mathcal s}^a+\gamma\sum_{\mathcal s&#39;\in\mathcal S}\mathcal P^a_{\mathcal s\mathcal s&#39;}v_k(\mathcal s&#39;)\right)
+\]</span> <span class="math display">\[
+\mathbf{v^{k+1}}=\mathbf{\mathcal R^\pi} + \gamma\mathbf{\mathcal P^\pi v^k}
+\]</span></p>
+<h2 id="how-to-improve-a-policy-code">How to Improve a Policy <a href="https://github.com/sohero/reinforcement-learning/blob/master/DP/Policy%20Iteration%20Solution.ipynb" title="[code]" target="_blank" rel="external">[code]</a></h2>
+<p>Given a policy <span class="math inline">\(\pi\)</span>, <strong>evaluate</strong> the policy <span class="math inline">\(\pi\)</span>: <span class="math display">\[
+v_\pi(s)=\Bbb E[R_{t+1}+\gamma R_{t+2}+...|S_t=s]
+\]</span> <strong>Improve</strong> the policy by acting greedily with respect to <span class="math inline">\(v_\pi\)</span>: <span class="math display">\[
+\pi &#39;=greedy(v_\pi)
+\]</span></p>
+<h2 id="policy-iteration">Policy Iteration</h2>
+<figure>
+<img src="/images/437f004bfc3d7e31ade589f421f09267.png">
+</figure>
+<h2 id="principle-of-optimality">Principle of Optimality</h2>
+<p>Any optimal policy can be subdivided into two components:</p>
 <ul>
-<li>An optimal first Action $A_*$</li>
-<li>Followed by an optimal policy from successor state $\mathcal{S’}$</li>
+<li>An optimal first Action <span class="math inline">\(A_*\)</span></li>
+<li>Followed by an optimal policy from successor state <span class="math inline">\(\mathcal{S&#39;}\)</span></li>
 </ul>
-<p>A policy $\pi(a|s)$ achieves the optimal value from state $s$, $v<em>\pi(s)=v</em><em> (s)$, if and only if **For any state $s’$ reachable from $s$, $\pi$ achieves the optimal value from state $s’$, $v<em>\pi(s’)=v</em></em> (s’)$**</p>
-<p>##Deterministic Value Iteration <a href="https://github.com/sohero/reinforcement-learning/blob/master/DP/Value%20Iteration%20Solution.ipynb" title="[code]" target="_blank" rel="external">[code]</a><br>If we know the solution to subproblems $v<em>* (s’)$. Then solution $v</em><em> (s)$ can be found by one-step lookahead:<br>$$<br>v_</em>(s)\leftarrow\max_{a\in\mathcal A}\mathcal R<em>s^a+\gamma\sum</em>{s’\in\mathcal S}v_*(s’)<br>$$<br>The idea of value iteration is to apply these updates iteratively.</p>
-<p><strong>Intuition</strong>: start with final rewards and word backwards.<br>$$<br>v<em>{k+1}(s)=\max</em>{a\in\mathcal A}\left(\mathcal R<em>s^a+\gamma\sum</em>{s’\in\mathcal S}\mathcal R_{ss’}^av<em>k(s’)\right)<br>$$<br>$$<br>v</em>{k+1}=\max_{a\in\mathcal A}\mathcal R^a+\gamma\mathcal P^av_k<br>$$</p>
-<p>##Synchronous Dynamic Programming Algorithms</p>
-<table>
+<p>A policy <span class="math inline">\(\pi(a|s)\)</span> achieves the optimal value from state <span class="math inline">\(s\)</span>, <span class="math inline">\(v_\pi(s)=v_* (s)\)</span>, if and only if <strong>For any state <span class="math inline">\(s&#39;\)</span> reachable from <span class="math inline">\(s\)</span>, <span class="math inline">\(\pi\)</span> achieves the optimal value from state <span class="math inline">\(s&#39;\)</span>, <span class="math inline">\(v_\pi(s&#39;)=v_* (s&#39;)\)</span></strong></p>
+<h2 id="deterministic-value-iteration-code">Deterministic Value Iteration <a href="https://github.com/sohero/reinforcement-learning/blob/master/DP/Value%20Iteration%20Solution.ipynb" title="[code]" target="_blank" rel="external">[code]</a></h2>
+<p>If we know the solution to subproblems <span class="math inline">\(v_* (s&#39;)\)</span>. Then solution <span class="math inline">\(v_* (s)\)</span> can be found by one-step lookahead: <span class="math display">\[
+v_*(s)\leftarrow\max_{a\in\mathcal A}\mathcal R_s^a+\gamma\sum_{s&#39;\in\mathcal S}v_*(s&#39;)
+\]</span> The idea of value iteration is to apply these updates iteratively.</p>
+<p><strong>Intuition</strong>: start with final rewards and word backwards. <span class="math display">\[
+v_{k+1}(s)=\max_{a\in\mathcal A}\left(\mathcal R_s^a+\gamma\sum_{s&#39;\in\mathcal S}\mathcal R_{ss&#39;}^av_k(s&#39;)\right)
+\]</span> <span class="math display">\[
+v_{k+1}=\max_{a\in\mathcal A}\mathcal R^a+\gamma\mathcal P^av_k
+\]</span></p>
+<h2 id="synchronous-dynamic-programming-algorithms">Synchronous Dynamic Programming Algorithms</h2>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 51%">
+<col style="width: 35%">
+</colgroup>
 <thead>
-<tr>
+<tr class="header">
 <th>Problem</th>
 <th>Bellman Equation</th>
 <th>Algorithm</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>Prediction</td>
 <td>Bellman Expectation Equation</td>
 <td>Iterative Policy Evaluation</td>
 </tr>
-<tr>
+<tr class="even">
 <td>Control</td>
 <td>Bellman Expectation Equation + Greedy Policy Improvement</td>
 <td>Policy Iteration</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>Control</td>
 <td>Bellman Optimally Equation</td>
 <td>Value Iteration</td>
@@ -54,34 +84,63 @@
 </tbody>
 </table>
 <ul>
-<li>Algorithms are based on state-value function $v<em>\pi(s)$ or $v</em>*(s)$. Complexity $O(mn^2)$ per iteration for $m$ actions and $n$ states.</li>
-<li>Could also apply to action-value function $q<em>\pi(s,a)$ or $q</em>*(s,a)$. Complexity $O(m^2n^2)$ per iteration.</li>
+<li>Algorithms are based on state-value function <span class="math inline">\(v_\pi(s)\)</span> or <span class="math inline">\(v_*(s)\)</span>. Complexity <span class="math inline">\(O(mn^2)\)</span> per iteration for <span class="math inline">\(m\)</span> actions and <span class="math inline">\(n\)</span> states.</li>
+<li>Could also apply to action-value function <span class="math inline">\(q_\pi(s,a)\)</span> or <span class="math inline">\(q_*(s,a)\)</span>. Complexity <span class="math inline">\(O(m^2n^2)\)</span> per iteration.</li>
 </ul>
-<p>##Asynchronous Dynamic Programming<br>Asynchronous DP backs up states individually in any order. For each selected state, apply the appropriate backup. Can significantly reduce computation. Guaranteed to converge if all states continue to be selected.</p>
-<p>###In-Place Dynamic Programming<br><strong>Synchronous value iteration</strong> stores two copies of value function for all $s$ in $\mathcal{S}$<br>$$<br>\begin{align}<br>v<em>{new}(s) &amp;\leftarrow \max</em>{a\in{\mathcal{A}}}\left(\mathcal{R}<em>s^a+<br>\gamma\sum</em>{s’\in{\mathcal{S}}}\mathcal{P}^a<em>{ss’}v</em>{old}(s’)<br>\right) \<br>v<em>{old} &amp;\leftarrow v</em>{new}<br>\end{align}<br>$$<br><strong>In-place value iteration</strong> only stores one copy of value function for all $s$ in $\mathcal{S}$<br>$$<br>v(s) \leftarrow \max_{a\in\mathcal{A}}\left(<br>\mathcal{R}<em>s^a+\gamma\sum</em>{s’\in\mathcal{S}}\mathcal{P}_{ss’}^av(s’)<br>\right)<br>$$</p>
-<p>###Prioritised Sweeping<br>Use magnitude of Bellman error to guide state selection, e.g.<br>$$<br>\left|<br>\max_{a\in\mathcal{A}}<br>\left(<br>\mathcal{R}<em>s^a + \gamma\sum</em>{s’\in\mathcal{S}}\mathcal{P}_{ss’}^av(s’)<br>\right) - v(s)<br>\right|<br>$$</p>
+<h2 id="asynchronous-dynamic-programming">Asynchronous Dynamic Programming</h2>
+<p>Asynchronous DP backs up states individually in any order. For each selected state, apply the appropriate backup. Can significantly reduce computation. Guaranteed to converge if all states continue to be selected.</p>
+<h3 id="in-place-dynamic-programming">In-Place Dynamic Programming</h3>
+<p><strong>Synchronous value iteration</strong> stores two copies of value function for all <span class="math inline">\(s\)</span> in <span class="math inline">\(\mathcal{S}\)</span> <span class="math display">\[
+\begin{align}
+v_{new}(s) &amp;\leftarrow \max_{a\in{\mathcal{A}}}\left(\mathcal{R}_s^a+
+\gamma\sum_{s&#39;\in{\mathcal{S}}}\mathcal{P}^a_{ss&#39;}v_{old}(s&#39;)
+\right) \\
+v_{old} &amp;\leftarrow v_{new}
+\end{align}
+\]</span> <strong>In-place value iteration</strong> only stores one copy of value function for all <span class="math inline">\(s\)</span> in <span class="math inline">\(\mathcal{S}\)</span> <span class="math display">\[
+v(s) \leftarrow \max_{a\in\mathcal{A}}\left(
+\mathcal{R}_s^a+\gamma\sum_{s&#39;\in\mathcal{S}}\mathcal{P}_{ss&#39;}^av(s&#39;)
+\right)
+\]</span></p>
+<h3 id="prioritised-sweeping">Prioritised Sweeping</h3>
+<p>Use magnitude of Bellman error to guide state selection, e.g. <span class="math display">\[
+\left|
+\max_{a\in\mathcal{A}}
+\left(
+\mathcal{R}_s^a + \gamma\sum_{s&#39;\in\mathcal{S}}\mathcal{P}_{ss&#39;}^av(s&#39;)
+\right) - v(s)
+\right|
+\]</span></p>
 <ul>
 <li>Backup the state with the largest remaining Bellman error</li>
 <li>Update Bellman error of affected states after each backup</li>
 <li>Requires knowledge of reverse dynamics (predecessor states)</li>
 <li>Can be implemented efficiently by maintaining a priority queue</li>
 </ul>
-<p>###Real-Time Dynamic Programming<br><strong>Idea</strong>: only states that are relevant to agent. Use agent’s experience to guide the selection of states. After each time-step $S_t, A<em>t, R</em>{t+1}$, backup the state $S_t$:<br>$$<br>v(S<em>t) \leftarrow \max</em>{a\in\mathcal{A}} \left(<br>\mathcal{R}_{S<em>t}^a + \gamma\sum</em>{s’\in\mathcal{S}}<br>\mathcal{P}_{S_ts’}^av(s’)<br>\right)<br>$$</p>
-<p>##Full-width and sample backups</p>
-<p>###Full-Width Backups<br>DP uses <em>full-width</em> backups. For each backup (sync or async):</p>
+<h3 id="real-time-dynamic-programming">Real-Time Dynamic Programming</h3>
+<p><strong>Idea</strong>: only states that are relevant to agent. Use agent’s experience to guide the selection of states. After each time-step <span class="math inline">\(S_t, A_t, R_{t+1}\)</span>, backup the state <span class="math inline">\(S_t\)</span>: <span class="math display">\[
+v(S_t) \leftarrow \max_{a\in\mathcal{A}} \left(
+\mathcal{R}_{S_t}^a + \gamma\sum_{s&#39;\in\mathcal{S}}
+\mathcal{P}_{S_ts&#39;}^av(s&#39;)
+\right)
+\]</span></p>
+<h2 id="full-width-and-sample-backups">Full-width and sample backups</h2>
+<h3 id="full-width-backups">Full-Width Backups</h3>
+<p>DP uses <em>full-width</em> backups. For each backup (sync or async):</p>
 <ul>
 <li>Every successor state and action is considered</li>
 <li>Using knowledge of the MDP transitions and reward function</li>
 </ul>
-<p>DP is effective for medium-sized problems (millions of states). For large problems DP suffers Bellman’s <em>curse of dimensionality</em> (Number of states $n=|\mathcal{S}|$ grows exponentially with number of state variables). Even one backup can be too expensive.</p>
-<p>###Sample Backups<br>Using sample rewards and sample transitions $\left&lt;\mathcal{S,A,R,S’}\right&gt;$ instead of reward function $\mathcal{R}$ and transition dynamics $\mathcal{P}$.</p>
+<p>DP is effective for medium-sized problems (millions of states). For large problems DP suffers Bellman’s <em>curse of dimensionality</em> (Number of states <span class="math inline">\(n=|\mathcal{S}|\)</span> grows exponentially with number of state variables). Even one backup can be too expensive.</p>
+<h3 id="sample-backups">Sample Backups</h3>
+<p>Using sample rewards and sample transitions <span class="math inline">\(\left&lt;\mathcal{S,A,R,S&#39;}\right&gt;\)</span> instead of reward function <span class="math inline">\(\mathcal{R}\)</span> and transition dynamics <span class="math inline">\(\mathcal{P}\)</span>.</p>
 <p><strong>Advantages</strong>:</p>
 <ul>
 <li>Model-free: no advance knowledge of MDP required</li>
 <li>Breaks the curse of dimensionality through sampling</li>
-<li>Cost of backup is constant, independent of $n=|\mathcal{S}|$</li>
+<li>Cost of backup is constant, independent of <span class="math inline">\(n=|\mathcal{S}|\)</span></li>
 </ul>
-</div><!-- comment system--><div class="container"><hr></div></article><footer id="footer"><div class="container"><div class="bar"><div class="social"><a href="mailto:dad@sdz.red" target="_blank"><i class="fa fa-envelope-o"></i></a><a href="https://github.com/sohero" target="_blank"><i class="fa fa-github"></i></a><script>var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+</div><!-- comment system--><div class="container"><hr></div></article><footer id="footer"><div class="container"><div class="bar"><div class="social"><a href="mailto:herosgq@gmail.com" target="_blank"><i class="fa fa-envelope-o"></i></a><a href="https://github.com/sohero" target="_blank"><i class="fa fa-github"></i></a><script>var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
 document.write(unescape("%3Cspan id='cnzz_stat_icon_1261298720'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1261298720%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
 </script></div><div class="footer">© 2017 <a href="/" rel="nofollow">Hero Memo</a>. Powered by <a rel="nofollow" target="_blank" href="https://hexo.io">Hexo</a>. Theme <a target="_blank" href="https://github.com/lotabout/very-simple">very-simple</a>.</div></div></div></footer><script>MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
 </script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.css"><script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script><script src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js"></script><script>$(document).ready(function() {
